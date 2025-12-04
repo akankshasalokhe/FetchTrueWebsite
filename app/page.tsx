@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Footer from "@/components/Footer/Footer";
 import GrowthPartner from "@/components/GrowthPartner/GrowthPartner";
 import Refer from "@/components/Refer/Refer";
@@ -15,5 +16,17 @@ export default function Home() {
        <Refer />
       <Footer />
     </div>
+=======
+import HeaderSection from "@/src/components/Header/Header";
+import Modules from "@/src/components/Modules/Modules";
+import Image from "next/image";
+
+export default function Home() {
+  return (
+   <>
+     <HeaderSection />
+     <Modules />
+   </>
+>>>>>>> 8e6d81c875151359937140c04ebe938f75cf3c14
   );
 }
