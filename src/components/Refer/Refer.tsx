@@ -23,7 +23,7 @@ export default function Refer() {
                     <div className="relative mx-auto pl-30">
 
                         {/* Image on top */}
-                        <Image src="/mockup/teambuild.png" alt="team"
+                        <Image src="/image/teambuild.png" alt="team"
                             className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[80%] h-auto" width={800} height={600}
                         />
 
@@ -52,7 +52,7 @@ export default function Refer() {
                     <div className="relative mx-auto pl-30">
 
 
-                        <Image src="/mockup/phonehold.png" alt="phone holding"
+                        <Image src="/image/phonehold.png" alt="phone holding"
                             className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[40%] h-auto" width={400} height={400}
                         />
                         {/* <img
@@ -77,7 +77,7 @@ export default function Refer() {
                     {/* First Image - positioned at bottom edge of yellow box */}
                     <div className="relative -mb-15 ml-8 md:ml-40 z-30">
                         <Image
-                            src="/mockup/iconset.png"
+                            src="/image/iconset.png"
                             alt="IconSet"
                             height={300}
                             width={300}
@@ -94,7 +94,7 @@ export default function Refer() {
                     {/* Second Image - positioned on top of yellow box */}
                     <div className="relative -mt-66 md:-mt-110 mr-1 md:mr-30 z-30 self-end ml-auto" style={{ width: 'fit-content' }}>
                         <Image
-                            src="/mockup/phonehold.png"
+                            src="/image/phonehold.png"
                             alt="phonehold"
                             height={100}
                             width={100}

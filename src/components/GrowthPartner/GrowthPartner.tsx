@@ -368,14 +368,14 @@ export default function GrowthPartner() {
   }, [inView]);
 
   return (
-    <div className="w-full  md:hidden lg:block py-20 px-6 bg-white">
+    <div className="w-full hidden md:hidden lg:block py-20 px-6 bg-white">
       <h2 className="text-xl text-center font-semibold">
         What Our Growth partners & <br /> Users say about us
       </h2>
 
       <div ref={containerRef} className="relative mt-6">
         <Image
-          src="/mockup/growthpartner.png"
+          src="/image/growthpartner.png"
           alt="growthpartner"
           className="mx-auto rounded-xl w-full h-[80vh] object-cover"
           width={1200}

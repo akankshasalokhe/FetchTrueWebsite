@@ -8,7 +8,7 @@ export default function TopTrending() {
         {
             id: 1,
             bgColor: "linear-gradient(135deg, #e8a58a, #d47c6e)",
-            image: "/mockup/building.png",
+            image: "/image/building.png",
             title: "Residential Property",
             type: "Real Estate",
             rating: 4,
@@ -23,7 +23,7 @@ export default function TopTrending() {
         {
             id: 2,
             bgColor: "linear-gradient(135deg, #b084f8, #9b63f4)",
-            image: "/mockup/building.png",
+            image: "/image/building.png",
             title: "Luxury Apartment",
             type: "Real Estate",
             rating: 5,
@@ -38,7 +38,7 @@ export default function TopTrending() {
         {
             id: 3,
             bgColor: "linear-gradient(135deg, #4ccbb8, #2ea89c)",
-            image: "/mockup/building.png",
+            image: "/image/building.png",
             title: "Commercial Space",
             type: "Business Property",
             rating: 4,
@@ -53,7 +53,7 @@ export default function TopTrending() {
         {
             id: 4,
             bgColor: "linear-gradient(135deg, #ff9da7, #ff6b81)",
-            image: "/mockup/building.png",
+            image: "/image/building.png",
             title: "Studio Apartment",
             type: "Real Estate",
             rating: 3,
@@ -68,7 +68,7 @@ export default function TopTrending() {
         {
             id: 5,
             bgColor: "linear-gradient(135deg, #9df0ff, #59d9f3)",
-            image: "/mockup/building.png",
+            image: "/image/building.png",
             title: "Retail Shop",
             type: "Commercial",
             rating: 4,
