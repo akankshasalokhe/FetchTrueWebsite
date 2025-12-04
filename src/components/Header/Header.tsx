@@ -235,8 +235,9 @@ export default function HeaderSection() {
     justify-center 
     lg:flex-nowrap lg:justify-between 
     gap-[27px] 
-    mt-[60px]
+    mt-[70px]
     w-full max-w-[1441px] mx-auto
+    mb-10
   "
 >
   {[
