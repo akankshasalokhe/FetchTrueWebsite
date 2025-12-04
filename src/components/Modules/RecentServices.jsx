@@ -15,7 +15,7 @@ const services = [
     investment: "10L - 20L",
     area: "1000 SF - 1500 SF",
     outlets: "10",
-    image: "/image/service1.jpg",
+    image: "/image/recentservice.jpg",
     rating: 4,
     trusted: "Trusted",
   },
@@ -27,7 +27,7 @@ const services = [
     investment: "20L - 50L",
     area: "2000 SF - 3000 SF",
     outlets: "5",
-    image: "/image/service2.jpg",
+    image: "/image/recentservice.jpg",
     rating: 5,
     trusted: "Trusted",
   },
@@ -39,7 +39,7 @@ const services = [
     investment: "50L - 1Cr",
     area: "3500 SF - 5000 SF",
     outlets: "3",
-    image: "/image/service3.jpg",
+    image: "/image/recentservice.jpg",
     rating: 5,
     trusted: "Trusted",
   },
@@ -51,7 +51,7 @@ const services = [
     investment: "5L - 10L",
     area: "800 SF - 1200 SF",
     outlets: "8",
-    image: "/image/service4.jpg",
+    image: "/image/recentservice.jpg",
     rating: 3,
     trusted: "Trusted",
   },
@@ -59,80 +59,92 @@ const services = [
 
 export default function RecentServices() {
   const settings = {
-    dots: false,
+    dots: false,               // indicators removed
     infinite: true,
-    speed: 500,
+    autoplay: true,            // auto slide enabled
+    autoplaySpeed: 2000,
+    speed: 700,
     slidesToShow: 3,
     slidesToScroll: 1,
+    arrows: true,
+    pauseOnHover: false,
+     centerMode: true,              // ⭐ RIGHT-SIDE HALF CARD VISIBLE
+    centerPadding: "120px", 
     responsive: [
       { breakpoint: 1280, settings: { slidesToShow: 3 } },
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } },
     ],
   };
 
   return (
-    <section className="w-full flex flex-col items-center mt-20 mb-20 px-4">
-      <h3 className="text-2xl font-semibold mb-8">Recent Services</h3>
-      <div className="w-full">
+    <section className="w-full mt-20 mb-20 px-4 overflow-hidden ">
+      <h3 className="text-2xl font-semibold mb-8 ml-10">Recent Services</h3>
+
+      <div className="w-full px-2 overflow-hidden ">
         <Slider {...settings}>
           {services.map((service, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-[12px] w-[378px] h-[364px] mx-2 relative shadow-md"
-            >
-              {/* Image */}
-              <div className="relative w-[358px] h-[194.5px] mx-[10px] mt-[10px] rounded-[12px] overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-                {/* Bookmark */}
-                <div className="absolute top-[17px] left-[312px] w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center shadow-md">
-                  <FaBookmark size={24} />
-                </div>
-                {/* Trusted */}
-                <div className="absolute top-[19.8px] left-[27px] w-[68px] h-[16.66px] text-[10px] font-semibold text-white bg-blue-600 flex items-center justify-center rounded">
-                  {service.trusted}
-                </div>
-                {/* Star rating */}
-                <div className="absolute top-[170px] left-[265.7px] flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar
-                      key={i}
-                      size={16}
-                      color={i < service.rating ? "#FFD700" : "#E0E0E0"}
-                    />
-                  ))}
-                </div>
-              </div>
+            <div key={idx} className="px-3 ">
+              <div className="bg-white rounded-[12px] w-[378px] h-[363.96px] shadow-md relative mx-auto py-2">
 
-              {/* Info below image */}
-              <div className="px-[10px] mt-2">
-                <h4 className="text-[20px] font-semibold">{service.title}</h4>
-                <p className="text-[12px] font-normal mt-[4px]">{service.category}</p>
-                <div className="flex justify-between mt-[10px]">
-                  <span className="text-[16px]">{service.discount}</span>
-                  <span className="text-[14px] bg-[#EAF2FF] px-2 py-1 rounded-[10px]">
-                    {service.earn}
-                  </span>
+                {/* Image */}
+                <div className="relative w-[357.95px] h-[194.51px] mx-auto   rounded-[12px] overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Bookmark */}
+                  <div className="absolute top-[12px] right-[12px] w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center shadow-md">
+                    <FaBookmark size={20} color="white"/>
+                  </div>
+
+                  {/* Trusted */}
+                  <div className="absolute top-[14px] left-[14px] px-2 py-[1px] text-[10px] font-semibold text-white bg-blue-600 rounded">
+                    {service.trusted}
+                  </div>
+
+                  {/* Star Rating */}
+                  <div className="absolute bottom-[10px] right-[12px] flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <FaStar
+                        key={i}
+                        size={14}
+                        color={i < service.rating ? "#FFD700" : "#E0E0E0"}
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex justify-between mt-[10px] text-[12px] font-semibold">
-                  <div className="flex flex-col">
-                    <span>{service.investment}</span>
-                    <span className="font-normal">Investment Range</span>
+                {/* Info section */}
+                <div className="px-[15px] mt-2">
+                  <h4 className="text-[18px] font-semibold">{service.title}</h4>
+                  <p className="text-[12px] mt-[4px]">{service.category}</p>
+
+                  <div className="flex justify-between mt-[10px]">
+                    <span className="text-[15px]">{service.discount}</span>
+                    <span className="text-[12px] bg-[#EAF2FF] px-2 py-[3px] rounded-[10px]">
+                      {service.earn}
+                    </span>
                   </div>
-                  <div className="flex flex-col">
-                    <span>{service.area}</span>
-                    <span className="font-normal">Area Requested</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span>{service.outlets}</span>
-                    <span className="font-normal">Franchise Outlet</span>
+
+                  <div className="flex justify-between mt-[12px] text-[11px] font-semibold">
+                    <div className="flex flex-col">
+                      <span>{service.investment}</span>
+                      <span className="font-normal">Investment</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span>{service.area}</span>
+                      <span className="font-normal">Area</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span>{service.outlets}</span>
+                      <span className="font-normal">Outlets</span>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
           ))}

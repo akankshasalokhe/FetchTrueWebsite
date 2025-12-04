@@ -13,7 +13,7 @@ export default function Home() {
      <HeaderSection />
      <Modules />
      <BestOffers />
-     {/* <RecentServices /> */}
+     <RecentServices />
      <TopTrending />
      <GrowthPartner />
      <Refer />
