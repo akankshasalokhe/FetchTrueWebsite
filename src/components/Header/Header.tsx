@@ -171,16 +171,13 @@ export default function HeaderSection() {
 </div>
 
 
-   {/* ==== CAROUSEL ==== */}
-      <div className="relative w-full flex justify-center mt-100 lg:mt-90 overflow-hidden px-4 sm:px-0 ">
-
-        {/* ==== SLIDER WRAPPER ==== */}
+    <div className="mt-100">
+      {/* ==== CAROUSEL ==== */}
+      <div className="relative w-full flex justify-center mt-24 overflow-hidden px-4 sm:px-0">
         <div className="flex gap-6">
           {images.map((img, i) => {
             if (!visibleSlides.includes(i)) return null;
-
             const isActive = i === active;
-
             return (
               <motion.div
                 key={i}
@@ -193,39 +190,51 @@ export default function HeaderSection() {
                   borderRadius: 25,
                 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="overflow-hidden"
+                className="overflow-hidden cursor-pointer"
+                onClick={() => setActive(i)}
               >
-                <img
-                  src={img}
-                  className="w-full h-full object-cover"
-                  alt="slide"
-                />
+                <img src={img} className="w-full h-full object-cover" alt={`slide-${i}`} />
               </motion.div>
             );
           })}
         </div>
+      </div>
 
-        {/* ==== BOTTOM SLIDER BAR ==== */}
-        <div className="absolute flex gap-2 bottom-4 left-6">
+      {/* ==== BOTTOM SLIDER BAR ==== */}
+      <div className="w-full flex justify-center mt-6 px-4 sm:px-0">
+        <div className="flex gap-2 w-full max-w-[1200px]">
           {images.map((_, i) => {
             const isActive = i === active;
+
+            const barWidth =
+              windowWidth < 640
+                ? `calc((100% - ${(images.length - 1) * 8}px) / ${images.length})`
+                : isActive
+                ? "346px"
+                : "185px";
+
             return (
               <motion.div
                 key={i}
                 animate={{
-                  width: isActive ? 346 : 185,
+                  width: barWidth,
                   height: 11,
                   opacity: isActive ? 1 : 0.5,
                   scale: isActive ? 1 : 0.95,
                   borderRadius: 6,
-                  backgroundColor: isActive ? "#2164F4" : "#ffffff",
+                  backgroundColor: isActive ? "#2164F4" : "#C4C4C4",
                 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="cursor-pointer"
+                onClick={() => setActive(i)}
               />
             );
           })}
         </div>
       </div>
+    </div>
+
+
 
     <div
   className=" hidden

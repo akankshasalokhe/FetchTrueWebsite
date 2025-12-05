@@ -1,13 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 
+interface CardType {
+  img: string;
+  title: string;
+  desc: string;
+  gradient: string;
+}
+
 export default function BestOffers() {
-  const cards = [
-    { img: "/image/offer.jpg", title: "Refer and earn", desc: "Share code & earn", gradient: "from-[#2164F4] to-[#9340FF]" },
-    { img: "/image/offer2.jpg", title: "Get Premium Access", desc: "Upgrade now", gradient: "from-[#FF6B6B] to-[#FF8E53]" },
-    { img: "/image/offer.jpg", title: "Festival Deals", desc: "Grab festive offers", gradient: "from-[#4FACFE] to-[#00F2FE]" },
-    { img: "/image/offer2.jpg", title: "Get Premium Access", desc: "Upgrade now", gradient: "from-[#FF6B6B] to-[#FF8E53]" },
-    { img: "/image/offer.jpg", title: "Festival Deals", desc: "Grab festive offers", gradient: "from-[#4FACFE] to-[#00F2FE]" },
+  const cards: CardType[] = [
+    { img: "/image/offer.jpg", title: "Refer and earn", desc: "share your reference code and earn amazing rewards ", gradient: "from-[#2164F4] to-[#9340FF]" },
+    { img: "/image/offer2.jpg", title: "Get Premium Access", desc: "share your reference code and earn amazing rewards ", gradient: "from-[#FF6B6B] to-[#FF8E53]" },
+    { img: "/image/offer.jpg", title: "Festival Deals", desc: "share your reference code and earn amazing rewards ", gradient: "from-[#4FACFE] to-[#00F2FE]" },
+    { img: "/image/offer2.jpg", title: "Get Premium Access", desc: "share your reference code and earn amazing rewards ", gradient: "from-[#FF6B6B] to-[#FF8E53]" },
+    { img: "/image/offer.jpg", title: "Festival Deals", desc: "share your reference code and earn amazing rewards ", gradient: "from-[#4FACFE] to-[#00F2FE]" },
   ];
 
   const [active, setActive] = useState(0);
@@ -19,18 +26,18 @@ export default function BestOffers() {
       setPrevious(active);
       setActive((prev) => (prev + 1) % cards.length);
     }, 3000);
-    return () => clearInterval(timer);
-  }, [active]);
 
-  // Small screen carousel
+    return () => clearInterval(timer);
+  }, [active, cards.length]);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setSmallActive((prev) => (prev + 1) % cards.length);
     }, 3000);
-    return () => clearInterval(timer);
-  }, []);
 
-  // Next 2 cards for desktop
+    return () => clearInterval(timer);
+  }, [cards.length]);
+
   const rightCards = [
     cards[(active + 1) % cards.length],
     cards[(active + 2) % cards.length],
@@ -38,11 +45,15 @@ export default function BestOffers() {
 
   return (
     <section className="w-full flex flex-wrap lg:flex-nowrap gap-20 mt-16 px-6 lg:px-30 relative mb-20">
-      {/* LEFT CARD */}
-      <div className={`w-[492px] h-[563px] rounded-[31px] bg-gradient-to-b ${cards[active].gradient} relative overflow-hidden flex items-center justify-center`}>
+      
+      {/* LEFT BIG CARD */}
+      <div
+        className={`hidden lg:block w-[492px] h-[563px] rounded-[31px] bg-gradient-to-b ${cards[active].gradient} relative overflow-hidden flex items-center justify-center`}
+      >
+        {/* OUTGOING CARD */}
         <div
           key={"prev-" + previous}
-          className="absolute transition-all duration-700"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700"
           style={{ animation: "slideOutLeft 0.7s forwards" }}
         >
           <div className="scale-110">
@@ -50,9 +61,10 @@ export default function BestOffers() {
           </div>
         </div>
 
+        {/* INCOMING CARD */}
         <div
           key={"active-" + active}
-          className="absolute transition-all duration-700"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  transition-all duration-700"
           style={{ animation: "slideInRight 0.7s forwards" }}
         >
           <div className="scale-110">
@@ -61,32 +73,32 @@ export default function BestOffers() {
         </div>
       </div>
 
-      {/* RIGHT CARDS - Desktop */}
+      {/* RIGHT CARDS (DESKTOP) */}
       <div className="hidden lg:flex flex-col justify-center">
-        <h2 className="font-inter font-medium text-[36px] leading-none text-black">
+        <h2 className="font-inter font-medium text-[36px] text-black">
           Today's Best Offers
         </h2>
-        <p className="font-inter text-[24px] text-[#575757] mt-3 leading-none">
+        <p className="font-inter text-[24px] text-[#575757] mt-3">
           Grab the opportunity & win amazing offers
         </p>
+
         <div className="flex gap-[77px] mt-10 flex-wrap">
           {rightCards.map((card, i) => (
             <SmallCard
-              key={i}
+              key={`right-${active}-${i}`}
               data={card}
-              index={i}
               isNext={i === 0}
             />
           ))}
         </div>
       </div>
 
-      {/* RIGHT CARDS - Small screen carousel */}
+      {/* SMALL SCREEN SLIDER */}
       <div className="lg:hidden w-full mt-8 flex justify-center">
-        <SmallCard data={cards[smallActive]} />
+        <SmallCard key={"small-" + smallActive} data={cards[smallActive]} isNext />
       </div>
 
-      {/* Animations */}
+      {/* ANIMATIONS */}
       <style jsx global>{`
         @keyframes slideInRight {
           0% { transform: translateX(120%); opacity: 0; }
@@ -100,16 +112,20 @@ export default function BestOffers() {
           0% { transform: translateX(120%); opacity: 0; }
           100% { transform: translateX(0%); opacity: 1; }
         }
+        .animate-smallSlideIn {
+          animation: smallSlideIn 0.7s forwards;
+        }
       `}</style>
     </section>
   );
 }
 
-function BigCard({ data }) {
+/* BIG CARD */
+function BigCard({ data }: { data: CardType }) {
   return (
-    <div className="w-[360px] h-[300px] bg-[#F6F0FE] rounded-[14px] p-4 shadow-lg">
+    <div className="hidden lg:block w-[360px] h-[300px] bg-[#F6F0FE] rounded-[14px] p-4 shadow-lg">
       <img src={data.img} className="w-full h-[170px] rounded-[10px] object-cover" />
-      <div className="mt-3 flex justify-between items-start">
+      <div className="mt-3 flex justify-between">
         <div>
           <h4 className="font-semibold text-[18px] text-black">{data.title}</h4>
           <p className="text-[12px] text-gray-600 mt-1">{data.desc}</p>
@@ -122,18 +138,23 @@ function BigCard({ data }) {
   );
 }
 
-function SmallCard({ data, isNext }) {
+/* SMALL CARD */
+function SmallCard({ data, isNext }: { data: CardType; isNext?: boolean }) {
   return (
     <div
-      className={`w-[303px] h-[255px] bg-[#F6F0FE] rounded-[14px] p-3 shadow-sm ${isNext ? "animate-smallSlideIn" : ""}`}
+      className={`w-[303px] h-[255px] bg-[#F6F0FE] rounded-[14px] p-3 shadow-sm ${
+        isNext ? "animate-smallSlideIn" : ""
+      }`}
     >
       <img src={data.img} className="w-[283px] h-[146px] rounded-[10px] object-cover mx-auto" />
       <div className="mt-3 flex justify-between">
         <div className="w-[150px]">
-          <h4 className="font-semibold text-[15px] text-black leading-tight">{data.title}</h4>
-          <p className="text-[11px] text-[#575757] leading-snug mt-1">{data.desc}</p>
+          <h4 className="font-semibold text-[15px] leading-tight">{data.title}</h4>
+          <p className="text-[11px] text-[#575757] mt-1">{data.desc}</p>
         </div>
-        <button className="w-[90px] h-[45px] bg-white rounded-lg text-[12px] text-black shadow">Check out</button>
+        <button className="w-[90px] h-[45px] bg-white rounded-lg text-[12px] text-black shadow">
+          Check out
+        </button>
       </div>
     </div>
   );
