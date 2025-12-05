@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { FaBookmark, FaStar } from "react-icons/fa";
-import Slider, { Settings } from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useRef } from "react";
+import { FaStar } from "react-icons/fa";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 
@@ -73,68 +70,24 @@ const services: ServiceType[] = [
 ];
 
 export default function Recommendation() {
-  const settings: Settings = {
-    dots: false,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 2200,
-    speed: 700,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-    pauseOnHover: false,
-
-    centerMode: true,
-    centerPadding: "120px",
-
-    responsive: [
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 3,
-          centerPadding: "80px",
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          centerPadding: "60px",
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          centerPadding: "40px",
-        },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1.1,
-          centerPadding: "20px",
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          centerPadding: "10px",
-        },
-      },
-    ],
-  };
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="w-full mt-20 mb-30 px-4 overflow-hidden">
+    <section className="w-full mt-20 mb-30 px-4 overflow-hidden relative">
       <h3 className="text-2xl font-medium mb-8 ml-10">Recommendation For You</h3>
 
-      <Slider {...settings}>
-        {services.map((service: ServiceType, idx: number) => (
-          <div key={idx} className="px-3">
+      {/* Scrollable Row (no arrows, no scrollbar) */}
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scroll-smooth px-4 no-scrollbar"
+      >
+        {services.map((service, idx) => (
+          <div
+            key={idx}
+            className="min-w-[320px] sm:min-w-[360px] md:min-w-[380px] px-2"
+          >
             <div
-              className="bg-white rounded-[12px] w-full max-w-[380px] h-auto 
+              className="bg-white rounded-[12px] w-full h-auto 
               border border-gray-200 shadow-[0_4px_15px_rgba(0,0,0,0.15)]
               relative mx-auto py-2 pb-5"
             >
@@ -152,7 +105,7 @@ export default function Recommendation() {
                 </div>
 
                 {/* Trusted */}
-                <div className="absolute top-[15.8px] left-[19.19px] px-2 py-1 text-[10px] font-semibold text-[#2164F4] bg-[#FFFFFF] rounded-[7px]">
+                <div className="absolute top-[15px] left-[15px] px-2 py-1 text-[10px] font-semibold text-[#2164F4] bg-white rounded-[7px]">
                   <VscWorkspaceTrusted className="inline-block mr-1" />
                   {service.trusted}
                 </div>
@@ -199,7 +152,7 @@ export default function Recommendation() {
             </div>
           </div>
         ))}
-      </Slider>
+      </div>
     </section>
   );
 }
