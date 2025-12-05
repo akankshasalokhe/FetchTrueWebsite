@@ -1,7 +1,6 @@
 
 import HeaderSection from "@/src/components/Header/Header";
 import Modules from "@/src/components/Modules/Modules";
-import Image from "next/image";
 import Refer from "@/src/components/Refer/Refer";
 import GrowthPartner from "@/src/components/GrowthPartner/GrowthPartner";
 import TopTrending from "@/src/components/TopTrending/TopTrending";
@@ -11,9 +10,13 @@ export default function Home() {
    <>
      <HeaderSection />
      <Modules />
-     <TopTrending />
+     <div className="max-w-full">
+      <TopTrending />
      <GrowthPartner />
      <Refer />
+
+     </div>
+     
    </>
   );
 }
