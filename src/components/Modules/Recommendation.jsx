@@ -60,7 +60,7 @@ const services = [
   },
 ];
 
-export default function RecentServices() {
+export default function Recommendation() {
   const settings = {
     dots: false,
     infinite: true,
@@ -116,7 +116,7 @@ export default function RecentServices() {
 
   return (
 <section className="w-full mt-20 mb-30 px-4 overflow-hidden">
-      <h3 className="text-2xl font-medium mb-8 ml-10">Recent Services</h3>
+      <h3 className="text-2xl font-medium mb-8 ml-10">Recommendation for you</h3>
 
       <Slider {...settings}>
         {services.map((service, idx) => (
