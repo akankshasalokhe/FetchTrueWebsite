@@ -377,16 +377,16 @@ export default function GrowthPartner() {
         <Image
           src="/mockup/growthpartner.png"
           alt="growthpartner"
-          className="mx-auto rounded-xl w-full h-[80vh] object-cover"
+          className="mx-auto rounded-xl w-full h-[660px] object-cover"
           width={1200}
           height={800}
         />
 
         {/* TEXT BOX */}
        
-        <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 bg-pink/90 text-white border border-white-900 rounded-t-xl p-10 w-[584px] h-[224px] max-w-md shadow-xl">
-          <p className="text-xl mb-3 font-bold">One Platform Every Service</p>
-          <p className="text-gray-100 text-sm leading-relaxed">
+        <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 bg-pink/90 text-white border border-white-900 rounded-t-xl p-10 w-[584px] h-[324px] max-w-md shadow-xl">
+          <p className="mb-3 font-semibold" style={{fontWeight:"600" , fontSize:"32px"}}>One Platform Every Service</p>
+          <p className="text-[#FFFFFF] leading-relaxed"  style={{fontWeight:"400" , fontSize:"24px"}}>
             Over 1000+ great responses from our growth partners and users — we
             provide seamless services that solve real world problems.
           </p>
@@ -408,7 +408,7 @@ export default function GrowthPartner() {
             <motion.div
               key={i}
               animate={controls[i]}
-              className="absolute bg-white shadow-2xl rounded-xl p-6 w-64  flex flex-col  border border-gray-100"
+              className="absolute bg-white shadow-2xl rounded-xl p-6 w-[250.35px] h-[288.24px]  flex flex-col  border border-gray-100"
               style={{
                 left: "50%",
                 transform: "translateX(-50%)",
