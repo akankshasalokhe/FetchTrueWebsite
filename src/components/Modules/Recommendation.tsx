@@ -2,14 +2,26 @@
 
 import { useState } from "react";
 import { FaBookmark, FaStar } from "react-icons/fa";
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 
+interface ServiceType {
+  title: string;
+  category: string;
+  discount: string;
+  earn: string;
+  investment: string;
+  area: string;
+  outlets: string;
+  image: string;
+  rating: number;
+  trusted: string;
+}
 
-const services = [
+const services: ServiceType[] = [
   {
     title: "Residential Property Franchise",
     category: "Real Estate",
@@ -61,7 +73,7 @@ const services = [
 ];
 
 export default function Recommendation() {
-  const settings = {
+  const settings: Settings = {
     dots: false,
     infinite: true,
     autoplay: true,
@@ -115,16 +127,17 @@ export default function Recommendation() {
   };
 
   return (
-<section className="w-full mt-20 mb-30 px-4 overflow-hidden">
-      <h3 className="text-2xl font-medium mb-8 ml-10">Recommendation for you</h3>
+    <section className="w-full mt-20 mb-30 px-4 overflow-hidden">
+      <h3 className="text-2xl font-medium mb-8 ml-10">Recommendation For You</h3>
 
       <Slider {...settings}>
-        {services.map((service, idx) => (
+        {services.map((service: ServiceType, idx: number) => (
           <div key={idx} className="px-3">
-<div className="bg-white rounded-[12px] w-full max-w-[380px] h-auto 
-     border border-gray-200 shadow-[0_4px_15px_rgba(0,0,0,0.15)]
-     relative mx-auto py-2 pb-5">
-
+            <div
+              className="bg-white rounded-[12px] w-full max-w-[380px] h-auto 
+              border border-gray-200 shadow-[0_4px_15px_rgba(0,0,0,0.15)]
+              relative mx-auto py-2 pb-5"
+            >
               {/* Image */}
               <div className="relative w-[95%] h-[180px] md:h-[200px] mx-auto rounded-[12px] overflow-hidden">
                 <img
@@ -140,7 +153,8 @@ export default function Recommendation() {
 
                 {/* Trusted */}
                 <div className="absolute top-[15.8px] left-[19.19px] px-2 py-1 text-[10px] font-semibold text-[#2164F4] bg-[#FFFFFF] rounded-[7px]">
-                  <VscWorkspaceTrusted className="inline-block mr-1" />{service.trusted}
+                  <VscWorkspaceTrusted className="inline-block mr-1" />
+                  {service.trusted}
                 </div>
 
                 {/* Rating */}
@@ -182,7 +196,6 @@ export default function Recommendation() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         ))}
