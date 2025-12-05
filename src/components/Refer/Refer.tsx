@@ -1,108 +1,202 @@
+// 'use client';
+
+// import Image from "next/image";
+
+
+
+// export default function Refer() {
+
+//     return (
+//         <div>
+//             <div className="w-full py-20 px-6 bg-white">
+
+//                 <div className="border flex border-blue-400 justify-between rounded-xl px-15 py-30 mb-15">
+
+//                     <div>
+//                         <h2 className="text-4xl font-semibold mb-4"> Build your Team and earn</h2>
+//                         <p className="text-lg font-semibold  mb-2">Give reference to other and make <br /> your own team</p>
+//                         <p className="text-lg text-gray-600 leading-relaxed">standing with growth partners <br /> and making the better team <br /> with confidence</p>
+
+//                         <button className="text-white w-1/2 p-2 bg-blue-700 rounded-2xl cursor-pointer mt-35">View More</button>
+//                     </div>
+
+//                     <div className="relative mx-auto pl-30">
+
+//                         {/* Image on top */}
+//                         <Image src="/image/teambuild.png" alt="team"
+//                             className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[80%] h-auto" width={800} height={600}
+//                         />
+
+//                         <h1 className="text-9xl font-bold text-gray-100 mb-2">TEAM BUILD</h1>
+//                         <h1 className="text-9xl font-bold text-blue-700">TEAM BUILD</h1>
+//                         <h1 className="text-9xl font-bold text-gray-100">TEAM BUILD</h1>
+//                     </div>
+
+
+
+//                 </div>
+
+
+
+
+//                 <div className="border flex border-blue-400 justify-between rounded-xl px-15 py-30 mb-10">
+
+//                     <div>
+//                         <h2 className="text-4xl font-semibold mb-4"> Refer and Earn</h2>
+//                         <p className="text-lg font-semibold  mb-2">Refer with your friends and make <br /> your earning profitable</p>
+//                         <p className="text-lg text-gray-600 leading-relaxed">every single refer that get you<br /> paid. so don&apos;t just use it refer your<br /> friends</p>
+
+//                         <button className="text-white w-4/5 p-2 bg-blue-700 rounded-2xl cursor-pointer mt-35">View More</button>
+//                     </div>
+
+//                     <div className="relative mx-auto pl-30">
+
+
+//                         <Image src="/image/phonehold.png" alt="phone holding"
+//                             className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[40%] h-auto" width={400} height={400}
+//                         />
+                      
+
+//                         <h1 className="text-9xl font-bold text-gray-100 mb-2">REFER EARN</h1>
+//                         <h1 className="text-9xl font-bold text-blue-700">REFER EARN</h1>
+//                         <h1 className="text-9xl font-bold text-gray-100">REFER EARN</h1>
+//                     </div>
+
+//                 </div>
+
+
+//             </div>
+
+
+        
+//         </div>
+//     )
+// }
+
+
+
 'use client';
 
 import Image from "next/image";
 
-
-
 export default function Refer() {
-
     return (
         <div>
-            <div className="w-full hidden lg:block  py-20 px-6 bg-white">
-
-                <div className="border flex border-blue-400 justify-between rounded-xl px-15 py-30 mb-15">
-
-                    <div>
-                        <h2 className="text-4xl font-semibold mb-4"> Build your Team and earn</h2>
-                        <p className="text-lg font-semibold  mb-2">Give reference to other and make <br /> your own team</p>
-                        <p className="text-lg text-gray-600 leading-relaxed">standing with growth partners <br /> and making the better team <br /> with confidence</p>
-
-                        <button className="text-white w-1/2 p-2 bg-blue-700 rounded-2xl cursor-pointer mt-35">View More</button>
+            <div className="w-full py-10 md:py-20 px-4 md:px-6 bg-white">
+                {/* First Section - TEAM BUILD */}
+                <div className="border flex flex-col lg:flex-row border-blue-400 justify-between rounded-xl p-4 md:px-15 md:py-30 mb-8 md:mb-15 overflow-hidden">
+                    {/* Left Content - Same on all screens */}
+                    <div className="order-2 lg:order-1 lg:w-auto">
+                        <h2 className="text-2xl md:text-4xl font-semibold mb-4">Build your Team and earn</h2>
+                        <p className="text-base md:text-lg font-semibold mb-2">
+                            Give reference to other and make <br className="hidden md:block" /> your own team
+                        </p>
+                        <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                            standing with growth partners <br className="hidden md:block" /> and making the better team <br className="hidden md:block" /> with confidence
+                        </p>
+                        <button className="text-white w-full md:w-1/2 p-3 md:p-2 bg-blue-700 rounded-2xl cursor-pointer mt-6 md:mt-35">
+                            View More
+                        </button>
                     </div>
 
-                    <div className="relative mx-auto pl-30">
+                    {/* Right Side - Fixed overflow and gap issues */}
+                    <div className="order-1 lg:order-2 relative mx-auto lg:mb-0 lg:pl-30">
+                        {/* Mobile: Image overlay on text */}
+                        <div className="lg:hidden relative w-full">
+                            {/* Text behind the image */}
+                            <div className="flex flex-col items-center justify-center py-4">
+                                <h1 className="text-4xl sm:text-5xl font-bold text-gray-100 mb-1 text-center">TEAM BUILD</h1>
+                                <h1 className="text-4xl sm:text-5xl font-bold text-blue-700 text-center">TEAM BUILD</h1>
+                                <h1 className="text-4xl sm:text-5xl font-bold text-gray-100 text-center">TEAM BUILD</h1>
+                            </div>
+                            
+                            {/* Image overlay - centered on text */}
+                            <div className="relative -mt-25 mb-4 flex justify-center">
+                                <div className="relative z-20 w-[65%] max-w-[280px] sm:w-[60%] sm:max-w-[300px]">
+                                    <Image 
+                                        src="/image/teambuild.png" 
+                                        alt="team"
+                                        className="w-full h-auto drop-shadow-xl"
+                                        width={800} 
+                                        height={600}
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
-                        {/* Image on top */}
-                        <Image src="/image/teambuild.png" alt="team"
-                            className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[80%] h-auto" width={800} height={600}
-                        />
-
-                        <h1 className="text-9xl font-bold text-gray-100 mb-2">TEAM BUILD</h1>
-                        <h1 className="text-9xl font-bold text-blue-700">TEAM BUILD</h1>
-                        <h1 className="text-9xl font-bold text-gray-100">TEAM BUILD</h1>
+                        {/* Desktop: Original layout */}
+                        <div className="hidden lg:block relative">
+                            <Image 
+                                src="/image/teambuild.png" 
+                                alt="team"
+                                className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[80%] h-auto"
+                                width={800} 
+                                height={600}
+                            />
+                            <h1 className="text-9xl font-bold text-gray-100 mb-2">TEAM BUILD</h1>
+                            <h1 className="text-9xl font-bold text-blue-700">TEAM BUILD</h1>
+                            <h1 className="text-9xl font-bold text-gray-100">TEAM BUILD</h1>
+                        </div>
                     </div>
-
-
-
                 </div>
 
-
-
-
-                <div className="border flex border-blue-400 justify-between rounded-xl px-15 py-30 mb-10">
-
-                    <div>
-                        <h2 className="text-4xl font-semibold mb-4"> Refer and Earn</h2>
-                        <p className="text-lg font-semibold  mb-2">Refer with your friends and make <br /> your earning profitable</p>
-                        <p className="text-lg text-gray-600 leading-relaxed">every single refer that get you<br /> paid. so don&apos;t just use it refer your<br /> friends</p>
-
-                        <button className="text-white w-4/5 p-2 bg-blue-700 rounded-2xl cursor-pointer mt-35">View More</button>
+                {/* Second Section - REFER EARN - Fixed overflow */}
+                <div className="border flex flex-col lg:flex-row border-blue-400 justify-between rounded-xl p-4 md:px-15 md:py-30 mb-10 overflow-hidden">
+                    {/* Left Content - Same on all screens */}
+                    <div className="order-2 lg:order-1 lg:w-auto">
+                        <h2 className="text-2xl md:text-4xl font-semibold mb-4">Refer and Earn</h2>
+                        <p className="text-base md:text-lg font-semibold mb-2">
+                            Refer with your friends and make <br className="hidden md:block" /> your earning profitable
+                        </p>
+                        <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                            every single refer that get you <br className="hidden md:block" /> paid. so don&apos;t just use it refer your <br className="hidden md:block" /> friends
+                        </p>
+                        <button className="text-white w-full md:w-4/5 p-3 md:p-2 bg-blue-700 rounded-2xl cursor-pointer mt-6 md:mt-35">
+                            View More
+                        </button>
                     </div>
 
-                    <div className="relative mx-auto pl-30">
+                    {/* Right Side - Fixed overflow */}
+                    <div className="order-1 lg:order-2 relative mx-auto lg:mb-0 lg:pl-30">
+                        {/* Mobile: Image overlay on text */}
+                        <div className="lg:hidden relative w-full">
+                            {/* Text behind the image */}
+                            <div className="flex flex-col items-center justify-center py-4">
+                                <h1 className="text-4xl sm:text-5xl font-bold text-gray-100 mb-1 text-center">REFER EARN</h1>
+                                <h1 className="text-4xl sm:text-5xl font-bold text-blue-700 text-center">REFER EARN</h1>
+                                <h1 className="text-4xl sm:text-5xl font-bold text-gray-100 text-center">REFER EARN</h1>
+                            </div>
+                            
+                            {/* Image overlay - centered on text, constrained within border */}
+                            <div className="relative -mt-30 mb-4 flex justify-center">
+                                <div className="relative z-20 w-[55%] max-w-[200px] sm:w-[50%] sm:max-w-[220px]">
+                                    <Image 
+                                        src="/image/phonehold.png" 
+                                        alt="phone holding"
+                                        className="w-full h-auto drop-shadow-xl"
+                                        width={400} 
+                                        height={400}
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
-
-                        <Image src="/image/phonehold.png" alt="phone holding"
-                            className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[40%] h-auto" width={400} height={400}
-                        />
-                        {/* <img
-                        src="/mockup/phonehold.png"
-                        alt="team"
-                        className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[40%] h-auto"
-                    /> */}
-
-                        <h1 className="text-9xl font-bold text-gray-100 mb-2">REFER EARN</h1>
-                        <h1 className="text-9xl font-bold text-blue-700">REFER EARN</h1>
-                        <h1 className="text-9xl font-bold text-gray-100">REFER EARN</h1>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <div className="block lg:hidden w-screen bg-white relative">
-                <div className="py-10 px-6 w-full">
-                    {/* First Image - positioned at bottom edge of yellow box */}
-                    <div className="relative -mb-15 ml-8 md:ml-40 z-30">
-                        <Image
-                            src="/image/iconset.png"
-                            alt="IconSet"
-                            height={300}
-                            width={300}
-                            className="w-68 md:w-100 h-auto"
-                        />
-                    </div>
-
-                    {/* Yellow Box Content */}
-                    <div className="bg-yellow-300 p-6 py-10 rounded-xl w-full relative z-20">
-                        <h3 className="font-bold text-lg md:text-5xl mb-2">Share it <br />Earn it</h3>
-                        <p className="text-gray-800 md:text-xl text-sm">Refer your friend <br />and earn money</p>
-                    </div>
-
-                    {/* Second Image - positioned on top of yellow box */}
-                    <div className="relative -mt-66 md:-mt-110 mr-1 md:mr-30 z-30 self-end ml-auto" style={{ width: 'fit-content' }}>
-                        <Image
-                            src="/image/phonehold.png"
-                            alt="phonehold"
-                            height={100}
-                            width={100}
-                            className="w-48 md:w-80 h-auto"
-                        />
+                        {/* Desktop: Original layout */}
+                        <div className="hidden lg:block relative">
+                            <Image 
+                                src="/image/phonehold.png" 
+                                alt="phone holding"
+                                className="absolute -bottom-20 left-2/3 -translate-x-1/2 w-[40%] h-auto"
+                                width={400} 
+                                height={400}
+                            />
+                            <h1 className="text-9xl font-bold text-gray-100 mb-2">REFER EARN</h1>
+                            <h1 className="text-9xl font-bold text-blue-700">REFER EARN</h1>
+                            <h1 className="text-9xl font-bold text-gray-100">REFER EARN</h1>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
