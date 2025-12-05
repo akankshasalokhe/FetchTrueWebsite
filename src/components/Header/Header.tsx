@@ -99,13 +99,14 @@ export default function HeaderSection() {
         text-[16px]
         text-[#606060]
         border border-[#EDEDED]
+        w-full lg:w-[476px] h-[50px] rounded-[26.5px]
       "
-      style={{
-        width:"100%",
-        maxWidth: "476px",
-        height: "50px",
-        borderRadius: "26.5px",
-      }}
+      // style={{
+      //   width:"100%",
+      //   maxWidth: "476px",
+      //   height: "50px",
+      //   borderRadius: "26.5px",
+      // }}
     >
       {/* Search Icon Box */}
       <div
@@ -138,13 +139,15 @@ export default function HeaderSection() {
         text-[16px]
         text-[#606060]
         border border-[#EDEDED]
+        w-full lg:w-[476px] h-[50px] rounded-[26.5px]
+
       "
-      style={{
-        width:"100%",
-        maxWidth: "476px",
-        height: "50px",
-        borderRadius: "26.5px",
-      }}
+      // style={{
+      //   width:"100%",
+      //   maxWidth: "476px",
+      //   height: "50px",
+      //   borderRadius: "26.5px",
+      // }}
     >
       {/* Category Icon */}
       <div
@@ -163,7 +166,7 @@ export default function HeaderSection() {
 
       <input
         type="text"
-        placeholder="Search by Category"
+        placeholder="Search by Category and section"
         className="w-full outline-none bg-transparent"
       />
     </div>
