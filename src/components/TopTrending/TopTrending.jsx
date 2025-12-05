@@ -405,6 +405,10 @@
 import Image from "next/image";
 import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { MdLocationOn } from "react-icons/md";
+
+
+
 
 export default function TopTrending() {
     const properties = [
@@ -627,8 +631,9 @@ export default function TopTrending() {
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
 
-                            <span className="absolute top-2 left-2 bg-white text-blue-600 text-xs font-semibold px-2 py-1 rounded-lg shadow">
-                                Trusted
+                            <span className="absolute top-2 flex left-2 bg-white text-blue-600 text-lg font-semibold px-2 py-1 rounded-lg shadow">
+                                 <img src="/image/security.png" alt="security" width={30} /> Trusted
+                              
                             </span>
 
                             <button
@@ -662,7 +667,7 @@ export default function TopTrending() {
                                     <div className="flex-1">
                                         <h3 className="text-sm font-semibold mb-1">Location</h3>
                                         <p className="text-xs opacity-95 font-inter flex items-center gap-1">
-                                            📍 {p.location}
+                                         <MdLocationOn size={24} className="text-white-600" /> {p.location}
                                         </p>
                                     </div>
 
