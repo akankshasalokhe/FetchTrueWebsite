@@ -388,7 +388,7 @@ export default function GrowthPartner() {
           <p className="mb-3 font-semibold" style={{fontWeight:"600" , fontSize:"32px"}}>One Platform Every Service</p>
           <p className="text-[#FFFFFF] leading-relaxed"  style={{fontWeight:"400" , fontSize:"24px"}}>
             Over 1000+ great responses from our growth partners and users — we
-            provide seamless services that solve real world problems.
+            provide seamless services that solve real world problems
           </p>
         </div>
 
