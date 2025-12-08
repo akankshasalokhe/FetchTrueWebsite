@@ -1,5 +1,13 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
+/* Global Styles */
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
 
 body {
   background: var(--background);
@@ -7,22 +15,16 @@ body {
   font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-
+/* Hide scrollbar (Chrome, Safari, Edge) */
 .no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
   display: none;
 }
 
+/* Hide scrollbar (Firefox) */
 .no-scrollbar {
-  -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
-
-* {
-  box-sizing: border-box;
-}
-
-
