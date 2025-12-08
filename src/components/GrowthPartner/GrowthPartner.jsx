@@ -261,7 +261,7 @@ export default function GrowthPartner() {
 
     const runAnimation = async () => {
       const startY = 120;
-      const riseY = -60;
+      const riseY = -150;
       const sideShift = 320;
       const tiltAngle = 15;
 
@@ -383,8 +383,8 @@ export default function GrowthPartner() {
         />
 
         {/* TEXT BOX */}
-       
-        <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 bg-pink/90 text-white border border-white-900 rounded-t-xl p-10 w-[584px] h-[324px] max-w-md shadow-xl">
+
+        <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 bg-[#B395E7] text-white border border-white-900 rounded-t-xl p-10 w-[584px] h-[324px] max-w-md shadow-xl">
           <p className="mb-3 font-semibold" style={{fontWeight:"600" , fontSize:"32px"}}>One Platform Every Service</p>
           <p className="text-[#FFFFFF] leading-relaxed"  style={{fontWeight:"400" , fontSize:"24px"}}>
             Over 1000+ great responses from our growth partners and users — we
@@ -392,6 +392,17 @@ export default function GrowthPartner() {
           </p>
         </div>
 
+        {/* <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 
+                bg-[#B395E7] text-white rounded-t-xl p-10 
+                w-[584px] h-[300px] max-w-md shadow-2xl border-t">
+          <p className="mb-3 font-semibold" style={{ fontWeight: "600", fontSize: "32px" }}>
+            One Platform Every Service
+          </p>
+          <p className="text-white/90 leading-relaxed" style={{ fontWeight: "400", fontSize: "24px" }}>
+            Over 1000+ great responses from our growth partners and users — we
+            provide seamless services that solve real world problems.
+          </p>
+        </div> */}
 
 
         {/* CARDS */}
@@ -400,7 +411,7 @@ export default function GrowthPartner() {
           style={{
             perspective: "1200px",
             transform: "translateX(-90px)",
-          
+
 
           }}
         >
@@ -415,7 +426,7 @@ export default function GrowthPartner() {
                 zIndex: i === 1 ? 40 : 20,
               }}
             >
-            
+
 
               <div className="flex items-center gap-5 mb-1">
                 {/* Image */}
