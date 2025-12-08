@@ -6,14 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "npm rebuild @tailwindcss/oxide"
-  },
-  "overrides": {
-    "@tailwindcss/oxide": "$@tailwindcss/oxide"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@tailwindcss/oxide": "^4.1.17",
     "@tailwindcss/postcss": "^4.1.17",
     "framer-motion": "^12.23.25",
     "lucide-react": "^0.555.0",
