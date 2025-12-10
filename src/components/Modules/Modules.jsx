@@ -1,16 +1,18 @@
+import Link from "next/link";
+import path from "path";
 import React from "react";
 
 function Modules() {
   const modules = [
-    { title: "Franchise", bg: "/image/Franchise card.png", icon: "/image/franchise icon.png" },
-    { title: "Finance", bg: "/image/finance card.png", icon: "/image/finance.png" },
-    { title: "Business", bg: "/image/Business card.png", icon: "/image/Business.png" },
-    { title: "AI Hub", bg: "/image/Ai Hub card.png", icon: "/image/AI.png" },
-    { title: "On Demand", bg: "/image/On Demand card.png", icon: "/image/onDemand.png" },
-    { title: "Marketing", bg: "/image/Marketing card.png", icon: "/image/marketing.png" },
-    { title: "IT Service", bg: "/image/It Service.png", icon: "/image/It .png" },
-    { title: "Legal Service", bg: "/image/Legal service.png", icon: "/image/legal.png" },
-    { title: "Education", bg: "/image/Education card.png", icon: "/image/education.png" },
+    { title: "Franchise", path: "/MainModules/Franchise/", bg: "/image/Franchise card.png", icon: "/image/franchise icon.png" },
+    { title: "Finance", path: "/MainModules/Finance/", bg: "/image/finance card.png", icon: "/image/finance.png" },
+    { title: "Business", path: "/MainModules/Business/", bg: "/image/Business card.png", icon: "/image/Business.png" },
+    { title: "AI Hub", path: "/MainModules/AIHub/", bg: "/image/Ai Hub card.png", icon: "/image/AI.png" },
+    { title: "On Demand", path: "/MainModules/OnDemand/", bg: "/image/On Demand card.png", icon: "/image/onDemand.png" },
+    { title: "Marketing", path: "/MainModules/Marketing/", bg: "/image/Marketing card.png", icon: "/image/marketing.png" },
+    { title: "IT Service", path: "/MainModules/ITService/", bg: "/image/It Service.png", icon: "/image/It .png" },
+    { title: "Legal Service", path: "/MainModules/LegalService/", bg: "/image/Legal service.png", icon: "/image/legal.png" },
+    { title: "Education", path: "/MainModules/Education/", bg: "/image/Education card.png", icon: "/image/education.png" },
   ];
 
   const row1 = modules.slice(0, 5);
@@ -42,7 +44,10 @@ function Modules() {
 }
 
 function Card({ data }) {
+  
   return (
+        <Link href={data.path}>
+
     <div
       className="
         relative overflow-hidden border border-black/10 rounded-[21.3px]
@@ -75,6 +80,7 @@ function Card({ data }) {
         className="absolute top-[44.54px] left-[112.32px] w-[89.47px] h-[55.68px] object-contain"
       />
     </div>
+        </Link>
   );
 }
 
