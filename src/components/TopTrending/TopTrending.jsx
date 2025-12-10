@@ -143,7 +143,7 @@ export default function TopTrending() {
         const container = containerRef.current;
         const rect = container.getBoundingClientRect();
         const x = e.pageX - rect.left;
-        const walk = (x - startX) * 1.5; // Reduced multiplier for smoother control
+        const walk = (x - startX) * 1.5; // Reduced multiplier for smoother controls
 
         // Calculate new scroll position
         let newScrollLeft = scrollLeft - walk;
