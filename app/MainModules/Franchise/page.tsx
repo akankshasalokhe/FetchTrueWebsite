@@ -1,3 +1,8 @@
+import BenefitsSection from "@/src/components/Franchise/BenefitSection";
+import InvestmentOfferSection from "@/src/components/Franchise/InvestmentOffer";
+import LowInvestmentFranchises from "@/src/components/Franchise/LowInvestment";
+import Recommended from "@/src/components/Franchise/recommendFranchise";
+import TopGrowingFranchises from "@/src/components/Franchise/TopGrowing";
 import { CiSearch } from "react-icons/ci";
 
 export default function FranchisePage() {
@@ -177,7 +182,6 @@ export default function FranchisePage() {
         </div>
       </section>
 
-      {/* -------- FLOW GRID SECTION -------- */}
 {/* -------- FLOW GRID SECTION -------- */}
 <section className="w-full flex justify-center mt-10">
   <div
@@ -245,6 +249,16 @@ export default function FranchisePage() {
     ))}
   </div>
 </section>
+
+
+<Recommended />
+
+<TopGrowingFranchises />
+<BenefitsSection />
+<InvestmentOfferSection />
+<LowInvestmentFranchises />
+
+
 
 
 
