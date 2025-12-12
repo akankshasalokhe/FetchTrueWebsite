@@ -23,7 +23,7 @@ export default function InvestmentOfferSection() {
   ];
 
   return (
-    <section className="w-full py-16 px-5 flex flex-col lg:flex-row justify-between items-center gap-10">
+    <section className="w-full py-16 px-5 flex flex-col lg:flex-row justify-around items-center">
       {/* LEFT SIDE */}
       <div className="max-w-[350px]">
         <h2 className="text-[28px] font-semibold leading-snug">

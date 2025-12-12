@@ -1,4 +1,5 @@
 "use client";
+import { CiBookmark } from "react-icons/ci";
 
 export default function LowInvestmentFranchises() {
   const cards = [
@@ -38,49 +39,89 @@ export default function LowInvestmentFranchises() {
   ];
 
   return (
-    <section className="w-full px-6 py-16">
+    <section className="w-full px-4 sm:px-6 py-12 sm:py-16">
       {/* Heading */}
       <div className="text-center mb-10">
-        <h2 className="text-[26px] font-bold">
+        <h2 className="text-[22px] sm:text-[26px] font-bold">
           Here are 3 Best Franchises that are Low in Investment
         </h2>
-        <p className="text-gray-500 mt-1">
-          start with low investment franchises
+        <p className="text-gray-500 mt-1 text-sm sm:text-base">
+          Start with low investment franchises
         </p>
       </div>
 
       {/* Card Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <div className="
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        gap-6 
+        justify-items-center
+      ">
         {cards.map((card, index) => (
           <div
             key={index}
-            className="w-[320px] bg-white p-5 rounded-2xl border shadow-sm"
+            className="
+              w-full 
+              max-w-[330px] 
+              bg-white 
+              p-5 
+              rounded-2xl 
+              border 
+              shadow-sm
+              hover:shadow-md 
+              transition
+            "
           >
             {/* Title + Logo */}
-            <div className="flex justify-between items-start mb-3">
-              <div>
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex-1">
                 <h3 className="font-semibold text-[18px]">{card.title}</h3>
                 <p className="text-gray-500 text-sm">{card.category}</p>
+
+                {/* Revenue Badge */}
+                <p className="
+                  bg-black 
+                  text-white 
+                  text-xs 
+                  px-3 
+                  py-1 
+                  rounded-full 
+                  inline-block 
+                  mt-2
+                ">
+                  Revenue {card.revenue}
+                </p>
               </div>
 
-              <img
-                src={card.logo}
-                alt={card.title}
-                className="w-[45px] h-[45px] rounded-full"
-              />
+              {/* Logo box */}
+              <div className="
+                w-[75px] 
+                h-[70px] 
+                rounded-[15px] 
+                bg-[#FFE8E8] 
+                flex 
+                items-center 
+                justify-center
+              ">
+                <img
+                  src={card.logo}
+                  alt={card.title}
+                  className="w-[60px] h-[55px] object-contain"
+                />
+              </div>
             </div>
 
-            {/* Revenue Badge */}
-            <p className="bg-black text-white text-xs px-3 py-1 rounded-full inline-block mb-3">
-              Revenue {card.revenue}
-            </p>
-
-            {/* Discount + Earn */}
-            <div className="flex justify-between mb-3 text-[13px]">
-              <p className="text-green-600 font-medium">
+            {/* Discount + Earn + Bookmark */}
+            <div className="flex justify-between items-center mb-4 text-[13px]">
+              <p className="text-[#39B64C] bg-[#F5F5F5] px-2 py-1 rounded-md">
                 Discount {card.discount}
               </p>
-              <p className="text-blue-600 font-medium">Earn {card.earn}</p>
+
+              <p className="text-[#2164F4] bg-[#F5F5F5] px-2 py-1 rounded-md">Earn {card.earn}</p>
+
+              <CiBookmark className="text-[22px] text-gray-600 cursor-pointer" />
             </div>
 
             {/* Bottom Stats */}
