@@ -81,7 +81,7 @@ const data = [
 
 export default function Recommended() {
   return (
-    <section className="w-full flex flex-col gap-[35px]">
+    <section className="w-full flex flex-col gap-[35px] mt-20">
       {/* ---------- TITLE ---------- */}
       <h2 className="font-inter font-semibold text-[24px] leading-[36px] w-full max-w-[1304px] mx-auto">
         Recommended For You
