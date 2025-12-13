@@ -1,4 +1,5 @@
 import BenefitsSection from "@/src/components/Franchise/BenefitSection";
+import HighDemands from "@/src/components/Franchise/HighDemands";
 import InvestmentOfferSection from "@/src/components/Franchise/InvestmentOffer";
 import LowInvestmentFranchises from "@/src/components/Franchise/LowInvestment";
 import Recommended from "@/src/components/Franchise/recommendFranchise";
@@ -252,7 +253,7 @@ export default function FranchisePage() {
 
 
 <Recommended />
-
+<HighDemands />
 <TopGrowingFranchises />
 <BenefitsSection />
 <InvestmentOfferSection />
