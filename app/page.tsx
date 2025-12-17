@@ -8,6 +8,7 @@ import Recommendation from "@/src/components/Modules/Recommendation";
 import GrowthPartner from "@/src/components/GrowthPartner/GrowthPartner";
 import TopTrending from "@/src/components/TopTrending/TopTrending";
 import Navbar from "@/src/components/Navbar/Navbar";
+import Footer from "@/src/components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
      <TopTrending />
      <GrowthPartner />
      <Refer />
-
+     <Footer />
     
      
    </>
