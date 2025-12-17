@@ -155,22 +155,7 @@ export default function Recommendation() {
                 Recommended for You
             </h2>
 
-            {/* CATEGORY TABS */}
-            <div className="flex gap-3 overflow-x-auto no-scrollbar mb-6">
-                {CATEGORY_TABS.map((tab) => (
-                    <button
-                        key={tab.value}
-                        onClick={() => setActiveTab(tab.value)}
-                        className={`px-4 py-2 md:py-2 md:px-6 rounded-full border border-blue-400 text-sm whitespace-nowrap transition
-              ${activeTab === tab.value
-                                ? "bg-blue-600 text-white"
-                                : "bg-gray-100 text-blue-700"
-                            }`}
-                    >
-                        {tab.label}
-                    </button>
-                ))}
-            </div>
+           
 
             {/* SWIPEABLE CARDS */}
             <div

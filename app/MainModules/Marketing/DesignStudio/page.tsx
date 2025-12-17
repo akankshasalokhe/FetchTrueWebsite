@@ -80,7 +80,7 @@ export default function DesignStudioPage() {
                 </div>
             </section>
 
-            {/* ---------------- RECOMMENDATION SECTION ---------------- */}
+            {/* ---------------- REMAINING SECTIONS ---------------- */}
             <section className="w-full mt-6 md:mt-10">
                 <Recommendation />
                 <MostlyUsed />
