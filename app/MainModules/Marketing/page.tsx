@@ -1,97 +1,137 @@
 "use client";
 
-import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
-import RecommendedForYou from "@/src/components/Marketing/Recommend";
+import Image from "next/image";
+import CategoryModule from "@/src/components/Marketing/Category";
 import { Home, LogOut, Bookmark, Search } from "lucide-react";
 
 export default function MarketingHero() {
   return (
-    <>
-    <section className="w-full bg-[#2A67F4] relative overflow-hidden">
-      {/* ---------- TOP BAR ---------- */}
-      <div className="max-w-[1328px] mx-auto px-6 py-4 flex items-center justify-between text-white">
-        <div className="flex items-center gap-4">
-          <Home className="w-5 h-5" />
-          <LogOut className="w-5 h-5" />
+    <div className="bg-[#2A67F4]">
+      {/* ================= HERO SECTION ================= */}
+      <section className="w-full relative overflow-hidden">
+
+        {/* BACKGROUND IMAGE */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/image/marketingbgdesign.png"
+            alt="Marketing Hero"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-[#2A67F4]/20" />
         </div>
 
-        <p className="text-sm font-medium opacity-90">
-          Marketing Service
-        </p>
+        {/* ---------- TOP BAR ---------- */}
+        <div className="relative z-10 max-w-[1329px] mx-auto
+                        px-4 sm:px-6 py-5
+                        flex items-center justify-between text-white">
+          <div className="flex items-center gap-4">
+            <Home className="w-5 h-5" />
+            <LogOut className="w-5 h-5" />
+          </div>
 
-        <Bookmark className="w-5 h-5" />
-      </div>
+          <p className="text-sm font-medium opacity-90 hidden sm:block">
+            Marketing Service
+          </p>
 
-      <div className="w-full h-px bg-white/30" />
+          <Bookmark className="w-5 h-5" />
+        </div>
 
-      {/* ---------- HERO CONTENT ---------- */}
-      <div className="max-w-[1328px] mx-auto px-6 pt-14 pb-24 relative">
-        {/* Background Shapes */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.15),transparent_40%),radial-gradient(circle_at_80%_40%,rgba(255,255,255,0.12),transparent_45%)] pointer-events-none" />
+        <div className="relative z-10 w-full h-px bg-white/30" />
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          {/* LEFT TEXT */}
-          <h1 className="text-white font-serif text-[32px] leading-[44px] max-w-[520px]">
-            One Service That you need to
-            <br />
-            stand out in market
-          </h1>
+        {/* ---------- HERO CONTENT ---------- */}
+        <div className="relative z-10 max-w-[1328px] mx-auto px-4 sm:px-6 pt-14 pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-          {/* SEARCH */}
-          <div className="flex justify-start lg:justify-end">
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full w-full max-w-[320px] text-white">
-              <Search className="w-4 h-4 opacity-80" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="bg-transparent outline-none placeholder:text-white/70 text-sm w-full"
-              />
+            {/* LEFT TEXT */}
+            <h1 className="text-white font-serif
+                           text-[28px] sm:text-[32px]
+                           leading-[40px] sm:leading-[44px]
+                           max-w-[520px]">
+              One Service That you need to
+              <br />
+              stand out in market
+            </h1>
+
+            {/* SEARCH */}
+            <div className="flex justify-start lg:justify-end">
+              <div className="flex items-center gap-2
+                              bg-white/20 backdrop-blur-md
+                              px-4 py-2 rounded-full
+                              w-full max-w-[320px] text-white">
+                <Search className="w-4 h-4 opacity-80" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="bg-transparent outline-none
+                             placeholder:text-white/70
+                             text-sm w-full"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* ---------- HERO CARD ---------- */}
+          <div className="mt-16 bg-white rounded-[26px]
+                          max-w-[1200px] mx-auto px-4 sm:px-10 py-10">
+
+            <div className="bg-gradient-to-br from-[#F7F2F9] to-[#E6EEFF]
+                            rounded-[30px]
+                            px-6 sm:px-16 py-14
+                            max-w-[1037px] mx-auto shadow-xl">
+
+              <div className="flex flex-col lg:flex-row
+                              items-center justify-between gap-10">
+
+                {/* TEXT */}
+                <div className="max-w-[420px] text-center lg:text-left">
+                  <h2 className="text-black text-[32px] sm:text-[40px] lg:text-[50px]
+                                 font-semibold leading-tight">
+                    Best Marketing’s
+                    <br />
+                    Services
+                  </h2>
+
+                  <p className="text-black mt-4
+                                text-[18px] sm:text-[22px] lg:text-[30px]
+                                leading-[26px]">
+                    Quick and trusted service that
+                    <br />
+                    make you grow faster
+                  </p>
+                </div>
+
+                {/* IMAGE */}
+                <div className="relative">
+                  <Image
+                    src="/image/Figma.png"
+                    alt="Marketing"
+                    width={300}
+                    height={350}
+                    className="w-[220px] sm:w-[260px] lg:w-[300px]
+                               h-auto"
+                  />
+                </div>
+              </div>
+
+              {/* BUTTON */}
+              <div className="flex justify-center mt-14">
+                <button
+                  className="bg-[#2164F4] text-white
+                             px-14 py-3 rounded-full
+                             text-lg font-medium
+                             hover:scale-105 transition">
+                  Explore
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
+      </section>
 
-        {/* ---------- CARD ---------- */}
-        <div className="relative z-10 mt-20">
-          <div className="bg-gradient-to-br from-[#F7F9FF] to-[#EEF3FF] rounded-[28px] px-10 py-12 max-w-[980px] mx-auto shadow-xl">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
-              {/* TEXT */}
-              <div className="max-w-[420px]">
-                <h2 className="text-black text-[32px] font-semibold leading-[42px]">
-                  Best Marketing’s
-                  <br />
-                  Services
-                </h2>
-
-                <p className="text-gray-700 mt-4 text-[16px] leading-[26px]">
-                  Quick and trusted service that
-                  <br />
-                  make you grow faster
-                </p>
-              </div>
-
-              {/* FIGMA-STYLE ICON */}
-              <div className="relative w-[140px] h-[140px]">
-                <div className="absolute top-0 left-8 w-16 h-8 bg-[#FF5C2A] rounded-full" />
-                <div className="absolute top-0 left-16 w-16 h-8 bg-[#FF7A6A] rounded-full" />
-                <div className="absolute top-8 left-8 w-8 h-16 bg-[#9B5CFF] rounded-full" />
-                <div className="absolute top-8 left-16 w-8 h-16 bg-[#22C0F2] rounded-full" />
-                <div className="absolute top-16 left-8 w-8 h-16 bg-[#18C77A] rounded-full" />
-              </div>
-            </div>
-
-            {/* BUTTON */}
-            <div className="flex justify-center mt-12">
-              <button className="bg-[#2A67F4] text-white px-14 py-3 rounded-full text-lg font-medium hover:scale-105 transition">
-                Explore
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <RecommendedForYou />
-    <MostlyUsed />
-    </>
+      <CategoryModule />
+    </div>
   );
 }

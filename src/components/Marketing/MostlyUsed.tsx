@@ -37,25 +37,28 @@ const services = [
   },
 ];
 
-export default function RecommendedForYou() {
-  const sliderRef = useRef<HTMLDivElement>(null);
+export default function MostlyUsed() {
+  const sliderRef = useRef(null);
 
   return (
-    <section className="w-full max-w-[1351px] mx-auto flex flex-col gap-[28px] px-6 mt-20">
-      {/* ---------- TITLE ---------- */}
-      <h2 className="font-inter font-semibold text-[20px] leading-[30px]">
-        Recommended for You
+    <section className="w-full max-w-[1351px] mx-auto flex flex-col gap-6 px-4 sm:px-6 mt-16">
+
+      {/* TITLE */}
+      <h2 className="font-inter font-semibold text-[18px] sm:text-[20px] leading-[30px]">
+        Mostly Used
       </h2>
 
-      {/* ---------- MANUAL SCROLL SLIDER ---------- */}
+      {/* SLIDER */}
       <div
         ref={sliderRef}
-        className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-3 cursor-grab active:cursor-grabbing"
+        className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-3"
       >
         {services.map((item, index) => (
           <div
             key={index}
-            className="relative min-w-[392.39px] h-[362.04px] rounded-[13.49px] overflow-hidden bg-gray-200 flex-shrink-0"
+            className="relative min-w-[280px] sm:min-w-[340px] lg:min-w-[392px]
+                       h-[300px] sm:h-[330px] lg:h-[362px]
+                       rounded-[14px] overflow-hidden bg-gray-200 shrink-0"
           >
             {/* IMAGE */}
             <Image
@@ -65,8 +68,8 @@ export default function RecommendedForYou() {
               className="object-cover"
             />
 
-            {/* TRUSTED BADGE */}
-            <div className="absolute top-[17px] left-[13.49px] bg-white rounded-[7.87px] px-[8.99px] py-[3.37px] flex items-center gap-[11.24px]">
+            {/* TRUSTED */}
+            <div className="absolute top-3 left-3 bg-white rounded-lg px-2 py-1 flex items-center gap-2">
               <ShieldCheck size={14} className="text-[#2164F4]" />
               <span className="text-xs font-medium text-[#2164F4]">
                 Trusted
@@ -74,38 +77,43 @@ export default function RecommendedForYou() {
             </div>
 
             {/* DISCOUNT */}
-            <div className="absolute top-[16.86px] left-[238.36px] bg-[#89FF9B] border border-[#DDDDDD] rounded-[7.51px] px-2 py-[2px] text-xs font-medium">
+            <div className="absolute top-3 right-14 bg-[#89FF9B] border border-[#DDDDDD]
+                            rounded-lg px-2 py-[2px] text-xs font-medium">
               Discount 30%
             </div>
 
             {/* BOOKMARK */}
-            <Bookmark className="absolute top-[12.37px] left-[348.55px] w-[31.48px] h-[31.48px] text-white bg-black p-1 rounded-full" />
+            <Bookmark
+              size={30}
+              className="absolute top-3 right-3 text-white bg-black/70 p-1 rounded-full"
+            />
 
             {/* BOTTOM CARD */}
-            <div className="absolute top-[228.24px] left-[13.49px] w-[366.53px] h-[123.68px] bg-white rounded-[11.24px] p-4 flex justify-between">
-              {/* LEFT SIDE */}
-              <div className="flex flex-col gap-2 w-[212.5px]">
-                <h3 className="font-inter font-semibold text-[20px] leading-[30px]">
+            <div className="absolute bottom-3 left-3 right-3 bg-white rounded-xl p-4 flex justify-between gap-4">
+
+              {/* LEFT */}
+              <div className="flex flex-col gap-2 flex-1">
+                <h3 className="font-inter font-semibold text-[16px] sm:text-[18px]">
                   {item.title}
                 </h3>
 
-                <span className="inline-block bg-[#EEF2FF] text-[#4F46E5] text-xs px-3  rounded-[10.6px] w-fit">
+                <span className="bg-[#EEF2FF] text-[#4F46E5] text-xs px-3 py-[2px] rounded-full w-fit">
                   {item.category}
                 </span>
 
-                <div className="flex items-center gap-[15.74px] text-xs text-gray-600">
+                <div className="flex items-center gap-3 text-xs text-gray-600">
                   <span className="flex items-center gap-1">
                     <FaUsers size={12} />
                     {item.users}
                   </span>
                   <span className="flex items-center gap-1">
                     <MdTimer size={12} />
-                    On Time guaranty
+                    On Time
                   </span>
                 </div>
 
                 {/* RATING */}
-                <div className="flex items-center gap-[2.77px] text-yellow-400">
+                <div className="flex items-center gap-1 text-yellow-400">
                   {[...Array(4)].map((_, i) => (
                     <FaStar key={i} size={14} />
                   ))}
@@ -113,18 +121,19 @@ export default function RecommendedForYou() {
                 </div>
               </div>
 
-              {/* RIGHT SIDE */}
-              <div className="flex flex-col items-end justify-between">
+              {/* RIGHT */}
+              <div className="flex flex-col items-end justify-between shrink-0">
                 <span className="text-xs font-medium text-green-600">
                   Earn Up to 5%
                 </span>
 
-                <div className="bg-[#F2F6FF] rounded-[20.75px] px-6 py-3">
-                  <span className="font-semibold text-[18px]">
+                <div className="bg-[#F2F6FF] rounded-full px-4 py-2">
+                  <span className="font-semibold text-[16px]">
                     ₹{item.price}
                   </span>
                 </div>
               </div>
+
             </div>
           </div>
         ))}
