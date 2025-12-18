@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import LegalExpertsSection from "./LegalExpert";
 
 const categories = [
   { title: "Business Registration", image: "/image/BuisenessRegistration.png" },
@@ -14,9 +15,17 @@ const categories = [
 export default function CategorySection() {
   return (
     <div className="w-full bg-[#F9F5EE] rounded-[15px] mx-auto">
-      
+
       {/* INNER CONTAINER */}
-      <section className="max-w-[1298px] mx-auto px-4 pt-24 sm:pt-32 lg:pt-56 mb-10 flex flex-col gap-5">
+      <section className="
+        w-full
+        max-w-[1298px]
+        mx-auto
+        px-4 sm:px-6
+        pt-40 sm:pt-30 lg:pt-56
+        mb-10
+        flex flex-col gap-5
+      ">
         
         {/* HEADING */}
         <h2 className="font-inter font-semibold text-[20px] sm:text-[22px] lg:text-[24px] leading-[36px] text-black">
@@ -25,27 +34,34 @@ export default function CategorySection() {
 
         {/* CARD ROW */}
         <div className="
-          flex
-          gap-5
-          flex-wrap
-          sm:flex-nowrap
-          sm:overflow-x-auto
-          sm:overflow-y-hidden
+          flex gap-4 sm:gap-5
+          overflow-x-auto sm:overflow-x-auto
+          scrollbar-hide
+          snap-x snap-mandatory
+          touch-pan-x
         ">
           {categories.map((item, index) => (
             <div
               key={index}
               className="
                 relative
-                w-[146px]
+                min-w-[146px] sm:w-[146px]
                 h-[166px]
                 rounded-[14.65px]
                 bg-white
                 flex-shrink-0
+                snap-start
               "
             >
               {/* IMAGE BOX */}
-              <div className="w-[100px] h-[79px] ml-[47px] mt-[-1.1px] mx-auto  rounded-[8.54px] bg-[#F5E8E0] flex items-center justify-center">
+              <div className="
+                w-[100px] h-[79px]
+                mx-auto
+                mt-[-2px]
+                rounded-[8.54px]
+                bg-[#F5E8E0]
+                flex items-center justify-center ml-12 
+              ">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -57,15 +73,11 @@ export default function CategorySection() {
 
               {/* TITLE */}
               <h3 className="
-                absolute
-                bottom-4
-                left-3
-                right-3
-                font-inter
-                font-semibold
-                text-[15px]
+                absolute bottom-4 left-3 right-3
+                font-inter font-semibold
+                text-[14px] sm:text-[15px]
                 leading-[20px]
-                text-black
+                text-black text-center
               ">
                 {item.title}
               </h3>
@@ -74,6 +86,9 @@ export default function CategorySection() {
         </div>
 
       </section>
+
+      {/* LEGAL EXPERTS */}
+      <LegalExpertsSection />
     </div>
   );
 }

@@ -1,6 +1,10 @@
 "use client";
 
 import CategorySection from "@/src/components/Legal/CategorySection";
+import LegalExpertsSection from "@/src/components/Legal/LegalExpert";
+import LegalServiceSpotlight from "@/src/components/Legal/LegalServiceSpotlight";
+import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
+import TopLegalService from "@/src/components/Legal/TopLegalService";
 import { Home, ArrowLeft, Bookmark } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
@@ -288,7 +292,9 @@ export default function LegalPage() {
       <CategorySection />
 </div>
 
-
+<RecommendedForYou />
+<TopLegalService />
+<LegalServiceSpotlight />
 
     </div>
   );
