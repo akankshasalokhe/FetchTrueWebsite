@@ -11,18 +11,20 @@ import { useRef } from "react";
 
 
 export default function LegalPage() {
-  const sliderRef = useRef(null);
 
-  const scrollByCard = (direction) => {
-    if (!sliderRef.current) return;
-    const cardWidth =
-      sliderRef.current.querySelector("[data-card]")?.offsetWidth || 0;
+ const sliderRef = useRef<HTMLDivElement | null>(null);
 
-    sliderRef.current.scrollBy({
-      left: direction === "left" ? -cardWidth : cardWidth,
-      behavior: "smooth",
-    });
-  };
+const scrollByCard = (direction: "left" | "right") => {
+  if (!sliderRef.current) return;
+
+  const cardWidth =
+    sliderRef.current.querySelector<HTMLElement>("[data-card]")?.offsetWidth || 0;
+
+  sliderRef.current.scrollBy({
+    left: direction === "left" ? -cardWidth : cardWidth,
+    behavior: "smooth",
+  });
+};
   return (
     <div className="">
       <section className="flex justify-center">
