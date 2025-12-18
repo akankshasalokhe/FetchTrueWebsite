@@ -183,7 +183,7 @@ const scrollByCard = (direction: "left" | "right") => {
         "
       >
         <Image
-          src="/image/rightImage.jpg"
+          src="/image/rightimage.jpg"
           alt="Right"
           fill
           className="object-cover rounded-[28px]"
