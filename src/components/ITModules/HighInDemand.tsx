@@ -203,7 +203,7 @@ export default function MostlyUsed({ selectedRange,  selectedCategory, searchQue
                         <div
                             key={item.id}
                              onClick={() =>
-                                router.push(`/MainModules/ITModules/${toSlug(item.title)}`)
+                                router.push(`/MainModules/ITService/${toSlug(item.title)}`)
                             }
                             className="snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[362px]
                             sm:w-[70vw] md:w-[390px] rounded-3xl overflow-hidden shadow-lg"
