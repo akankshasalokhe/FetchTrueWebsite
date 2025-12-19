@@ -20,7 +20,7 @@ export default function TopTrending() {
             location: "Near Andheri West, Mumbai",
             earning: "5%",
             discount: "30%",
-            monthlyEarning: "10-20 Lac",
+            monthlyEarning: "10-20 L",
             outlets: 10,
             area: "1500 Sq - 1000 Sq",
             price: "45L",
@@ -35,7 +35,7 @@ export default function TopTrending() {
             location: "Banjara Hills, Hyderabad",
             earning: "7%",
             discount: "25%",
-            monthlyEarning: "12-22 Lac",
+            monthlyEarning: "12-22 L",
             outlets: 14,
             area: "1800 Sq - 1200 Sq",
             price: "72L",
@@ -50,7 +50,7 @@ export default function TopTrending() {
             location: "Koramangala, Bangalore",
             earning: "6%",
             discount: "20%",
-            monthlyEarning: "8-15 Lac",
+            monthlyEarning: "8-15 L",
             outlets: 7,
             area: "1300 Sq - 900 Sq",
             price: "89L",
@@ -65,7 +65,7 @@ export default function TopTrending() {
             location: "Powai, Mumbai",
             earning: "4%",
             discount: "15%",
-            monthlyEarning: "6-12 Lac",
+            monthlyEarning: "6-12 L",
             outlets: 6,
             area: "900 Sq - 700 Sq",
             price: "38L",
@@ -80,7 +80,7 @@ export default function TopTrending() {
             location: "Gachibowli, Hyderabad",
             earning: "6%",
             discount: "20%",
-            monthlyEarning: "8-18 Lac",
+            monthlyEarning: "8-18 L",
             outlets: 12,
             area: "1100 Sq - 850 Sq",
             price: "55L",
@@ -282,7 +282,7 @@ export default function TopTrending() {
                                         </div>
 
                                         <div className="flex flex-col gap-2 items-end ml-4">
-                                            <span className="bg-white text-black text-xs px-2 py-1 rounded-lg font-semibold">
+                                            <span className="bg-white text-black text-xs px-2 py-1 rounded-lg font-semibold whitespace-nowrap">
                                                 Earn Up to {p.earning}
                                             </span>
                                             <span className="bg-green-300 text-black text-xs px-2 py-1 rounded-lg font-semibold">
@@ -303,12 +303,9 @@ export default function TopTrending() {
                                 </div>
                             </div>
 
-                            <div className="relative h-0">
-                                <div
-                                    className="absolute bottom-2 right-0 w-[72px] h-[52px] bg-white text-black font-semibold px-4 py-4 rounded-2xl  z-20 pointer-events-none"
-                                    style={{ fontSize: "20px", fontWeight: "600" }}
-                                >
-                                    ₹{p.price}
+                            <div className="relative h-0"> 
+                                 <div className="absolute bottom-2 right-0 -mr-0 sm:w-[72px] sm:h-[62px] w-[45px] h-[45px] bg-white text-black font-semibold sm:px-4 sm:py-5 px-1 py-3 rounded-2xl z-20 pointer-events-none" style={{ fontSize: "16px", fontWeight: "600" }}>
+                                                    ₹{p.price}
                                 </div>
                             </div>
                         </div>

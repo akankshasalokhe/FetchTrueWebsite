@@ -187,7 +187,7 @@ const MODULES_RIGHT = [
   { label: "Real Estate", path: "/MainModules/Franchise/RealState" },
   { label: "Design Studio Marketing", path: "/MainModules/Marketing/DesignStudio" },
   { label: "ITModules", path: "/MainModules/ITModules" },
-  { label: "Food beverage", path: "/services/food-beverage" },
+  { label: "Education", path: "/MainModules/Education" },
   { label: "Franchise", path: "/services/franchise" },
 ];
 
