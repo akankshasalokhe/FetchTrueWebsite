@@ -69,7 +69,7 @@ export default function SubCategoryPage({ params }: Props) {
                                 alt="Back"
                             />
                             </Link>
-                            
+
                             <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
                                 {formatSlugToTitle(slug)}
                             </h1>
@@ -158,9 +158,9 @@ export default function SubCategoryPage({ params }: Props) {
 
             <section className="w-full mt-6 md:mt-10">
                 <Recommendation contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery}/>
-                <MostlyUsed contextTitle={contextTitle} />
-                <HighInDemand contextTitle={contextTitle} />
-                <ExploreAllServices contextTitle={contextTitle} />
+                <MostlyUsed contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <HighInDemand contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <ExploreAllServices contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
             </section>
         </>
     );
