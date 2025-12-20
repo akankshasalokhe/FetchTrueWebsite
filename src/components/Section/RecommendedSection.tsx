@@ -1,4 +1,3 @@
-// components/sections/RecommendedSection.tsx
 "use client";
 
 import ServiceCard from "../ui/ServiceCard";
@@ -13,24 +12,37 @@ export default function RecommendedSection({
   services,
 }: RecommendedSectionProps) {
   return (
-    <section className="mt-14">
-      {/* Section Heading with side padding */}
-      <h2 className="font-inter font-semibold text-[28px] mb-8 px-4 sm:px-6 lg:px-8">
+    <section
+      className="
+        w-full
+        mx-auto
+        px-4 sm:px-6 lg:px-15
+        flex flex-col
+        gap-4 sm:gap-6
+        mb-16 sm:mb-20
+        mt-[-160px] sm:mt-[-100px] lg:mt-[-120px]
+      "
+    >
+      {/* Title */}
+      <h2 className="font-inter font-semibold text-[18px] sm:text-[22px] lg:text-[24px]">
         {title}
       </h2>
 
-      {/* Horizontal scroll container */}
+      {/* Horizontal Scroll Cards */}
       <div
         className="
-          flex gap-6
+          flex
+          gap-4 sm:gap-6 lg:gap-8
           overflow-x-auto
-          px-4 sm:px-6 lg:px-15
           pb-4
-          no-scrollbar
+          scrollbar-hide
+          snap-x snap-mandatory
         "
       >
-        {services.map((service, index) => (
-          <ServiceCard key={index} {...service} />
+        {services.map((item, index) => (
+          <div key={index} className="snap-start shrink-0">
+            <ServiceCard {...item} />
+          </div>
         ))}
       </div>
     </section>

@@ -28,6 +28,7 @@ export default function ServiceCard({
         rounded-[13.09px]
         relative
         flex-shrink-0
+        py-1
       "
     >
       {/* Image */}

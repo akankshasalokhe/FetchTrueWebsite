@@ -6,6 +6,7 @@ import LegalServiceSpotlight from "@/src/components/Legal/LegalServiceSpotlight"
 import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
 import TopLegalService from "@/src/components/Legal/TopLegalService";
 import RecommendedSection from "@/src/components/Section/RecommendedSection";
+import TopLegalServicesSection from "@/src/components/Section/TopLegalServicesSection";
 import { Home, ArrowLeft, Bookmark } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
@@ -86,7 +87,7 @@ const scrollByCard = (direction: "left" | "right") => {
           <img
             src="/image/Vector (1).png"
             alt="Back Icon"
-            className="text-black"
+            className="text-black hidden lg:block"
             
           />
 
@@ -119,7 +120,7 @@ const scrollByCard = (direction: "left" | "right") => {
       </section>
 
       {/* Hero Section */}
-      <section className="relative flex justify-center mt-16 lg:mt-28 px-4 overflow-hidden mb-20">
+      <section className="relative flex justify-center mt-0  px-4 overflow-hidden ">
   {/* ================= MAIN HERO CONTAINER ================= */}
   <div
     className="
@@ -239,7 +240,7 @@ const scrollByCard = (direction: "left" | "right") => {
 </section>
 
 
- <section className="relative z-10 w-full flex justify-center my-30 px-4">
+ <section className="relative z-10 w-full flex justify-center my-20 lg:my-30 px-4">
       <div className="w-full max-w-[1200px]">
 
         {/* ================= HEADING ================= */}
@@ -331,7 +332,10 @@ const scrollByCard = (direction: "left" | "right") => {
         title="Recommended Legal Services"
         services={services}
 />
-<TopLegalService />
+<TopLegalServicesSection 
+        title="Top Legal Services"
+        services={services}
+/>
 <LegalServiceSpotlight />
 
     </div>
