@@ -1,13 +1,9 @@
 "use client";
 
 import CategorySection from "@/src/components/Legal/CategorySection";
-import LegalExpertsSection from "@/src/components/Legal/LegalExpert";
 import LegalServiceSpotlight from "@/src/components/Legal/LegalServiceSpotlight";
-import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
-import TopLegalService from "@/src/components/Legal/TopLegalService";
 import RecommendedSection from "@/src/components/Section/RecommendedSection";
 import TopLegalServicesSection from "@/src/components/Section/TopLegalServicesSection";
-import { Home, ArrowLeft, Bookmark } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -327,7 +323,6 @@ const scrollByCard = (direction: "left" | "right") => {
       <CategorySection />
 </div>
 
-{/* <RecommendedForYou /> */}
 <RecommendedSection
         title="Recommended Legal Services"
         services={services}
