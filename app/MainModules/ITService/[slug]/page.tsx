@@ -4,37 +4,49 @@ import Recommendation from "@/src/components/ITModulesSubCategories/Recommendati
 import MostlyUsed from "@/src/components/ITModulesSubCategories/MostlyUsed";
 import HighInDemand from "@/src/components/ITModulesSubCategories/HighInDemand";
 import ExploreAllServices from "@/src/components/ITModulesSubCategories/ExploreAllServices";
-import { useState } from "react";
+import { useState, use } from "react";
+import Link from "next/link";
 
 
 type Props = {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 };
 
 export default function SubCategoryPage({ params }: Props) {
-    const contextTitle = params.slug; // e.g. "app-development"
-    
-        const categories = [{ label: "Cyber Security", path: "/image/cybersecurity.png" },
-        { label: "IT Consulting", path: "/image/itconsulting.png" },
-        { label: "Web Development", path: "/image/webdevelopment.png" },
-        { label: "App Development", path: "/image/appdevelopment.png" },]
-    
-        const [selectedRange, setSelectedRange] = useState("all");
-        const [selectedCategory, setSelectedCategory] = useState("all");
-        const [searchQuery, setSearchQuery] = useState("");
-    
-    
-    
-        const valueRange = [
-            { label: "All", value: "all" },
-            { label: "300", value: "0-300" },
-            { label: "300-400 Rs", value: "300-400" },
-            { label: "400-600 Rs", value: "400-600" },
-            { label: "600-800 Rs", value: "600-800" },
-            { label: "800-1000 Rs", value: "800-1000" },
-        ];
+
+    const { slug } = use(params);   // ✅ unwrap params
+    const contextTitle = slug;
+
+
+    const categories = [{ label: "Cyber Security", path: "/image/cybersecurity.png" },
+    { label: "IT Consulting", path: "/image/itconsulting.png" },
+    { label: "Web Development", path: "/image/webdevelopment.png" },
+    { label: "App Development", path: "/image/appdevelopment.png" },]
+
+    const [selectedRange, setSelectedRange] = useState("all");
+    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [searchQuery, setSearchQuery] = useState("");
+
+
+
+    const valueRange = [
+        { label: "All", value: "all" },
+        { label: "300", value: "0-300" },
+        { label: "300-400 Rs", value: "300-400" },
+        { label: "400-600 Rs", value: "400-600" },
+        { label: "600-800 Rs", value: "600-800" },
+        { label: "800-1000 Rs", value: "800-1000" },
+    ];
+
+    const formatSlugToTitle = (slug: string) => {
+        return slug
+            .split("-")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+    };
+
 
     return (
         <>
@@ -49,13 +61,17 @@ export default function SubCategoryPage({ params }: Props) {
                                 className="w-[26px] h-[30px] lg:w-[36px] lg:h-[45px]"
                                 alt="Home"
                             />
-                            <img
-                                src="/image/Vector (1).png"
-                                className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
-                                alt="Back"
-                            />
+
+                            <Link href="/MainModules/ITService" >
+                                <img
+                                    src="/image/Vector (1).png"
+                                    className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
+                                    alt="Back"
+                                />
+                            </Link>
+
                             <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
-                                IT Services
+                                {formatSlugToTitle(slug)}
                             </h1>
                         </div>
 
@@ -133,18 +149,18 @@ export default function SubCategoryPage({ params }: Props) {
                     </div>
 
 
-               
-                 
+
+
 
                 </div>
 
             </section>
 
             <section className="w-full mt-6 md:mt-10">
-                <Recommendation contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery}/>
-                <MostlyUsed contextTitle={contextTitle} />
-                <HighInDemand contextTitle={contextTitle} />
-                <ExploreAllServices contextTitle={contextTitle} />
+                <ExploreAllServices contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <Recommendation contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <MostlyUsed contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <HighInDemand contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
             </section>
         </>
     );

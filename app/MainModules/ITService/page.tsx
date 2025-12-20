@@ -5,6 +5,8 @@ import MostlyUsed from '@/src/components/ITModules/MostlyUsed';
 import Recommendation from '@/src/components/ITModules/Recommendation';
 import WhyChooseUs from '@/src/components/ITModules/WhyChooseUs';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function ITModulesPage() {
@@ -29,6 +31,39 @@ export default function ITModulesPage() {
         { label: "800-1000 Rs", value: "800-1000" },
     ];
 
+
+    type CategoryBgProps = {
+        active: boolean;
+    };
+
+    const CategoryBg: React.FC<CategoryBgProps> = ({ active }) => (
+        <svg
+            viewBox="0 0 300 80"
+            preserveAspectRatio="none"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+        >
+            <path
+                d="
+        M 20 0
+        H 280
+        L 300 0
+        V 30
+        Q 300 80 230 80
+        H 0
+        V 20
+        Q 0 0 20 0
+        Z
+      "
+                fill={active ? '#000000' : '#E9EEF5'}
+            />
+        </svg>
+    );
+
+    const router = useRouter();
+    const toSlug = (text: string) =>
+        text.toLowerCase().replace(/\s+/g, "-");
+
+
     return (
         <>
             <section className="relative w-full">
@@ -42,11 +77,15 @@ export default function ITModulesPage() {
                                 className="w-[26px] h-[30px] lg:w-[36px] lg:h-[45px]"
                                 alt="Home"
                             />
+
+                            <Link href="/" >
                             <img
                                 src="/image/Vector (1).png"
                                 className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
                                 alt="Back"
                             />
+                            </Link>
+                            
                             <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
                                 IT Services
                             </h1>
@@ -100,9 +139,9 @@ export default function ITModulesPage() {
                     {/* Header Row */}
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
 
-                         <h2 className="text-xl md:text-3xl font-semibold mb-4">
-                   Search According to you
-                </h2>
+                        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+                            Search According to you
+                        </h2>
 
 
                         {/* Search Box */}
@@ -111,7 +150,7 @@ export default function ITModulesPage() {
                                 type="text"
                                 placeholder="Search"
                                 value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+                                onChange={(e) => setSearchQuery(e.target.value)}
 
                                 className="
                                 w-full
@@ -125,7 +164,7 @@ export default function ITModulesPage() {
                             />
                             {/* search icon */}
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                             <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[20.66px]'/>
+                                <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[20.66px]' />
                             </span>
                         </div>
 
@@ -160,49 +199,83 @@ export default function ITModulesPage() {
 
                     {/* CATEGORY */}
                     <div className="mt-10">
-                          <h2 className="text-xl md:text-3xl font-semibold mb-4">
+                        <h2 className="text-xl md:text-3xl font-semibold mb-4">
                             Category
-                            </h2>
+                        </h2>
 
+                        {/* <div className="flex gap-4 overflow-x-auto no-scrollbar">
+                            {categories.map((cat, index) => {
+                                const active = selectedCategory === cat.label;
 
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() => setSelectedCategory(cat.label)}
+                                        className="relative min-w-[200px] h-[60px]"
+                                    >
+                                        <CategoryBg active={active} />
+
+                                        <div className="relative z-10 flex items-center justify-between px-4">
+                                            <span
+                                                className={`text-sm font-medium ${active ? "text-white" : "text-black"
+                                                    }`}
+                                                     onClick={() =>
+                                router.push(`/MainModules/ITService/${toSlug(cat.label)}`)
+                            }
+                                             >
+                                                {cat.label}
+                                            </span>
+
+                                            <img
+                                                src={cat.path}
+                                                alt="categoryicon"
+                                                className="w-6 h-6"
+                                            />
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div> */}
                         <div className="flex gap-4 overflow-x-auto no-scrollbar">
-                            {/* ALL category */}
-                            <button
-                                onClick={() => setSelectedCategory("all")}
-                                className={`min-w-[120px] px-2 py-2 rounded-xl text-sm font-medium border
-                          ${selectedCategory === "all"
-                                        ? "bg-black text-white"
-                                        : "bg-[#E9EEF5] text-black"}
-                           `}
-                            >
-                                All
-                            </button>
+                            {categories.map((cat, index) => {
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() =>
+                                            router.push(`/MainModules/ITService/${toSlug(cat.label)}`)
+                                        }
+                                        className="relative min-w-[200px] h-[60px] cursor-pointer"
+                                    >
+                                        {/* background (inactive always, since no filter here) */}
+                                        <CategoryBg active={false} />
 
-                            {categories.map((cat, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setSelectedCategory(cat.label)}
-                                    className={`flex items-center justify-between gap-3 min-w-[180px] px-3 py-3 rounded-xl text-sm font-medium border
-                          ${selectedCategory === cat.label
-                                            ? "bg-black text-white"
-                                            : "bg-[#E9EEF5] text-black"}
-                          `}
-                                >
-                                    <span>{cat.label}</span>
-                                    <img src={cat.path} alt="categoryicon" />
-                                </button>
-                            ))}
+                                        <div className="relative z-10 flex items-center justify-between px-4">
+                                            <span className="text-sm font-medium text-black">
+                                                {cat.label}
+                                            </span>
+
+                                            <img
+                                                src={cat.path}
+                                                alt="categoryicon"
+                                                className="w-6 h-6"
+                                            />
+                                        </div>
+                                    </button>
+                                );
+                            })}
                         </div>
+
                     </div>
+
 
                 </div>
 
             </section>
 
             <section className="w-full mt-6 md:mt-10">
-                <Recommendation selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <MostlyUsed selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <HighInDemand selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <Recommendation selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <MostlyUsed selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <HighInDemand selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
                 <WhyChooseUs />
             </section>
         </>
