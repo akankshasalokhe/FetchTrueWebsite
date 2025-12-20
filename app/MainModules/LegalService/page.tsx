@@ -1,13 +1,42 @@
 "use client";
 
 import CategorySection from "@/src/components/Legal/CategorySection";
-import LegalExpertsSection from "@/src/components/Legal/LegalExpert";
 import LegalServiceSpotlight from "@/src/components/Legal/LegalServiceSpotlight";
-import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
-import TopLegalService from "@/src/components/Legal/TopLegalService";
-import { Home, ArrowLeft, Bookmark } from "lucide-react";
+import RecommendedSection from "@/src/components/Section/RecommendedSection";
+import TopLegalServicesSection from "@/src/components/Section/TopLegalServicesSection";
 import Image from "next/image";
 import { useRef } from "react";
+
+const services = [
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+];
 
 
 export default function LegalPage() {
@@ -54,7 +83,7 @@ const scrollByCard = (direction: "left" | "right") => {
           <img
             src="/image/Vector (1).png"
             alt="Back Icon"
-            className="text-black"
+            className="text-black hidden lg:block"
             
           />
 
@@ -87,7 +116,7 @@ const scrollByCard = (direction: "left" | "right") => {
       </section>
 
       {/* Hero Section */}
-      <section className="relative flex justify-center mt-16 lg:mt-28 px-4 overflow-hidden mb-20">
+      <section className="relative flex justify-center mt-0  px-4 overflow-hidden ">
   {/* ================= MAIN HERO CONTAINER ================= */}
   <div
     className="
@@ -207,7 +236,7 @@ const scrollByCard = (direction: "left" | "right") => {
 </section>
 
 
- <section className="relative z-10 w-full flex justify-center my-30 px-4">
+ <section className="relative z-10 w-full flex justify-center my-20 lg:my-30 px-4">
       <div className="w-full max-w-[1200px]">
 
         {/* ================= HEADING ================= */}
@@ -294,8 +323,14 @@ const scrollByCard = (direction: "left" | "right") => {
       <CategorySection />
 </div>
 
-<RecommendedForYou />
-<TopLegalService />
+<RecommendedSection
+        title="Recommended Legal Services"
+        services={services}
+/>
+<TopLegalServicesSection 
+        title="Top Legal Services"
+        services={services}
+/>
 <LegalServiceSpotlight />
 
     </div>

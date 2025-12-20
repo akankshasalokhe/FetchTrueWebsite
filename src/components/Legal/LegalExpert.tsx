@@ -48,30 +48,23 @@ const experts = [
 
 export default function LegalExpertsSection() {
   return (
-    <section className="w-full bg-[#FDF7EF] py-12 flex justify-center">
-      
+    <section className="w-full bg-[#FDF7EF] py-12">
       {/* MAIN CONTAINER */}
-      <div className="w-full max-w-[1298px] px-4 sm:px-6 flex flex-col gap-[25px]">
+      <div className=" mx-auto lg:mx-12 px-4 sm:px-6 lg:px-8 flex flex-col gap-6">
 
         {/* HEADING */}
-        <h2 className="font-inter font-semibold text-[20px] sm:text-[22px] lg:text-[24px] leading-[36px]">
+        <h2 className="font-inter font-semibold text-[20px] sm:text-[22px] lg:text-[24px]">
           Get our Legal Experts
         </h2>
 
         {/* SCROLL WRAPPER */}
-        <div className="
-          min-h-[409px]
-          rounded-[20px]
-          bg-gradient-to-r from-[#4D2D21] to-[#B3694D]
-          px-4 sm:px-6
-          py-10 sm:py-14
-        ">
+        <div className="rounded-[20px] bg-gradient-to-r from-[#4D2D21] to-[#B3694D] px-4 sm:px-6 py-8 sm:py-12">
           <div
             className="
-              flex gap-6
-              overflow-x-auto scroll-smooth
+              flex gap-6 sm:gap-6
+              overflow-x-auto
+              scroll-smooth
               snap-x snap-mandatory
-              touch-pan-x
               scrollbar-hide
             "
           >
@@ -79,44 +72,42 @@ export default function LegalExpertsSection() {
               <div
                 key={index}
                 className="
-                  w-[85vw] sm:w-[260px] lg:w-[240px]
-                  h-[310.1px]
+                  w-[60vw] sm:w-[200px] lg:w-[270px]
+                  min-h-[310px]
                   bg-white rounded-[20px]
-                  px-5 py-6
+                  px-4 sm:px-5 py-6
                   flex-shrink-0 snap-start
                   flex flex-col items-center
                 "
               >
                 {/* PROFILE IMAGE */}
-                <div className="w-[68.91px] h-[68.91px] rounded-full overflow-hidden bg-[#D9D9D9]">
+                <div className="w-[68px] h-[68px] rounded-full overflow-hidden bg-[#D9D9D9]">
                   <Image
                     src={expert.image}
                     alt={expert.name}
-                    width={69}
-                    height={69}
-                    className="object-cover rounded-full"
+                    width={68}
+                    height={68}
+                    className="object-cover"
                   />
                 </div>
 
                 {/* NAME */}
-                <h3 className="mt-4 text-center font-inter font-semibold text-[16px] leading-[22px] w-[193.66px]">
+                <h3 className="mt-4 text-center font-inter font-semibold text-[16px] leading-[22px]">
                   {expert.name}
                 </h3>
 
                 {/* ROLE */}
-                <p className="text-center font-inter font-medium text-[14px] leading-[18px] text-gray-600 w-[193.66px]">
+                <p className="text-center font-inter font-medium text-[14px] text-gray-600">
                   {expert.role}
                 </p>
 
                 {/* RATING */}
-                <div className="flex gap-[2.18px] mt-2">
+                <div className="flex gap-1 mt-2">
                   {[...Array(5)].map((_, i) => (
                     <span
                       key={i}
-                      className={`text-[20px] ${
-                        i < expert.rating
-                          ? "text-[#FAC338]"
-                          : "text-gray-300"
+                      className={`text-[18px] ${
+                        i < expert.rating ? "text-[#FAC338]" : "text-gray-300"
                       }`}
                     >
                       ★
@@ -125,20 +116,20 @@ export default function LegalExpertsSection() {
                 </div>
 
                 {/* LOCATION & EXPERIENCE */}
-                <div className="w-[219.8px] h-[59.41px] bg-[#F8F4EF] rounded-[12px] mt-3 mb-2 px-4 py-2 flex justify-between items-center">
+                <div className="w-full bg-[#F8F4EF] rounded-[12px] mt-3 mb-3 px-4 py-2 flex justify-between items-center">
                   <div className="flex items-center gap-1">
                     <MapPin size={14} />
                     <div>
-                      <p className="font-medium text-[14px]">{expert.location}</p>
-                      <p className="text-[12px] text-gray-500">Location</p>
+                      <p className="font-medium text-[13px]">{expert.location}</p>
+                      <p className="text-[11px] text-gray-500">Location</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-1">
                     <Briefcase size={14} />
                     <div className="text-right">
-                      <p className="font-medium text-[14px]">{expert.experience}</p>
-                      <p className="text-[12px] text-gray-500">Experience</p>
+                      <p className="font-medium text-[13px]">{expert.experience}</p>
+                      <p className="text-[11px] text-gray-500">Experience</p>
                     </div>
                   </div>
                 </div>
@@ -146,13 +137,11 @@ export default function LegalExpertsSection() {
                 {/* BUTTON */}
                 <button
                   className="
-                    mt-auto
-                    w-[219.8px] h-[35.64px]
-                    bg-[#AA6941]
-                    text-white
-                    rounded-[14.26px]
+                    mt-auto w-full h-[36px]
+                    bg-[#AA6941] text-white
+                    rounded-[14px]
                     font-inter font-semibold
-                    text-[14.26px] leading-[21.39px]
+                    text-[14px]
                     hover:opacity-90 transition
                   "
                 >
@@ -162,7 +151,6 @@ export default function LegalExpertsSection() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
