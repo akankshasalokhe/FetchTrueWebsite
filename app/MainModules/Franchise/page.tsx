@@ -5,6 +5,8 @@ import LowInvestmentFranchises from "@/src/components/Franchise/LowInvestment";
 import Recommended from "@/src/components/Franchise/recommendFranchise";
 import TopGrowingFranchises from "@/src/components/Franchise/TopGrowing";
 import { CiSearch } from "react-icons/ci";
+import Link from "next/link";
+import TopTrending from "@/src/components/TopTrending/TopTrending";
 
 export default function FranchisePage() {
   return (
@@ -194,23 +196,28 @@ export default function FranchisePage() {
     "
   >
     {[
-      { name: "Real Estate", bg: "#F3F7FF", img: "/image/realEstate.png" },
-      { name: "Hotel & Restaurant", bg: "#FFFBF2", img: "/image/hotel.png" },
-      { name: "Beauty", bg: "#FEFBFF", img: "/image/Beauty.png" },
-      { name: "Sports & Fitness", bg: "#F7FFF5B8", img: "/image/sports.png" },
-      { name: "Pet", bg: "#FFFBF6", img: "/image/pet.png" },
-      { name: "Home Based Business", bg: "#FFF6F3", img: "/image/homeBusiness.png" },
-      { name: "Logistic", bg: "#F8FCFF", img: "/image/logistic.png" },
-      { name: "Agents Dealers Distribution", bg: "#F9F9F9", img: "/image/dealer.png" },
-      { name: "Automotive", bg: "#F9FFFA", img: "/image/automative.png" },
-      { name: "Fashion & Jewelry", bg: "#FFFCFC", img: "/image/fashion.png" },
-      { name: "Food & Beverage", bg: "#FFFBFA", img: "/image/food.png" },
-      { name: "Health care", bg: "#FFF6F7", img: "/image/healthCare.png" },
-      { name: "Retail", bg: "#FEFEFE", img: "/image/retail.png" },
-      { name: "Manufacturing", bg: "#FFF6F3", img: "/image/manufacture.png" },
-      { name: "Travel", bg: "#FFFBF2", img: "/image/travel.png" },
-      { name: "Business & Consultancy", bg: "#FAFDFF", img: "/image/business&consult.png" },
+      { name: "Real Estate",slug: "real-estate" ,bg: "#F3F7FF", img: "/image/realEstate.png" },
+      { name: "Hotel & Restaurant",slug:"hotel-and-restaurant" ,bg: "#FFFBF2", img: "/image/hotel.png" },
+      { name: "Beauty",slug:"beauty", bg: "#FEFBFF", img: "/image/Beauty.png" },
+      { name: "Sports & Fitness",slug:"sports-and-fitness", bg: "#F7FFF5B8", img: "/image/sports.png" },
+      { name: "Pet",slug:"pet", bg: "#FFFBF6", img: "/image/pet.png" },
+      { name: "Home Based Business", slug:"home-based-business" ,bg: "#FFF6F3", img: "/image/homeBusiness.png" },
+      { name: "Logistic",slug:"logistic", bg: "#F8FCFF", img: "/image/logistic.png" },
+      { name: "Agents Dealers Distribution",slug:"agents-dealers-distribution", bg: "#F9F9F9", img: "/image/dealer.png" },
+      { name: "Automotive",slug:"automotive", bg: "#F9FFFA", img: "/image/automative.png" },
+      { name: "Fashion & Jewelry",slug:"fashion-and-jewelry", bg: "#FFFCFC", img: "/image/fashion.png" },
+      { name: "Food & Beverage",slug:"food-and-beverage", bg: "#FFFBFA", img: "/image/food.png" },
+      { name: "Health care",slug:"health-care", bg: "#FFF6F7", img: "/image/healthCare.png" },
+      { name: "Retail",slug:"retail", bg: "#FEFEFE", img: "/image/retail.png" },
+      { name: "Manufacturing",slug:"manufaturing", bg: "#FFF6F3", img: "/image/manufacture.png" },
+      { name: "Travel",slug:"travel", bg: "#FFFBF2", img: "/image/travel.png" },
+      { name: "Business & Consultancy",slug:"business-and-consultancy", bg: "#FAFDFF", img: "/image/business&consult.png" },
     ].map((item, index) => (
+      <Link
+        key={index}
+        href={`/MainModules/Franchise/${item.slug}`}
+        className="cursor-pointer"
+      >
       <div
         key={index}
         className="
@@ -247,13 +254,15 @@ export default function FranchisePage() {
           {item.name}
         </p>
       </div>
+      </Link>
     ))}
   </div>
 </section>
 
 
 <Recommended />
-<HighDemands />
+{/* <HighDemands /> */}
+<TopTrending />
 <TopGrowingFranchises />
 <BenefitsSection />
 <InvestmentOfferSection />
