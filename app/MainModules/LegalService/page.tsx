@@ -5,9 +5,41 @@ import LegalExpertsSection from "@/src/components/Legal/LegalExpert";
 import LegalServiceSpotlight from "@/src/components/Legal/LegalServiceSpotlight";
 import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
 import TopLegalService from "@/src/components/Legal/TopLegalService";
+import RecommendedSection from "@/src/components/Section/RecommendedSection";
 import { Home, ArrowLeft, Bookmark } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
+
+const services = [
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+  {
+    title: "LLP Registration",
+    category: "Legal Service",
+    price: 4550,
+    rating: 4,
+    image: "/image/LLPRegistration.jpg",
+  },
+];
 
 
 export default function LegalPage() {
@@ -294,7 +326,11 @@ const scrollByCard = (direction: "left" | "right") => {
       <CategorySection />
 </div>
 
-<RecommendedForYou />
+{/* <RecommendedForYou /> */}
+<RecommendedSection
+        title="Recommended Legal Services"
+        services={services}
+/>
 <TopLegalService />
 <LegalServiceSpotlight />
 

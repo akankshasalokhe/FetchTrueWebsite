@@ -154,7 +154,7 @@
 
 import Image from "next/image";
 import { Bookmark } from "lucide-react";
-import ServiceCard from "../ServiceCard";
+import ServiceCard from "../ui/ServiceCard";
 
 const services = [
   {

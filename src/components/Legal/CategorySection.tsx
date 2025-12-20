@@ -71,7 +71,7 @@ export default function CategorySection() {
           {categories.map((item, index) => (
             <Link
               key={index}
-              href={`/category/${item.slug}`}
+                href={`/MainModule/LegalService/${item.slug}`}
               className="snap-start"
             >
               <div
@@ -114,7 +114,7 @@ export default function CategorySection() {
                     font-inter font-semibold
                     text-[14px] sm:text-[15px]
                     leading-[20px]
-                    text-black text-center
+                    text-black text-left
                   "
                 >
                   {item.title}
