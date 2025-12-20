@@ -19,28 +19,28 @@ export default function SubCategoryPage({ params }: Props) {
     const { slug } = use(params);   // ✅ unwrap params
     const contextTitle = slug;
 
-    
-        const categories = [{ label: "Cyber Security", path: "/image/cybersecurity.png" },
-        { label: "IT Consulting", path: "/image/itconsulting.png" },
-        { label: "Web Development", path: "/image/webdevelopment.png" },
-        { label: "App Development", path: "/image/appdevelopment.png" },]
-    
-        const [selectedRange, setSelectedRange] = useState("all");
-        const [selectedCategory, setSelectedCategory] = useState("all");
-        const [searchQuery, setSearchQuery] = useState("");
-    
-    
-    
-        const valueRange = [
-            { label: "All", value: "all" },
-            { label: "300", value: "0-300" },
-            { label: "300-400 Rs", value: "300-400" },
-            { label: "400-600 Rs", value: "400-600" },
-            { label: "600-800 Rs", value: "600-800" },
-            { label: "800-1000 Rs", value: "800-1000" },
-        ];
 
-          const formatSlugToTitle = (slug: string) => {
+    const categories = [{ label: "Cyber Security", path: "/image/cybersecurity.png" },
+    { label: "IT Consulting", path: "/image/itconsulting.png" },
+    { label: "Web Development", path: "/image/webdevelopment.png" },
+    { label: "App Development", path: "/image/appdevelopment.png" },]
+
+    const [selectedRange, setSelectedRange] = useState("all");
+    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [searchQuery, setSearchQuery] = useState("");
+
+
+
+    const valueRange = [
+        { label: "All", value: "all" },
+        { label: "300", value: "0-300" },
+        { label: "300-400 Rs", value: "300-400" },
+        { label: "400-600 Rs", value: "400-600" },
+        { label: "600-800 Rs", value: "600-800" },
+        { label: "800-1000 Rs", value: "800-1000" },
+    ];
+
+    const formatSlugToTitle = (slug: string) => {
         return slug
             .split("-")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -63,11 +63,11 @@ export default function SubCategoryPage({ params }: Props) {
                             />
 
                             <Link href="/MainModules/ITService" >
-                            <img
-                                src="/image/Vector (1).png"
-                                className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
-                                alt="Back"
-                            />
+                                <img
+                                    src="/image/Vector (1).png"
+                                    className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
+                                    alt="Back"
+                                />
                             </Link>
 
                             <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
@@ -149,18 +149,18 @@ export default function SubCategoryPage({ params }: Props) {
                     </div>
 
 
-               
-                 
+
+
 
                 </div>
 
             </section>
 
             <section className="w-full mt-6 md:mt-10">
-                <Recommendation contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery}/>
-                <MostlyUsed contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <HighInDemand contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <ExploreAllServices contextTitle={contextTitle} selectedRange={selectedRange}  selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <ExploreAllServices contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <Recommendation contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <MostlyUsed contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <HighInDemand contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
             </section>
         </>
     );
