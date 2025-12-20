@@ -145,9 +145,9 @@ type MostlyUsedProps = {
 export default function MostlyUsed({ selectedRange, selectedCategory, searchQuery }: MostlyUsedProps) {
 
     const containerRef = useRef<HTMLDivElement | null>(null);
-      const router = useRouter();
-      const toSlug = (text: string) =>
-            text.toLowerCase().replace(/\s+/g, "-");
+    const router = useRouter();
+    const toSlug = (text: string) =>
+        text.toLowerCase().replace(/\s+/g, "-");
 
 
     const CARD_CLASSES = `
@@ -181,14 +181,42 @@ export default function MostlyUsed({ selectedRange, selectedCategory, searchQuer
         return rangeMatch && categoryMatch && searchMatch;
     });
 
+
+    type CardBgProps = {
+        active?: boolean;
+    };
+
+    const CardBg: React.FC<CardBgProps> = ({ active = false }) => (
+        <svg
+            viewBox="0 0 300 200"
+            preserveAspectRatio="none"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+        >
+            <path
+                d="
+            M 20 0
+            H 280
+            L 300 0
+            V 70
+            Q 350 230 220 200
+            H 0
+            V 30
+            Q 0 0 20 0
+            Z
+          "
+                fill="#E2E9F1"
+            />
+        </svg>
+    );
+
+
+
     return (
         <div className="w-full p-4 md:ml-6 md:p-6">
             {/* TITLE */}
             <h2 className="text-xl md:text-3xl font-semibold mb-4">
                 Mostly Used
             </h2>
-
-
 
             {/* SWIPEABLE CARDS */}
             <div
@@ -199,88 +227,93 @@ export default function MostlyUsed({ selectedRange, selectedCategory, searchQuer
                     filteredServices.map((item) => (
                         <div
                             key={item.id}
-                             onClick={() =>
-                                router.push(`/MainModules/ITService/${toSlug(item.title)}`)
-                            }
-                            className="snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[362px]
-                            sm:w-[70vw] md:w-[390px] rounded-3xl overflow-hidden shadow-lg"
-                            style={{ backgroundColor: "#E2E9F1" }}
+                            // onClick={() =>
+                            //   router.push(`/MainModules/ITService/${toSlug(item.title)}`)
+                            // }
+                            className="
+                  relative snap-center flex-shrink-0
+                  w-[290px] min-h-[271px]
+                  sm:w-[70vw]
+                  md:w-[390px] md:h-[362px]
+                  overflow-hidden 
+                "
                         >
-                            {/* IMAGE SECTION */}
-                            <div className="relative md:h-[200px] md:w-[395.31px] w-[285px] h-[156px]">
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    className="w-full h-full object-cover"
-                                />
+                            {/* SVG BACKGROUND */}
+                            <CardBg />
 
-                                {/* Discount */}
-                                <span className="absolute top-4 right-14 bg-green-400 text-black text-xs font-semibold px-3 py-1 rounded-lg">
-                                    Discount {item.discount}
-                                </span>
+                            {/* CONTENT */}
+                            <div className="relative z-10 h-full flex flex-col">
+                                {/* IMAGE SECTION */}
+                                <div className="relative md:h-[200px] w-full p-2 h-[156px]">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover"
+                                    />
 
-                                {/* Bookmark */}
-                                <button className="absolute top-3 right-4 bg-black/70 p-2 rounded-full">
-                                    <Bookmark size={16} className="text-white" />
-                                </button>
-                            </div>
-
-                            {/* CONTENT SECTION */}
-                            <div className="relative p-4 text-black">
-
-                                <div className="flex items-center justify-between">
-                                    <span className="
-                                            text-[16px]
-                                            font-semibold
-                                            leading-snug
-                                            line-clamp-2
-                                            max-w-[65%]
-                                            ">
-                                        {item.title}
+                                    {/* Discount */}
+                                    <span className="absolute top-4 right-14 bg-green-400 text-black text-xs font-semibold px-3 py-1 rounded-lg">
+                                        Discount {item.discount}
                                     </span>
 
-
-                                    <span className="
-                                            bg-white text-xs px-3 py-1 rounded-full
-                                            whitespace-nowrap shrink-0
-                                            ">
-                                        {item.earn}
-                                    </span>
-
+                                    {/* Bookmark */}
+                                    <button className="absolute top-3 right-4 bg-black/70 p-2 rounded-full">
+                                        <Bookmark size={16} className="text-white" />
+                                    </button>
                                 </div>
 
-                                <p className="text-[12px] md:text-[16px] text-black mt-1">
-                                    {item.subtitle}
-                                </p>
+                                {/* CONTENT SECTION */}
+                                <div className="relative p-4 text-black flex-1">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-[16px] font-semibold leading-snug line-clamp-2 max-w-[65%]">
+                                            {item.title}
+                                        </span>
 
-                                <div className=" space-y-1">
-                                    <span className="inline-block bg-white text-[9px] md:text-[10px] px-3 py-1 mb-4 rounded-full"
-                                        style={{ fontWeight: 400 }}>
-                                        {item.category}
-                                    </span>
+                                        <span className="bg-white text-xs px-3 py-1 rounded-full whitespace-nowrap shrink-0">
+                                            {item.earn}
+                                        </span>
+                                    </div>
 
-                                    <div>
-                                        <h4 className="text-xs text-black leading-none">Reviews</h4>
+                                    <p className="text-[12px] md:text-[16px] mt-1">
+                                        {item.subtitle}
+                                    </p>
 
-                                        <div className="flex items-center text-yellow-400 text-[20.03px] md:text-[25.68px] gap-1 leading-none">
-                                            {"★".repeat(item.rating)}
-                                            {"☆".repeat(5 - item.rating)}
+                                    <div className="space-y-1">
+                                        <span className="inline-block bg-white text-[9px] md:text-[10px] px-3 py-1 mb-4 rounded-full">
+                                            {item.category}
+                                        </span>
+
+                                        <div>
+                                            <h4 className="text-xs leading-none">Reviews</h4>
+                                            <div className="flex items-center text-yellow-400 text-[20px] md:text-[25px] gap-1 leading-none">
+                                                {"★".repeat(item.rating)}
+                                                {"☆".repeat(5 - item.rating)}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                    {/* PRICE */}
+                                    <div
+                                        className="
+                                            absolute bottom-4 right-4
+                                            bg-white text-black font-semibold
+                                            text-[21.71px] md:text-[27.89px]
+                                            px-4 py-2
+                                            rounded-2xl shadow-md
 
-
-                                {/* PRICE */}
-                                <div className="absolute bottom-4 md:bottom-4 right-4 bg-white text-black font-semibold text-xl px-5 py-3 rounded-2xl shadow-md">
-                                    ₹ {item.price}
+                                            max-w-[85%]
+                                            truncate
+                                            whitespace-nowrap
+                                        "
+                                    >
+                                        ₹ {item.price}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     ))
                 ) : (
-                    <div className={`${CARD_CLASSES} bg-gray-500 flex items-center justify-center`}>
+                    <div className="w-full bg-gray-500 flex items-center justify-center">
                         <div className="bg-white rounded-2xl p-6 text-center w-full">
                             <p className="text-lg font-semibold text-gray-800">
                                 No Services Found
@@ -295,7 +328,7 @@ export default function MostlyUsed({ selectedRange, selectedCategory, searchQuer
                 {/* MOBILE SPACER */}
                 <div className="md:hidden min-w-4" />
             </div>
-
         </div>
     );
+
 }
