@@ -4,6 +4,7 @@ import ExploreServices from '@/src/components/DesignStudio/ExploreServices/Explo
 import MostlyUsed from '@/src/components/DesignStudio/MostlyUsed/MostlyUsed';
 import Recommendation from '@/src/components/DesignStudio/Recommendation/Recommendation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const navItems = [
     { label: 'Logo\nDesign', icon: '/image/logodesign.png' },
@@ -34,11 +35,13 @@ export default function DesignStudioPage() {
                     <div className="border-b-2 border-white">
                     <div className="flex items-center gap-6 px-4 md:px-6 py-4 md:ml-8">
                         <div className="flex items-center gap-3 mt-5">
+                            <Link href="/MainModules/Marketing">
                             <img
                                 src="/image/designvector.png"
                                 className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
                                 alt="Back"
                             />
+                            </Link>
                             <h1 className="text-white font-semibold text-base md:text-lg leading-none">
                                 Design Studio
                             </h1>

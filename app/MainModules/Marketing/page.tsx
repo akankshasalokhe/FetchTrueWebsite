@@ -3,6 +3,7 @@
 import Image from "next/image";
 import CategoryModule from "@/src/components/Marketing/Category";
 import { Home, LogOut, Bookmark, Search } from "lucide-react";
+import Link from "next/link";
 
 export default function MarketingHero() {
   return (
@@ -27,7 +28,7 @@ export default function MarketingHero() {
                         px-4 sm:px-6 py-5
                         flex items-center justify-between text-white">
           <div className="flex items-center gap-4">
-            <Home className="w-5 h-5" />
+            <Link href="/"><Home className="w-5 h-5" /></Link>
             <LogOut className="w-5 h-5" />
           </div>
 

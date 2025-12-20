@@ -4,6 +4,7 @@ import CategorySection from "@/src/components/Legal/CategorySection";
 import LegalServiceSpotlight from "@/src/components/Legal/LegalServiceSpotlight";
 import RecommendedSection from "@/src/components/Section/RecommendedSection";
 import TopLegalServicesSection from "@/src/components/Section/TopLegalServicesSection";
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -72,20 +73,24 @@ const scrollByCard = (direction: "left" | "right") => {
         {/* LEFT SIDE */}
         <div className="flex items-center gap-6">
           {/* Home Icon */}
+          <Link href="/">
           <img
             src="/image/Group 3.png"
             alt="Home Icon"
             className="text-#A3623A"
             style={{ width: "34.36px", height: "42.95px" }}
           />
+          </Link>
 
           {/* Back Icon */}
+          <Link href="/">
           <img
             src="/image/Vector (1).png"
             alt="Back Icon"
             className="text-black hidden lg:block"
             
           />
+          </Link>
 
           {/* Title */}
           <h1

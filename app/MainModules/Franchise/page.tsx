@@ -34,17 +34,21 @@ export default function FranchisePage() {
         >
           {/* LEFT SIDE */}
           <div className="flex items-center gap-3 lg:gap-5">
+            <Link href="/">
             <img
               src="/image/Group 2.png"
               className="w-[26px] h-[30px] lg:w-[36px] lg:h-[45px]"
               alt="Home"
             />
+            </Link>
 
+            <Link href="/">
             <img
               src="/image/Vector (1).png"
               className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
               alt="Back"
             />
+            </Link>
 
             <h1 className="text-[18px] lg:text-[26px] font-semibold text-black">
               Franchise Service
