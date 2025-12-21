@@ -86,7 +86,7 @@ export default function Home() {
      <TopTrending />
      <GrowthPartner />
      <Refer />
-     <Footer />
+     {/* <Footer /> */}
     
      
    </>
