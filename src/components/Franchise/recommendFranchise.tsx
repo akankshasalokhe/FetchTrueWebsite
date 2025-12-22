@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 import { FaLocationDot } from "react-icons/fa6";
+import Link from "next/link";
 
 const data = [
   {
@@ -90,6 +91,11 @@ export default function Recommended() {
       {/* ---------- HORIZONTAL SCROLL ---------- */}
       <div className="w-full max-w-[1304px] mx-auto overflow-x-auto no-scrollbar flex gap-6 pb-4">
         {data.map((item) => (
+          <Link
+            key={item.id}
+            href={`/MainModules/Franchise/details/${item.id}`}
+            className="min-w-[300px] max-w-[300px]"
+          >
           <div
             key={item.id}
             className="min-w-[300px] max-w-[300px] h-auto bg-white rounded-[12px] border border-gray-300 shadow-sm p-3"
@@ -212,6 +218,7 @@ export default function Recommended() {
              <p className="font-bold text-[18px]"> ₹{item.price}</p>
             </div>
           </div>
+           </Link>
         ))}
       </div>
     </section>
