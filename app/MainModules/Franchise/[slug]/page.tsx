@@ -922,7 +922,7 @@ import { MdLocationOn } from "react-icons/md";
 import Image from "next/image";
 import { Bookmark } from "lucide-react";
 
-export default function RealStatePage() {
+export default function FranchiseCategoryServicePage() {
     const properties = [
         {
             id: 1,
