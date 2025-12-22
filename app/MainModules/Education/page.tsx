@@ -214,8 +214,8 @@ export default function EducationModulePage() {
             </section>
 
 
-            <section className="relative w-full mt-15 px-4 md:px-8">
-                <h1 className="text-[16px] md:text-[24px] mb-5">Category</h1>
+            <section className="relative w-full mt-10 px-4 md:px-8 bg-gray-100">
+                <h1 className="text-[16px] font-semibold md:text-[24px] mb-5 ">Category</h1>
 
                 {/* ================= DESKTOP (UNCHANGED) ================= */}
 
@@ -226,7 +226,7 @@ export default function EducationModulePage() {
                              onClick={() =>
                                 router.push(`/MainModules/Education/${toSlug(item.label)}`)
                             }
-                            className="flex flex-col items-center p-5 bg-gray-100 rounded-lg w-[120px]"
+                            className="flex flex-col mb-5 items-center p-3 bg-white/100 rounded-lg w-[120px]"
                         >
                             <img
                                 src={item.path}

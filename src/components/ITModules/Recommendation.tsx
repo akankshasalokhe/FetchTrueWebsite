@@ -258,16 +258,16 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                     filteredServices.map((item) => (
                         <div
                             key={item.id}
-                            // onClick={() =>
-                            //     router.push(`/MainModules/ITService/${toSlug(item.title)}`)
-                            // }
+                           onClick={() =>
+                                router.push(`/MainModules/ITService/ServiceDetails`)
+                            }
                             className="
-              relative snap-center flex-shrink-0
-              w-[290px] min-h-[271px]
-              sm:w-[70vw]
-              md:w-[390px] md:h-[362px]
-              overflow-hidden 
-            "
+                                relative snap-center flex-shrink-0
+                                w-[290px] min-h-[271px]
+                                sm:w-[70vw]
+                                md:w-[390px] md:h-[362px]
+                                overflow-hidden 
+                                "
                         >
                             {/* SVG BACKGROUND */}
                             <CardBg />

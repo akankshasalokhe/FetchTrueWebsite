@@ -6,6 +6,7 @@ import TopPicks from '@/src/components/EducationSubCategories/TopPick';
 import TopPopular from '@/src/components/EducationSubCategories/TopPopular';
 import Recommended from '@/src/components/EducationSubCategories/Recommended';
 import { useState, use } from "react";
+import Link from 'next/link';
 
 
 type Props = {
@@ -66,12 +67,15 @@ export default function SubCategoryPage({ params }: Props) {
                  filter hue-rotate-[140deg] saturate-200 brightness-105"
                                 alt="Home"
                             />
-
+                         <Link href="/MainModules/Education">
                             <img
                                 src="/image/educationback.png"
                                 className="hidden md:block w-[16px] h-[14px] lg:w-[38.6px] lg:h-[35.02px]"
                                 alt="Back"
                             />
+
+                         </Link>
+
                             <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
                                 {formatSlugToTitle(slug)}
                             </h1>
@@ -104,7 +108,7 @@ export default function SubCategoryPage({ params }: Props) {
                             <div
                                 key={index}
                                 className="
-                                snap-start
+                                snap-start cursor-pointer
                                 flex items-center gap-2
                                 p-2 bg-[#FE8F36]
                                 rounded-lg
@@ -112,6 +116,7 @@ export default function SubCategoryPage({ params }: Props) {
                                 md:w-[120px]
                                 flex-shrink-0
                             "
+                             onClick={() => setSelectedCategory(item.label)}
                             >
                                 <img
                                     src={item.path}

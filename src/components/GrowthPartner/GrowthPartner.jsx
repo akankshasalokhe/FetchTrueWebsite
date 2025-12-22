@@ -369,11 +369,11 @@ export default function GrowthPartner() {
 
   return (
     <div className="w-full hidden md:block lg:block py-20 px-6 bg-white">
-      <h2 className="text-xl text-center font-semibold">
+      <h2 className="text-[30px] text-center font-semibold">
         What Our Growth partners & <br /> Users say about us
       </h2>
 
-      <div ref={containerRef} className="relative mt-6">
+      <div ref={containerRef} className="relative mt-6 w-[1322px] h-[660px] mx-auto">
         <Image
           src="/mockup/growthpartner.png"
           alt="growthpartner"
@@ -385,24 +385,12 @@ export default function GrowthPartner() {
         {/* TEXT BOX */}
 
         <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 bg-[#B395E7] text-white border border-white-900 rounded-t-xl p-10 w-[584px] h-[324px] max-w-md shadow-xl">
-          <p className="mb-3 font-semibold" style={{fontWeight:"600" , fontSize:"32px"}}>One Platform Every Service</p>
+          <p className="mb-3 font-semibold whitespace-nowrap flex justify-center" style={{fontWeight:"600" , fontSize:"32px"}}>One Platform Every Service</p>
           <p className="text-[#FFFFFF] leading-relaxed"  style={{fontWeight:"400" , fontSize:"24px"}}>
             Over 1000+ great responses from our growth partners and users — we
             provide seamless services that solve real world problems.
           </p>
         </div>
-
-        {/* <div className="absolute z-50 text-center bottom-0 left-1/2 -translate-x-1/2 
-                bg-[#B395E7] text-white rounded-t-xl p-10 
-                w-[584px] h-[300px] max-w-md shadow-2xl border-t">
-          <p className="mb-3 font-semibold" style={{ fontWeight: "600", fontSize: "32px" }}>
-            One Platform Every Service
-          </p>
-          <p className="text-white/90 leading-relaxed" style={{ fontWeight: "400", fontSize: "24px" }}>
-            Over 1000+ great responses from our growth partners and users — we
-            provide seamless services that solve real world problems.
-          </p>
-        </div> */}
 
 
         {/* CARDS */}
