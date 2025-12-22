@@ -16,15 +16,15 @@ const CATEGORY_TABS = [
 ];
 
 /* ---------------- SERVICES DATA ---------------- */
-const SERVICES = [
+export const SERVICES = [
     {
         id: 1,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Digital Marketing",
-        users: "2400+ users",
-        rating: 4,
-        price: 450,
+        title: "Personal Growth Mastery",
+        subtitle: "Build confidence, habits & mindset",
+        category: "Personal Development",
+        users: "3200+ users",
+        rating: 5,
+        price: 299,
         discount: "30%",
         status: true,
         earn: "Earn Up to 5%",
@@ -32,110 +32,148 @@ const SERVICES = [
     },
     {
         id: 2,
-        title: "IT Consulting",
-        subtitle: "Develop your future website",
-        category: "UI / UX",
-        users: "1800+ users",
+        title: "Full Stack Web Development",
+        subtitle: "Become a job-ready developer",
+        category: "Development",
+        users: "4100+ users",
         rating: 5,
-        price: 380,
+        price: 599,
+        discount: "25%",
+        status: true,
+        earn: "Earn Up to 6%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 3,
+        title: "Cyber Security Fundamentals",
+        subtitle: "Protect systems & networks",
+        category: "IT&Software",
+        users: "2800+ users",
+        rating: 4,
+        price: 450,
+        discount: "20%",
+        status: true,
+        earn: "Earn Up to 5%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 4,
+        title: "Financial Planning & Investment",
+        subtitle: "Manage money like a pro",
+        category: "Finance Development",
+        users: "2300+ users",
+        rating: 5,
+        price: 399,
+        discount: "35%",
+        status: true,
+        earn: "Earn Up to 6%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 5,
+        title: "Teaching with Technology",
+        subtitle: "Modern tools for educators",
+        category: "Teaching&Software",
+        users: "1700+ users",
+        rating: 4,
+        price: 349,
+        discount: "20%",
+        status: true,
+        earn: "Earn Up to 4%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 6,
+        title: "Business Strategy & Growth",
+        subtitle: "Scale startups & enterprises",
+        category: "Business",
+        users: "3600+ users",
+        rating: 5,
+        price: 499,
+        discount: "30%",
+        status: true,
+        earn: "Earn Up to 7%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 7,
+        title: "Digital Marketing Bootcamp",
+        subtitle: "SEO, Ads & social growth",
+        category: "Marketing",
+        users: "4200+ users",
+        rating: 5,
+        price: 449,
+        discount: "40%",
+        status: true,
+        earn: "Earn Up to 6%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 8,
+        title: "Music Production Essentials",
+        subtitle: "Create & mix professional music",
+        category: "Music",
+        users: "1500+ users",
+        rating: 4,
+        price: 379,
         discount: "25%",
         status: true,
         earn: "Earn Up to 4%",
         image: "/image/educardbg.png",
     },
     {
-        id: 3,
-        title: "App Development",
-        subtitle: "Develop your future website",
-        category: "Graphic Design",
-        users: "1200+ users",
-        rating: 4,
-        price: 280,
-        discount: "20%",
-        status: true,
-        earn: "Earn Up to 3%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 4,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Print Design",
-        users: "950+ users",
-        rating: 4,
-        price: 220,
-        discount: "15%",
-        status: true,
-        earn: "Earn Up to 2%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 5,
-        title: "IT Consulting",
-        subtitle: "Develop your future website",
-        category: "Digital Marketing",
-        users: "2100+ users",
+        id: 9,
+        title: "UI / UX Design Masterclass",
+        subtitle: "Design stunning user experiences",
+        category: "Design",
+        users: "3900+ users",
         rating: 5,
-        price: 320,
+        price: 429,
+        discount: "30%",
+        status: true,
+        earn: "Earn Up to 6%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 10,
+        title: "Fitness & Wellness Program",
+        subtitle: "Transform body & lifestyle",
+        category: "Health&Fitness",
+        users: "2700+ users",
+        rating: 4,
+        price: 299,
         discount: "35%",
         status: true,
         earn: "Earn Up to 5%",
         image: "/image/educardbg.png",
     },
     {
-        id: 6,
-        title: "Web Development",
-        subtitle: "Develop your future website",
-        category: "UI / UX",
-        users: "1600+ users",
+        id: 11,
+        title: "Photography & Video Editing",
+        subtitle: "Shoot & edit like a pro",
+        category: "Photography & Video",
+        users: "2100+ users",
         rating: 5,
-        price: 520,
+        price: 459,
+        discount: "28%",
+        status: true,
+        earn: "Earn Up to 5%",
+        image: "/image/educardbg.png",
+    },
+    {
+        id: 12,
+        title: "Lifestyle Productivity System",
+        subtitle: "Organize life & boost efficiency",
+        category: "Lifestyle",
+        users: "1900+ users",
+        rating: 4,
+        price: 269,
         discount: "20%",
         status: true,
-        earn: "Earn Up to 6%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 7,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Print Design",
-        users: "1100+ users",
-        rating: 4,
-        price: 480,
-        discount: "18%",
-        status: true,
-        earn: "Earn Up to 3%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 8,
-        title: "Web Development",
-        subtitle: "Develop your future website",
-        category: "Graphic Design",
-        users: "1400+ users",
-        rating: 4,
-        price: 260,
-        discount: "22%",
-        status: true,
-        earn: "Earn Up to 3%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 9,
-        title: "App Development",
-        subtitle: "Develop your future website",
-        category: "Branding",
-        users: "900+ users",
-        rating: 5,
-        price: 750,
-        discount: "40%",
-        status: true,
-        earn: "Earn Up to 7%",
+        earn: "Earn Up to 4%",
         image: "/image/educardbg.png",
     },
 ];
-
 
 
 
@@ -180,10 +218,10 @@ export default function Recommendation() {
                     // >
                     <div
                         key={item.id}
-                        onClick={() =>
-                            router.push(`/MainModules/ITModules/${toSlug(item.title)}`)
-                        }
-                        className="cursor-pointer snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[344px]
+                        // onClick={() =>
+                        //     router.push(`/MainModules/ITModules/${toSlug(item.title)}`)
+                        // }
+                        className="cursor-pointer snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[374px]
                         sm:w-[70vw] md:w-[352px] rounded-3xl overflow-hidden shadow-lg"
                         style={{ backgroundColor: "#E2E9F1" }}
                     >
@@ -215,64 +253,67 @@ export default function Recommendation() {
                         {/* CONTENT SECTION */}
                         <div className="relative p-4 text-black">
 
-                            <div className="flex items-center justify-between">
-                                <span className="
+                                {/* 🔒 TITLE ROW (FIXED HEIGHT) */}
+                                <div className="flex items-start justify-between min-h-[44px]">
+                                    <span
+                                        className="
                                             text-[16px]
                                             font-semibold
                                             leading-snug
                                             line-clamp-2
-                                            max-w-[65%]
-                                            ">
-                                    {item.title}
-                                </span>
-
-
-                                <span className="
-                                            bg-white text-xs px-3 py-1 rounded-full
-                                            whitespace-nowrap shrink-0
-                                            ">
-                                    {item.earn}
-                                </span>
-
-                            </div>
-
-
-
-                            <div className=" space-y-1">
-                                <span className="inline-block bg-white text-[9px] md:text-[10px] px-3 py-1 mb-4 rounded-full"
-                                    style={{ fontWeight: 400 }}>
-                                    {item.category}
-                                </span>
-
-                                {/* STATUS */}
-                                {item.status && (
-                                    <span className="text-black text-[9px] md:text-[10px] px-5 py-1 rounded-full font-medium">
-                                       🟢 Online mode
+                                            md:text-[20px]
+                                            max-w-[65%] 
+                                        "
+                                    >
+                                        {item.title}
                                     </span>
-                                )}
 
-                                <div>
-                                    <h4 className="text-xs text-black leading-none">Reviews</h4>
+                                    <span className="
+                                        bg-white text-xs px-3 py-1
+                                        rounded-full whitespace-nowrap shrink-0
+                                        ">
+                                        {item.earn}
+                                    </span>
+                                </div>
 
-                                    <div className="flex items-center text-yellow-400 text-[20.03px] md:text-[25.68px] gap-1 leading-none">
-                                        {"★".repeat(item.rating)}
-                                        {"☆".repeat(5 - item.rating)}
+                                {/* ⬇️ BELOW CONTENT (WILL NOT MOVE) */}
+                                <div className="space-y-1 mt-1 mb-5">
+                                    <span className="inline-block bg-white text-[9px] md:text-[10px] px-3 py-1 mb-4 rounded-full">
+                                        {item.category}
+                                    </span>
+
+                                    {item.status && (
+                                        <span className="text-black text-[9px] md:text-[10px] px-5 py-1 rounded-full font-medium">
+                                            🟢 Online mode
+                                        </span>
+                                    )}
+
+                                    <div>
+                                        <h4 className="text-xs text-black leading-none">Reviews</h4>
+                                        <div className="flex items-center text-yellow-400 text-[20.03px] md:text-[25.68px] gap-1 leading-none">
+                                            {"★".repeat(item.rating)}
+                                            {"☆".repeat(5 - item.rating)}
+                                        </div>
                                     </div>
                                 </div>
+
+                                {/* PRICE */}
+                                <div
+                                    className="
+                                        absolute bottom-8 right-4 
+                                        bg-gray/20 text-black font-semibold
+                                        text-[21.71px] md:text-[27.89px]
+                                        px-4 py-1 rounded-2xl shadow-md
+                                        max-w-[85%] truncate whitespace-nowrap
+                                        "
+                                >
+                                    ₹ {item.price}
+                                </div>
                             </div>
-
-
-
-
-                            {/* PRICE */}
-                            <div className="absolute bottom-4 md:bottom-4 right-4 bg-white text-black font-semibold text-xl px-5 py-3 rounded-2xl shadow-md">
-                                ₹ {item.price}
-                            </div>
-                        </div>
                     </div>
 
                 ))}
-                : (
+                {/* : (
                 <div className={`${CARD_CLASSES} bg-gray-500 flex items-center justify-center`}>
                     <div className="bg-white rounded-2xl p-6 text-center w-full">
                         <p className="text-lg font-semibold text-gray-800">
@@ -283,7 +324,7 @@ export default function Recommendation() {
                         </p>
                     </div>
                 </div>
-                )
+                ) */}
 
                 {/* MOBILE SPACER */}
                 <div className="md:hidden min-w-4" />
