@@ -368,7 +368,7 @@ export default function GrowthPartner() {
   }, [inView]);
 
   return (
-    <div className="w-full hidden md:block lg:block py-20 px-6 bg-white">
+    <div className="w-full hidden md:-mt-10 md:block lg:block py-20 px-6 bg-white">
       <h2 className="text-[30px] text-center font-semibold">
         What Our Growth partners & <br /> Users say about us
       </h2>

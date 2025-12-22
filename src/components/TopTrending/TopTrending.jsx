@@ -203,13 +203,13 @@ export default function TopTrending() {
     }, [isDragging, startX, scrollLeft]);
 
     return (
-        <div className="relative w-full overflow-hidden p-4 md:p-6">
+        <div className="relative w-full md:-mt-8 overflow-hidden p-4 md:p-14">
             <h1 className="text-2xl md:text-4xl font-semibold mb-4 ml-6 md:mb-6 md:ml-8">Top Trending</h1>
 
             {/* SWIPEABLE CONTAINER - FIXED FOR ALL SCREEN SIZES */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-16 p-4 md:p-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar cursor-grab min-w-0"
+                className="flex gap-4 md:gap-16 p-4 md:p-6 md:w-[1535px] overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar cursor-grab min-w-0"
             >
                 {properties.map((p) => (
                     <div
