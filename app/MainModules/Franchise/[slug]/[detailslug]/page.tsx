@@ -1180,7 +1180,6 @@ export default function DetailsAllPage() {
 
 
 <MoreInformation
-  title="More Information"
   cards={[
     {
       title: "Brand Understanding",

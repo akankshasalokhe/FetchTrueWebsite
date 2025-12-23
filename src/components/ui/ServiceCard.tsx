@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Bookmark } from "lucide-react";
+import Link from "next/link";
 
 interface ServiceCardProps {
   title: string;
@@ -9,6 +10,8 @@ interface ServiceCardProps {
   price: number;
   rating: number;
   image: string;
+  slug:string;
+  detailslug:string;
 }
 
 export default function ServiceCard({
@@ -17,8 +20,11 @@ export default function ServiceCard({
   price,
   rating,
   image,
+  slug,
+  detailslug
 }: ServiceCardProps) {
   return (
+    <Link href={`/MainModules/LegalService/${slug}/${detailslug}`} className="block">
     <div
       className="
         min-w-[280px]
@@ -95,5 +101,6 @@ export default function ServiceCard({
         </div>
       </div>
     </div>
+    </Link>
   );
 }
