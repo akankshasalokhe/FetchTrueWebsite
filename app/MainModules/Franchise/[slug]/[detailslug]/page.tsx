@@ -28,6 +28,9 @@ import {
   Monitor,
   Headphones,
 } from "lucide-react";
+import MoreInformation from "@/src/components/Section/MoreInformationSection";
+import TermsConditions from "@/src/components/Section/TermsandCondition";
+import FAQs from "@/src/components/Section/FAQ";
 
 const images = [
   "/image/thumbnailMain.jpg",
@@ -102,7 +105,7 @@ export default function DetailsAllPage() {
               </div>
 
               {/* THUMBNAILS */}
-              <div className="w-full max-w-[980px] bg-white rounded p-2 flex gap-2 overflow-x-auto no-scrollbar">
+              <div className="lg:absolute lg:top-135  w-full lg:w-[850px] bg-white rounded p-2 flex gap-2 overflow-x-auto no-scrollbar">
                 {images.map((img, index) => (
                   <button
                     key={index}
@@ -888,7 +891,7 @@ export default function DetailsAllPage() {
   </div>
 </section>
 
-
+{/* compare and Choose */}
 <section className="w-full py-10 md:py-12">
   <div className="max-w-[1347px] mx-auto px-4">
 
@@ -1085,7 +1088,7 @@ export default function DetailsAllPage() {
 </section>
 
 
-<section className="w-full py-12 md:py-16 bg-[#6E26CB] relative">
+<section className="w-full lg:w-[1440px] py-12 ms-0  lg:ms-12 mb-10 md:py-16 bg-[#6E26CB] relative">
   {/* INNER SHADOW */}
   <div className="absolute inset-0 pointer-events-none shadow-[inset_0_6px_12px_rgba(0,0,0,0.25)]" />
 
@@ -1174,6 +1177,100 @@ export default function DetailsAllPage() {
     </div>
   </div>
 </section>
+
+
+<MoreInformation
+  title="More Information"
+  cards={[
+    {
+      title: "Brand Understanding",
+      description:
+        "We first understand your brand’s purpose, audience, and personality. This helps us design a logo that truly fits your identity and communicates your message clearly.",
+      image: "/image/moreinfo1.jpg",
+    },
+    {
+      title: "Concept & Ideation",
+      description:
+        "Creative brainstorming to generate impactful design concepts.",
+      image: "/image/moreinfo2.jpg",
+    },
+    {
+      title: "Digital Execution",
+      description:
+        "Transform ideas into polished digital experiences.",
+      image: "/image/moreinfo3.jpg",
+    },
+    {
+      title: "Creative Innovation",
+      description:
+        "Blending creativity with strategy for standout branding.",
+      image: "/image/moreinfo4.jpg",
+    },
+  ]}
+/>
+
+<TermsConditions
+  terms={[
+    {
+      title: "Platform Compliance",
+      description:
+        "All customer communication must be completed only through Fetch True Platform to maintain service authenticity, tracking and eligibility for customer benefits.",
+    },
+    {
+      title: "Booking Services",
+      description:
+        "All service bookings must be made through the Fetch True App.",
+    },
+    {
+      title: "Direct Contract Restriction",
+      description:
+        "If a customer chooses to engage directly with a service provider outside the Fetch True platform, such off-platform transactions/contract will not be considered under Fetch True’s responsibility.",
+    },
+    {
+      title: "Termination/Cancellation of Benefits",
+      points: [
+        "Up to 100% Guarantee Return policy",
+        "Customer support and dispute resolution assistance",
+        "Transaction protection and service quality verification",
+        "Refund Policy will be terminated if direct contract has been made.",
+      ],
+    },
+    {
+      title: "Liability",
+      description:
+        "Fetch True is not liable for any loss, dispute, or claim arising from off-platform engagements or private transactions made outside its official system.",
+    },
+    {
+      title: "Refund Policy",
+      description:
+        "Refunds will only be initiated when service conditions meet refund eligibility. All refunds will be processed within the specified time frame.",
+    },
+  ]}
+/>
+
+<FAQs
+  items={[
+    {
+      question: "What include in Managed IT Services?",
+      answer:
+        "Managed IT services include system monitoring, security, backups, helpdesk support, and infrastructure management.",
+    },
+    {
+      question:
+        "Can I customize the service according to my business size?",
+      answer:
+        "Yes, services can be tailored based on your organization size, industry, and technical requirements.",
+    },
+    {
+      question:
+        "What if a major issue occurs during business hours?",
+      answer:
+        "Our support team responds immediately during business hours to minimize downtime and resolve critical issues.",
+    },
+  ]}
+/>
+
+
 
 
 

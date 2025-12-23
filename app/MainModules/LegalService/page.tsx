@@ -328,6 +328,7 @@ const scrollByCard = (direction: "left" | "right") => {
       <CategorySection />
 </div>
 
+
 <RecommendedSection
         title="Recommended Legal Services"
         services={services}
