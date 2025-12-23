@@ -15,6 +15,9 @@ const legalRecommendedServices = [
     price: 4550,
     rating: 4,
     image: "/image/LLPRegistration.jpg",
+     slug:"business-registration",
+    detailslug:"llp"
+
   },
   {
     title: "GST Registration",
@@ -22,6 +25,8 @@ const legalRecommendedServices = [
     price: 4550,
     rating: 4,
     image: "/image/LLPRegistration.jpg",
+     slug:"business-registration",
+    detailslug:"llp"
   },
   {
     title: "GST Registration",
@@ -29,6 +34,8 @@ const legalRecommendedServices = [
     price: 4550,
     rating: 4,
     image: "/image/LLPRegistration.jpg",
+     slug:"business-registration",
+    detailslug:"llp"
   },
   {
     title: "GST Registration",
@@ -36,6 +43,8 @@ const legalRecommendedServices = [
     price: 4550,
     rating: 4,
     image: "/image/LLPRegistration.jpg",
+     slug:"business-registration",
+    detailslug:"llp"
   },
   {
     title: "GST Registration",
@@ -43,6 +52,8 @@ const legalRecommendedServices = [
     price: 4550,
     rating: 4,
     image: "/image/LLPRegistration.jpg",
+     slug:"business-registration",
+    detailslug:"llp"
   },
 ];
 
