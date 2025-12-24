@@ -2,9 +2,9 @@ export default function AboutSection() {
   return (
     <section className="w-full bg-gray-100 py-8 px-4">
       {/* Title */}
-      <div className="flex items-start ml-4 md:ml-0 md:justify-center mb-6">
+      <div className="flex items-start ml-1 md:ml-0 md:justify-center mb-6">
         <h2
-          className="text-white bg-black px-8 py-2 text-lg font-semibold inline-block"
+          className="text-white bg-black px-8 py-2 text-[12px] md:text-[32px] font-semibold inline-block"
           style={{
             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
           }}
@@ -14,7 +14,7 @@ export default function AboutSection() {
       </div>
 
       {/* 🔑 SAME WIDTH WRAPPER AS BENEFITS */}
-      <div className="w-[98%] mx-auto">
+      <div className="md:w-[1320px] mx-auto">
         {/* Content Card */}
         <div className="bg-white rounded-2xl shadow-md text-gray-600 leading-relaxed">
           <p className="hidden md:block text-[24px] p-8">

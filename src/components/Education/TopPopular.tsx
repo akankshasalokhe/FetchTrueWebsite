@@ -212,9 +212,9 @@ export default function TopPopular() {
 
                         <div
                             key={item.id}
-                            // onClick={() =>
-                            //     router.push(`/MainModules/ITService/ServiceDetails`)
-                            // }
+                            onClick={() =>
+                                router.push(`/MainModules/Education/ServiceDetails`)
+                            }
                             className="cursor-pointer snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[374px]
                         sm:w-[70vw] md:w-[352px] rounded-3xl overflow-hidden shadow-lg"
                             style={{ backgroundColor: "#E2E9F1" }}
