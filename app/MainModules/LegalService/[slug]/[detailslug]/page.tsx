@@ -446,7 +446,7 @@ export default function LegalDetailsPage() {
   <div className="max-w-[1200px] mx-auto px-4">
 
     {/* Title */}
-    <h2 className="text-center text-[22px] sm:text-[26px] md:text-[28px] font-semibold text-[#5A3A1B] mb-8 md:mb-12">
+    <h2 className="text-center text-[26px] sm:text-[26px] md:text-[32px] font-semibold text-[#5A3A1B] mb-8 md:mb-12">
       Documents We Required
     </h2>
 
@@ -454,11 +454,11 @@ export default function LegalDetailsPage() {
 
       {/* LEFT COLUMN */}
       <div>
-        <p className="text-[14px] md:text-[15px] text-[#333] mb-6">
+        <p className="text-[16px] md:text-[18px] text-[#333] mb-6">
           Essential documents required for each partner in the LLP
         </p>
 
-        <ul className="space-y-6 text-[14px] md:text-[15px] text-[#444]">
+        <ul className="space-y-6 text-[16px] md:text-[18px] text-[#444]">
 
           {[
             {
@@ -489,7 +489,7 @@ export default function LegalDetailsPage() {
                   Required
                 </span>
               </div>
-              <p className="text-[12px] md:text-[13px] text-[#777] mt-1">
+              <p className="text-[14px] md:text-[16px] text-[#777] mt-1">
                 {item.desc}
               </p>
             </li>
@@ -500,11 +500,11 @@ export default function LegalDetailsPage() {
 
       {/* RIGHT COLUMN */}
       <div>
-        <p className="text-[14px] md:text-[15px] text-[#333] mb-6">
+        <p className="text-[16px] md:text-[18px] text-[#333] mb-6">
           Documents to establish the official business address
         </p>
 
-        <ul className="space-y-6 text-[14px] md:text-[15px] text-[#444] mb-8 md:mb-10">
+        <ul className="space-y-6 text-[16px] md:text-[18px] text-[#444] mb-8 md:mb-10">
 
           {[
             {
@@ -527,7 +527,7 @@ export default function LegalDetailsPage() {
                   Required
                 </span>
               </div>
-              <p className="text-[12px] md:text-[13px] text-[#777] mt-1">
+              <p className="text-[14px] md:text-[16px] text-[#777] mt-1">
                 {item.desc}
               </p>
             </li>
@@ -536,11 +536,11 @@ export default function LegalDetailsPage() {
         </ul>
 
         {/* Special Documents */}
-        <p className="text-[14px] md:text-[15px] font-medium text-[#333] mb-4">
+        <p className="text-[16px] md:text-[18px] font-medium text-[#333] mb-4">
           Special documents for specific partner types
         </p>
 
-        <ul className="space-y-6 text-[14px] md:text-[15px] text-[#444]">
+        <ul className="space-y-6 text-[16px] md:text-[18px] text-[#444]">
 
           {[
             {
@@ -558,7 +558,7 @@ export default function LegalDetailsPage() {
           ].map((item, i) => (
             <li key={i}>
               <span className="font-medium">{item.title}</span>
-              <p className="text-[12px] md:text-[13px] text-[#777] mt-1">
+              <p className="text-[14px] md:text-[16px] text-[#777] mt-1">
                 {item.desc}
               </p>
             </li>
@@ -576,12 +576,12 @@ export default function LegalDetailsPage() {
   <div className="max-w-[1200px] mx-auto px-4">
 
     {/* Title */}
-    <h2 className="text-center text-[22px] sm:text-[26px] md:text-[28px] font-semibold text-[#5A3A1B] mb-6 md:mb-12">
+    <h2 className="text-center text-[26px] sm:text-[26px] md:text-[32px] font-semibold text-[#5A3A1B] mb-6 md:mb-12">
       We Deliver
     </h2>
 
     {/* Subtitle */}
-    <p className="text-center md:text-left text-[14px] md:text-[16px] text-[#333] mb-8 md:mb-10">
+    <p className="text-center md:text-left text-[16px] md:text-[18px] text-[#333] mb-8 md:mb-10">
       Essential documents required for each partner in the LLP
     </p>
 
@@ -589,7 +589,7 @@ export default function LegalDetailsPage() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
 
       {/* LEFT COLUMN */}
-      <ul className="space-y-6 md:space-y-8 text-[14px] md:text-[16px] text-[#444]">
+      <ul className="space-y-6 md:space-y-8 text-[18px] md:text-[20px] text-[#444]">
 
         <li className="flex items-start gap-3">
           <span className="text-[18px] leading-none">•</span>
@@ -597,7 +597,7 @@ export default function LegalDetailsPage() {
             <p className="font-medium">
               Certificate of Incorporation
             </p>
-            <p className="text-[13px] md:text-[14px] text-[#777] mt-1">
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
               Official LLP incorporation certificate from MCA
             </p>
           </div>
@@ -609,7 +609,7 @@ export default function LegalDetailsPage() {
             <p className="font-medium">
               LLP Agreement
             </p>
-            <p className="text-[13px] md:text-[14px] text-[#777] mt-1">
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
               Legally binding partnership agreement document
             </p>
           </div>
@@ -621,7 +621,7 @@ export default function LegalDetailsPage() {
             <p className="font-medium">
               PAN & TAN of LLP
             </p>
-            <p className="text-[13px] md:text-[14px] text-[#777] mt-1">
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
               Tax identification numbers for the LLP entity
             </p>
           </div>
@@ -630,7 +630,7 @@ export default function LegalDetailsPage() {
       </ul>
 
       {/* RIGHT COLUMN */}
-      <ul className="space-y-6 md:space-y-8 text-[14px] md:text-[16px] text-[#444]">
+      <ul className="space-y-6 md:space-y-8 text-[16px] md:text-[20px] text-[#444]">
 
         <li className="flex items-start gap-3">
           <span className="text-[18px] leading-none">•</span>
@@ -638,7 +638,7 @@ export default function LegalDetailsPage() {
             <p className="font-medium">
               LLP Identification Number (LLPIN)
             </p>
-            <p className="text-[13px] md:text-[14px] text-[#777] mt-1">
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
               Unique identification number assigned to your LLP
             </p>
           </div>
@@ -650,7 +650,7 @@ export default function LegalDetailsPage() {
             <p className="font-medium">
               Compliance File & Master Data
             </p>
-            <p className="text-[13px] md:text-[14px] text-[#777] mt-1">
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
               Complete documentation package in PDF format
             </p>
           </div>
