@@ -20,7 +20,7 @@ export default function FAQs({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <section className="w-full py-14">
+    <section className="w-full py-8">
       <div className="max-w-[1440px] mx-auto px-6">
         {/* Title */}
         <h2 className="text-[22px] lg:text-[36px] font-medium text-[#6E26CB] mb-6">
