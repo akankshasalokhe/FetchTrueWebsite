@@ -49,7 +49,7 @@ const RatingsReviews = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* ================= LEFT ================= */}
           <div>
-            <p className="text-gray-500 text-sm mb-6">
+            <p className="text-gray-500 text-sm md:text-[20px] mb-6">
               Complete overview of franchise requirements and benefits.
             </p>
 
@@ -71,13 +71,13 @@ const RatingsReviews = () => {
               </div>
 
               {/* BREAKDOWN */}
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-6">
                 {RATING_BREAKDOWN.map((item) => (
                   <div
                     key={item.label}
-                    className="grid grid-cols-[90px_1fr_40px] items-center gap-1 text-sm"
+                    className="grid grid-cols-[90px_1fr_40px] items-center gap-4 text-sm"
                   >
-                    <span className="text-gray-600 text-[12px]">{item.label}</span>
+                    <span className="text-gray-600 text-[12px] md:text-[20px] whitespace-nowrap">{item.label}</span>
 
                     <div className="h-2 bg-gray-200 -ml-5 md:-ml-0 rounded-full overflow-hidden">
                       <div
@@ -88,7 +88,7 @@ const RatingsReviews = () => {
                       />
                     </div>
 
-                    <span className="text-gray-500 ml-4 text-xs">
+                    <span className="text-gray-500 ml-4 text-xs md:text-[16px]">
                       {item.count}
                     </span>
                   </div>
@@ -99,7 +99,7 @@ const RatingsReviews = () => {
 
           {/* ================= RIGHT ================= */}
           <div>
-            <h3 className="font-semibold mb-6">Ratings by features</h3>
+            <h3 className="font-semibold md:text-[24px] mb-6">Ratings by features</h3>
 
             <div className="flex gap-4 md:gap-8">
               {FEATURE_RATINGS.map((item) => (
@@ -108,7 +108,7 @@ const RatingsReviews = () => {
                   className="flex flex-col items-center"
                 >
                   {/* CIRCLE */}
-                  <div className="relative w-12 h-12 md:w-20 md:h-20 rounded-full border-4 border-gray-300 flex items-center justify-center">
+                  <div className="relative  w-12 h-12 md:w-20 md:h-20 rounded-full border-4 border-gray-300 flex items-center justify-center">
                     <div
                       className="absolute inset-0 rounded-full border-4 border-black"
                       style={{
