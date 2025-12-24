@@ -1,6 +1,17 @@
 "use client";
 
 import AboutSection from "@/src/components/ItServiceDetails/About";
+import AssuredByFetchTrue from "@/src/components/ItServiceDetails/AssuredByFetchTrue";
+import ChooseProvider from "@/src/components/ItServiceDetails/ChooseProvider";
+import ConnectWith from "@/src/components/ItServiceDetails/ConnectWith";
+import Documents from "@/src/components/ItServiceDetails/Documents";
+import FAQs from "@/src/components/ItServiceDetails/Faq";
+import HowItWorks from "@/src/components/ItServiceDetails/HowItWorks";
+import MoreInformation from "@/src/components/ItServiceDetails/MoreInformation";
+import Packages from "@/src/components/ItServiceDetails/Packages";
+import RatingsReviews from "@/src/components/ItServiceDetails/Reviews";
+import TermsAndConditions from "@/src/components/ItServiceDetails/TermsAndConditions";
+import WhyChooseUs from "@/src/components/ItServiceDetails/WhyChooseUs";
 
 const ServiceDetails = () => {
 
@@ -146,7 +157,7 @@ const ServiceDetails = () => {
                     {/* Title */}
                     <div className="flex items-start md:justify-center">
                         <h2
-                            className="text-white bg-black px-6 py-2 text-lg font-semibold mb-6 inline-block"
+                            className="text-white bg-black px-6 py-2 text-[12px] md:text-[32px] font-semibold mb-6 inline-block"
                             style={{
                                 clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%)"
 
@@ -157,7 +168,7 @@ const ServiceDetails = () => {
                     </div>
 
                     {/* Benefits List */}
-                    <div className="flex flex-col md:grid md:grid-cols-2 bg-white rounded-xl md:p-12 p-2 gap-y-4 gap-x-2">
+                    <div className="flex flex-col mx-auto md:w-[1320px] md:h-[354px] md:grid md:grid-cols-2 bg-white rounded-xl md:p-12 p-2 gap-y-4 gap-x-2">
                         {benefits.map((item, index) => (
                             <div key={index} className="flex items-start gap-2">
                                 <img src="/image/checkmark.png" alt="check" className="w-5 h-5  md:w-10 md:h-10 flex-shrink-0" />
@@ -168,8 +179,42 @@ const ServiceDetails = () => {
                 </div>
             </section>
 
+            {/* Mobile version section */}
+            <section className="block md:hidden w-full  bottom-0 left-0 bg-white">
+                <div className="flex items-center justify-between px-4 py-3">
+
+                    {/* CHECK OUT BUTTON */}
+                    <button className="flex items-center gap-2 bg-[#2563EB] text-white px-5 py-3 rounded-lg font-medium">
+                        <span>🧾</span>
+                        <span>Check out</span>
+                    </button>
+
+                    {/* DOTTED LINE */}
+                    <div className="flex-1 mx-4 border-t border-dashed border-blue-300"></div>
+
+                    {/* SHARE */}
+                    <button className="flex items-center gap-2 text-blue-600 font-medium">
+                        <span>🔗</span>
+                        <span>Share</span>
+                    </button>
+
+                </div>
+            </section>
+
+
             <section className="relative w-full">
                 <AboutSection />
+                <WhyChooseUs />
+                <HowItWorks />
+                <AssuredByFetchTrue />
+                <Packages />
+                <Documents />
+                <MoreInformation />
+                <ChooseProvider />
+                <TermsAndConditions />
+                <FAQs />
+                <RatingsReviews />
+                <ConnectWith />
             </section>
         </>
     );
