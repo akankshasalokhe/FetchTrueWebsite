@@ -30,8 +30,8 @@ const benefits = [
 export default function LegalDetailsPage() {
   return (
     <div className="bg-[#F4F4F4] w-full ">
-        <section className="py-6 sm:py-8 lg:py-12 px-10">
-      <div className=" w-full  mx-auto bg-white rounded-[4px] p-4  sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <section className="py-6 sm:py-8 lg:py-12 lg:px-10">
+      <div className=" w-full  mx-auto bg-white rounded-[4px] p-4  lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
         
         {/* LEFT IMAGE */}
         <div className="w-full lg:w-[652px] h-[220px] sm:h-[360px] lg:h-[503px] rounded-[6px] overflow-hidden ">
@@ -138,7 +138,7 @@ export default function LegalDetailsPage() {
                             <div className="text-[#BC9958] text-[22px]">
                               {item.icon}
                             </div>
-                            <p className="text-[22px] text-[#606060] font-medium">
+                            <p className="text-[20px] lg:text-[22px] text-[#606060] font-medium">
                               {item.label}
                             </p>
                           </div>
@@ -337,7 +337,7 @@ export default function LegalDetailsPage() {
   </div>
 </section>
 
-<section className="w-full py-16 bg-gray-50">
+<section className="w-full py-8 lg:py-10 bg-gray-50">
   <div className="max-w-[1200px] mx-auto px-4">
     
     {/* Title */}
