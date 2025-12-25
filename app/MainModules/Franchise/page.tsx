@@ -193,7 +193,7 @@ export default function FranchisePage() {
 <section className="w-full flex justify-center mt-10">
   <div
     className="
-      w-full lg:w-[1307.61px]
+      w-full lg:w-[1440px]
       flex flex-wrap
       gap-[25px]
       justify-center lg:justify-start

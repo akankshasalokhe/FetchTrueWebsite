@@ -15,10 +15,10 @@ const categories: string[] = [
 ];
 
 export default function TopGrowingFranchises() {
-  const cards = Array.from({ length: 5 });
+  const cards = Array.from({ length: 10 });
 
   return (
-    <section className="w-full py-10 px-4 md:px-10 lg:px-28 bg-[#F7F7F7]">
+    <section className="w-full py-10 px-4 md:px-10 lg:px-13 bg-[#F7F7F7]">
       {/* ---------- TITLE ---------- */}
       <h2 className="text-[20px] md:text-[24px] font-semibold mb-5">
         Top Growing Brand Franchises
