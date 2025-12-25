@@ -42,7 +42,7 @@ const services = [
 
 export default function CardService() {
   return (
-    <section className="w-full max-w-[1350px] mx-auto px-4 sm:px-6 mt-24 sm:mt-40 mb-10">
+    <section className="w-full max-w-[1470px] mx-auto px-4 sm:px-6 mt-24 sm:mt-40 mb-10">
       <div className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-4">
 
         {services.map((item, index) => (

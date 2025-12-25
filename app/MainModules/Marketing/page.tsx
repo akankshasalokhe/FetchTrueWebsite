@@ -83,7 +83,7 @@ export default function MarketingHero() {
                             max-w-[1037px] mx-auto shadow-xl">
 
               <div className="flex flex-col lg:flex-row
-                              items-center justify-between gap-10">
+                              items-center justify-between lg:gap-10">
 
                 {/* TEXT */}
                 <div className="max-w-[420px] text-center lg:text-left">
@@ -117,7 +117,7 @@ export default function MarketingHero() {
               </div>
 
               {/* BUTTON */}
-              <div className="flex justify-center mt-14">
+              <div className="flex justify-center lg:mt-14 ">
                 <button
                   className="bg-[#2164F4] text-white
                              px-14 py-3 rounded-full

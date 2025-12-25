@@ -89,7 +89,7 @@ export default function Recommended() {
       </h2>
 
       {/* ---------- HORIZONTAL SCROLL ---------- */}
-      <div className="w-full max-w-[1304px] mx-auto overflow-x-auto no-scrollbar flex gap-6 pb-4">
+      <div className="w-full max-w-[1440px] mx-auto overflow-x-auto no-scrollbar flex gap-6 pb-4">
         {data.map((item) => (
           <Link
             key={item.id}

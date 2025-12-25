@@ -36,6 +36,17 @@ export default function LowInvestmentFranchises() {
       outlets: "10",
       logo: "/image/pizzahut.png",
     },
+     {
+      title: "Pizza Hut",
+      category: "Food & Beverage",
+      revenue: "4cr",
+      discount: "20%",
+      earn: "Up to 30%",
+      profit: "30%",
+      investment: "10L - 20L",
+      outlets: "10",
+      logo: "/image/pizzahut.png",
+    },
   ];
 
   return (
@@ -55,7 +66,7 @@ export default function LowInvestmentFranchises() {
         grid 
         grid-cols-1 
         sm:grid-cols-2 
-        lg:grid-cols-3 
+        lg:grid-cols-4 
         gap-6 
         justify-items-center
       ">

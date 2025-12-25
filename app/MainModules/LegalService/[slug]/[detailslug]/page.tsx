@@ -13,6 +13,9 @@ import { Scale, Timer, Wallet, MapPin } from "lucide-react";
 import FAQs from "@/src/components/Section/FAQ";
 import TermsConditions from "@/src/components/Section/TermsandCondition";
 import MoreInformation from "@/src/components/Section/MoreInformationSection";
+import ChooseProvider from "@/src/components/Section/ChooseProvider";
+import RatingsReviews from "@/src/components/Section/RatingReviews";
+import ConnectBar from "@/src/components/Section/ConnectBar"
 
 
 const benefits = [
@@ -27,8 +30,8 @@ const benefits = [
 export default function LegalDetailsPage() {
   return (
     <div className="bg-[#F4F4F4] w-full ">
-        <section className="py-6 sm:py-8 lg:py-12 px-10">
-      <div className=" w-full  mx-auto bg-white rounded-[4px] p-4  sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <section className="py-6 sm:py-8 lg:py-12 lg:px-10">
+      <div className=" w-full  mx-auto bg-white rounded-[4px] p-4  lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
         
         {/* LEFT IMAGE */}
         <div className="w-full lg:w-[652px] h-[220px] sm:h-[360px] lg:h-[503px] rounded-[6px] overflow-hidden ">
@@ -135,7 +138,7 @@ export default function LegalDetailsPage() {
                             <div className="text-[#BC9958] text-[22px]">
                               {item.icon}
                             </div>
-                            <p className="text-[22px] text-[#606060] font-medium">
+                            <p className="text-[20px] lg:text-[22px] text-[#606060] font-medium">
                               {item.label}
                             </p>
                           </div>
@@ -145,23 +148,33 @@ export default function LegalDetailsPage() {
                   </section>
         
                   {/* ABOUT */}
-                  <section className="max-w-[1400px] mx-auto px-2 mt-12">
-                    <h2 className="text-[#5B3527] text-[32px] font-medium mb-3 text-center">
-                      About Us
-                    </h2>
-                    <p className="text-[#868686] text-[22px]">
-                     A logo is the face of your brand. Our custom logo design service creates unique, memorable, and versatile logos tailored to your business identity. Whether you’re a startup, small business, or large brand, we deliver high-quality, professional designs that help you stand out.A logo is the face of your brand. Our custom logo design service creates unique, memorable, and versatile logos tailored to your business identity. Whether you’re a startup, small business, or large brand, we deliver high-quality, professional designs that help you stand out.
-                    </p>
-                    
-                    <div className="w-[902px] h-[511px] mx-auto my-20">
-                      <img
-                        src="/image/legalAbout.jpg"
-                        alt="legalAboutImage"
-                        className="w-full rounded-[12px]"
-                      />
-                    </div>
-        
-                  </section>
+                  <section className="max-w-[1400px] mx-auto px-4 sm:px-6 mt-12">
+  {/* Title */}
+  <h2 className="text-[#5B3527] text-[28px] sm:text-[32px] font-medium mb-4 text-center">
+    About Us
+  </h2>
+
+  {/* Paragraph */}
+  <p className="text-[#868686] text-[18px] sm:text-[18px] md:text-[20px] lg:text-[22px] leading-relaxed text-justify  mx-auto">
+    A logo is the face of your brand. Our custom logo design service creates unique, 
+    memorable, and versatile logos tailored to your business identity. Whether you’re a 
+    startup, small business, or large brand, we deliver high-quality, professional 
+    designs that help you stand out. A logo is the face of your brand. Our custom logo 
+    design service creates unique, memorable, and versatile logos tailored to your 
+    business identity. Whether you’re a startup, small business, or large brand, we 
+    deliver high-quality, professional designs that help you stand out.
+  </p>
+
+  {/* Image */}
+  <div className="w-full max-w-[900px] h-auto mx-auto my-12">
+    <img
+      src="/image/legalAbout.jpg"
+      alt="legalAboutImage"
+      className="w-full h-auto rounded-[12px] object-cover"
+    />
+  </div>
+</section>
+
 
                    <section className="w-full  pb-10">
       <div className="max-w-[1440px] mx-auto px-4">
@@ -240,26 +253,32 @@ export default function LegalDetailsPage() {
       <div className="space-y-8 md:space-y-10">
         {[
           {
+            icon:"/image/Group (1).png",
             title: "Customer Satisfaction:",
             desc: "We provide up to 100% return if customer is not satisfied",
           },
           {
+                        icon:"/image/Group (1).png",
             title: "Best Quality Assurance:",
             desc: "We personally check all the project quality before final delivery",
           },
           {
+                        icon:"/image/Group (1).png",
+
             title: "End-to-End Execution:",
             desc: "From connecting customer to professional expert to completion, we handle everything under one platform.",
           },
           {
+                        icon:"/image/Group (1).png",
+
             title: "Reschedule Anytime:",
             desc: "If the customer is not satisfied with the service, we reschedule the providers for better results.",
           },
         ].map((item, index) => (
           <div key={index} className="flex items-start gap-4">
             <img
-              src="/image/Group.png"
-              className="w-[36px] h-[38px] sm:w-[42px] sm:h-[45px] md:w-[47px] md:h-[50px]"
+              src={item.icon}
+              className="w-[36px] h-[38px] sm:w-[42px] sm:h-[45px] md:w-[47px] md:h-[50px] text-[#BC9958]"
               alt=""
             />
             <div>
@@ -278,22 +297,28 @@ export default function LegalDetailsPage() {
       <div className="space-y-8 md:space-y-10">
         {[
           {
+                        icon:"/image/Group (1).png",
+
             title: "Transparent Workflow:",
             desc: "Complete process visibility, transparent communication, and real-time tracking.",
           },
           {
+                        icon:"/image/Group (1).png",
+
             title: "On-Time Delivery Result:",
             desc: "We provide guaranteed on-time completion of every project, ensuring your campaigns and services are delivered exactly as scheduled.",
           },
           {
+                        icon:"/image/Group (1).png",
+
             title: "Trusted Platform:",
             desc: "Fetch True ensures secure connections between clients and genuine professionals.",
           },
         ].map((item, index) => (
-          <div key={index} className="flex items-start gap-4">
+          <div key={index} className="flex items-start gap-4 ">
             <img
-              src="/image/Group.png"
-              className="w-[36px] h-[38px] sm:w-[42px] sm:h-[45px] md:w-[47px] md:h-[50px]"
+              src={item.icon}
+              className="w-[36px] h-[38px] sm:w-[42px] sm:h-[45px] md:w-[47px] md:h-[50px] text-[#BC9958]"
               alt=""
             />
             <div>
@@ -311,6 +336,335 @@ export default function LegalDetailsPage() {
     </div>
   </div>
 </section>
+
+<section className="w-full py-8 lg:py-10 bg-gray-50">
+  <div className="max-w-[1200px] mx-auto px-4">
+    
+    {/* Title */}
+    <h2 className="text-center text-[28px] sm:text-[32px] font-semibold text-[#5A3A1B] mb-12">
+      Packages
+    </h2>
+
+    {/* Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      {/* BASIC */}
+      <div className="bg-white rounded-[12px] shadow-md p-6 sm:p-8 text-center flex flex-col justify-between">
+        <p className="text-[#C9A36A] text-[20px] font-semibold mb-1">
+          ₹2,999<span className="text-[14px] font-normal">/service</span>
+        </p>
+
+        <h3 className="text-[18px] font-semibold text-[#5A3A1B] mb-2">
+          Basic
+        </h3>
+
+        <p className="text-[14px] text-[#777] mb-6">
+          Perfect for individuals and small businesses
+        </p>
+
+        <ul className="text-left text-[14px] text-[#555] space-y-2 mb-6 sm:mb-8">
+          <li className="flex gap-2">✅ Single service coverage</li>
+          <li className="flex gap-2">✅ Basic legal documentation</li>
+          <li className="flex gap-2">✅ Email support</li>
+          <li className="flex gap-2">✅ 15-day completion</li>
+          <li className="flex gap-2">✅ Basic compliance</li>
+        </ul>
+
+        <button className="w-full bg-[#5A3A1B] text-white py-2 rounded-[6px] text-[14px] mt-auto">
+          Get Started
+        </button>
+      </div>
+
+      {/* STANDARD */}
+      <div className="bg-white rounded-[12px] shadow-lg p-6 sm:p-8 text-center relative flex flex-col justify-between">
+        
+        {/* Badge */}
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#C9A36A] text-white text-[12px] px-3 py-[2px] rounded-full">
+          Most Popular
+        </span>
+
+        <p className="text-[#C9A36A] text-[20px] font-semibold mb-1 mt-4 sm:mt-6">
+          ₹4,999<span className="text-[14px] font-normal">/service</span>
+        </p>
+
+        <h3 className="text-[18px] font-semibold text-[#5A3A1B] mb-2">
+          Standard
+        </h3>
+
+        <p className="text-[14px] text-[#777] mb-6">
+          Ideal for growing businesses
+        </p>
+
+        <ul className="text-left text-[14px] text-[#555] space-y-2 mb-6 sm:mb-8">
+          <li className="flex gap-2">✅ Multiple service coverage</li>
+          <li className="flex gap-2">✅ Complete documentation</li>
+          <li className="flex gap-2">✅ Phone & email support</li>
+          <li className="flex gap-2">✅ 7-day completion</li>
+          <li className="flex gap-2">✅ Full compliance support</li>
+          <li className="flex gap-2">✅ Free consultation</li>
+        </ul>
+
+        <button className="w-full bg-[#5A3A1B] text-white py-2 rounded-[6px] text-[14px] mt-auto">
+          Get Started
+        </button>
+      </div>
+
+      {/* PREMIUM */}
+      <div className="bg-white rounded-[12px] shadow-md p-6 sm:p-8 text-center flex flex-col justify-between">
+        <p className="text-[#C9A36A] text-[20px] font-semibold mb-1">
+          ₹7,999<span className="text-[14px] font-normal">/service</span>
+        </p>
+
+        <h3 className="text-[18px] font-semibold text-[#5A3A1B] mb-2">
+          Premium
+        </h3>
+
+        <p className="text-[14px] text-[#777] mb-6">
+          Comprehensive solution for enterprises
+        </p>
+
+        <ul className="text-left text-[14px] text-[#555] space-y-2 mb-6 sm:mb-8">
+          <li className="flex gap-2">✅ All services included</li>
+          <li className="flex gap-2">✅ Premium documentation</li>
+          <li className="flex gap-2">✅ Dedicated relationship manager</li>
+          <li className="flex gap-2">✅ 3-day completion</li>
+          <li className="flex gap-2">✅ Ongoing compliance support</li>
+          <li className="flex gap-2">✅ Priority support</li>
+        </ul>
+
+        <button className="w-full bg-[#5A3A1B] text-white py-2 rounded-[6px] text-[14px] mt-auto">
+          Get Started
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section className="w-full py-8 md:py-10">
+  <div className="max-w-[1200px] mx-auto px-4">
+
+    {/* Title */}
+    <h2 className="text-center text-[26px] sm:text-[26px] md:text-[32px] font-semibold text-[#5A3A1B] mb-8 md:mb-12">
+      Documents We Required
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+
+      {/* LEFT COLUMN */}
+      <div>
+        <p className="text-[16px] md:text-[18px] text-[#333] mb-6">
+          Essential documents required for each partner in the LLP
+        </p>
+
+        <ul className="space-y-6 text-[16px] md:text-[18px] text-[#444]">
+
+          {[
+            {
+              title: "PAN Card",
+              desc: "Permanent Account Number card for tax identification",
+            },
+            {
+              title: "Aadhaar / Voter ID / Passport",
+              desc: "Government-issued identity proof document",
+            },
+            {
+              title: "Address Proof",
+              desc: "Utility bill, bank statement, or rental agreement",
+            },
+            {
+              title: "Passport-size Photos",
+              desc: "Recent colored photographs (2–3 copies)",
+            },
+            {
+              title: "Digital Signature Certificate",
+              desc: "DSC for online filing and document signing",
+            },
+          ].map((item, i) => (
+            <li key={i}>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-medium">{item.title}</span>
+                <span className="text-[11px] bg-[#F5E9D6] text-[#9B7B4A] px-2 py-[2px] rounded">
+                  Required
+                </span>
+              </div>
+              <p className="text-[14px] md:text-[16px] text-[#777] mt-1">
+                {item.desc}
+              </p>
+            </li>
+          ))}
+
+        </ul>
+      </div>
+
+      {/* RIGHT COLUMN */}
+      <div>
+        <p className="text-[16px] md:text-[18px] text-[#333] mb-6">
+          Documents to establish the official business address
+        </p>
+
+        <ul className="space-y-6 text-[16px] md:text-[18px] text-[#444] mb-8 md:mb-10">
+
+          {[
+            {
+              title: "Address Proof (Utility Bill)",
+              desc: "Electricity / water bill not older than 2 months",
+            },
+            {
+              title: "Rent Agreement",
+              desc: "Registered rental agreement if office is rented",
+            },
+            {
+              title: "NOC from Owner",
+              desc: "No Objection Certificate from property owner",
+            },
+          ].map((item, i) => (
+            <li key={i}>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-medium">{item.title}</span>
+                <span className="text-[11px] bg-[#F5E9D6] text-[#9B7B4A] px-2 py-[2px] rounded">
+                  Required
+                </span>
+              </div>
+              <p className="text-[14px] md:text-[16px] text-[#777] mt-1">
+                {item.desc}
+              </p>
+            </li>
+          ))}
+
+        </ul>
+
+        {/* Special Documents */}
+        <p className="text-[16px] md:text-[18px] font-medium text-[#333] mb-4">
+          Special documents for specific partner types
+        </p>
+
+        <ul className="space-y-6 text-[16px] md:text-[18px] text-[#444]">
+
+          {[
+            {
+              title: "Passport (For Foreign Nationals)",
+              desc: "Valid passport for non-resident Indian partners",
+            },
+            {
+              title: "Incorporation Certificate",
+              desc: "For corporate partners – company registration proof",
+            },
+            {
+              title: "Board Resolution",
+              desc: "Corporate authorization to participate in LLP",
+            },
+          ].map((item, i) => (
+            <li key={i}>
+              <span className="font-medium">{item.title}</span>
+              <p className="text-[14px] md:text-[16px] text-[#777] mt-1">
+                {item.desc}
+              </p>
+            </li>
+          ))}
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section className="w-full py-8 md:py-10">
+  <div className="max-w-[1200px] mx-auto px-4">
+
+    {/* Title */}
+    <h2 className="text-center text-[26px] sm:text-[26px] md:text-[32px] font-semibold text-[#5A3A1B] mb-6 md:mb-12">
+      We Deliver
+    </h2>
+
+    {/* Subtitle */}
+    <p className="text-center md:text-left text-[16px] md:text-[18px] text-[#333] mb-8 md:mb-10">
+      Essential documents required for each partner in the LLP
+    </p>
+
+    {/* Content */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+
+      {/* LEFT COLUMN */}
+      <ul className="space-y-6 md:space-y-8 text-[18px] md:text-[20px] text-[#444]">
+
+        <li className="flex items-start gap-3">
+          <span className="text-[18px] leading-none">•</span>
+          <div>
+            <p className="font-medium">
+              Certificate of Incorporation
+            </p>
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
+              Official LLP incorporation certificate from MCA
+            </p>
+          </div>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <span className="text-[18px] leading-none">•</span>
+          <div>
+            <p className="font-medium">
+              LLP Agreement
+            </p>
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
+              Legally binding partnership agreement document
+            </p>
+          </div>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <span className="text-[18px] leading-none">•</span>
+          <div>
+            <p className="font-medium">
+              PAN & TAN of LLP
+            </p>
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
+              Tax identification numbers for the LLP entity
+            </p>
+          </div>
+        </li>
+
+      </ul>
+
+      {/* RIGHT COLUMN */}
+      <ul className="space-y-6 md:space-y-8 text-[16px] md:text-[20px] text-[#444]">
+
+        <li className="flex items-start gap-3">
+          <span className="text-[18px] leading-none">•</span>
+          <div>
+            <p className="font-medium">
+              LLP Identification Number (LLPIN)
+            </p>
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
+              Unique identification number assigned to your LLP
+            </p>
+          </div>
+        </li>
+
+        <li className="flex items-start gap-3">
+          <span className="text-[18px] leading-none">•</span>
+          <div>
+            <p className="font-medium">
+              Compliance File & Master Data
+            </p>
+            <p className="text-[16px] md:text-[18px] text-[#777] mt-1">
+              Complete documentation package in PDF format
+            </p>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+
+
+
 
                    <MoreInformation
                      title="More Information"
@@ -341,6 +695,26 @@ export default function LegalDetailsPage() {
                        },
                      ]}
                    />
+
+                   <ChooseProvider
+  title="Choose Provider"
+  buttonColor="bg-[#5B3527]"
+  providers={[
+    {
+      logo: "/image/provider1.png",
+      name: "FTFL Technology",
+      rating: 4.8,
+      reviews: 127,
+      price: 7040,
+      originalPrice: 8000,
+      discountText: "12% Off",
+      commissionText: "₹15%",
+      promoted: true,
+      available: true,
+    },
+  ]}
+/>
+
 
                   <TermsConditions
                     terms={[
@@ -403,6 +777,37 @@ export default function LegalDetailsPage() {
                       },
                     ]}
                   />
+
+                  <RatingsReviews
+  title="Ratings & Reviews"
+  subtitle="Complete overview of franchise requirements and benefits."
+  averageRating={4.8}
+  totalRatings={2573}
+  primaryColor="#BC9958"
+  breakdown={[
+    { label: "Excellent", value: 80, color: "#2FA84F" },
+    { label: "Very Good", value: 60, color: "#2FA84F" },
+    { label: "Good", value: 40, color: "#FF9F43" },
+    { label: "Average", value: 20, color: "#FF9F43" },
+    { label: "Poor", value: 10, color: "#E74C3C" },
+  ]}
+  features={[
+    { label: "Monthly Business", score: 4 },
+    { label: "ROI", score: 5 },
+    { label: "Marketing", score: 4 },
+    { label: "Franchise Service", score: 4 },
+  ]}
+/>
+
+<ConnectBar
+  title="Legal Service Manager"
+  phoneLink="tel:+919999999999"
+  emailLink="mailto:legal@example.com"
+  checkoutLink="/legal/checkout"
+  shareLink="/legal/share"
+/>
+
+
 
                    
     </div>
