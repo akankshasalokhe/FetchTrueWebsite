@@ -7,7 +7,7 @@ import { FaStar } from "react-icons/fa";
 export default function SuggestedProviders() {
   return (
     <>
-    <section className="max-w-[1409px] mx-auto px-4 sm:px-6 mt-16 mb-20">
+    <section className="max-w-[1470px] mx-auto px-4 sm:px-6 mt-16 mb-20">
       <h2 className="text-[18px] font-semibold mb-6">
         Suggested Providers
       </h2>

@@ -47,7 +47,7 @@ export default function RecommendedForYou() {
 
   return (
     <div className="w-full bg-white">
-      <section className="w-full max-w-[1351px] mx-auto flex flex-col gap-6 px-4 sm:px-6 mt-14">
+      <section className="w-full max-w-[1470px] mx-auto flex flex-col gap-6 px-4 sm:px-6 mt-14">
 
         {/* TITLE */}
         <h2 className="font-inter font-semibold text-[18px] sm:text-[20px] leading-[30px]">
