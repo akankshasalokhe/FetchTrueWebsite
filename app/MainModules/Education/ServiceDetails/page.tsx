@@ -1,8 +1,11 @@
 "use client";
 
+import AboutUs from "@/src/components/EducationServiceDetails/About";
 import Benefits from "@/src/components/EducationServiceDetails/Benefits";
 import ConnectWith from "@/src/components/EducationServiceDetails/ConnectWith";
+import CourseCurriculum from "@/src/components/EducationServiceDetails/CourseCurriculum";
 import FAQs from "@/src/components/EducationServiceDetails/Faq";
+import LearnAndEligible from "@/src/components/EducationServiceDetails/LearnandEligible";
 import MoreInformation from "@/src/components/EducationServiceDetails/MoreInformation";
 import RatingsReviews from "@/src/components/EducationServiceDetails/Reviews";
 import TermsAndConditions from "@/src/components/EducationServiceDetails/TermsandConditions";
@@ -189,7 +192,10 @@ export default function ServiceDetails() {
 
     <section>
         <Benefits />
+        <AboutUs />
         <WhyChooseUs />
+        <LearnAndEligible />
+        <CourseCurriculum />
         <MoreInformation />
         <TermsAndConditions />
         <FAQs />

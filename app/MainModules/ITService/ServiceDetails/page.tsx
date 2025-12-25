@@ -13,6 +13,9 @@ import RatingsReviews from "@/src/components/ItServiceDetails/Reviews";
 import TermsAndConditions from "@/src/components/ItServiceDetails/TermsAndConditions";
 import WhyChooseUs from "@/src/components/ItServiceDetails/WhyChooseUs";
 
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
+
 const ServiceDetails = () => {
 
     const benefits = [
@@ -34,13 +37,37 @@ const ServiceDetails = () => {
                     {/* ================= DESKTOP VERSION ================= */}
                     <div className="hidden lg:flex p-8  gap-6 w-full">
 
+
+
                         {/* LEFT IMAGE */}
-                        <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
+                        {/* <div className="relative md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
+                            
                             <img
                                 src="/image/itservicenavbg.png"
                                 alt="Managed IT Service"
                                 className="w-full h-full object-cover"
                             />
+                        </div> */}
+
+                        <div className="flex flex-col gap-3">
+
+                            {/* HEADER (ABOVE IMAGE) */}
+                            <div className="flex items-center -mt-10 gap-3 ">
+                                <Link href="/MainModules/ITService">
+                                    <ChevronLeft size={28} className="cursor-pointer" />
+                                </Link>
+                                <h1 className="text-lg font-semibold">Service Details</h1>
+                            </div>
+
+                            {/* IMAGE */}
+                            <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
+                                <img
+                                    src="/image/itservicenavbg.png"
+                                    alt="Managed IT Service"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+
                         </div>
 
                         {/* RIGHT CONTENT */}
@@ -97,6 +124,15 @@ const ServiceDetails = () => {
                     <div className="block lg:hidden w-full mb-5">
                         {/* FULL WIDTH IMAGE */}
                         <div className="relative w-screen h-[429px] overflow-hidden ">
+
+                            {/* HEADER OVER IMAGE */}
+                            <div className="absolute top-8 left-0 z-10 w-full flex items-center gap-3 px-4 py-4 bg-white/80 backdrop-blur-sm">
+                                <Link href="/MainModules/ITService">
+                                    <ChevronLeft size={28} className="cursor-pointer" />
+                                </Link>
+                                <h1 className="text-lg font-semibold">Service Details</h1>
+                            </div>
+
                             <img
                                 src="/image/itservicenavbg.png"
                                 alt="Managed IT Service"

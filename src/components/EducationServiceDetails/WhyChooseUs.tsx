@@ -55,29 +55,30 @@ export default function WhyChooseUs() {
                         {Array.from({ length: 18 }).map((_, i) => (
                             <span
                                 key={`d-${i}`}
-                                className="w-[18px] h-[18px] rounded-full bg-gray-300"
+                                className="w-[18px] h-[18px]  rounded-full bg-gray-300"
                             />
                         ))}
                     </div>
                 </div>
 
                 {/* CONTENT */}
-                <div className="pt-16 pb-10 px-4 md:px-8">
+                {/* <div className="pt-16 pb-10 px-4 md:px-8"> */}
+                <div className="pt-20 md:pt-28 mt-10 pb-10 px-4 md:px-8">
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {ITEMS.map((item, index) => (
                             <div
                                 key={index}
-                                className="border rounded-xl md:w-[618px] p-8  flex gap-4 items-start"
+                                className="md:border w-full rounded-xl md:w-[618px] md:p-8 p-2 flex gap-4 items-start"
                             >
                                 {/* ICON */}
-                                <div className="text-[#FA9131] text-3xl mt-1">⚖️</div>
-                               {/* <img src /> */}
+                               <img src="/image/eduwcuicon.png" alt="icon" className="object-cover w-[24px] h-[24px] md:mt-2 md:w-[51px] md:h-[52px]" />
                                 {/* TEXT */}
-                                <div>
-                                    <h3 className="text-[18px] md:text-[32px] font-semibold text-gray-800">
+                                <div className="flex-1">
+                                    <h3 className="text-[12px] md:text-[32px] font-semibold text-gray-800">
                                         {item.title}
                                     </h3>
-                                    <p className="text-gray-600 text-[14px] md:text-[24px] mt-2">
+                                    <p className="text-gray-600 text-[12px] md:text-[24px] mt-2">
                                         {item.description}
                                     </p>
                                 </div>
