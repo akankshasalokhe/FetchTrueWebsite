@@ -27,7 +27,7 @@ const PROVIDERS: Provider[] = [
         originalPrice: 8000,
         discount: "12% Off",
         cashback: "₹15%",
-        logo: "/images/provider.png",
+        logo: "/image/providericon.png",
         verified: true,
     },
     {
@@ -39,7 +39,8 @@ const PROVIDERS: Provider[] = [
         originalPrice: 7500,
         discount: "13% Off",
         cashback: "₹10%",
-        logo: "/images/provider.png",
+        logo: "/image/providericon.png",
+        verified: true,
     },
     {
         id: 3,
@@ -50,7 +51,8 @@ const PROVIDERS: Provider[] = [
         originalPrice: 8200,
         discount: "10% Off",
         cashback: "₹20%",
-        logo: "/images/provider.png",
+        logo: "/image/providericon.png",
+        verified: true,
     },
 ];
 
@@ -67,7 +69,7 @@ const ChooseProvider: React.FC = () => {
                 {/* TITLE */}
                 <div className="flex items-start md:justify-center mb-4">
                     <h2
-                        className="bg-black text-white px-6 py-2 text-[12px] md:text-[32px] font-semibold"
+                        className="bg-black text-white px-6 md:px-10 py-2 text-[12px] md:text-[32px] font-semibold"
                         style={{
                             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
                         }}
@@ -76,7 +78,7 @@ const ChooseProvider: React.FC = () => {
                     </h2>
                 </div>
             <div className="bg-white/100  rounded-xl">
-                <p className="text-center text-gray-500 py-8 text-sm md:text-lg">
+                <p className="text-start md:text-center text-gray-500  px-2 py-4 text-sm md:text-lg">
                     Pick the right expert for your service
                 </p>
 
@@ -84,7 +86,7 @@ const ChooseProvider: React.FC = () => {
                 <div className="md:w-[1190px]  w-[300px] mx-auto">
                     <div
                         className={`
-                        space-y-4 transition-all duration-300
+                        space-y-4 transition-all duration-300 -mt-2
                         overflow-y-auto max-h-[320px] pr-1
                         md:overflow-visible md:max-h-none md:pr-0
                     `} >
@@ -93,28 +95,33 @@ const ChooseProvider: React.FC = () => {
                         {visibleProviders.map((provider) => (
                             <div
                                 key={provider.id}
-                                className="bg-gray-100 rounded-lg border p-4 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3"
+                                className="bg-gray-100 rounded-lg border p-2 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3"
                             >
                                 {/* ===== TOP ROW (MOBILE) + LEFT (DESKTOP) ===== */}
                                 <div className="flex items-center justify-between md:justify-start md:gap-4">
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2 md:gap-8">
+                                        <div className="flex flex-col gap-2">
                                         <img
                                             src={provider.logo}
                                             alt={provider.name}
-                                            className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover"
+                                            className="w-[44px] h-[44px] md:w-[67px] md:h-[67px] rounded-full object-cover"
                                         />
 
+                                        <p className="bg-green-500 rounded-2xl md:px-2 px-2 text-white text-[6px] md:text-[12px]">Promoted</p>
+                                        </div>
+
                                         <div>
-                                            <div className="flex items-center gap-1">
-                                                <h3 className="font-semibold text-[12px] md:text-[32px]">
+                                            <div className="flex items-center -mt-4 md:-mt-8 gap-1 md:gap-4">
+                                                <h3 className="font-semibold text-[14px] md:text-[32px] whitespace-nowrap">
                                                     {provider.name}
                                                 </h3>
-                                                {provider.verified && (
-                                                    <span className="text-blue-500 text-xs">✔</span>
+                                                {provider.verified && (                           
+                                                    <img src="/image/providerverified.png" alt="verified" className="object-cover w-[19px] h-[19px] md:w-[41px] md:h-[41px] " />
                                                 )}
+                                                <span className="md:text-[14px] text-[8px]">Available</span>
                                             </div>
 
-                                            <p className="text-[16px] text-gray-500">
+                                            <p className="text-[10px] md:text-[16px] text-gray-500">
                                                 {provider.rating} ★ ({provider.reviews} reviews)
                                             </p>
                                         </div>
@@ -129,7 +136,7 @@ const ChooseProvider: React.FC = () => {
                                                 selectedId === provider.id ? null : provider.id
                                             )
                                         }
-                                        className="w-4 h-4 accent-green-600 cursor-pointer block md:hidden"
+                                        className="w-4 h-4 accent-green-600 -mt-8 cursor-pointer block md:hidden"
                                     />
                                 </div>
 
@@ -145,15 +152,22 @@ const ChooseProvider: React.FC = () => {
                                         </span>
                                     </p>
 
-                                    <p className="text-[8px] text-green-600 ml-8 font-medium">
+                                    {/* <p className="text-[8px] text-black ml-8 font-medium">
                                         Earn up to
-                                        <div className="text-[15px]">{provider.cashback}</div>
+                                        <div className="text-[15px] text-green-600">{provider.cashback}</div>
+                                    </p> */}
+                                     <div className="flex flex-col gap-2">
+                                   
+                                    <p className="text-[8px] text-black ml-8 font-medium">
+                                        Earn up to 
                                     </p>
+                                    <p className="text-[15px] ml-8 text-green-600">{provider.cashback}</p>
+                                </div>
                                 </div>
 
                                 {/* ===== DESKTOP CENTER (UNCHANGED) ===== */}
-                                <div className="hidden md:block text-right whitespace-nowrap">
-                                    <p className="font-semibold text-[24px] flex items-center gap-2 justify-end">
+                                <div className="hidden md:block text-right whitespace-nowrap ml-10">
+                                    <p className="font-medium text-[24px] md:-mt-10 flex items-center gap-2 justify-end">
                                         <span className="text-[24px]">₹{provider.price}</span>
                                         <span className="line-through text-gray-400 text-[24px]">
                                             ₹{provider.originalPrice}
@@ -167,10 +181,10 @@ const ChooseProvider: React.FC = () => {
                                 {/* ===== DESKTOP RIGHT (UNCHANGED) ===== */}
                                 <div className="hidden md:flex flex-col gap-2">
                                    
-                                    <p className="text-14px text-green-600 ml-50 font-medium">
+                                    <p className="text-[14px] text-black -mt-8  font-medium">
                                         Earn up to 
-                                        <div className="text-[24px]">{provider.cashback}</div>
                                     </p>
+                                    <p className="text-[24px] text-green-600">{provider.cashback}</p>
                                 </div>
                                  <input
                                         type="checkbox"
@@ -180,7 +194,7 @@ const ChooseProvider: React.FC = () => {
                                                 selectedId === provider.id ? null : provider.id
                                             )
                                         }
-                                        className="w-4 h-4 hidden md:block accent-green-600 cursor-pointer"
+                                        className="w-4 h-4 hidden -mt-14 md:block accent-green-600 cursor-pointer"
                                     />
                             </div>
 
@@ -188,10 +202,10 @@ const ChooseProvider: React.FC = () => {
                     </div>
 
                     {/* SHOW MORE / LESS BUTTON */}
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-2 py-0 md:py-4">
                         <button
                             onClick={() => setShowAll(!showAll)}
-                            className="bg-black text-white text-[12px] md:text-[20px] mb-4 px-6 py-2 rounded"
+                            className="bg-black text-white text-[12px] md:text-[20px] mb-2 px-4 py-1 rounded"
                         >
                             {showAll ? "Show Less" : "See all Providers"}
                         </button>

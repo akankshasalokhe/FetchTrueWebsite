@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
                                 className="md:border w-full rounded-xl md:w-[618px] md:p-8 p-2 flex gap-4 items-start"
                             >
                                 {/* ICON */}
-                               <img src="/image/eduwcuicon.png" alt="icon" className="object-cover w-[24px] h-[24px] md:mt-2 md:w-[51px] md:h-[52px]" />
+                               <img src="/image/eduwcuicon (2).png" alt="icon" className="object-cover text-[#281A83] w-[24px] h-[24px] md:mt-2 md:w-[51px] md:h-[52px]" />
                                 {/* TEXT */}
                                 <div className="flex-1">
                                     <h3 className="text-[12px] md:text-[32px] font-semibold text-gray-800">
