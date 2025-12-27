@@ -16,8 +16,6 @@ import TermsAndConditions from "@/src/components/EducationServiceDetails/Termsan
 import WhyChooseUs from "@/src/components/EducationServiceDetails/WhyChooseUs";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { Eye, Pencil } from "lucide-react";
-
 
 type CourseInfo = {
   title: string;
@@ -35,7 +33,7 @@ type CourseInfo = {
 
 const DATA: CourseInfo = {
   title: "Figma UI UX Design Essential",
-  subtitle: "IT & Software",
+  subtitle: "Master Figma UI UX Design",
   rating: 4.8,
   reviews: "2,400+ reviews",
   price: 499,
@@ -74,15 +72,15 @@ export default function ServiceDetails() {
             {/* IMAGE */}
             <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
               <img
-                src="/image/eduserbg.png"
-                alt="Course"
+                src="/image/marnavbg.png"
+                alt="Marketing"
                 className="w-full h-full object-cover"
               />
             </div>
 
           </div>
 
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-4">
             <h1 className="text-[40px] font-semibold whitespace-nowrap">{DATA.title}</h1>
             <p className="text-gray-500 text-[24px]">Education Service</p>
 
@@ -92,23 +90,31 @@ export default function ServiceDetails() {
               <span className="text-gray-500">({DATA.reviews})</span>
             </div>
 
-            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="border rounded-lg p-4 space-y-2">
+                <p className="text-gray-500">Price</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl font-semibold">₹{DATA.price}</span>
 
-            <div className="border rounded-xl gap-4 p-2 flex justify-between items-center">
-              <p className="md:text-[24px]">Price</p>
-               <span className="md:text-[36px] font-semibold">₹{DATA.price}</span>
-                <div className="flex-1">
-                  <span className="line-through md:text-[20px] text-gray-400">
+                </div>
+                <div className="flex flex-row">
+                  <span className="line-through text-gray-400">
                     ₹{DATA.originalPrice}
                   </span>
-                  <span className="bg-[#281A83] text-white text-sm px-2 py-1 rounded ml-2">
+                  <span className="bg-orange-500 text-white text-sm px-2 py-1 rounded">
                     {DATA.discount}
                   </span>
                 </div>
+              </div>
 
+              <div className="border rounded-lg p-4 space-y-2">
+                <p className="text-gray-500">EMI starts from</p>
+                <p className="font-semibold">₹{DATA.emi}/Month</p>
+                <button className="mt-2 text-orange-500 border border-orange-500 px-3 py-1 rounded">
+                  View Plans
+                </button>
+              </div>
             </div>
-            <p className="md:text-[20px]">EMI Option Available</p>
-           
 
             <div className="flex gap-4">
               <div className="border rounded-full px-4 py-2">
@@ -119,20 +125,6 @@ export default function ServiceDetails() {
               </div>
             </div>
 
-             <div className="flex flex-row gap-4">
-             <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                <Eye size={24} className="cursor-pointer text-gray-600" />
-               <span className="text-[20px]">Design with empathy</span>
-              </div>
-
-              <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                 <Pencil size={24} className="cursor-pointer text-gray-600" />
-                <span className="text-[20px]">Create and practice</span>
-              </div>
-
-           </div>
-
-
             <div className="border rounded-xl p-5 flex justify-between items-center">
               <div>
                 <p className="font-semibold">Franchise Commission</p>
@@ -140,7 +132,7 @@ export default function ServiceDetails() {
                   {DATA.commission}
                 </p>
               </div>
-              <button className="text-[#281A83] flex items-center gap-1">
+              <button className="text-orange-500 flex items-center gap-1">
                 T&amp;C <span className="text-xl">›</span>
               </button>
             </div>
@@ -199,7 +191,7 @@ export default function ServiceDetails() {
           <div className="px-4 mt-4 space-y-3">
 
             <div className="flex justify-between items-start">
-              <h2 className="text-[16px] font-semibold">{DATA.title}</h2>
+              <h2 className="text-lg font-semibold">{DATA.title}</h2>
               <div className="flex flex-col items-center gap-1 text-sm">
                 <div>
                   <span className="text-yellow-500">★</span>
@@ -219,22 +211,16 @@ export default function ServiceDetails() {
               <span className="line-through text-gray-400">
                 ₹{DATA.originalPrice}
               </span>
-              <span className="text-[#281A83]">{DATA.discount}</span>
+              <span className="text-orange-500">{DATA.discount}</span>
             </div>
 
-           <p className="text-[12px]">EMI Option available</p>
-            <div className="flex flex-row gap-2">
-             <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-1">
-                <Eye size={16} className="cursor-pointer text-gray-600" />
-               <span className="text-[12px] whitespace-nowrap">Design with empathy</span>
-              </div>
-
-              <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-1">
-                 <Pencil size={16} className="cursor-pointer text-gray-600" />
-                <span className="text-[12px] whitespace-nowrap">Create and practice</span>
-              </div>
-
-           </div>
+            {/* EMI */}
+            <div className="flex items-center gap-2 text-sm">
+              <span>EMI starts from - ₹{DATA.emi}/ Month</span>
+              <button className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
+                View Plans
+              </button>
+            </div>
 
             {/* TAGS */}
             <div className="flex gap-3 mt-3">
@@ -264,20 +250,7 @@ export default function ServiceDetails() {
       </section>
 
       <section>
-        <Benefits />
-        <AboutUs />
-        <WhyChooseUs />
-        <LearnAndEligible />
-        <CourseCurriculum />
-        <CourseIncludes />
-        <Certification />
-        <InstructorSection />
-        <CourseOffers />
-        <MoreInformation />
-        <TermsAndConditions />
-        <FAQs />
-        <RatingsReviews />
-        <ConnectWith />
+       
       </section>
     </>
 
