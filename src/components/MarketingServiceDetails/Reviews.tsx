@@ -34,13 +34,13 @@ const RatingsReviews = () => {
     <section className="bg-gray-100 py-10 px-3 md:px-0">
 
           {/* TITLE */}
-            <div className="flex items-start ml-2 px-1 md:px-14 mb-12">
-                <h2 className="more-info-title">
-                   Ratings & Reviews
+             <div className="flex items-start lg:items-center lg:justify-center ml-4 mb-4">
+                <h2 className="text-[#2164F4] font-semibold text-[16px] lg:text-[36px]">
+                    Ratings & Reviews
                 </h2>
             </div>
 
-      <div className="md:w-[1321px] mx-auto p-2 md:p-10 ">
+      <div className="lg:w-[1321px] mx-auto border-t-4 border-blue-500 rounded-xl p-2 md:p-10 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* ================= LEFT ================= */}
           <div>
@@ -52,10 +52,10 @@ const RatingsReviews = () => {
               {/* OVERALL SCORE */}
               <div className="text-center">
                 <div className="flex items-center justify-center  md:gap-2">
-                  <span className="text-[24px] md:text-4xl font-semibold">
+                   <span className="text-yellow-400 text-2xl">★</span>
+                  <span className="text-[24px] text-[#2164F4] md:text-4xl font-semibold">
                     {OVERALL_RATING.rating}
                   </span>
-                   <span className="text-yellow-400 text-2xl">★</span>
                 </div>
                 <div className="md:-ml-6">
                 <p className="mt-2 font-semibold text-[12px] md:text-[20px]">
@@ -105,7 +105,7 @@ const RatingsReviews = () => {
                   {/* CIRCLE */}
                   <div className="relative w-12 h-12 md:w-25 md:h-25 rounded-full border-4 border-gray-300 flex items-center justify-center">
                     <div
-                      className="absolute inset-0 rounded-full border-4 border-[#281A83]"
+                      className="absolute inset-0 rounded-full border-4 border-[#2164F4]"
                       style={{
                         clipPath: `inset(0 ${
                           100 - (item.value / 5) * 100

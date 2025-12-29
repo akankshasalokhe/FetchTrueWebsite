@@ -72,12 +72,24 @@ export default function ServiceDetails() {
             </div>
 
             {/* IMAGE */}
-            <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
+            <div className="relative md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
               <img
                 src="/image/eduserbg.png"
                 alt="Course"
                 className="w-full h-full object-cover"
               />
+
+              
+            {/* Duration Badge */}
+            <div className="absolute bottom-4 left-3 right-3 flex justify-between">
+              <div className="bg-white px-4 py-1 rounded-full text-[20px] shadow">
+                • Online Mode
+              </div>
+
+              <div className="bg-white px-4 py-1 rounded-full text-[20px] shadow">
+                Duration 16 Weeks
+              </div>
+            </div>
             </div>
 
           </div>
@@ -92,23 +104,23 @@ export default function ServiceDetails() {
               <span className="text-gray-500">({DATA.reviews})</span>
             </div>
 
-            
+
 
             <div className="border rounded-xl gap-4 p-2 flex justify-between items-center">
               <p className="md:text-[24px]">Price</p>
-               <span className="md:text-[36px] font-semibold">₹{DATA.price}</span>
-                <div className="flex-1">
-                  <span className="line-through md:text-[20px] text-gray-400">
-                    ₹{DATA.originalPrice}
-                  </span>
-                  <span className="bg-[#281A83] text-white text-sm px-2 py-1 rounded ml-2">
-                    {DATA.discount}
-                  </span>
-                </div>
+              <span className="md:text-[36px] font-semibold">₹{DATA.price}</span>
+              <div className="flex-1">
+                <span className="line-through md:text-[20px] text-gray-400">
+                  ₹{DATA.originalPrice}
+                </span>
+                <span className="bg-[#281A83] text-white text-sm px-2 py-1 rounded ml-2">
+                  {DATA.discount}
+                </span>
+              </div>
 
             </div>
             <p className="md:text-[20px]">EMI Option Available</p>
-           
+
 
             <div className="flex gap-4">
               <div className="border rounded-full px-4 py-2">
@@ -119,18 +131,18 @@ export default function ServiceDetails() {
               </div>
             </div>
 
-             <div className="flex flex-row gap-4">
-             <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
+            <div className="flex flex-row gap-4">
+              <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
                 <Eye size={24} className="cursor-pointer text-gray-600" />
-               <span className="text-[20px]">Design with empathy</span>
+                <span className="text-[20px]">Design with empathy</span>
               </div>
 
               <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                 <Pencil size={24} className="cursor-pointer text-gray-600" />
+                <Pencil size={24} className="cursor-pointer text-gray-600" />
                 <span className="text-[20px]">Create and practice</span>
               </div>
 
-           </div>
+            </div>
 
 
             <div className="border rounded-xl p-5 flex justify-between items-center">
@@ -189,9 +201,16 @@ export default function ServiceDetails() {
             />
 
             {/* Duration Badge */}
-            <div className="absolute -bottom-2 right-3 bg-white px-4 py-1 rounded-full text-xs shadow">
-              Duration 2 Weeks • 12 Hours
+            <div className="absolute -bottom-2 left-3 right-3 flex justify-between">
+              <div className="bg-white px-4 py-1 rounded-full text-xs shadow">
+                • Online Mode
+              </div>
+
+              <div className="bg-white px-4 py-1 rounded-full text-xs shadow">
+                Duration 16 Weeks
+              </div>
             </div>
+
           </div>
 
 
@@ -222,19 +241,19 @@ export default function ServiceDetails() {
               <span className="text-[#281A83]">{DATA.discount}</span>
             </div>
 
-           <p className="text-[12px]">EMI Option available</p>
+            <p className="text-[12px]">EMI Option available</p>
             <div className="flex flex-row gap-2">
-             <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-1">
+              <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-1">
                 <Eye size={16} className="cursor-pointer text-gray-600" />
-               <span className="text-[12px] whitespace-nowrap">Design with empathy</span>
+                <span className="text-[12px] whitespace-nowrap">Design with empathy</span>
               </div>
 
               <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-1">
-                 <Pencil size={16} className="cursor-pointer text-gray-600" />
+                <Pencil size={16} className="cursor-pointer text-gray-600" />
                 <span className="text-[12px] whitespace-nowrap">Create and practice</span>
               </div>
 
-           </div>
+            </div>
 
             {/* TAGS */}
             <div className="flex gap-3 mt-3">

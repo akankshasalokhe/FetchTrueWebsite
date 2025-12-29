@@ -13,7 +13,7 @@ export default function AboutSection() {
         </h2>
       </div>
 
-      {/* 🔑 SAME WIDTH WRAPPER AS BENEFITS */}
+      
       <div className="md:w-[1320px] mx-auto">
         {/* Content Card */}
         <div className="bg-white rounded-2xl shadow-md text-gray-600 leading-relaxed">

@@ -7,7 +7,7 @@ const ConnectWith = () => {
   return (
     <section className="bg-gray-100 py-6">
       <div className="md:w-[1320px] mx-auto bg-white rounded-xl px-4 py-5 md:px-10 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        
+
         {/* LEFT */}
         <div>
           <p className="text-teal-600 text-[10px] md:text-[24px] mb-1">Connect With</p>
@@ -17,7 +17,17 @@ const ConnectWith = () => {
         </div>
 
         {/* CENTER ICONS */}
-        <div className="flex items-center gap-4">
+        {/* <div className="flex justify-end lg:justify-start items-center gap-4">
+          <button className="p-2 rounded-full hover:bg-gray-100">
+            <Phone className="text-green-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
+          </button>
+
+          <button className="p-2 rounded-full hover:bg-gray-100">
+            <Mail className="text-blue-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
+          </button>
+        </div> */}
+        {/* CENTER ICONS */}
+        <div className="w-full flex justify-end md:w-auto md:justify-start -mt-12 lg:-mt-0 items-center gap-4">
           <button className="p-2 rounded-full hover:bg-gray-100">
             <Phone className="text-green-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
           </button>
@@ -26,6 +36,7 @@ const ConnectWith = () => {
             <Mail className="text-blue-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
           </button>
         </div>
+
 
         {/* RIGHT BUTTONS */}
         <div className="flex items-center gap-3 w-full md:w-auto">
