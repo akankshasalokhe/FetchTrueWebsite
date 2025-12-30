@@ -12,7 +12,7 @@ const ConnectWith = () => {
         <div>
           <p className="text-teal-600 text-[10px] md:text-[24px] mb-1">Connect With</p>
           <h2 className="text-[14px] md:text-[36px] font-semibold text-[#5A3A2E]">
-            Marketing Service Manager
+            On Demand Service Manager
           </h2>
         </div>
 
