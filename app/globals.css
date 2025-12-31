@@ -28,3 +28,52 @@ body {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+
+.more-info-title {
+  position: relative;
+  font-weight: 600;
+  color: #2818A3;
+  font-size: 32px;
+  padding-left: 40px; /* space for quotes */
+}
+
+.more-info-title::before {
+  content: "“";
+  position: absolute;
+  left: 0;
+  top: -8px;
+  font-size: 56px;
+  color: #2818A3; /* light orange quote */
+  font-family: serif;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .more-info-title {
+    font-size: 16px;
+    padding-left: 24px;
+  }
+
+  .more-info-title::before {
+    font-size: 32px;
+    top: -4px;
+  }
+}
+

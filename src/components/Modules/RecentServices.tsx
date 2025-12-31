@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
@@ -72,24 +72,52 @@ const services: ServiceType[] = [
 export default function RecentServices() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <section className="w-full mt-20 mb-30 px-4 overflow-hidden relative">
-      <h3 className="text-2xl font-medium mb-8 ml-10">Recent Services</h3>
+  // For draggable scrolling
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-      {/* Scrollable Row (no arrows, no scrollbar) */}
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    const walk = (x - startX) * 1.5; // scroll speed
+    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  return (
+    <section className="w-full mt-20 mb-20 px-4">
+      <h3 className="text-2xl font-medium mb-8 ml-4 md:ml-10">Recent Services</h3>
+
+      {/* Scrollable row with drag */}
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth px-4 no-scrollbar"
+        className="flex gap-6 overflow-x-auto scroll-smooth px-4 no-scrollbar cursor-grab active:cursor-grabbing"
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        // For touch devices
+        onTouchStart={(e) => handleMouseDown({ ...e, pageX: e.touches[0].pageX } as any)}
+        onTouchEnd={handleMouseUp}
+        onTouchMove={(e) => handleMouseMove({ ...e, pageX: e.touches[0].pageX } as any)}
       >
         {services.map((service, idx) => (
           <div
             key={idx}
-            className="min-w-[320px] sm:min-w-[360px] md:min-w-[380px] px-2"
+            className="min-w-[280px] sm:min-w-[320px] md:min-w-[360px] px-2 flex-shrink-0"
           >
             <div
-              className="bg-white rounded-[12px] w-full h-auto 
-              border border-gray-200 shadow-[0_4px_15px_rgba(0,0,0,0.15)]
-              relative mx-auto py-2 pb-5"
+              className="bg-white rounded-[12px] w-full h-auto border border-gray-200 shadow-lg relative py-2 pb-5"
             >
               {/* Image */}
               <div className="relative w-[95%] h-[180px] md:h-[200px] mx-auto rounded-[12px] overflow-hidden">
@@ -100,18 +128,18 @@ export default function RecentServices() {
                 />
 
                 {/* Bookmark */}
-                <div className="absolute top-[12px] right-[12px] w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute top-3 right-3 w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center shadow-md">
                   <CiBookmark size={20} color="white" />
                 </div>
 
                 {/* Trusted */}
-                <div className="absolute top-[15px] left-[15px] px-2 py-1 text-[10px] font-semibold text-[#2164F4] bg-white rounded-[7px]">
+                <div className="absolute top-3 left-3 px-2 py-1 text-[10px] font-semibold text-[#2164F4] bg-white rounded-[7px] flex items-center">
                   <VscWorkspaceTrusted className="inline-block mr-1" />
                   {service.trusted}
                 </div>
 
                 {/* Rating */}
-                <div className="absolute bottom-[10px] right-[12px] flex gap-1">
+                <div className="absolute bottom-2 right-3 flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <FaStar
                       key={i}
@@ -123,18 +151,18 @@ export default function RecentServices() {
               </div>
 
               {/* Info */}
-              <div className="px-[15px] mt-2">
-                <h4 className="text-[18px] font-semibold">{service.title}</h4>
-                <p className="text-[12px] mt-[4px]">{service.category}</p>
+              <div className="px-3 mt-2">
+                <h4 className="text-[16px] font-semibold">{service.title}</h4>
+                <p className="text-[12px] mt-1">{service.category}</p>
 
-                <div className="flex justify-between mt-[10px]">
-                  <span className="text-[15px]">{service.discount}</span>
+                <div className="flex justify-between mt-2">
+                  <span className="text-[14px]">{service.discount}</span>
                   <span className="text-[12px] bg-[#EAF2FF] px-2 py-[3px] rounded-[10px]">
                     {service.earn}
                   </span>
                 </div>
 
-                <div className="flex justify-between mt-[12px] text-[11px] font-semibold">
+                <div className="flex justify-between mt-2 text-[11px] font-semibold">
                   <div className="flex flex-col">
                     <span>{service.investment}</span>
                     <span className="font-normal">Investment</span>
