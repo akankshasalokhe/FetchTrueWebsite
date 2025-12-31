@@ -4,46 +4,32 @@ import TermsConditions from "@/src/components/Section/TermsandCondition";
 import FAQs from "@/src/components/Section/FAQ";
 import ConnectBar from "@/src/components/Section/ConnectBar";
 import RatingsReviews from "@/src/components/Section/RatingReviews";
-
-
-
 export default function AIHubServiceDetailPage() {
   return (
      <section className="relative min-h-screen w-full overflow-hidden bg-[#D0E0E7DB] backdrop-blur-sm">
 
 
       {/* FULL PAGE BACKGROUND */}
+     <div
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: "url('/image/Group2.png')",
+          backgroundRepeat:"repeat ",
+          backgroundSize: "contain",
+
+          backgroundPosition:"center",
+        }}
+      />
       <div
         className="fixed inset-0 -z-10"
         style={{
-          backgroundImage: "url('/image/Group (6).png')",
-          backgroundRepeat:"repeat",
+          backgroundImage: "url('/image/Group (7).png')",
+          backgroundRepeat:"repeat ",
           backgroundSize: "contain",
 
-          // backgroundPosition: "center top",
+          backgroundPosition:"center",
         }}
       />
-
-      {/* LEFT DECOR */}
-      {/* <Image
-        src="/image/Group 63.png"
-        width={300}
-        height={800}
-        className="absolute left-0 top-0 h-full opacity-40 hidden md:block pointer-events-none"
-        alt=""
-      /> */}
-
-      {/* RIGHT DECOR */}
-      {/* <Image
-        src="/image/Group 63.png"
-        width={300}
-        height={800}
-        className="absolute right-0 top-1/2 -translate-y-1/2 opacity-40 hidden md:block pointer-events-none"
-        alt=""
-      /> */}
-
-      {/* SOFT OVERLAY */}
-      {/* <div className="absolute inset-0 bg-blue-50" /> */}
 
       {/* CONTENT */}
       <section
@@ -897,3 +883,6 @@ export default function AIHubServiceDetailPage() {
     </section>
   );
 }
+
+
+
