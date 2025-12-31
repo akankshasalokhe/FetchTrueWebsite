@@ -45,10 +45,11 @@ html, body {
 }
 
 
+
 .more-info-title {
   position: relative;
   font-weight: 600;
-  color: #FA9131;
+  color: #2818A3;
   font-size: 32px;
   padding-left: 40px; /* space for quotes */
 }
@@ -59,7 +60,7 @@ html, body {
   left: 0;
   top: -8px;
   font-size: 56px;
-  color: #F6D3AE; /* light orange quote */
+  color: #2818A3; /* light orange quote */
   font-family: serif;
   line-height: 1;
 }

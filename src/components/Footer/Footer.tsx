@@ -188,7 +188,7 @@ const MODULES_RIGHT = [
   { label: "Design Studio Marketing", path: "/MainModules/Marketing/DesignStudio" },
   { label: "ITService", path: "/MainModules/ITService" },
   { label: "Education", path: "/MainModules/Education" },
-  { label: "Franchise", path: "/services/franchise" },
+  { label: "On Demand", path: "/MainModules/OnDemand/detailslug" },
 ];
 
 

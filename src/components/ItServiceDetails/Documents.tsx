@@ -44,7 +44,7 @@ const Documents: React.FC = () => {
       {/* TITLE */}
       <div className="flex items-start md:justify-center mb-4">
         <h2
-          className="text-white bg-black px-8 py-2 text-[12px] md:text-[32px] font-semibold"
+          className="text-white bg-black px-6 md:px-12 py-2 text-[12px] md:text-[32px] font-semibold"
           style={{
             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
           }}

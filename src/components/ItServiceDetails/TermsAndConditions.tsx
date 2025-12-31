@@ -60,7 +60,7 @@ const TermsAndConditions = () => {
                 {/* TITLE */}
                 <div className="flex items-start md:justify-center mb-6">
                     <h2
-                        className="bg-black text-white px-6 py-2 text-[12px] md:text-[32px] font-semibold"
+                        className="bg-black text-white px-6 md:px-10 py-2 text-[12px] md:text-[32px] font-semibold"
                         style={{
                             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
                         }}

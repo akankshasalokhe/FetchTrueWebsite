@@ -40,18 +40,18 @@ const RatingsReviews = () => {
                 </h2>
             </div>
 
-      <div className="md:w-[1321px] mx-auto bg-white rounded-2xl p-2 md:p-10 ">
+      <div className="md:w-[1321px] mx-auto p-2 md:p-10 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* ================= LEFT ================= */}
           <div>
-            <p className="text-gray-500 text-sm mb-6">
+            <p className="text-gray-500 text-xs md:text-[20px] mb-6">
               Complete overview of franchise requirements and benefits.
             </p>
 
             <div className="flex gap-10">
               {/* OVERALL SCORE */}
               <div className="text-center">
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-center  md:gap-2">
                   <span className="text-[24px] md:text-4xl font-semibold">
                     {OVERALL_RATING.rating}
                   </span>
@@ -70,9 +70,9 @@ const RatingsReviews = () => {
                 {RATING_BREAKDOWN.map((item) => (
                   <div
                     key={item.label}
-                    className="grid grid-cols-[90px_1fr_40px] items-center gap-1 text-sm"
+                    className="grid grid-cols-[90px_1fr_40px] items-center gap-4 text-sm"
                   >
-                    <span className="text-gray-600 text-[12px]">{item.label}</span>
+                    <span className="text-gray-600 text-[12px] md:text-[20px] whitespace-nowrap">{item.label}</span>
 
                     <div className="h-2 bg-gray-200 -ml-5 md:-ml-0 rounded-full overflow-hidden">
                       <div
@@ -83,7 +83,7 @@ const RatingsReviews = () => {
                       />
                     </div>
 
-                    <span className="text-gray-500 ml-4 text-xs">
+                    <span className="text-gray-500 ml-4 text-xs md:text-[16px]">
                       {item.count}
                     </span>
                   </div>
@@ -94,7 +94,7 @@ const RatingsReviews = () => {
 
           {/* ================= RIGHT ================= */}
           <div>
-            <h3 className="font-semibold mb-6">Ratings by features</h3>
+            <h3 className="font-semibold md:text-[24px] mb-6">Ratings by features</h3>
 
             <div className="flex gap-4 md:gap-8">
               {FEATURE_RATINGS.map((item) => (
@@ -103,9 +103,9 @@ const RatingsReviews = () => {
                   className="flex flex-col items-center"
                 >
                   {/* CIRCLE */}
-                  <div className="relative w-12 h-12 md:w-20 md:h-20 rounded-full border-4 border-gray-300 flex items-center justify-center">
+                  <div className="relative w-12 h-12 md:w-25 md:h-25 rounded-full border-4 border-gray-300 flex items-center justify-center">
                     <div
-                      className="absolute inset-0 rounded-full border-4 border-black"
+                      className="absolute inset-0 rounded-full border-4 border-[#281A83]"
                       style={{
                         clipPath: `inset(0 ${
                           100 - (item.value / 5) * 100
@@ -117,7 +117,7 @@ const RatingsReviews = () => {
                     </span>
                   </div>
 
-                  <p className="text-xs text-center mt-3">
+                  <p className="text-xs md:text-[14px] text-center mt-3">
                     {item.label} 
                   </p>
                 </div>

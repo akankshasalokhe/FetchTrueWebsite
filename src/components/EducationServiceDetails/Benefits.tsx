@@ -78,7 +78,7 @@ export default function Benefits() {
                         const Icon = item.icon;
                         return (
                             <div key={index} className="flex items-center gap-4">
-                                <Icon className="text-[#FA9131] w-[24px] h-[24px] md:w-[33.21px] md:h-[33.21px]" />
+                                <Icon className="text-[#281A83] w-[24px] h-[24px] md:w-[33.21px] md:h-[33.21px]" />
                                 <p className="text-[#606060] text-[12px] md:text-[24px]">
                                     {item.text}
                                 </p>
