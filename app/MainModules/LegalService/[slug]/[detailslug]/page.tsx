@@ -234,6 +234,86 @@ export default function LegalDetailsPage() {
         </div>
       </div>
                    </section>
+<section className="w-full py-10 ">
+  <div className="max-w-[760px] mx-auto px-4">
+
+    {/* Heading */}
+    <h2 className="text-center text-[26px] font-semibold text-[#5B3527] mb-2">
+      How it works?
+    </h2>
+
+    <p className="text-center text-[18px] text-[#868686]  mx-auto mb-12 leading-relaxed">
+      Follow our streamlined 7-step process to register your Limited Liability Partnership.
+      We handle everything from consultation to certificate delivery with complete transparency.
+    </p>
+
+    {/* Steps */}
+    <div className="relative pl-16 lg:pl-60 flex flex-col gap-10">
+
+      {/* Vertical Line */}
+      <span className="absolute left-[24px] lg:left-[200px] top-1 bottom-1 w-px bg-[#D6D6D6]" />
+
+      {/* Step */}
+      {[
+        {
+          icon: "/image/Vector (12).png",
+          title: "Select Service",
+          desc: "Choose the legal service you need for your case",
+        },
+        {
+          icon: "/image/Vector (4).png",
+          title: "Share Basic Details",
+          desc: "Fill in simple information required for your case or document.",
+        },
+        {
+          icon: "/image/Vector (5).png",
+          title: "Get Matched with Expert",
+          desc: "We connect you with the right lawyer or law firm.",
+        },
+        {
+          icon: "/image/Vector (10).png",
+          title: "Review & Confirm",
+          desc: "Check pricing, process, and timeline before you confirm.",
+        },
+        {
+          icon: "/image/Vector (11).png",
+          title: "Service Begins",
+          desc: "Your legal work starts instantly with updates at every step.",
+        },
+      ].map((step, index) => (
+        <div key={index} className="relative flex gap-8">
+
+          {/* Dot on line */}
+          <span className="absolute left-[-46px] top-[6px] w-3 h-3 rounded-full bg-[#C9A46A]" />
+
+          {/* Content */}
+          <div>
+            {/* Icon */}
+            <div className="w-7 h-7 mb-2 flex items-center justify-center text-[#BC9958] text-[16px]">
+              <img src={step.icon}/>
+            </div>
+
+            {/* Title */}
+            <p className="text-[18px] font-medium text-[#868686] mb-1">
+              {step.title}
+            </p>
+
+            {/* Description */}
+            <p className="text-[14px] text-[#9A9A9A] max-w-[420px]">
+              {step.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
 
                    <section className="w-full lg:w-[1440px] py-12 ms-0  lg:ms-12 mb-10 md:py-16 bg-[#5B3527] relative">
   {/* INNER SHADOW */}
@@ -337,7 +417,7 @@ export default function LegalDetailsPage() {
   </div>
 </section>
 
-<section className="w-full py-8 lg:py-10 bg-gray-50">
+<section className="w-full py-8 lg:py-10 ">
   <div className="max-w-[1200px] mx-auto px-4">
     
     {/* Title */}

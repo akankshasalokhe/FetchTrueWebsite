@@ -19,7 +19,7 @@ export default function TermsConditions({
     <section className="w-full py-12">
       <div className="max-w-[1000px] px-12 ">
         {/* Heading */}
-        <h2 className="text-[28px] lg:text-[34px] font-medium text-[#6E26CB] mb-6">
+        <h2 className="text-[28px] lg:text-[34px] font-medium text-black mb-6">
           {heading}
         </h2>
 
