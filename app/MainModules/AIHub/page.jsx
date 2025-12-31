@@ -1,9 +1,11 @@
-
-
-
-
-export default function AIHubServiceDetailPage() {
-  return (
+// import Image from "next/image";
+// import MoreInformation from "@/src/components/Section/MoreInformationSection";
+// import TermsConditions from "@/src/components/Section/TermsandCondition";
+// import FAQs from "@/src/components/Section/FAQ";
+// import ConnectBar from "@/src/components/Section/ConnectBar";
+// import RatingsReviews from "@/src/components/Section/RatingReviews";
+// export default function AIHubServiceDetailPage() {
+//   return (
 //      <section className="relative min-h-screen w-full overflow-hidden bg-[#D0E0E7DB] backdrop-blur-sm">
 
 
@@ -890,8 +892,18 @@ export default function AIHubServiceDetailPage() {
 
 
 //     </section>
+//   );
+// }
 
-<>
-</>
-  );
+
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>
+      
+    </div>
+  )
 }
+
+export default page
