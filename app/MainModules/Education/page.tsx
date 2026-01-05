@@ -28,8 +28,8 @@ export default function EducationModulePage() {
 
     const sliderRef = useRef<HTMLDivElement>(null);
 
-    const chunkArray = (arr: any[], size: number) => {
-        const chunks = [];
+    const chunkArray = <T,>(arr: T[], size: number): T[][] => {
+        const chunks: T[][] = [];
         for (let i = 0; i < arr.length; i += size) {
             chunks.push(arr.slice(i, i + size));
         }
@@ -60,7 +60,7 @@ export default function EducationModulePage() {
         if (!el) return;
 
         const slideWidth = el.offsetWidth;
-        let intervalId: any;
+        let intervalId: NodeJS.Timeout;
 
         const startAutoSwipe = () => {
             intervalId = setInterval(() => {

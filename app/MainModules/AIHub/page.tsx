@@ -121,7 +121,7 @@
 
 
 //       <section className="w-full py-10 md:py-14 overflow-hidden">
-      
+
 //   <div className="max-w-[1440px] mx-auto px-4" >
 
 //     {/* Heading */}
@@ -885,14 +885,368 @@
 // }
 
 
-import React from 'react'
 
-const page = () => {
-  return (
-    <>
-      
-    </>
-  )
+
+'use client';
+
+import AISolutions from '@/src/components/AIHub/AISolutions';
+import Recommendation from '@/src/components/AIHub/Recommended';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+
+export default function AIHubModulesPage() {
+
+    const categories = [
+        { label: "Finance & Accounting AI", path: "/image/personaldevelopment.png" },
+        { label: "Employee Onboarding ", path: "/image/Development.png" },
+        { label: "Customer Onboarding", path: "/image/it.png" },
+        { label: "Business Intelligence", path: "/image/Finance.png" },
+        { label: "Sales & Marketing  ", path: "/image/Teaching&Software.png" },
+        { label: "Customer Supporting AI", path: "/image/Business.png" },
+    ]
+
+    const sliderRef = useRef<HTMLDivElement>(null);
+
+    const chunkArray = <T,>(arr: T[], size: number): T[][] => {
+        const chunks: T[][] = [];
+        for (let i = 0; i < arr.length; i += size) {
+            chunks.push(arr.slice(i, i + size));
+        }
+        return chunks;
+    };
+
+    const baseSlides = chunkArray(categories, 6);
+
+    const slides = [
+        baseSlides[baseSlides.length - 1], // clone last
+        ...baseSlides,
+        baseSlides[0], // clone first
+    ];
+
+
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        if (sliderRef.current) {
+            sliderRef.current.scrollLeft = sliderRef.current.offsetWidth;
+        }
+    }, []);
+
+
+
+    useEffect(() => {
+        const el = sliderRef.current;
+        if (!el) return;
+
+        const slideWidth = el.offsetWidth;
+        let intervalId: NodeJS.Timeout;
+
+        const startAutoSwipe = () => {
+            intervalId = setInterval(() => {
+                el.scrollTo({
+                    left: el.scrollLeft + slideWidth,
+                    behavior: "smooth",
+                });
+            }, 2500); // pause duration between swipes
+        };
+
+        startAutoSwipe();
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+
+    const [searchQuery, setSearchQuery] = useState("");
+
+    type CategoryBgProps = {
+        active: boolean;
+    };
+
+    const CategoryBg: React.FC<CategoryBgProps> = ({ active }) => (
+        <svg
+            viewBox="0 0 300 80"
+            preserveAspectRatio="none"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+        >
+            <path
+                d="
+        M 20 0
+        H 280
+        L 300 0
+        V 30
+        Q 300 80 230 80
+        H 0
+        V 20
+        Q 0 0 20 0
+        Z
+      "
+                fill={active ? '#000000' : '#E9EEF5'}
+            />
+        </svg>
+    );
+
+    const router = useRouter();
+    const toSlug = (text: string) =>
+        text.toLowerCase().replace(/\s+/g, "-");
+
+
+    return (
+        <>
+            <section className="relative bg-[#E2E9F1] overflow-hidden">
+                <div className='hidden md:block'>
+                    {/* ===== NAVBAR ===== */}
+                    <div className="w-full mx-auto px-4 md:px-8 mt-4 md:mt-0">
+                        <div className=" flex items-center justify-between  md:p-8 p-4 lg:p-12 rounded-xl w-full">
+                            {/* LEFT */}
+                            <div className="flex items-center gap-3 lg:gap-5">
+                                <div className="bg-white rounded-full p-1">
+                                    <img
+                                        src="/image/AIHome.png"
+                                        className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] lg:p-1 object-cover"
+                                        alt="Home"
+                                    /></div>
+
+
+
+                                <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
+                                    AI Hub
+                                </h1>
+                            </div>
+
+                            {/* RIGHT */}
+                            {/* Search Box */}
+                            <div className='gap-8 flex'>
+                                <div className="relative w-full md:w-[330px] lg:w-[520px]">
+                                    <input
+                                        type="text"
+                                        placeholder="Search"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+
+                                        className="
+                                w-full
+                                rounded-full bg-white
+                                border border-gray-300
+                                px-10 py-2
+                                text-sm mr-[150px]
+                                outline-none
+                                focus:border-blue-500
+                                "
+                                    />
+                                    {/* search icon */}
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                        <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[20.66px] text-[#009ABF]' />
+                                    </span>
+                                </div>
+
+                                <div className='bg-white rounded-full justify-center md:p-2  flex'>
+                                    <img
+                                        src="/image/AIBookmark.png"
+                                        className="w-[18px] h-[22px] md:w-[20px] md:h-[20px] lg:w-[30px] lg:h-[30px] lg:p-1 object-fit"
+                                        alt="Bookmark"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ===== HERO / BELOW CONTENT (SAME WIDTH) ===== */}
+                    <div className="w-full px-4 md:px-8 mt-6 mb-5">
+                        <div className="relative w-full rounded-xl pb-22 md:pb-40">
+                            {/* Background Image */}
+                            <img
+                                src="/image/ITModulebg.png"
+                                alt="ITModulebg"
+                                className="w-full h-[320px] md:h-[641px] object-cover"
+                            />
+
+
+                            {/* Overlay Content */}
+                            <div className="absolute inset-0 z-10 p-6 md:p-2 text-white">
+                                {/* <div className="text-[46.14px] lg:text-[209.17px] text-center -ml-6 lg:-mt-10 md:ml-2 whitespace-nowrap text-gray-300 font-bold leading-none">
+                                AI HUB
+                            </div> */}
+                                <div
+                                    className="text-[146.14px] lg:text-[209.17px] text-center -ml-6 lg:-mt-10 md:ml-2 whitespace-nowrap font-bold leading-none text-[#E2E9F1]"
+                                    style={{
+                                        WebkitTextStroke: "2px white",
+                                    }}
+                                >
+                                    AI HUB
+                                </div>
+
+                                <div className="text-[146.14px] lg:text-[209.17px] text-center -ml-6  md:ml-2 whitespace-nowrap text-white font-bold leading-none">
+                                    AI HUB
+                                </div>
+                                <div
+                                    className="text-[146.14px] lg:text-[209.17px] text-center -ml-6 lg:-mt-10 md:ml-2 whitespace-nowrap font-bold leading-none text-[#E2E9F1]"
+                                    style={{
+                                        WebkitTextStroke: "2px white",
+                                    }}
+                                >
+                                    AI HUB
+                                </div>
+
+                                {/* <img
+                                src="/image/AIHubrobot.png"
+                                alt="Decode"
+                                className="w-[200px] object-cover md:w-[417px] md:h-[917px] md:-mt-[600px] -mt-25 absolute left-1/2 -translate-x-1/2"
+                            /> */}
+                                <img
+                                    src="/image/AIHubrobot.png"
+                                    alt="Decode"
+                                    className="w-[280px] md:w-[417px] h-auto md:h-[517px] absolute left-1/2 -translate-x-1/2 object-fit -mt-[500px] lg:-mt-[630px]"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* MOBILE VERSION */}
+                <div className="md:hidden">
+                    <div className="relative rounded-xs overflow-hidden">
+
+                        {/* Gradient Background */}
+                        <div className="h-[330px] bg-gradient-to-r from-[#CDEAFF] to-[#E8D9FF] relative flex items-center justify-center">
+
+                            {/* Top Icons */}
+                            <div className="absolute top-2 left-2 bg-white rounded-full p-2 shadow">
+                                <img src="/image/AIHome.png" className="w-5 h-5" />
+                            </div>
+
+                            <div className='font-semibold text-[16px] -mt-70 block md:block mx-auto'>
+                                AI HUB
+                            </div>
+
+                            <div className="absolute top-2 right-2 bg-white rounded-full p-2 shadow">
+                                <img src="/image/AIBookmark.png" className="w-3 h-3" />
+                            </div>
+
+                            {/* AI HUB Text Layers */}
+                            <div>
+                                <div
+                                    className="absolute text-[68px] font-extrabold text-transparent whitespace-nowrap"
+                                    style={{ WebkitTextStroke: "1px white", opacity: 0.5, top: "1px", left: "50%", transform: "translateX(-50%)" }}
+                                >
+                                    AI HUB
+                                </div>
+
+                                <div
+                                    className="absolute text-[68px] text-white font-extrabold text-transparent whitespace-nowrap"
+                                    style={{ WebkitTextStroke: "1px white", opacity: 0.5, top: "55px", left: "50%", transform: "translateX(-50%)" }}
+                                >
+                                    AI HUB
+                                </div>
+
+                                <div
+                                    className="absolute text-[68px] font-extrabold text-transparent whitespace-nowrap"
+                                    style={{ WebkitTextStroke: "1px white", opacity: 0.5, top: "110px", left: "50%", transform: "translateX(-50%)" }}
+                                >
+                                    AI HUB
+                                </div>
+                            </div>
+
+                            {/* Robot */}
+                            <img
+                                src="/image/AIHubrobot.png"
+                                className="w-[140px] z-2 absolute bottom-35 left-1/2 -translate-x-1/2 "
+                                alt="AI Robot"
+                            />
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <AISolutions />
+
+            <section className="relative w-full p-4 md:p-12 lg:p-15 bg-[#E2E9F1]">
+                <h1 className="text-[16px] font-semibold md:text-[24px] lg:text-[32px] mb-5">Category</h1>
+
+                {/* ================= DESKTOP (UNCHANGED) ================= */}
+
+                <div className="hidden md:flex flex-wrap gap-10 rounded-lg">
+                    {categories.map((item, index) => (
+                        <div
+                            key={index}
+                            // onClick={() =>
+                            //     router.push(`/MainModules/Education/${toSlug(item.label)}`)
+                            // }
+                            className="flex flex-col mb-5 items-center p-1 lg:ml-8 md:ml-15 rounded-lg w-[120px]"
+                        >
+                            <img
+                                src={item.path}
+                                alt={item.label}
+                                className="w-[133px] h-[143px] border border-[#A7DFFF] bg-white/50 rounded-2xl object-contain"
+                            />
+
+                            <span className="mt-2 md:text-[18px] lg:text-[24px] font-medium text-center leading-tight break-words">
+                                {item.label}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+
+
+
+                {/*  ================= MOBILE CATEGORY SWIPE =================  */}
+                <section className="md:hidden max-w-full mt-6">
+                    <div
+                        ref={sliderRef}
+                        className="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth"
+                    >
+                        {slides.map((slide, slideIndex) => (
+                            <div
+                                key={slideIndex}
+                                className="min-w-full snap-center"
+                            >
+                                <div className="grid grid-cols-3 gap-0">
+                                    {slide.map((item, i) => (
+                                        <div
+                                            key={i}
+                                            className="flex flex-col space-y-6 items-center text-center"
+                                        >
+                                            {/* IMAGE BOX */}
+                                            <div className="w-[90px] h-[96px] flex items-center justify-center border border-[#A7DFFF] rounded-2xl bg-[#F6FCFF] p-1">
+                                                <img
+                                                    src={item.path}
+                                                    alt={item.label}
+                                                    className="w-full h-full object-contain"
+                                                />
+                                            </div>
+
+                                            {/* LABEL */}
+                                            <span className="text-[12px] mb-4 leading-[16px] font-medium max-w-[96px]">
+                                                {item.label}
+                                            </span>
+                                        </div>
+
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* INDICATORS */}
+                    <div className="flex justify-center gap-2 mt-4">
+                        {baseSlides.map((_, i) => (
+                            <div
+                                key={i}
+                                className={`h-[3px] rounded-full transition-all duration-300 ${activeIndex === i
+                                    ? "w-8 bg-[#FA9131]"
+                                    : "w-4 bg-gray-300"
+                                    }`}
+                            />
+                        ))}
+                    </div>
+                </section>
+
+
+                <Recommendation />
+
+            </section>
+        </>
+    );
 }
-
-export default page

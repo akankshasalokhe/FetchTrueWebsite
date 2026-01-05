@@ -122,7 +122,7 @@ export default function ServiceDetails() {
                     </div>
                 </div>
 
-                {/* ================= MOBILE ================= */}
+                {/* ================= MOBILE VERSION ================= */}
                 <div className="lg:hidden">
                     {/* IMAGE */}
 
