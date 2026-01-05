@@ -1053,6 +1053,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
  {
     image: "/image/image 111.png",
@@ -1063,6 +1065,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 5.1,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1073,6 +1077,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1083,6 +1089,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 3.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1093,6 +1101,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1103,6 +1113,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1113,6 +1125,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 5.1,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
 ];
 
