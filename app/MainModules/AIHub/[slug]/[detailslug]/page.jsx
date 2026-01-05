@@ -542,7 +542,7 @@ export default function AIHubServiceDetailPage() {
             </h4>
             <p className="text-[13px] sm:text-[14px] text-[#6F6F6F] mt-1">
               See how automation may improve your customer experiences by
-              looking through the Fetch True App's AI Chatbot Development section.
+              looking through the Fetch True Apps AI Chatbot Development section.
             </p>
           </div>
         </div>

@@ -890,7 +890,11 @@
 'use client';
 
 import AISolutions from '@/src/components/AIHub/AISolutions';
+import LiveSection from '@/src/components/AIHub/LiveSection';
+import MostPopular from '@/src/components/AIHub/MostPopular';
 import Recommendation from '@/src/components/AIHub/Recommended';
+import TopTrending from '@/src/components/AIHub/TopTrending';
+import WhyChooseUs from '@/src/components/AIHub/WhyChooseUs';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
@@ -1170,9 +1174,9 @@ export default function AIHubModulesPage() {
                     {categories.map((item, index) => (
                         <div
                             key={index}
-                            // onClick={() =>
-                            //     router.push(`/MainModules/Education/${toSlug(item.label)}`)
-                            // }
+                            onClick={() =>
+                                router.push(`/MainModules/AIHub/${toSlug(item.label)}`)
+                            }
                             className="flex flex-col mb-5 items-center p-1 lg:ml-8 md:ml-15 rounded-lg w-[120px]"
                         >
                             <img
@@ -1245,6 +1249,19 @@ export default function AIHubModulesPage() {
 
 
                 <Recommendation />
+                <MostPopular />
+                <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
+                    <div className="max-w-8xl mx-auto px-6 md:px-12 mb-6 lg:mb-12 py-8 md:py-12">
+                        <LiveSection />
+                    </div>
+                </section>
+                <TopTrending />
+                 
+                 <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
+                    <div className="max-w-8xl mx-auto px-6 md:px-12 mb-6 lg:mb-12 py-8 md:py-12">
+                       <WhyChooseUs />
+                    </div>
+                </section>
 
             </section>
         </>
