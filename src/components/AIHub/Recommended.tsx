@@ -1,0 +1,264 @@
+'use client';
+
+import Image from "next/image";
+import { Bookmark, Zap, Brain, Settings } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+
+export default function Recommended() {
+    const properties = [
+        {
+            id: 1,
+            bgColor: "linear-gradient(135deg, #e8a58a, #d47c6e)",
+            image: "/image/AIHubcardbg.png",
+            title: "AI Automation Residential Property",
+            type: "AI Service",
+            rating: 4,
+            location: "Near Andheri West, Mumbai",
+            earning: "5%",
+            discount: "30%",
+            monthlyEarning: "1-3 days",
+            outlets: "Included",
+            maintenance: "Auto managed",
+            area: "1500 Sq - 1000 Sq",
+            price: "45L",
+        },
+        {
+            id: 2,
+            bgColor: "linear-gradient(135deg, #b084f8, #9b63f4)",
+            image: "/image/AIHubcardbg.png",
+            title: "Luxury Apartment",
+            type: "AI Service",
+            rating: 5,
+            location: "Banjara Hills, Hyderabad",
+            earning: "7%",
+            discount: "25%",
+            monthlyEarning: "1-3 days",
+            outlets: "Included",
+            maintenance: "Auto managed",
+            area: "1800 Sq - 1200 Sq",
+            price: "72L",
+        },
+        {
+            id: 3,
+            bgColor: "linear-gradient(135deg, #4ccbb8, #2ea89c)",
+            image: "/image/AIHubcardbg.png",
+            title: "Commercial Space",
+            type: "AI Service",
+            rating: 4,
+            location: "Koramangala, Bangalore",
+            earning: "6%",
+            discount: "20%",
+            monthlyEarning: "1-3 days",
+            outlets: "Included",
+            maintenance: "Auto managed",
+            area: "1300 Sq - 900 Sq",
+            price: "89L",
+        },
+        {
+            id: 4,
+            bgColor: "linear-gradient(135deg, #ff9da7, #ff6b81)",
+            image: "/image/AIHubcardbg.png",
+            title: "Studio Apartment",
+            type: "AI Service",
+            rating: 3,
+            location: "Powai, Mumbai",
+            earning: "4%",
+            discount: "15%",
+            monthlyEarning: "1-3 days",
+            outlets: "Included",
+            maintenance: "Auto managed",
+            area: "900 Sq - 700 Sq",
+            price: "38L",
+        },
+        {
+            id: 5,
+            bgColor: "linear-gradient(135deg, #9df0ff, #59d9f3)",
+            image: "/image/AIHubcardbg.png",
+            title: "Retail Shop",
+            type: "AI Service",
+            rating: 4,
+            location: "Gachibowli, Hyderabad",
+            earning: "6%",
+            discount: "20%",
+            monthlyEarning: "1-3 days",
+            outlets: "Included",
+            maintenance: "Auto managed",
+            area: "1100 Sq - 850 Sq",
+            price: "55L",
+        },
+    ];
+
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+
+    const getMaxScroll = () => {
+        const container = containerRef.current;
+        if (!container) return 0;
+        return container.scrollWidth - container.clientWidth;
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+        const container = containerRef.current;
+        if (!container) return;
+        setIsDragging(true);
+        setStartX(e.pageX - container.offsetLeft);
+        setScrollLeft(container.scrollLeft);
+        container.style.cursor = "grabbing";
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+        if (!isDragging) return;
+        const container = containerRef.current;
+        if (!container) return;
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        container.scrollLeft = Math.max(
+            0,
+            Math.min(scrollLeft - walk, getMaxScroll())
+        );
+    };
+
+    const stopDrag = () => {
+        const container = containerRef.current;
+        if (!container) return;
+        setIsDragging(false);
+        container.style.cursor = "grab";
+    };
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        container.addEventListener("mousedown", handleMouseDown);
+        container.addEventListener("mousemove", handleMouseMove);
+        container.addEventListener("mouseup", stopDrag);
+        container.addEventListener("mouseleave", stopDrag);
+
+        return () => {
+            container.removeEventListener("mousedown", handleMouseDown);
+            container.removeEventListener("mousemove", handleMouseMove);
+            container.removeEventListener("mouseup", stopDrag);
+            container.removeEventListener("mouseleave", stopDrag);
+        };
+    }, [isDragging, startX, scrollLeft]);
+
+    return (
+        <div className="w-full">
+            <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 ml-4">
+               Recommended Service
+            </h1>
+
+            <div
+                ref={containerRef}
+                className="flex gap-6 w-full p-4 overflow-x-auto snap-x snap-mandatory no-scrollbar cursor-grab"
+            >
+                {properties.map((p) => (
+                    <div
+                        key={p.id}
+                        className="
+                            snap-center
+                            w-[270px] md:w-[308px] lg:w-[408px]
+                            bg-[#F4F4F4] mx-auto
+                            rounded-2xl
+                            p-4
+                            flex-shrink-0
+                            overflow-hidden
+                            relative
+                        "
+                    >
+                        {/* IMAGE */}
+                        <div className="relative w-full h-40 rounded-xl overflow-hidden">
+                            <Image
+                                src={p.image}
+                                alt={p.title}
+                                fill
+                                className="object-cover rounded-xl pointer-events-none"
+                            />
+                            <button className="absolute top-2 right-2 bg-black/60 p-1.5 rounded-full">
+                                <Bookmark size={18} className="text-white" />
+                            </button>
+
+
+                        </div>
+
+
+
+                        {/* CONTENT */}
+                        <div className="mt-3 space-y-1">
+
+                            {/* <h2 className="text-[14px] lg:text-[20px] -mt-6 lg:-mt-2 font-semibold text-black leading-snug whitespace-normal max-w-[65%] break-words">
+                                {p.title}
+                            </h2> */}
+                            <h2
+                                className="
+                        text-[14px] lg:text-[20px]
+                        font-semibold
+                        text-black -mt-6 lg:-mt-2
+                        leading-snug
+                        line-clamp-2 max-w-[65%]
+                        min-h-[40px] lg:min-h-[56px]
+                    "
+                            >
+                                {p.title}
+                            </h2>
+
+
+                            <span className="inline-block text-[10px] lg:text-[12px] bg-white px-2 py-1 rounded-lg">
+                                {p.type}
+                            </span>
+
+
+                            <div className="flex -mt-8 md:-mt-15">
+                                <div className=" items-end ml-auto gap-1 text-yellow-400 text-sm mb-4">
+                                    {"⭐".repeat(p.rating)}
+                                </div>
+                            </div>
+
+
+                            <div className="flex justify-end gap-2">
+                                <span className="bg-[#548AFE] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
+                                    Discount {p.earning}
+                                </span>
+                                <span className="bg-[#89FF9B] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
+                                    Earn {p.discount}
+                                </span>
+                            </div>
+
+                            <div className="space-y-1 text-black">
+                                <p className="font-semibold text-[10px] lg:text-[14px]">
+                                    Setup & Time
+                                </p>
+                                <p className="flex gap-2 text-[10px] lg:text-[14px]">
+                                    <Zap size={14} className="text-yellow-500" />
+                                    Set up: {p.monthlyEarning}
+                                </p>
+                                <p className="flex gap-2 text-[10px] lg:text-[14px]">
+                                    <Brain size={14} className="text-red-500" />
+                                    AI Training: {p.outlets}
+                                </p>
+                                <p className="flex gap-2 text-[10px] lg:text-[14px]">
+                                    <Settings size={14} />
+                                    Maintenance: {p.maintenance}
+                                </p>
+                            </div>
+                        </div>
+
+
+
+                        {/* PRICE */}
+                        <div className="absolute bottom-3 right-3 bg-white rounded-2xl px-3 lg:px-8 py-2 text-center">
+                            <p className="text-[10px] lg:text-[14px]">
+                                Starting from
+                            </p>
+                            <p className="font-semibold text-[16px] lg:text-[24px]">
+                                ₹{p.price}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
