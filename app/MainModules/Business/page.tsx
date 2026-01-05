@@ -1029,13 +1029,586 @@
 
 
 "use client";
+import BusinessCard from "@/src/components/ui/BusinessCard";
+import Link from "next/link";
+
+const categories = [
+  { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
+  { title: "Transportation Business", slug: "transportation-business", image: "/image/Busi1.png" },
+  { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
+  { title: "E-Commerce Business", slug: "e-commerce-business", image: "/image/Busi1.png" },
+  { title: "Event Business", slug: "event-business", image: "/image/Busi1.png" },
+  { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
+  { title: "Transportation Business", slug: "transportation-business", image: "/image/Busi1.png" },
+  { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
+];
+
+const recommendedData = [
+  {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 4.5,
+    roi: "25–30%",
+  },
+ {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 5.1,
+    roi: "25–30%",
+  },
+  {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 4.5,
+    roi: "25–30%",
+  },
+  {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 3.5,
+    roi: "25–30%",
+  },
+  {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 4.5,
+    roi: "25–30%",
+  },
+  {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 4.5,
+    roi: "25–30%",
+  },
+  {
+    image: "/image/image 111.png",
+    title: "Property Buying & Selling",
+    category: "Agricultural",
+    earnPercent: 15,
+    investment: "₹10L – 25L",
+    earnings: "1.5–3L/month",
+    rating: 5.1,
+    roi: "25–30%",
+  },
+];
 
 export default function BusinessPage() {
   return (
     <>
-        <section>
-           
-        </section>
+
+       <section className="w-full flex justify-center bg-white">
+      
+      <div className="w-[1329px] h-[60px] flex items-center justify-between px-6">
+        
+        {/* LEFT SIDE */}
+        <div className="flex items-center gap-5">
+          
+          {/* Home Icon */}
+          <Link href="/">
+            <img
+              src="/image/Group 1000003962.png"
+              alt="Home"
+              className="w-[34px] h-[43px]"
+            />
+          </Link>
+
+          {/* Back Arrow */}
+          <Link href="/">
+            <img
+              src="/image/Vector (1).png"
+              alt="Back"
+              className="w-[18px] h-[18px] hidden lg:block"
+            />
+          </Link>
+
+          {/* Page Title */}
+          <h1 className="font-inter font-semibold text-[20px] leading-[30px] text-black">
+            Business Service
+          </h1>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-4">
+          
+          {/* Search Box */}
+         <div className="relative hidden sm:block">
+  <input
+    type="text"
+    placeholder="Search"
+    className="
+      w-[540px]
+      h-[40px]
+      pl-10
+      pr-4
+      rounded-[15px]
+      border
+      border-[#BEBEBE]
+      text-[14px]
+      bg-white
+      shadow-[0px_4px_4px_rgba(208,208,208,1)]
+      focus:outline-none
+    "
+  />
+
+  <img
+    src="/image/Vector (27).png"
+    alt="Search"
+    className="absolute left-3 top-1/2 -translate-y-1/2 w-[16px] h-[16px]"
+  />
+</div>
+
+
+          {/* Bookmark Icon */}
+          <img
+            src="/image/Vector (2).png"
+            alt="Bookmark"
+            className="w-[18.6px] h-[27.2px]"
+          />
+        </div>
+
+      </div>
+    </section>
+
+
+       <section className="relative w-full h-[420px] sm:h-[480px] md:h-[630px] overflow-hidden">
+      
+      {/* BACKGROUND IMAGE */}
+      <div
+        className="absolute inset-0 bg-center bg-cover bg-no-repeat mt-30 lg:mt-30"
+        style={{
+          backgroundImage: "url('/image/business-hero.png')",
+        }}
+      />
+
+      {/* WHITE FADE OVERLAY (soft look like image) */}
+      <div className="absolute inset-0 bg-white/50" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 flex items-center justify-center h-full bottom-40">
+  <h1
+    className="
+      text-center
+      font-['Abril_Fatface']
+      text-[32px]
+      mt-20
+      lg:mt-0
+      sm:text-[32px]
+      md:text-[44px]
+      lg:text-[62px]
+      lg:leading-16
+      bg-gradient-to-r
+      from-[#C6D0DA]
+      to-[#1D4699]
+      bg-clip-text
+      text-transparent
+      font-bold
+    "
+  >
+    CONNECT
+    <br />
+    EXECUTE
+    <br />
+    EXPAND
+  </h1>
+</div>
+
+
+       </section>
+
+<section className="w-full bg-white  lg:py-12">
+  <div className="max-w-[1440px] mx-auto px-4">
+
+    {/* TITLE */}
+    <h2 className="text-[30px] font-semibold text-[#1D4699] mb-10">
+      Category
+    </h2>
+
+    {/* CATEGORY LIST */}
+    <div
+      className="
+        relative
+        flex
+        gap-10
+        overflow-x-auto
+        overflow-y-visible
+        scrollbar-hide
+        pb-8
+        pt-12
+      "
+    >
+      {categories.map((item, index) => (
+        <Link href={`/MainModules/Business/${item.slug}`} key={index} className="flex-shrink-0">
+        <div
+          key={index}
+          className="
+            relative
+            min-w-[180px]
+            h-[120px]
+            bg-white
+            rounded-[12px]
+            border
+            border-[#F1F1F1]
+            shadow-[0px_4px_12px_rgba(0,0,0,0.06)]
+            px-4
+            pt-12
+            pb-4
+            flex-shrink-0
+            overflow-visible
+          "
+        >
+          {/* MAIN IMAGE – TOP RIGHT (OUTSIDE CARD) */}
+          <img
+            src={item.image}
+            alt={item.title}
+            className="
+              absolute
+              -top-10
+              -right-9
+              w-[90px]
+              h-[90px]
+              object-contain
+              z-30
+              pointer-events-none
+            "
+          />
+
+          {/* BOTTOM CONTENT */}
+          <div className="absolute bottom-4 left-3 right-3 flex items-end justify-between">
+            <p className="text-[16px] font-normal text-black leading-tight max-w-[90px]">
+              {item.title}
+            </p>
+
+            <img
+              src="/image/Group 1000004004 (1).png"
+              alt=""
+              className="w-[50px] h-[50px] "
+            />
+          </div>
+        </div>
+        </Link>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<section className="w-full py-15 bg-white">
+  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
+
+    {/* LEFT TITLE */}
+    <div className="min-w-[220px] flex-- flex-col items-start lg:pt-6 justify-center lg:justify-start">
+      <h2 className="text-[28px] lg:text-[34px] font-semibold text-[#1D4699] leading-tight text-center lg:text-left lg:ms-8">
+        Recommended
+        <br className="hidden lg:block" />
+         For You
+      </h2>
+      <h2 className="hidden lg:block text-[28px] lg:text-[51px] font-semibold text-[#1D4699] leading-tight text-center lg:text-left lg:ms-8 opacity-5">
+        Recommended
+        <br className="" />
+         For You
+      </h2>
+    </div>
+
+    {/* SCROLL AREA */}
+    <div
+      className="
+        
+        bg-[#D9DDE6]
+        pt-8 lg:pt-20
+        pb-8 lg:pb-18
+        ps-4 lg:ps-16
+        overflow-x-auto
+        scrollbar-hide
+        scroll-smooth
+        rounded-tl-[36px]
+      "
+    >
+      
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+  {recommendedData.map((item, index) => (
+    <BusinessCard key={index} {...item} />
+  ))}
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section className="w-full px-4 lg:px-0 py-8 md:py-12 flex justify-center">
+  <div
+    className="
+      relative
+      w-full
+      max-w-[934px]
+      aspect-[934/502]
+      rounded-[12px]
+      overflow-hidden
+      shadow-[0px_20px_40px_rgba(0,0,0,0.12)]
+    "
+  >
+    <img
+      src="/image/businessflex.png"
+      alt="Business Banner"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</section>
+
+<section className="w-full py-16 bg-white">
+  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
+    
+    {/* SCROLL AREA (LEFT ON DESKTOP) */}
+    <div
+      className="
+        relative
+        order-2
+        lg:order-1
+        flex
+        gap-6
+        bg-[#D9DDE6]
+        pt-10
+        lg:pt-15
+        pb-10
+        lg:pb-20
+        pe-4
+        lg:pe-16
+        overflow-x-auto
+        scrollbar-hide
+        scroll-smooth
+        rounded-br-[36px]
+      "
+    >
+
+       {/* FADED BACK TEXT */}
+      <h2
+        className="
+           hidden lg:block
+    absolute
+    top-108
+    left-200
+    -translate-x-1/2
+    -translate-y-1/2
+    text-[50px]
+    font-semibold
+    text-[#1D4699]
+    pointer-events-none
+    opacity-5
+    fixed-bottom-right
+        "
+      >
+        HIGH DEMAND
+      </h2>
+      {/* INNER SHADOW */}
+      <div className="pointer-events-none absolute inset-0 rounded-tl-[36px]" />
+
+<div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+  {recommendedData.map((item, index) => (
+    <BusinessCard key={index} {...item} />
+  ))}
+</div>
+      
+    </div>
+
+    {/* TITLE (RIGHT ON DESKTOP) */}
+    <div className="order-1 lg:order-2 min-w-[220px] flex flex-col justify-center items-start lg:items-end">
+      <h2
+        className="
+          text-[28px]
+          lg:text-[34px]
+          font-medium
+          text-[#1D4699]
+          leading-tight
+          text-left
+          lg:text-right
+          drop-shadow-[0_6px_10px_rgba(29,70,153,0.25)]
+        "
+      >
+        High
+        <br />
+        <span className="text-[46px] font-semibold">DEMAND</span>
+
+      </h2>
+
+     
+    </div>
+  </div>
+</section>
+
+<section className="w-full lg:py-10 bg-white">
+  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
+
+    {/* TITLE – LEFT */}
+    <div className="min-w-[220px] flex flex-col justify-center items-start">
+      <h2 className="text-[28px] lg:text-[34px] font-medium text-[#1D4699] leading-tight">
+        Top
+        <br />
+        <span className="text-[46px] font-semibold">RATED</span>
+      </h2>
+    </div>
+
+    {/* SCROLL AREA – RIGHT */}
+    <div
+      className="
+        relative
+        flex
+        gap-6
+        bg-[#D9DDE6]
+        pt-10 lg:pt-16
+        pb-12 lg:pb-20
+        ps-4 lg:ps-16
+        overflow-x-auto
+        scrollbar-hide
+        scroll-smooth
+        rounded-bl-[36px]
+        w-full
+      "
+    >
+      {/* FADED BACK TEXT */}
+      <h2
+        className="
+          hidden lg:block
+          absolute
+          top-100
+          left-70
+          -translate-x-1/2
+          text-[64px]
+          font-semibold
+          text-[#1D4699]
+          opacity-5
+          pointer-events-none
+          whitespace-nowrap
+        "
+      >
+        TOP RATED
+      </h2>
+
+      {/* CARDS */}
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+  {recommendedData.map((item, index) => (
+    <BusinessCard key={index} {...item} />
+  ))}
+</div>
+    </div>
+
+  </div>
+</section>
+
+<section className="w-full py-20 bg-white">
+  <div className="max-w-[1200px] mx-auto px-4">
+
+    {/* HEADING */}
+    <div className="text-center mb-14">
+      <h2 className="text-[28px] md:text-[34px] font-semibold text-[#2B2B2B] mb-3">
+        Trusted by Businesses Nationwide
+      </h2>
+      <p className="text-[16px] text-[#6B6B6B] max-w-[720px] mx-auto">
+        Verified services, transparent processes, and expert support at every step
+      </p>
+    </div>
+
+    {/* CARDS GRID */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      {/* CARD 1 */}
+      <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
+            ✓
+          </div>
+          <div>
+            <h3 className="text-[18px] font-semibold mb-2">
+              Industry Expert Guidance
+            </h3>
+            <p className="text-[14px] leading-relaxed opacity-90">
+              Get advice from experienced professionals across multiple industries
+              to make smarter decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* CARD 2 */}
+      <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
+            ✓
+          </div>
+          <div>
+            <h3 className="text-[18px] font-semibold mb-2">
+              Legal & Compliance Support
+            </h3>
+            <p className="text-[14px] leading-relaxed opacity-90">
+              Stay compliant with business laws, registrations, and regulations—
+              handled the right way.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* CARD 3 */}
+      <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
+            ✓
+          </div>
+          <div>
+            <h3 className="text-[18px] font-semibold mb-2">
+              Investment & ROI Planning
+            </h3>
+            <p className="text-[14px] leading-relaxed opacity-90">
+              Plan your investments wisely with clear ROI insights and
+              data-driven recommendations.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* CARD 4 */}
+      <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
+            ✓
+          </div>
+          <div>
+            <h3 className="text-[18px] font-semibold mb-2">
+              Step-by-Step Execution Help
+            </h3>
+            <p className="text-[14px] leading-relaxed opacity-90">
+              From planning to launch, get guided execution support at every
+              stage of your business journey.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
     </>
-  )
+  );
 }
