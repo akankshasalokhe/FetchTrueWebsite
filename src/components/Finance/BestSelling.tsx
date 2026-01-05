@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import FinanceCard from "../ui/FinanceCard";
+import { useRef } from "react";
 
 
 
@@ -107,18 +108,36 @@ const recommendedServices = [
 ];
 
 const BestSellingSection = () => {
-  return (
-    <section className="w-full  bg-[#F6FBF7]">
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-      <div className="max-w-[1440px] mx-auto px-4 ">
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!scrollRef.current) return;
+
+    const scrollAmount = 320;
+
+    if (e.key === "ArrowRight") {
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+
+    if (e.key === "ArrowLeft") {
+      scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section className="w-full bg-[#F6FBF7]">
+      <div className="max-w-[1440px] mx-auto px-4">
 
         {/* TITLE */}
-        <h2 className="text-[24px] font-Medium text-[#1A1A1A] mb-6">
+        <h2 className="text-[24px] font-medium text-[#1A1A1A] mb-6">
           Best Selling
         </h2>
 
         {/* HORIZONTAL SCROLL */}
         <div
+          ref={scrollRef}
+          tabIndex={0}                     // ✅ keyboard focus
+          onKeyDown={handleKeyDown}        // ✅ arrow key scroll
           className="
             flex
             gap-4 lg:gap-6
@@ -126,6 +145,10 @@ const BestSellingSection = () => {
             scrollbar-hide
             scroll-smooth
             pb-4
+            outline-none
+            focus:ring-2
+            focus:ring-[#2E7D32]
+            focus:ring-offset-2
           "
         >
           {recommendedServices.map((item, index) => (

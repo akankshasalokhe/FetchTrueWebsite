@@ -1131,7 +1131,9 @@ const recommendedData = [
 ];
 
 export default function BusinessPage() {
+  
   return (
+
     <>
 
        <section className="w-full flex justify-center bg-white">

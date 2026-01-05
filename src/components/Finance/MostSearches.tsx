@@ -1,6 +1,7 @@
 "use client";
 
 import FinanceCard from "../ui/FinanceCard";
+import { useRef } from "react";
 
 
 
@@ -92,6 +93,21 @@ const recommendedServices = [
 ];
 
 const MostSearches = () => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    
+      const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (!scrollRef.current) return;
+    
+        const scrollAmount = 320;
+    
+        if (e.key === "ArrowRight") {
+          scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+    
+        if (e.key === "ArrowLeft") {
+          scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+        }
+      };
   return (
     <section className="w-full py-14 bg-[#F6FBF7]">
       <div className="max-w-[1440px] mx-auto px-4">
@@ -103,6 +119,9 @@ const MostSearches = () => {
 
         {/* HORIZONTAL SCROLL */}
         <div
+        ref={scrollRef}
+          tabIndex={0}                     
+          onKeyDown={handleKeyDown}
           className="
             flex
             gap-4 lg:gap-6
