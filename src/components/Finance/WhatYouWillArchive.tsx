@@ -10,27 +10,27 @@ import {
 
 const achievements = [
   {
-    icon: BarChart3,
+    icon: "/image/vector (28).png",
     title: "Understand Business Financial Statements",
     desc: "Read balance sheet, P&L & cash flow with clarity",
   },
   {
-    icon: ShieldCheck,
+    icon: "/image/vector (28).png",
     title: "Control Expenses & Reduce Financial Risk",
     desc: "Track expenses, avoid losses & stay financially safe",
   },
   {
-    icon: Wallet,
+    icon: "/image/vector (28).png",
     title: "Improve Cash Flow & Profitability",
     desc: "Manage money better and increase business profits",
   },
   {
-    icon: Rocket,
+    icon: "/image/vector (28).png",
     title: "Plan Growth, Funding & Scaling Confidently",
     desc: "Plan expansion, funding & future growth confidently",
   },
   {
-    icon: TrendingUp,
+    icon: "/image/vector (28).png",
     title: "Make Data-Driven Financial Decisions",
     desc: "Take smart decisions using real financial data",
   },
@@ -59,7 +59,6 @@ const WhatYouWillArchive = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 lg:ml-10">
             {achievements.map((item, index) => {
-              const Icon = item.icon;
               return (
                 <div key={index} className="flex gap-4 items-start">
                   <img
