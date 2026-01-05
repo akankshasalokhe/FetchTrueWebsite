@@ -1316,6 +1316,7 @@ export default function BusinessPage() {
   </div>
 </section>
 
+<Link href="/MainModules/Business/recommended">
 <section className="w-full py-15 bg-white">
   <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
 
@@ -1357,6 +1358,7 @@ export default function BusinessPage() {
 
   </div>
 </section>
+</Link>
 
 <section className="w-full px-4 lg:px-0 py-8 md:py-12 flex justify-center">
   <div

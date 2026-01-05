@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type BusinessCardProps = {
   image: string;
   title: string;
@@ -8,6 +10,8 @@ type BusinessCardProps = {
   roi: string;
   rating?: number;
   trusted?: boolean;
+  slug:string;
+  detailslug?:string;
 };
 
 const BusinessCard: React.FC<BusinessCardProps> = ({
@@ -20,8 +24,12 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
   roi,
   rating,
   trusted = true,
+  slug,
+  detailslug
 }) => {
   return (
+        <Link href={`/MainModules/Business/${slug}/${detailslug}`} className="block">
+
     <div
       className="
         min-w-[90%] sm:min-w-[320px] lg:min-w-[381px]
@@ -91,6 +99,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 
