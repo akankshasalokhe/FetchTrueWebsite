@@ -29,7 +29,7 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
   duration,
   interestRate,
   slug,
-  detailslug
+  detailslug,
 }) => {
   return (
         <Link href={`/MainModules/Finance/${slug}/${detailslug}`} className="block">
