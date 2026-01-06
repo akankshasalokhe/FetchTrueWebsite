@@ -7,7 +7,7 @@ import TopTrending from '@/src/components/AIHubSubCategories/TopTrending';
 import FreeTrialAvailable from '@/src/components/AIHubSubCategories/FreeTrialAvailable';
 import CategorySection from '@/src/components/AIHubSubCategories/CategorySection';
 import CostSavingAI from '@/src/components/AIHubSubCategories/CostSavingAI';
-import {ChevronLeft, SearchCheckIcon } from 'lucide-react';
+import { ChevronLeft, SearchCheckIcon } from 'lucide-react';
 
 
 type Props = {
@@ -46,8 +46,11 @@ export default function SubCategoryPage({ params }: Props) {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
 
+  
     const formatSlugToTitle = (slug: string) => {
-        return slug
+        const decodedSlug = decodeURIComponent(slug);
+
+        return decodedSlug
             .split("-")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ");
@@ -146,13 +149,13 @@ export default function SubCategoryPage({ params }: Props) {
                             <div
                                 key={index}
                                 className={`
-          cursor-pointer
-          flex items-center gap-2
-          p-2 rounded-lg border border-black
-          flex-shrink-0 px-4 py-2
-          w-full md:w-[120px]
-          ${isActive ? "bg-[#009ABF] text-white" : "bg-white text-black"}
-        `}
+                                    cursor-pointer
+                                    flex items-center gap-2
+                                    p-2 rounded-lg border border-black
+                                    flex-shrink-0 px-4 py-2
+                                    w-full md:w-[120px]
+                                    ${isActive ? "bg-[#009ABF] text-white" : "bg-white text-black"}
+                                    `}
                                 onClick={() => setSelectedCategory(item.label)}
                             >
                                 <img

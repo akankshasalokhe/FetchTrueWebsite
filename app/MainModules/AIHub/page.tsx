@@ -895,6 +895,7 @@ import MostPopular from '@/src/components/AIHub/MostPopular';
 import Recommendation from '@/src/components/AIHub/Recommended';
 import TopTrending from '@/src/components/AIHub/TopTrending';
 import WhyChooseUs from '@/src/components/AIHub/WhyChooseUs';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
@@ -1004,11 +1005,12 @@ export default function AIHubModulesPage() {
                             {/* LEFT */}
                             <div className="flex items-center gap-3 lg:gap-5">
                                 <div className="bg-white rounded-full p-1">
+                                     <Link href="/">
                                     <img
                                         src="/image/AIHome.png"
-                                        className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] lg:p-1 object-cover"
+                                        className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] cursor-pointer lg:p-1 object-cover"
                                         alt="Home"
-                                    /></div>
+                                    /></Link></div>
 
 
 
@@ -1038,8 +1040,8 @@ export default function AIHubModulesPage() {
                                 "
                                     />
                                     {/* search icon */}
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                        <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[20.66px] text-[#009ABF]' />
+                                    <span className="absolute left-3 top-1/2 -translate-y-3.5 text-gray-400">
+                                        <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[18.66px] text-[#009ABF]' />
                                     </span>
                                 </div>
 
@@ -1114,8 +1116,10 @@ export default function AIHubModulesPage() {
                         <div className="h-[330px] bg-gradient-to-r from-[#CDEAFF] to-[#E8D9FF] relative flex items-center justify-center">
 
                             {/* Top Icons */}
-                            <div className="absolute top-2 left-2 bg-white rounded-full p-2 shadow">
-                                <img src="/image/AIHome.png" className="w-5 h-5" />
+                            <div className="absolute top-2 left-2 bg-white cursor-pointer rounded-full p-2 shadow">
+                                <Link href="/MainModules">
+                                    <img src="/image/AIHome.png" className="w-5 h-5 cursor-pointer" />
+                                </Link>
                             </div>
 
                             <div className='font-semibold text-[16px] -mt-70 block md:block mx-auto'>
@@ -1210,6 +1214,9 @@ export default function AIHubModulesPage() {
                                     {slide.map((item, i) => (
                                         <div
                                             key={i}
+                                            onClick={() =>
+                                                router.push(`/MainModules/AIHub/${toSlug(item.label)}`)
+                                            }
                                             className="flex flex-col space-y-6 items-center text-center"
                                         >
                                             {/* IMAGE BOX */}
@@ -1256,10 +1263,10 @@ export default function AIHubModulesPage() {
                     </div>
                 </section>
                 <TopTrending />
-                 
-                 <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
+
+                <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
                     <div className="max-w-8xl mx-auto px-6 md:px-12 mb-6 lg:mb-12 py-8 md:py-12">
-                       <WhyChooseUs />
+                        <WhyChooseUs />
                     </div>
                 </section>
 
