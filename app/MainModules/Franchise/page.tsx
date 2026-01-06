@@ -1,12 +1,12 @@
 import BenefitsSection from "@/src/components/Franchise/BenefitSection";
-// import HighDemands from "@/src/components/Franchise/HighDemands";
+import HighDemands from "@/src/components/Franchise/HighDemands";
 import InvestmentOfferSection from "@/src/components/Franchise/InvestmentOffer";
 import LowInvestmentFranchises from "@/src/components/Franchise/LowInvestment";
 import Recommended from "@/src/components/Franchise/recommendFranchise";
 import TopGrowingFranchises from "@/src/components/Franchise/TopGrowing";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
-import TopTrending from "@/src/components/TopTrending/TopTrending";
+import WhyOurFranchise from "@/src/components/Franchise/WhyourFranchise";
 
 export default function FranchisePage() {
   return (
@@ -42,13 +42,6 @@ export default function FranchisePage() {
             />
             </Link>
 
-            <Link href="/">
-            <img
-              src="/image/Vector (1).png"
-              className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
-              alt="Back"
-            />
-            </Link>
 
             <h1 className="text-[18px] lg:text-[26px] font-semibold text-black">
               Franchise Service
@@ -265,13 +258,12 @@ export default function FranchisePage() {
 
 
 <Recommended />
-{/* <HighDemands /> */}
-<TopTrending />
+<HighDemands />
 <TopGrowingFranchises />
 <BenefitsSection />
-<InvestmentOfferSection />
+{/* <InvestmentOfferSection /> */}
 <LowInvestmentFranchises />
-
+<WhyOurFranchise />
 
 
 

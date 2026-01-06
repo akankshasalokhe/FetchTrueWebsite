@@ -18,10 +18,26 @@ export default function BenefitsSection() {
       title: "Top Growing Brands",
       desc: "get access with the big brands",
     },
+    {
+      title: "Proven Business Models",
+      desc: "Access to successful franchise",
+    },
+    {
+      title: "Brand Recognition",
+      desc: "established trusted brand",
+    },
+    {
+      title: "Best Prices",
+      desc: "get your franchises with best prices",
+    },
+    {
+      title: "Top Growing Brands",
+      desc: "get access with the big brands",
+    },
   ];
 
   return (
-    <section className="w-full py-14 bg-white">
+    <section className="w-full py-8 lg:py-10 bg-white">
       {/* Title */}
       <div className="text-center mb-10">
         <h2 className="text-[26px] font-bold mb-2">Benefits of Franchises</h2>

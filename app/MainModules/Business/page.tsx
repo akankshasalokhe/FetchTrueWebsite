@@ -1053,6 +1053,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
  {
     image: "/image/image 111.png",
@@ -1063,6 +1065,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 5.1,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1073,6 +1077,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1083,6 +1089,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 3.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1093,6 +1101,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1103,6 +1113,8 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 4.5,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
   {
     image: "/image/image 111.png",
@@ -1113,11 +1125,15 @@ const recommendedData = [
     earnings: "1.5–3L/month",
     rating: 5.1,
     roi: "25–30%",
+    slug:"agricultural-business",
+    detailslug:"property-buying-selling"
   },
 ];
 
 export default function BusinessPage() {
+  
   return (
+
     <>
 
        <section className="w-full flex justify-center bg-white">
@@ -1316,7 +1332,6 @@ export default function BusinessPage() {
   </div>
 </section>
 
-<Link href="/MainModules/Business/recommended">
 <section className="w-full py-15 bg-white">
   <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
 
@@ -1358,7 +1373,6 @@ export default function BusinessPage() {
 
   </div>
 </section>
-</Link>
 
 <section className="w-full px-4 lg:px-0 py-8 md:py-12 flex justify-center">
   <div

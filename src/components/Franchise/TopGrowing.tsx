@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
+import { CiBookmark } from "react-icons/ci";
 
-const categories: string[] = [
+const categories = [
   "All",
   "Food & Beverage",
   "Hotels & Restaurant",
@@ -14,106 +15,155 @@ const categories: string[] = [
   "Agents Dealers Distributers",
 ];
 
+const cardsData = [
+  {
+    id: 1,
+    brand: "Mc donalds",
+    category: "Hotels & Restaurant",
+    price: "₹ 10L - 20L",
+  },
+  {
+    id: 2,
+    brand: "Mc donalds",
+    category: "Food & Beverage",
+    price: "₹ 10L - 20L",
+  },
+  {
+    id: 3,
+    brand: "Mc donalds",
+    category: "Beauty",
+    price: "₹ 10L - 20L",
+  },
+  {
+    id: 4,
+    brand: "Mc donalds",
+    category: "Automotive",
+    price: "₹ 10L - 20L",
+  },
+  {
+    id: 5,
+    brand: "Mc donalds",
+    category: "Hotels & Restaurant",
+    price: "₹ 10L - 20L",
+  },
+    {
+    id: 6,
+    brand: "Mc donalds",
+    category: "Automotive",
+    price: "₹ 10L - 20L",
+  },
+  {
+    id: 7,
+    brand: "Mc donalds",
+    category: "Hotels & Restaurant",
+    price: "₹ 10L - 20L",
+  },
+];
+
 export default function TopGrowingFranchises() {
-  const cards = Array.from({ length: 10 });
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredCards =
+    activeCategory === "All"
+      ? cardsData
+      : cardsData.filter(
+          (item) => item.category === activeCategory
+        );
 
   return (
-    <section className="w-full py-10 px-4 md:px-10 lg:px-13 bg-[#F7F7F7]">
-      {/* ---------- TITLE ---------- */}
-      <h2 className="text-[20px] md:text-[24px] font-semibold mb-5">
+    <section className="w-full py-16 px-4 mx-auto max-w-[1440px]">
+      {/* TITLE */}
+      <h2 className="text-[22px] font-semibold mb-6">
         Top Growing Brand Franchises
       </h2>
 
-      {/* ---------- CATEGORY TABS ---------- */}
-      <div className="flex gap-3 overflow-x-auto no-scrollbar pb-3">
-        {categories.map((category, i) => (
+      {/* CATEGORY FILTER */}
+      <div className="bg-[#F7F7F7] p-7">
+      <div className="flex gap-3 overflow-x-auto no-scrollbar mb-8 ">
+        {categories.map((cat) => (
           <button
-            key={i}
-            className={`px-4 py-2 rounded-full border text-xs md:text-sm whitespace-nowrap ${
-              i === 0
-                ? "bg-black text-white"
-                : "bg-white border-gray-300 text-gray-600"
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-4 py-2 rounded-full text-sm whitespace-nowrap transition ${
+              activeCategory === cat
+                ? "bg-[#9747FF] text-[#FFFFFF]"
+                : "bg-white  text-gray-600"
             }`}
           >
-            {category}
+            {cat}
           </button>
         ))}
       </div>
 
-      {/* ---------- HORIZONTAL CARD SCROLL ---------- */}
-      <div className="mt-6 w-full overflow-x-auto no-scrollbar">
-        <div className="flex gap-5 w-max">
-          {cards.map((_, index) => (
+      {/* CARD SCROLL */}
+      <div className="w-full overflow-x-auto no-scrollbar">
+        <div className="flex gap-6 w-max">
+          {filteredCards.map((item) => (
             <div
-              key={index}
-              className="
-                w-[180px] 
-                sm:w-[200px] 
-                md:w-[203.97px] 
-                h-auto 
-                bg-white 
-                rounded-[15.59px] 
-                border 
-                p-4 
-                shadow-sm 
-                flex-shrink-0
-              "
+              key={item.id}
+              className="w-[210px] bg-[#FFFFFF] rounded-[16px]  p-4 flex-shrink-0"
             >
-              {/* Top Logo + Title */}
-              <div className="flex items-center justify-between mb-2 w-full">
+              {/* HEADER */}
+              <div className="flex justify-between items-start leading-4">
                 <div>
-                  <p className="font-semibold text-[16px] md:text-[18.19px] text-black">
-                    Mc Donalds
+                  <p className="font-semibold text-[16px]">
+                    {item.brand}
                   </p>
-                  <p className="w-[110px] md:w-[127.32px] text-[11px] md:text-[12.99px] text-gray-500">
-                    Hotels & Restaurant
+                  <p className="text-[12px] text-gray-500">
+                    {item.category}
                   </p>
                 </div>
                 <img
                   src="/image/mcDonald.png"
-                  className="w-[50px] h-[45px] md:w-[59.96px] md:h-[53.46px] rounded-lg"
-                  alt="brand"
+                  className="w-[65px] h-[41px] rounded-md "
                 />
               </div>
 
-              {/* Ratings */}
-              <div className="flex items-center gap-1 text-yellow-500 text-xs md:text-sm">
+              {/* RATING */}
+              <div className="text-yellow-500 text-sm ">
                 ★ ★ ★ ★ ☆
               </div>
+              {/* BOOKMARK */}
+              <div className="-mt-4  flex ml-35">
+                <button className="text-[10px] bg-[#F7F7F7] text-gray-600 px-2 py-1 rounded">
+                  <CiBookmark size={13} />
+                </button>
+              </div>
 
-              {/* Badges */}
-              <div className="mt-3 flex gap-2">
-                <p className="text-[9px] md:text-[10px] bg-[#EFF4FF] text-blue-600 px-2 py-1 rounded-md">
+              {/* BADGES */}
+              <div className="flex gap-2 mt-5">
+                <span className="text-[10px] bg-[#EFF4FF] text-blue-600 px-2 py-1 rounded">
                   Earn Up to 5%
-                </p>
-                <p className="text-[9px] md:text-[10px] bg-[#E0FFD9B8] text-green-600 px-2 py-1 rounded-md">
+                </span>
+                <span className="text-[10px] bg-[#E0FFD9] text-green-600 px-2 py-1 rounded">
                   Discount 30%
-                </p>
+                </span>
               </div>
 
-              {/* Price */}
-              <div className="mt-3 bg-[#2E9A91] text-white text-center font-semibold py-2 rounded-md text-sm">
-                ₹ 10L - 20L
+              {/* PRICE */}
+              <div className="mt-2 bg-[#8B5CF6] text-white text-center py-1 rounded-md font-semibold text-sm">
+                {item.price}
               </div>
 
-              {/* Bottom Info */}
-              <div className="flex justify-between items-center mt-3 text-[9px] md:text-[10px] text-gray-500 border-t pt-2">
-                <p>
-                  <span className="font-semibold">
-                    1000 SF - 1500 SF
-                  </span>
-                  <br />
-                  <span className="text-gray-600">Area Required</span>
-                </p>
-                <p>
-                  <span className="font-semibold">10</span>
-                  <br />
-                  <span className="text-gray-600">Franchise Outlets</span>
-                </p>
+              {/* FOOTER */}
+              <div className="flex justify-between mt-2 text-[10px] text-gray-500">
+                <div>
+                  <p className="font-semibold text-black ">
+                    500sq–1000sq
+                  </p>
+                  <p>Area Required</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-black">
+                    ₹1–3 Lak
+                  </p>
+                  <p>Monthly Earning</p>
+                </div>
               </div>
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
