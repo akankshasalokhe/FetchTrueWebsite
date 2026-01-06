@@ -18,6 +18,22 @@ export default function BenefitsSection() {
       title: "Top Growing Brands",
       desc: "get access with the big brands",
     },
+    {
+      title: "Proven Business Models",
+      desc: "Access to successful franchise",
+    },
+    {
+      title: "Brand Recognition",
+      desc: "established trusted brand",
+    },
+    {
+      title: "Best Prices",
+      desc: "get your franchises with best prices",
+    },
+    {
+      title: "Top Growing Brands",
+      desc: "get access with the big brands",
+    },
   ];
 
   return (
