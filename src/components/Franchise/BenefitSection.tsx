@@ -37,7 +37,7 @@ export default function BenefitsSection() {
   ];
 
   return (
-    <section className="w-full py-14 bg-white">
+    <section className="w-full py-8 lg:py-10 bg-white">
       {/* Title */}
       <div className="text-center mb-10">
         <h2 className="text-[26px] font-bold mb-2">Benefits of Franchises</h2>

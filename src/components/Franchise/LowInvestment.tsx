@@ -5,7 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 export default function LowInvestmentFranchises() {
   return (
-    <section className="w-full py-12 md:py-20 bg-white">
+    <section className="w-full py-8 md:py-15 bg-white">
       {/* ---------- HEADING ---------- */}
       <div className="text-center mb-8 md:mb-12 px-4">
         <h2 className="text-[22px] md:text-[32px] font-semibold">

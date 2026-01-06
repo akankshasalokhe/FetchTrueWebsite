@@ -6,6 +6,7 @@ import Recommended from "@/src/components/Franchise/recommendFranchise";
 import TopGrowingFranchises from "@/src/components/Franchise/TopGrowing";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
+import WhyOurFranchise from "@/src/components/Franchise/WhyourFranchise";
 
 export default function FranchisePage() {
   return (
@@ -262,7 +263,7 @@ export default function FranchisePage() {
 <BenefitsSection />
 {/* <InvestmentOfferSection /> */}
 <LowInvestmentFranchises />
-
+<WhyOurFranchise />
 
 
 
