@@ -310,6 +310,8 @@ import RecommendedProvider from '@/src/components/OnDemandHomeComponents/Recomme
 import MostPopularProvider from '@/src/components/OnDemandHomeComponents/MostPopularProvider';
 import TopTrending from '@/src/components/OnDemandHomeComponents/TopTrending';
 import WhyChooseUs from '@/src/components/OnDemandHomeComponents/WhyChooseUs';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export default function OnDemandModulePage() {
     const categories = [
@@ -326,16 +328,22 @@ export default function OnDemandModulePage() {
         { label: "Lifestyle", path: "/image/Lifestyle.png" },
         { label: "Personal Development", path: "/image/personaldevelopment.png" },
         { label: "Development", path: "/image/Development.png" },
+        { label: "Development", path: "/image/Development.png" },
         { label: "IT & Software", path: "/image/it.png" },
         { label: "Finance Development", path: "/image/Finance.png" },
         { label: "Teaching & Software", path: "/image/Teaching&Software.png" },
-        { label: "Business", path: "/image/Business.png" },
-        { label: "Marketing", path: "/image/Marketing.png" },
         { label: "Music", path: "/image/Music.png" },
         { label: "Design", path: "/image/Design.png" },
         { label: "Health & Fitness", path: "/image/Health.png" },
         { label: "Photography & Video", path: "/image/Photography.png" },
         { label: "Lifestyle", path: "/image/Lifestyle.png" },
+         { label: "IT & Software", path: "/image/it.png" },
+        { label: "Finance Development", path: "/image/Finance.png" },
+        { label: "Teaching & Software", path: "/image/Teaching&Software.png" },
+        { label: "Music", path: "/image/Music.png" },
+        { label: "Design", path: "/image/Design.png" },
+        { label: "Health & Fitness", path: "/image/Health.png" },
+
     ];
 
     const sliderRef = useRef<HTMLDivElement>(null);
@@ -350,12 +358,14 @@ export default function OnDemandModulePage() {
         return chunks;
     };
 
-    const baseSlides = chunkArray(categories, 9);
-    const slides = [
-        baseSlides[baseSlides.length - 1],
-        ...baseSlides,
-        baseSlides[0],
-    ];
+    // const baseSlides = chunkArray(categories, 9);
+    // const slides = [
+    //     baseSlides[baseSlides.length - 1],
+    //     ...baseSlides,
+    //     baseSlides[0],
+    // ];
+
+    const slides = chunkArray(categories, 9);
 
     useEffect(() => {
         if (sliderRef.current) {
@@ -369,37 +379,43 @@ export default function OnDemandModulePage() {
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
+    const isDownRef = useRef(false);
+    const startXRef = useRef(0);
+    const scrollLeftRef = useRef(0);
+
 
     const onMouseDown = (e: React.MouseEvent) => {
-        isDown = true;
-        startX = e.pageX - (scrollRef.current?.offsetLeft || 0);
-        scrollLeft = scrollRef.current?.scrollLeft || 0;
+        if (!scrollRef.current) return;
+
+        isDownRef.current = true;
+        startXRef.current = e.pageX - scrollRef.current.offsetLeft;
+        scrollLeftRef.current = scrollRef.current.scrollLeft;
     };
 
     const onMouseLeave = () => {
-        isDown = false;
+        isDownRef.current = false;
     };
 
     const onMouseUp = () => {
-        isDown = false;
+        isDownRef.current = false;
     };
 
     const onMouseMove = (e: React.MouseEvent) => {
-        if (!isDown || !scrollRef.current) return;
+        if (!isDownRef.current || !scrollRef.current) return;
+
         e.preventDefault();
         const x = e.pageX - scrollRef.current.offsetLeft;
-        const walk = (x - startX) * 1.5; // scroll speed
-        scrollRef.current.scrollLeft = scrollLeft - walk;
+        const walk = (x - startXRef.current) * 1.5;
+        scrollRef.current.scrollLeft = scrollLeftRef.current - walk;
     };
+
+
 
     return (
         <>
             {/* ================= HERO SECTION ================= */}
             <section
-                className="relative w-screen lg:h-[662px]"
+                className="relative hidden md:hidden lg:block w-screen lg:h-[662px]"
                 style={{
                     backgroundImage: 'url("/image/OnDemandnavbg1.png")',
                     backgroundRepeat: 'no-repeat',
@@ -468,7 +484,7 @@ export default function OnDemandModulePage() {
                                     <div className="bg-white rounded-full p-2 flex items-center justify-center">
                                         <img
                                             src="/image/educationbookmark.png"
-                                            className="w-[18px] h-[22px] lg:w-[22px] lg:h-[26px]"
+                                            className="w-[18px] h-[22px] lg:w-[18px] lg:h-[20px]"
                                             alt="Bookmark"
                                         />
                                     </div>
@@ -481,6 +497,84 @@ export default function OnDemandModulePage() {
                 </div>
             </section>
 
+            {/* ================= NAVBAR MOBILE ================= */}
+            <section>
+                <div
+                    className="
+                                block md:block lg:hidden
+                                w-full -mx-4 -mt-6 w-screen md:-mx-10 md:-mt-12
+                                bg-[#F6E9E5]
+                                flex flex-col
+                                px-4 py-8 md:px-10 md:py-10
+                                rounded-t
+                                gap-3
+                            "
+                >
+                    {/* ===== ROW 1: HEADER ===== */}
+                    <div className="flex items-center justify-between">
+                        {/* LEFT */}
+                        <div className="flex items-center gap-3 p-8 min-w-0">
+                            <Link href="/MainModules/OnDemand">
+                                <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
+                            </Link>
+
+                            <h1 className="text-[16px] font-semibold truncate">
+                                {/* {formatSlugToTitle(slug)} */} Finance Service
+                            </h1>
+                        </div>
+
+                        {/* RIGHT */}
+                        <div className="flex items-center justify-center bg-white w-8 h-8 rounded-full shrink-0">
+                            <img
+                                src="/image/educationbookmark.png"
+                                className="w-[14px] h-[14px]"
+                                alt="Bookmark"
+                            />
+                        </div>
+                    </div>
+
+                    {/* ===== ROW 2: SEARCH ===== */}
+                    <div className="relative w-[90%] md:w-[95%] mx-auto ml-6">
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full rounded-full bg-white border border-gray-300 px-10 py-2 text-sm outline-none"
+                        />
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2">
+                            <img
+                                src="/image/itsearch.png"
+                                className="w-[18px] h-[16px]"
+                                alt="Search"
+                            />
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <div className="mt-5 block md:block lg:hidden">
+                <img src="/image/OnDemandnavimage.png" alt="Finance Banner" className="w-[95%] mx-auto h-auto rounded-lg" />
+            </div>
+
+            <div className="flex flex-nowrap items-center justify-between p-4 lg:hidden md:flex">
+                <div className="min-w-0">
+                    <h1 className="text-[20px] font-semibold truncate">
+                        On-Demand Services
+                    </h1>
+                    <p className="text-[16px] text-gray-600 truncate">
+                        Book trusted professionals anytime, anywhere
+                    </p>
+                </div>
+
+                <img
+                    src="/image/OnDemandShock.png"
+                    alt="On-Demand Services"
+                    className="w-[100px] h-[100px] object-contain shrink-0"
+                />
+            </div>
+
+
             {/* ================= CATEGORY ================= */}
             <section className="relative w-full mt-10 px-4 md:px-8 mb-8">
                 <h1 className="text-[16px] md:text-[24px] font-semibold mb-5">
@@ -488,10 +582,14 @@ export default function OnDemandModulePage() {
                 </h1>
 
                 {/* DESKTOP */}
-                <div className="hidden md:block overflow-x-auto scrollbar-hide">
+                {/* <div className="hidden md:block overflow-x-auto scrollbar-hide">
                     <div className="grid grid-rows-2 grid-flow-col gap-2 max-w-8xl">
                         {categories.map((item, index) => (
-                            <div key={index} className="flex flex-col items-center w-[120px]">
+                            <div key={index} onClick={() =>
+                                router.push(`/MainModules/OnDemand/${toSlug(item.label)}`)
+                            }
+                                className="flex flex-col items-center w-[120px]">
+
                                 <img
                                     src={item.path}
                                     alt={item.label}
@@ -503,7 +601,55 @@ export default function OnDemandModulePage() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
+                {/* DESKTOP – SWIPEABLE */}
+           <div
+    ref={scrollRef}
+    className="
+        hidden md:flex
+        overflow-x-auto
+        scrollbar-hide
+        cursor-grab active:cursor-grabbing
+        select-none
+    "
+    onMouseDown={onMouseDown}
+    onMouseLeave={onMouseLeave}
+    onMouseUp={onMouseUp}
+    onMouseMove={onMouseMove}
+>
+    <div
+        className="
+            grid
+            grid-rows-2
+            grid-flow-col
+            gap-x-4
+            gap-y-6
+            w-max
+            py-2
+        "
+    >
+        {categories.map((item, index) => (
+            <div
+                key={index}
+                onClick={() =>
+                    router.push(`/MainModules/OnDemand/${toSlug(item.label)}`)
+                }
+                className="flex flex-col items-center w-[120px] shrink-0"
+            >
+                <img
+                    src={item.path}
+                    alt={item.label}
+                    className="w-[73px] h-[73px] object-contain bg-[#FFF6EF] rounded-lg p-2"
+                />
+                <span className="mt-2 text-[12px] font-medium text-center">
+                    {item.label}
+                </span>
+            </div>
+        ))}
+    </div>
+</div>
+
+
 
                 {/* MOBILE */}
                 <div
@@ -517,8 +663,7 @@ export default function OnDemandModulePage() {
                                     <div
                                         key={i}
                                         onClick={() =>
-                                            router.push(`/MainModules/Education/${toSlug(item.label)}`)
-                                        }
+                                            router.push(`/MainModules/OnDemand/${toSlug(item.label)}`)}
                                         className="flex flex-col items-center"
                                     >
                                         <img
@@ -538,7 +683,7 @@ export default function OnDemandModulePage() {
             </section>
 
             {/* ================= OTHER SECTIONS ================= */}
-            <section className="relative w-full">
+            <section className="relative w-full ">
                 <RecommendedProvider />
                 <MostPopularProvider />
                 <TopTrending />

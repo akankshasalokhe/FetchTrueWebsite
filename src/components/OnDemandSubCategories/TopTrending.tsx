@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-export default function RecommendedProvider() {
+export default function TopTrending() {
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [isDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -50,8 +50,8 @@ export default function RecommendedProvider() {
     ];
 
     return (
-        <div className="relative w-full mt-6  lg:mt-2">
-            <h1 className="text-[16px] font-semibold  lg:text-[24px] ml-4 lg:ml-12">Recommended Provider</h1>
+        <div className="relative w-full mt-6 lg:mt-2">
+            <h1 className="text-[16px] font-semibold lg:text-[24px] ml-4 lg:ml-12">Top Trending</h1>
             {/* SCROLL CONTAINER */}
             <div
                 ref={scrollRef}
@@ -72,12 +72,12 @@ export default function RecommendedProvider() {
                 }}
             >
                 {/* CARD WRAPPER */}
-                <div className="flex gap-6 min-w-max p-2 lg:p-12">
+                <div className="flex gap-6 w-max p-2 lg:p-12">
                     
                     {services.map((item) => (
                         <div
                             key={item.id}
-                            className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
+                            className="shrink-0 w-[290px] lg:w-[479px] bg-white border border-gray-300 rounded-xl p-4 ml-2 lg:-ml-0 shadow-sm"
                         >
                             {/* HEADER */}
                             <div className="-mx-4 -mt-4 lg:-mt-4 p-4 h-[130px] bg-[#F7FAFE] rounded-t-xl">
@@ -108,7 +108,7 @@ export default function RecommendedProvider() {
                             </div>
 
                             {/* STATUS */}
-                           <div className="flex mb-1 mt-2 lg:mt-6">
+                            <div className="flex mb-1 mt-2 lg:mt-6">
                                 <span className="ml-auto bg-green-500 text-white text-[10px] lg:text-[12px] px-3 py-1 rounded-full">
                                     {item.status}
                                 </span>
