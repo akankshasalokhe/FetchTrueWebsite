@@ -47,7 +47,7 @@ export default function WhyJustOurServices() {
   }, []);
 
   return (
-    <section className="relative w-full py-20 bg-[#2A67F4] mt-24 mb-10 overflow-hidden">
+    <section className="relative w-full py-15 bg-[#2A67F4] mt-24 mb-10 overflow-hidden">
       {/* BACKGROUND */}
       <Image
         src="/image/marketingbgdesign.png"
