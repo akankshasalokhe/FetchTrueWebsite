@@ -1,8 +1,9 @@
 'use client';
 
 import { Bookmark } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import { Zap, Clock, User } from "lucide-react";
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -16,226 +17,134 @@ const CATEGORY_TABS = [
 ];
 
 /* ---------------- SERVICES DATA ---------------- */
-export const SERVICES = [
-  // ================= CYBER SECURITY =================
-  {
-    id: 1,
-    title: "Cyber Security",
-    subtitle: "Protect your digital assets",
-    category: "Digital Marketing",
-    users: "2400+ users",
-    rating: 4,
-    price: 450,
-    discount: "30%",
-    trusted: true,
-    earn: "Earn Up to 5%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 2,
-    title: "Cyber Security",
-    subtitle: "Advanced threat protection",
-    category: "IT Security",
-    users: "1800+ users",
-    rating: 5,
-    price: 520,
-    discount: "25%",
-    trusted: true,
-    earn: "Earn Up to 6%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 3,
-    title: "Cyber Security",
-    subtitle: "Network & system security",
-    category: "Infrastructure",
-    users: "1500+ users",
-    rating: 4,
-    price: 390,
-    discount: "20%",
-    trusted: true,
-    earn: "Earn Up to 4%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 4,
-    title: "Cyber Security",
-    subtitle: "Compliance & risk management",
-    category: "Governance",
-    users: "1200+ users",
-    rating: 4,
-    price: 480,
-    discount: "18%",
-    trusted: true,
-    earn: "Earn Up to 5%",
-    image: "/image/itmodulecardbg.png",
-  },
-
-  // ================= IT CONSULTING =================
-  {
-    id: 5,
-    title: "IT Consulting",
-    subtitle: "Smart business solutions",
-    category: "Strategy",
-    users: "2100+ users",
-    rating: 5,
-    price: 380,
-    discount: "35%",
-    trusted: true,
-    earn: "Earn Up to 5%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 6,
-    title: "IT Consulting",
-    subtitle: "Enterprise IT planning",
-    category: "Operations",
-    users: "1700+ users",
-    rating: 4,
-    price: 420,
-    discount: "20%",
-    trusted: true,
-    earn: "Earn Up to 4%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 7,
-    title: "IT Consulting",
-    subtitle: "Cloud & migration advisory",
-    category: "Cloud",
-    users: "1600+ users",
-    rating: 5,
-    price: 460,
-    discount: "22%",
-    trusted: true,
-    earn: "Earn Up to 5%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 8,
-    title: "IT Consulting",
-    subtitle: "Process optimization",
-    category: "Management",
-    users: "1400+ users",
-    rating: 4,
-    price: 340,
-    discount: "15%",
-    trusted: true,
-    earn: "Earn Up to 3%",
-    image: "/image/itmodulecardbg.png",
-  },
-
-  // ================= WEB DEVELOPMENT =================
-  {
-    id: 9,
-    title: "Web Development",
-    subtitle: "Modern responsive websites",
-    category: "UI / UX",
-    users: "2600+ users",
-    rating: 5,
-    price: 520,
-    discount: "20%",
-    trusted: true,
-    earn: "Earn Up to 6%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 10,
-    title: "Web Development",
-    subtitle: "Custom business websites",
-    category: "Frontend",
-    users: "2000+ users",
-    rating: 4,
-    price: 480,
-    discount: "18%",
-    trusted: true,
-    earn: "Earn Up to 5%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 11,
-    title: "Web Development",
-    subtitle: "High-performance web apps",
-    category: "Full Stack",
-    users: "1900+ users",
-    rating: 5,
-    price: 600,
-    discount: "25%",
-    trusted: true,
-    earn: "Earn Up to 7%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 12,
-    title: "Web Development",
-    subtitle: "SEO-friendly websites",
-    category: "Optimization",
-    users: "1700+ users",
-    rating: 4,
-    price: 430,
-    discount: "15%",
-    trusted: true,
-    earn: "Earn Up to 4%",
-    image: "/image/itmodulecardbg.png",
-  },
-
-  // ================= APP DEVELOPMENT =================
-  {
-    id: 13,
-    title: "App Development",
-    subtitle: "Android & iOS applications",
-    category: "Mobile",
-    users: "2200+ users",
-    rating: 5,
-    price: 750,
-    discount: "40%",
-    trusted: true,
-    earn: "Earn Up to 7%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 14,
-    title: "App Development",
-    subtitle: "Cross-platform apps",
-    category: "Flutter / React Native",
-    users: "1900+ users",
-    rating: 4,
-    price: 620,
-    discount: "25%",
-    trusted: true,
-    earn: "Earn Up to 6%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 15,
-    title: "App Development",
-    subtitle: "Enterprise mobile solutions",
-    category: "Enterprise",
-    users: "1600+ users",
-    rating: 5,
-    price: 820,
-    discount: "30%",
-    trusted: true,
-    earn: "Earn Up to 8%",
-    image: "/image/itmodulecardbg.png",
-  },
-  {
-    id: 16,
-    title: "App Development",
-    subtitle: "UI-focused mobile apps",
-    category: "Design",
-    users: "1400+ users",
-    rating: 4,
-    price: 560,
-    discount: "18%",
-    trusted: true,
-    earn: "Earn Up to 5%",
-    image: "/image/itmodulecardbg.png",
-  },
+const SERVICES = [
+    {
+        id: 1,
+        title: "Cyber Security",
+        subtitle: "Develop your future website",
+        category: "Digital Marketing",
+        users: "2400+ users",
+        rating: 4,
+        price: 450,
+        discount: "30%",
+        trusted: true,
+        earn: "Earn Up to 5%",
+        image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 2,
+        title: "IT Consulting",
+        subtitle: "Develop your future website",
+        category: "UI / UX",
+        users: "1800+ users",
+        rating: 5,
+        price: 380,
+        discount: "25%",
+        trusted: true,
+        earn: "Earn Up to 4%",
+        image: "/image/ItServicecardbg1.png",
+        
+    },
+    {
+        id: 3,
+        title: "App Development",
+        subtitle: "Develop your future website",
+        category: "Graphic Design",
+        users: "1200+ users",
+        rating: 4,
+        price: 280,
+        discount: "20%",
+        trusted: true,
+        earn: "Earn Up to 3%",
+        image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 4,
+        title: "Cyber Security",
+        subtitle: "Develop your future website",
+        category: "Print Design",
+        users: "950+ users",
+        rating: 4,
+        price: 220,
+        discount: "15%",
+        trusted: true,
+        earn: "Earn Up to 2%",
+        image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 5,
+        title: "IT Consulting",
+        subtitle: "Develop your future website",
+        category: "Digital Marketing",
+        users: "2100+ users",
+        rating: 5,
+        price: 320,
+        discount: "35%",
+        trusted: true,
+        earn: "Earn Up to 5%",
+        image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 6,
+        title: "Web Development",
+        subtitle: "Develop your future website",
+        category: "UI / UX",
+        users: "1600+ users",
+        rating: 5,
+        price: 520,
+        discount: "20%",
+        trusted: true,
+        earn: "Earn Up to 6%",
+        image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 7,
+        title: "Cyber Security",
+        subtitle: "Develop your future website",
+        category: "Print Design",
+        users: "1100+ users",
+        rating: 4,
+        price: 480,
+        discount: "18%",
+        trusted: true,
+        earn: "Earn Up to 3%",
+         image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 8,
+        title: "Web Development",
+        subtitle: "Develop your future website",
+        category: "Graphic Design",
+        users: "1400+ users",
+        rating: 4,
+        price: 260,
+        discount: "22%",
+        trusted: true,
+        earn: "Earn Up to 3%",
+        image: "/image/ItServicecardbg1.png",
+    },
+    {
+        id: 9,
+        title: "App Development",
+        subtitle: "Develop your future website",
+        category: "Branding",
+        users: "900+ users",
+        rating: 5,
+        price: 750,
+        discount: "40%",
+        trusted: true,
+        earn: "Earn Up to 7%",
+        image: "/image/ItServicecardbg1.png",
+    },
 ];
 
-
 /* ---------------- COMPONENT ---------------- */
+// type RecommendationProps = {
+//     selectedRange: string;
+//     selectedCategory: string;
+//     searchQuery: string;
+// };
+
 type SectionProps = {
     selectedRange?: string;
     selectedCategory?: string;
@@ -245,16 +154,12 @@ type SectionProps = {
 
 
 
-export default function Recommendation({   selectedRange = "all",
-  selectedCategory = "all",
-  searchQuery = "",
-  contextTitle = "",}: SectionProps) {
+export default function Recommendation({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
-
     const toSlug = (text: string) =>
-        text.toLowerCase().trim().replace(/\s+/g, "-");
+        text.toLowerCase().replace(/\s+/g, "-");
 
 
 
@@ -286,30 +191,25 @@ export default function Recommendation({   selectedRange = "all",
         // const contextMatch =
         //     !contextTitle ||
         //     item.title.toLowerCase() === contextTitle.toLowerCase();
-        // const normalizedTitle = item.title.toLowerCase();
-        // const normalizedContext = contextTitle?.toLowerCase();
+        const normalizedTitle = item.title.toLowerCase();
+        const normalizedContext = contextTitle?.toLowerCase();
 
-
-
-        const itemSlug = toSlug(item.title);
+        console.log("ITEM TITLE 👉", normalizedTitle);
+        console.log("CONTEXT TITLE 👉", normalizedContext);
+        console.log(
+            "MATCH 👉",
+            normalizedTitle === normalizedContext
+        );
 
         const contextMatch =
-            !contextTitle || itemSlug === contextTitle;
-
-        console.log("ITEM SLUG 👉", itemSlug);
-        console.log("CONTEXT SLUG 👉", contextTitle);
-        console.log("FINAL CONTEXT MATCH 👉", contextMatch);
-
-
+            !contextTitle ||
+            normalizedTitle === normalizedContext;
 
         // SEARCH
         const searchMatch =
             searchQuery === "" ||
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-
-
 
         return rangeMatch && categoryMatch && searchMatch && contextMatch;
     });
@@ -354,73 +254,88 @@ export default function Recommendation({   selectedRange = "all",
             {/* SWIPEABLE CARDS */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-10 overflow-x-auto snap-x snap-mandatory no-scrollbar"
+                className="flex gap-4 md:gap-10 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
             >
                 {filteredServices.length > 0 ? (
                     filteredServices.map((item) => (
                         <div
                             key={item.id}
-                            // onClick={() =>
-                            //     router.push(`/MainModules/ITService/${toSlug(item.title)}`)
-                            // }
+                            onClick={() =>
+                                router.push(`/MainModules/ITService/ServiceDetails`)
+                            }
                             className="
-              relative snap-center flex-shrink-0
-              w-[290px] min-h-[271px]
-              sm:w-[70vw]
-              md:w-[390px] md:h-[362px]
-              overflow-hidden 
-            "
+                                relative snap-center flex-shrink-0
+                                w-[290px] min-h-[271px]
+                                sm:w-[70vw] h-[300px]
+                                md:w-[331px] md:h-[372px] lg:h-[362.04px]
+                                overflow-hidden 
+                                "
                         >
                             {/* SVG BACKGROUND */}
                             <CardBg />
 
                             {/* CONTENT */}
-                            <div className="relative z-10 h-full flex flex-col">
+                            <div className="relative z-10 h-[336px] flex flex-col ">
                                 {/* IMAGE SECTION */}
-                                <div className="relative md:h-[200px] w-full p-2 h-[156px]">
+                                <div className="relative md:h-[200px] w-full p-4 h-[156px]">
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-full h-full object-cover"
+                                        className="w-[299px] h-full object-cover
+                                    rounded-tl-lg
+                                    rounded-br-lg
+                                    rounded-tr-none
+                                    rounded-bl-none"
                                     />
 
                                     {/* Discount */}
-                                    <span className="absolute top-4 right-14 bg-green-400 text-black text-xs font-semibold px-3 py-1 rounded-lg">
+                                    <span className="absolute top-6 right-18 bg-green-400 text-black text-xs font-semibold px-2 py-1 rounded-lg">
                                         Discount {item.discount}
                                     </span>
 
                                     {/* Bookmark */}
-                                    <button className="absolute top-3 right-4 bg-black/70 p-2 rounded-full">
+                                    <button className="absolute top-5 right-6 bg-black/70 p-2 rounded-full">
                                         <Bookmark size={16} className="text-white" />
                                     </button>
                                 </div>
 
                                 {/* CONTENT SECTION */}
-                                <div className="relative p-4 text-black flex-1">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-[16px] font-semibold leading-snug line-clamp-2 max-w-[65%]">
-                                            {item.title}
+                                <div className="relative p-2 text-black flex-1">
+                                    <span className="text-[16px] md:ml-2 font-semibold leading-snug line-clamp-2 max-w-[65%]">
+                                        {item.title}
+                                    </span>
+                                    <div className="flex items-center justify-between mb-2 md:mb-6">
+                                        <span className="inline-block bg-[#FFFFFF] text-[9px] md:text-[12px] px-3 py-1 rounded-full">
+                                            {item.category}
                                         </span>
 
-                                        <span className="bg-white text-xs px-3 py-1 rounded-full whitespace-nowrap shrink-0">
+                                        <span className="text-[8px] md:text-[10px] px-3 py-1 bg-[#548AFE] rounded-full whitespace-nowrap shrink-0">
                                             {item.earn}
                                         </span>
                                     </div>
 
-                                    <p className="text-[12px] md:text-[16px] mt-1">
-                                        {item.subtitle}
-                                    </p>
+                                    <div className="flex items-center lg:-mt-2 mb-2">
+                                        <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            <Zap className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            Faster project delivery
+                                        </div>
+
+                                        <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            <Clock className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            24×7 technical support
+                                        </span>
+                                    </div>
+
 
                                     <div className="space-y-1">
-                                        <span className="inline-block bg-white text-[9px] md:text-[10px] px-3 py-1 mb-4 rounded-full">
-                                            {item.category}
-                                        </span>
-
                                         <div>
-                                            <h4 className="text-xs leading-none">Reviews</h4>
-                                            <div className="flex items-center text-yellow-400 text-[20px] md:text-[25px] gap-1 leading-none">
+                                            {/* <h4 className="text-xs leading-none">Reviews</h4> */}
+                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-2 leading-none">
                                                 {"★".repeat(item.rating)}
                                                 {"☆".repeat(5 - item.rating)}
+                                            </div>
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2"> 
+                                          <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
                                             </div>
                                         </div>
                                     </div>
@@ -428,17 +343,18 @@ export default function Recommendation({   selectedRange = "all",
                                     {/* PRICE */}
                                     <div
                                         className="
-                                            absolute bottom-4 right-4
+                                            absolute lg:bottom-1 right-4 md:bottom-1 bottom-10
                                             bg-white text-black font-semibold
-                                            text-[21.71px] md:text-[27.89px]
-                                            px-4 py-2
-                                            rounded-2xl shadow-md
-
+                                            text-[12.71px] md:text-[15px] lg:text-[20px] 
+                                            lg:px-4 lg:py-1 md:px-4 md:py-2
+                                            rounded-2xl shadow-md px-2 py-2
+                                            flex flex-col items-center
                                             max-w-[85%]
-                                            truncate
+                                            truncate 
                                             whitespace-nowrap
                                         "
-                                    >
+                                    > 
+                                  <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>  
                                         ₹ {item.price}
                                     </div>
                                 </div>

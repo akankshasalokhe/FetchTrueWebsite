@@ -52,15 +52,15 @@ export default function SubCategoryPage({ params }: Props) {
         <>
             <section className="relative w-full">
                 {/* ===== NAVBAR ===== */}
-                <div className="w-full px-4 md:px-8 mt-4 md:mt-10">
-                    <div className="bg-[#E2E9F1] flex items-center justify-between p-4 rounded-xl w-full">
+                <div className="w-screen -mx-2 ">
+                    <div className="bg-[#E2E9F1] flex items-center justify-between p-6 rounded-xl w-full">
                         {/* LEFT */}
                         <div className="flex items-center gap-3 lg:gap-5">
-                            <img
+                            {/* <img
                                 src="/image/Group 2.png"
                                 className="w-[26px] h-[30px] lg:w-[36px] lg:h-[45px]"
                                 alt="Home"
-                            />
+                            /> */}
 
                             <Link href="/MainModules/ITService" >
                                 <img
