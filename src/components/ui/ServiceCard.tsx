@@ -4,16 +4,6 @@ import Image from "next/image";
 import { Bookmark } from "lucide-react";
 import Link from "next/link";
 
-interface ServiceCardProps {
-  title: string;
-  category: string;
-  price: number;
-  rating: number;
-  image: string;
-  slug:string;
-  detailslug:string;
-}
-
 export default function ServiceCard({
   title,
   category,
@@ -21,86 +11,82 @@ export default function ServiceCard({
   rating,
   image,
   slug,
-  detailslug
-}: ServiceCardProps) {
+  detailslug,
+}: any) {
   return (
-    <Link href={`/MainModules/LegalService/${slug}/${detailslug}`} className="block">
-    <div
-      className="
-        min-w-[280px]
-        sm:min-w-[320px]
-        lg:w-[384px]
-        bg-[#F9F5EE]
-        rounded-[13.09px]
-        relative
-        flex-shrink-0
-        py-1
-      "
+    <Link
+      href={`/MainModules/LegalService/${slug}/${detailslug}`}
+      className="block"
     >
-      {/* Image */}
-      <div className="relative m-3 h-[160px] sm:h-[180px] rounded-[13.09px] overflow-hidden">
-        <Image src={image} alt={title} fill className="object-cover" />
+      <div className="w-[350px] bg-[#F9F5EE] rounded-[12px] p-3 relative">
 
-        {/* Trusted */}
-        <div className="absolute top-2 left-2 bg-white px-3 py-1 rounded-lg text-[11px] sm:text-[12px] font-medium text-[#2563EB] flex items-center gap-1">
-          <img src="/image/security.png" alt="" width={11} />
-          Trusted
-        </div>
+        {/* IMAGE */}
+        <div className="relative h-[170px] rounded-[14px] overflow-hidden">
+          <Image src={image} alt={title} fill className="object-cover" />
 
-        {/* Discount */}
-        <div className="absolute top-2 right-12 px-3 py-1 rounded-lg border bg-[#F9F5EE] text-[11px] sm:text-[12px]">
-          Discount 30%
-        </div>
-
-        {/* Bookmark */}
-        <button className="absolute top-2 right-2 w-9 h-9 bg-black rounded-full flex items-center justify-center">
-          <Bookmark size={18} className="text-white" />
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="px-3 pb-4">
-        <h3 className="font-inter font-semibold text-[18px] sm:text-[20px]">
-          {title}
-        </h3>
-
-        <div className="flex items-center justify-between mt-2">
-          <span className="bg-white px-3 py-1 rounded-full text-[11px] sm:text-[12px] text-gray-500">
-            {category}
-          </span>
-
-          <span className="bg-white px-3 py-1 rounded-full text-[11px] sm:text-[12px]">
-            Earn Up to 5%
-          </span>
-        </div>
-
-        {/* Rating + Price */}
-        <div className="flex items-end justify-between mt-4">
-          <div>
-            <span className="text-[11px] text-gray-500">Reviews</span>
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={`text-[28px] ${
-                    star <= rating ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
+          {/* Trusted Badge */}
+          <div className="absolute top-2 left-2 bg-white px-2 py-1 rounded-md flex items-center gap-1 text-[11px] font-medium text-[#2164F4]">
+            <img src="/image/security.png" alt="" className="w-[12px]" />
+            Trusted
           </div>
 
-          <div className="flex items-end gap-1">
-            <span className="font-semibold text-[22px] sm:text-[26px]">₹</span>
-            <span className="font-semibold text-[22px] sm:text-[26px]">
-              {price}
+          {/* Bookmark */}
+          <div className="absolute top-2 right-2 w-8 h-8 bg-black rounded-full flex items-center justify-center">
+            <Bookmark size={16} className="text-white" />
+          </div>
+        </div>
+
+        {/* CONTENT */}
+        <div className="mt-3">
+          <h3 className="font-semibold text-[16px] leading-tight">
+            {title}
+          </h3>
+
+          {/* TAGS */}
+          <div className="flex gap-2 mt-2">
+            <span className="bg-white px-3 py-[3px] rounded-full text-[11px] text-[#868686]">
+              {category}
+            </span>
+            <span className="bg-[#548AFE] px-3 py-[3px] rounded-full text-[11px] text-white">
+              Earn Up to 5%
+            </span>
+            <span className="bg-[#6FFF84] px-3 py-[3px] rounded-full text-[11px] text-black">
+              Discount 30%
             </span>
           </div>
+
+          {/* FEATURES */}
+          <div className="flex gap-4 text-[12px] text-[#232323] mt-3">
+            <span>⚖️ Experts Lawyers</span>
+            <span>💰 Affordable Lawyers</span>
+          </div>
+
+          {/* RATING + PRICE */}
+          <div className="flex justify-between items-end mt-3">
+            <div>
+              <p className="text-[10px] text-[#232323]">Reviews</p>
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    className={`text-[21px] ${
+                      star <= rating ? "text-[#FBBD1D]" : "text-gray-300"
+                    }`}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+              <p className="text-[11px] text-[#919191]">2,400+ Reviews</p>
+            </div>
+
+            <div className="">
+              <p className="text-[11px] text-[#393737]">Starting from</p>
+              <p className="font-semibold text-[24px] text-[#232323]">₹ {price}</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </Link>
   );
 }
