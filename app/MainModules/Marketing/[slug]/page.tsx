@@ -1,8 +1,8 @@
 'use client';
 
-import ExploreServices from '@/src/components/DesignStudio/ExploreServices/ExploreServices';
-import MostlyUsed from '@/src/components/DesignStudio/MostlyUsed/MostlyUsed';
-import Recommendation from '@/src/components/DesignStudio/Recommendation/Recommendation';
+import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
+import TopTrending from "@/src/components/Marketing/TopTrending";
+import RecommendedForYou from '@/src/components/Marketing/Recommend';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -84,11 +84,15 @@ export default function DesignStudioPage() {
             </section>
 
             {/* ---------------- REMAINING SECTIONS ---------------- */}
-            <section className="w-full mt-6 md:mt-10">
-                <Recommendation />
-                <MostlyUsed />
-                <ExploreServices />
-            </section>
+             <section className="w-full mt-6 md:mb-10">
+                {/* // <Recommendation />
+                // <MostlyUsed />
+                // <ExploreServices /> */}
+          
+            <RecommendedForYou />
+            <MostlyUsed />
+            <TopTrending />
+              </section> 
         </>
     );
 }

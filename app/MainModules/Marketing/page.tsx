@@ -6,6 +6,10 @@ import { Home, Bookmark, Search } from "lucide-react";
 import Link from "next/link";
 import RecommendedForYou from "@/src/components/Marketing/Recommend";
 import { useEffect,useRef} from "react";
+import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
+import TopTrending from "@/src/components/Marketing/TopTrending";
+import WhyJustOurServices from "@/src/components/Marketing/WhyOurServices";
+import SuggestedProviders from "@/src/components/Marketing/Providers";
 
 export default function MarketingHero() {
    const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -135,7 +139,10 @@ export default function MarketingHero() {
       </section>
           <CategoryModule/>
       <RecommendedForYou />
-      
+      <MostlyUsed />
+    <TopTrending />
+    <WhyJustOurServices />
+    <SuggestedProviders />
     </div>
   );
 }
