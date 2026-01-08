@@ -5,7 +5,12 @@ import MostlyUsedService from "@/src/components/Legal/MostlyUsedService";
 import RecommendedSection from "@/src/components/Section/RecommendedSection";
 import TopLegalServicesSection from "@/src/components/Section/TopLegalServicesSection";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef,useEffect } from "react";
+import { Search,Bookmark } from "lucide-react";
+import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
+import TopTrending from "@/src/components/Legal/TopTrending";
+import Link from "next/link";
+
 
 
 const legalRecommendedServices = [
@@ -58,26 +63,37 @@ const legalRecommendedServices = [
 ];
 
 export default function LegalServiceDetailPage() {
-   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
   
-  const scrollByCard = (direction: "left" | "right") => {
-    if (!sliderRef.current) return;
+    useEffect(() => {
+      const slider = sliderRef.current;
+      if (!slider) return;
   
-    const cardWidth =
-      sliderRef.current.querySelector<HTMLElement>("[data-card]")?.offsetWidth || 0;
+      let animationFrame: number;
+      const speed = 0.5; // adjust for faster/slower scroll
   
-    sliderRef.current.scrollBy({
-      left: direction === "left" ? -cardWidth : cardWidth,
-      behavior: "smooth",
-    });
-  };
+      const autoScroll = () => {
+        slider.scrollLeft += speed;
+  
+        // reset scroll seamlessly when half is crossed
+        if (slider.scrollLeft >= slider.scrollWidth / 2) {
+          slider.scrollLeft = 0;
+        }
+  
+        animationFrame = requestAnimationFrame(autoScroll);
+      };
+  
+      animationFrame = requestAnimationFrame(autoScroll);
+  
+      return () => cancelAnimationFrame(animationFrame);
+    }, []);
   return (
     <>
       <section className="flex justify-center ">
       {/* NAVBAR */}
       <div
         className="
-          w-[1329px]
+          w-full
           h-[60px]
           bg-[#F9F5EE]
           flex
@@ -89,21 +105,16 @@ export default function LegalServiceDetailPage() {
       >
         {/* LEFT SIDE */}
         <div className="flex items-center gap-6">
-          {/* Home Icon */}
-          <img
-            src="/image/Group 3.png"
-            alt="Home Icon"
-            className="text-#A3623A"
-            style={{ width: "34.36px", height: "42.95px" }}
-          />
+        
 
           {/* Back Icon */}
+          <Link href="/MainModules/LegalService">
           <img
             src="/image/Vector (1).png"
             alt="Back Icon"
-            className="text-black hidden lg:block"
-            
+            className="text-black hidden lg:block"    
           />
+          </Link>
 
           {/* Title */}
           <h1
@@ -119,42 +130,33 @@ export default function LegalServiceDetailPage() {
         </div>
 
         {/* RIGHT SIDE */}
-        <img
-          src="/image/Vector (4).png"
-          alt="Bookmark Icon"
-          className="text-#A3623A"
-          style={{
-            width: "18.61px",
-            height: "27.25px",
-          }}
-        />
+      <div className="flex items-center gap-8">
+            {/* SEARCH */}
+            <div className="flex items-center gap-2
+                            bg-white backdrop-blur-md
+                            px-4 py-2 rounded-full
+                            border border-[#E1E1E1]
+                            w-full max-w-[320px]">
+              <Search className="w-4 h-4 opacity-80" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="bg-transparent outline-none
+                           placeholder:text-[#00000078]
+                           text-sm w-full"
+              />
+            </div>
+
+            <Bookmark  className="w-8 h-8" color="#A3623A"/>
+          </div>
       </div>
       </section>
 
-      <section className="relative z-10 w-full flex justify-center mt-18 lg:mt-20 mb-30 px-4 pb-20">
-            <div className="w-full max-w-[1200px]">
-      
+      <section className=" w-full flex justify-center my-10  px-4">
+            <div className="w-full">
       
               {/* ================= CAROUSEL ================= */}
               <div className="relative">
-      
-                {/* LEFT ARROW */}
-                <button
-                  onClick={() => scrollByCard("left")}
-                  className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
-                >
-                  ‹
-                </button>
-      
-                {/* RIGHT ARROW */}
-                <button
-                  onClick={() => scrollByCard("right")}
-                  className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
-                >
-                  ›
-                </button>
-      
-                {/* SLIDER */}
                 <div
                   ref={sliderRef}
                   className="
@@ -170,27 +172,23 @@ export default function LegalServiceDetailPage() {
                     no-scrollbar
                   "
                 >
-                  {[1, 2, 3, 4, 5].map((item) => (
+                  {/* Duplicate items for infinite loop */}
+                  {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
                     <div
-                      key={item}
+                      key={index}
                       data-card
                       className="
                         relative
                         snap-center
-                        min-w-[260px]
-                        sm:min-w-[420px]
-                        lg:min-w-[1007px]
-                        h-[200px]
-                        sm:h-[360px]
-                        lg:h-[577px]
-                        rounded-[35px]
+                        w-[505px]
+                        h-[265px]
                         bg-[#D9D9D9]
                         overflow-hidden
                         flex-shrink-0
                       "
                     >
                       <Image
-                        src="/image/backImage.jpg"
+                        src="/image/legalbanner.jpg"
                         alt="Legal Service"
                         fill
                         className="object-cover"
@@ -203,7 +201,7 @@ export default function LegalServiceDetailPage() {
             </div>
           </section>
 
-      <RecommendedSection
+      {/* <RecommendedSection
         title="Recommended Legal Services"
         services={legalRecommendedServices}
       />
@@ -211,10 +209,11 @@ export default function LegalServiceDetailPage() {
       <TopLegalServicesSection 
         title="Todays Top Services"
         services={legalRecommendedServices}
-      />
-
+      /> */}
+      <RecommendedForYou />
       <MostlyUsedService />
-      <ExploreAllServices />
+      <TopTrending />
+      {/* <ExploreAllServices /> */}
     </>
   );
 };

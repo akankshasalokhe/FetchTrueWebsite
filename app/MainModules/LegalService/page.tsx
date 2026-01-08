@@ -78,6 +78,7 @@ const sliderRef = useRef<HTMLDivElement | null>(null);
 
     return () => cancelAnimationFrame(animationFrame);
   }, []);
+  
   return (
     <div className="">
       <section className="flex justify-center">
