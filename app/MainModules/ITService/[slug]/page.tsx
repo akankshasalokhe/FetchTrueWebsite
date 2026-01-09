@@ -6,6 +6,7 @@ import HighInDemand from "@/src/components/ITModulesSubCategories/HighInDemand";
 import ExploreAllServices from "@/src/components/ITModulesSubCategories/ExploreAllServices";
 import { useState, use } from "react";
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 
 
 type Props = {
@@ -52,15 +53,11 @@ export default function SubCategoryPage({ params }: Props) {
         <>
             <section className="relative w-full">
                 {/* ===== NAVBAR ===== */}
-                <div className="w-screen -mx-2 ">
+                {/* <div className="w-screen -mx-2 ">
                     <div className="bg-[#E2E9F1] flex items-center justify-between p-6 rounded-xl w-full">
-                        {/* LEFT */}
+                      
                         <div className="flex items-center gap-3 lg:gap-5">
-                            {/* <img
-                                src="/image/Group 2.png"
-                                className="w-[26px] h-[30px] lg:w-[36px] lg:h-[45px]"
-                                alt="Home"
-                            /> */}
+                           
 
                             <Link href="/MainModules/ITService" >
                                 <img
@@ -75,14 +72,121 @@ export default function SubCategoryPage({ params }: Props) {
                             </h1>
                         </div>
 
-                        {/* RIGHT */}
+                        
                         <img
                             src="/image/Vector (2).png"
                             className="w-[18px] h-[22px]"
                             alt="Bookmark"
                         />
                     </div>
+                </div> */}
+
+                 <div className="hidden md:hidden lg:block w-full px-4 md:px-8 mt-4 md:mt-10">
+                    <div className="bg-[#E2E9F1] flex items-center justify-between p-4 rounded-xl">
+                        <div className="flex items-center gap-4">
+                            {/* <img src="/image/Group 2.png" className="w-[30px]" /> */}
+                             <img src="/image/Vector (1).png" className="w-[23px] h-[20px]" />
+                            <h1 className="text-lg md:text-2xl font-semibold"> {formatSlugToTitle(slug)}</h1>
+                        </div>
+
+                        {/* SEARCH */}
+                        <div className="flex items-center gap-4">
+                            {/* SEARCH */}
+                            <div className="hidden md:block relative w-[260px] lg:w-[307px]">
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="
+                                        w-full
+                                        rounded-full bg-white
+                                        border border-gray-300
+                                        px-10 py-2
+                                        text-sm
+                                        outline-none
+                                        focus:border-blue-500
+                                    "
+                                />
+
+                                {/* search icon */}
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2">
+                                    <img
+                                        src="/image/itsearch.png"
+                                        alt="searchicon"
+                                        className="w-[18px] h-[18px]"
+                                    />
+                                </span>
+                            </div>
+
+                            {/* BOOKMARK / LOCATION ICON */}
+                            <img
+                               src="/image/ITServiceSubcategoriesbookmark.png"
+                                className="w-[20px] cursor-pointer"
+                            />
+                        </div>
+                           
+
+                    </div>
+                    
                 </div>
+
+
+                           {/* ================= NAVBAR MOBILE ================= */}
+            <section>
+                <div
+                    className="
+                                block md:block lg:hidden
+                                w-full -mt-6 w-screen md:-mx-0 md:-mt-12
+                                bg-[#E2E9F1]
+                                flex flex-col
+                                px-4 py-8 md:px-10 md:py-10
+                                rounded-t
+                                gap-3
+                            "
+                >
+                    {/* ===== ROW 1: HEADER ===== */}
+                    <div className="flex items-center justify-between">
+                        {/* LEFT */}
+                        <div className="flex items-center gap-3 p-8 min-w-0">
+                            <Link href="/MainModules/OnDemand">
+                                <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
+                            </Link>
+
+                            <h1 className="text-[16px] font-semibold truncate">
+                                {formatSlugToTitle(slug)} 
+                            </h1>
+                        </div>
+
+                        {/* RIGHT */}
+                        <div className="flex items-center justify-center bg-white w-8 h-8 rounded-full shrink-0">
+                            <img
+                                src="/image/ITServiceSubcategoriesbookmark.png"
+                                className="w-[14px] h-[14px]"
+                                alt="Bookmark"
+                            />
+                        </div>
+                    </div>
+
+                    {/* ===== ROW 2: SEARCH ===== */}
+                    <div className="relative w-[90%] md:w-[95%] mx-auto ml-6">
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full rounded-full bg-white border border-gray-300 px-10 py-2 text-sm outline-none"
+                        />
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2">
+                            <img
+                                src="/image/itsearch.png"
+                                className="w-[18px] h-[16px]"
+                                alt="Search"
+                            />
+                        </span>
+                    </div>
+                </div>
+            </section>
 
 
 
@@ -91,34 +195,10 @@ export default function SubCategoryPage({ params }: Props) {
                     {/* Header Row */}
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
 
-                        <h2 className="text-xl md:text-3xl font-semibold mb-4">
-                            Search According to you
-                        </h2>
+                        
 
 
-                        {/* Search Box */}
-                        <div className="relative w-full md:w-[320px]">
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-
-                                className="
-                                      w-full
-                                      rounded-full
-                                      border border-gray-300
-                                      px-10 py-2
-                                      text-sm
-                                      outline-none
-                                      focus:border-blue-500
-                                      "
-                            />
-                            {/* search icon */}
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[20.66px]' />
-                            </span>
-                        </div>
+                   
 
                     </div>
 
@@ -147,17 +227,12 @@ export default function SubCategoryPage({ params }: Props) {
                             ))}
                         </div>
                     </div>
-
-
-
-
-
                 </div>
 
             </section>
 
             <section className="w-full mt-6 md:mt-10">
-                <ExploreAllServices contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                {/* <ExploreAllServices contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} /> */}
                 <Recommendation contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
                 <MostlyUsed contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
                 <HighInDemand contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />

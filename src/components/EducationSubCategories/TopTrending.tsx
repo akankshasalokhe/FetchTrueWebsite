@@ -1,10 +1,9 @@
-// 
 'use client';
 
 import { Bookmark } from "lucide-react";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Zap, Clock, User } from "lucide-react";
+import {Eye,User,PenIcon } from "lucide-react";
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -21,7 +20,7 @@ const CATEGORY_TABS = [
 const SERVICES = [
     {
         id: 1,
-        title: "Cyber Security",
+        title: "Figma UI UX Design",
         subtitle: "Develop your future website",
         category: "Digital Marketing",
         users: "2400+ users",
@@ -30,7 +29,7 @@ const SERVICES = [
         discount: "30%",
         trusted: true,
         earn: "Earn Up to 5%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 2,
@@ -43,8 +42,8 @@ const SERVICES = [
         discount: "25%",
         trusted: true,
         earn: "Earn Up to 4%",
-        image: "/image/ItServicecardbg1.png",
-        
+        image: "/image/Educationcardbg.png",
+
     },
     {
         id: 3,
@@ -57,7 +56,7 @@ const SERVICES = [
         discount: "20%",
         trusted: true,
         earn: "Earn Up to 3%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 4,
@@ -70,7 +69,7 @@ const SERVICES = [
         discount: "15%",
         trusted: true,
         earn: "Earn Up to 2%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 5,
@@ -83,7 +82,7 @@ const SERVICES = [
         discount: "35%",
         trusted: true,
         earn: "Earn Up to 5%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 6,
@@ -96,7 +95,7 @@ const SERVICES = [
         discount: "20%",
         trusted: true,
         earn: "Earn Up to 6%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 7,
@@ -109,7 +108,7 @@ const SERVICES = [
         discount: "18%",
         trusted: true,
         earn: "Earn Up to 3%",
-         image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 8,
@@ -122,7 +121,7 @@ const SERVICES = [
         discount: "22%",
         trusted: true,
         earn: "Earn Up to 3%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 9,
@@ -135,27 +134,22 @@ const SERVICES = [
         discount: "40%",
         trusted: true,
         earn: "Earn Up to 7%",
-        image: "/image/ItServicecardbg1.png",
+        image: "/image/Educationcardbg.png",
     },
 ];
 
 /* ---------------- COMPONENT ---------------- */
-// type RecommendationProps = {
-//     selectedRange: string;
-//     selectedCategory: string;
-//     searchQuery: string;
-// };
 
 type SectionProps = {
     selectedRange?: string;
     selectedCategory?: string;
     searchQuery?: string;
-    contextTitle?: string; // ← from slug
+    contextTitle?: string; 
 };
 
 
 
-export default function HighInDemand({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
+export default function TopTrending({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
@@ -188,18 +182,13 @@ export default function HighInDemand({ selectedRange, selectedCategory, searchQu
             selectedCategory === "all" ||
             item.title === selectedCategory;
 
-        // CONTEXT (from slug)
-        // const contextMatch =
-        //     !contextTitle ||
-        //     item.title.toLowerCase() === contextTitle.toLowerCase();
-         const normalizedTitle = item.title.toLowerCase();
-        const normalizedContext = contextTitle
-            ?.toLowerCase()
-            .replace(/-/g, " "); // 👈 FIX
+        const normalizedTitle = item.title.toLowerCase();
+        const normalizedContext = contextTitle?.toLowerCase();
 
         const contextMatch =
             !contextTitle ||
             normalizedTitle === normalizedContext;
+
         // SEARCH
         const searchMatch =
             searchQuery === "" ||
@@ -240,84 +229,97 @@ export default function HighInDemand({ selectedRange, selectedCategory, searchQu
 
 
     return (
-        <div className="w-full p-4 md:ml-6 md:p-6">
+        <div className="w-full p-4 md:ml-15 ">
             {/* TITLE */}
             <h2 className="text-xl md:text-3xl font-semibold mb-4">
-                Top Trending
+               Top Trending
             </h2>
 
             {/* SWIPEABLE CARDS */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-10 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
+                className="flex gap-4 md:gap-6 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
             >
-                {filteredServices.length > 0 ? (
-                    filteredServices.map((item) => (
+                {SERVICES.length > 0 ? (
+                    SERVICES.map((item) => (
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/ITService/ServiceDetails`)
+                                router.push(`/MainModules/Education/ServiceDetails`)
                             }
                             className="
                                 relative snap-center flex-shrink-0
                                 w-[290px] min-h-[271px]
                                 sm:w-[70vw] h-[300px]
-                                md:w-[331px] md:h-[372px] lg:h-[362.04px]
+                                md:w-[331px] md:h-[372px] lg:h-[349px] lg:w-[352px]
                                 overflow-hidden 
                                 "
                         >
                             {/* SVG BACKGROUND */}
-                            <CardBg />
+                            {/* <CardBg /> */}
 
                             {/* CONTENT */}
-                            <div className="relative z-10 h-[336px] flex flex-col ">
+                            <div className="relative z-10 lg:h-[349px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
                                 {/* IMAGE SECTION */}
-                                <div className="relative md:h-[200px] w-full p-4 h-[156px]">
+                                <div className="relative md:h-[170px] w-full p-4 h-[156px]">
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-[299px] h-full object-cover
-                                    rounded-tl-lg
-                                    rounded-br-lg
-                                    rounded-tr-none
-                                    rounded-bl-none"
+                                        className="w-[378px] h-full object-cover
+                                    rounded-xl"
                                     />
+                                    <div className="">
+                                        <span className="absolute top-5 left-5 bg-white text-blue-600 text-[10px] font-semibold px-3 py-1 rounded-lg flex items-start gap-1">
+                                            <img src="/image/security.png" width={14} height={14} />
+                                            Trusted
+                                        </span>
 
-                                    {/* Discount */}
-                                    <span className="absolute top-6 right-18 bg-green-400 text-black text-xs font-semibold px-2 py-1 rounded-lg">
-                                        Discount {item.discount}
-                                    </span>
+                                        {/* Discount */}
+                                        <span className="absolute top-5 right-15 bg-white text-black text-[10px] font-semibold px-1 py-1 rounded-lg">
+                                            Discount {item.discount}
+                                        </span>
 
-                                    {/* Bookmark */}
-                                    <button className="absolute top-5 right-6 bg-black/70 p-2 rounded-full">
-                                        <Bookmark size={16} className="text-white" />
-                                    </button>
+                                        {/* Bookmark */}
+                                        <button className="absolute top-5 right-5 bg-black/70 p-2 rounded-full">
+                                            <Bookmark size={16} className="text-white" />
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* CONTENT SECTION */}
-                                <div className="relative p-2 text-black flex-1">
-                                    <span className="text-[16px] md:ml-2 font-semibold leading-snug line-clamp-2 max-w-[65%]">
-                                        {item.title}
-                                    </span>
+                                <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex-1">
+                                    
                                     <div className="flex items-center justify-between mb-2 md:mb-6">
-                                        <span className="inline-block bg-[#FFFFFF] text-[9px] md:text-[12px] px-3 py-1 rounded-full">
-                                            {item.category}
+                                        <span className="inline-block bg-[#FFFFFF] font-semibold text-[12px] md:text-[16px] px-3 py-1 rounded-full">
+                                            {item.title}
                                         </span>
 
-                                        <span className="text-[8px] md:text-[10px] px-3 py-1 bg-[#548AFE] rounded-full whitespace-nowrap shrink-0">
+                                        <span className="text-[8px] md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
                                             {item.earn}
                                         </span>
                                     </div>
 
-                                    <div className="flex items-center lg:-mt-2 mb-2">
+                                    <div className="flex items-center lg:-mt-2 mb-2 gap-2">
+                                        <div className="inline-flex items-center gap-2 text-[9px] bg-[#F4F4F4] rounded-xl md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            IT & Software
+                                        </div>
+
+                                        <span className="inline-flex items-center gap-2 text-[9px] bg-[#F4F4F4] rounded-xl md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                           
+                                            <div className="w-[7px] h-[7px] rounded-full bg-green-500"/>Online mode
+                                        </span>
+                                    </div>
+
+
+                                    <div className="flex items-cente mb-2">
                                         <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                            <Zap className="inline-block w-[12px] h-[12px] flex-shrink-0" />
-                                            Faster project delivery
+                                            <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                           Create & Practice
                                         </div>
 
                                         <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                            <Clock className="inline-block w-[12px] h-[12px] flex-shrink-0" />
-                                            24×7 technical support
+                                            <Eye className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            Design with empathy
                                         </span>
                                     </div>
 
@@ -329,8 +331,8 @@ export default function HighInDemand({ selectedRange, selectedCategory, searchQu
                                                 {"★".repeat(item.rating)}
                                                 {"☆".repeat(5 - item.rating)}
                                             </div>
-                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2"> 
-                                          <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
                                             </div>
                                         </div>
                                     </div>
@@ -338,7 +340,7 @@ export default function HighInDemand({ selectedRange, selectedCategory, searchQu
                                     {/* PRICE */}
                                     <div
                                         className="
-                                            absolute lg:bottom-1 right-4 md:bottom-1 bottom-10
+                                            absolute lg:bottom-4 right-4 md:bottom-1 bottom-1
                                             bg-white text-black font-semibold
                                             text-[12.71px] md:text-[15px] lg:text-[20px] 
                                             lg:px-4 lg:py-1 md:px-4 md:py-2
@@ -348,8 +350,8 @@ export default function HighInDemand({ selectedRange, selectedCategory, searchQu
                                             truncate 
                                             whitespace-nowrap
                                         "
-                                    > 
-                                  <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>  
+                                    >
+                                        <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
                                         ₹ {item.price}
                                     </div>
                                 </div>

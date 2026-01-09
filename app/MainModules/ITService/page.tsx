@@ -419,10 +419,9 @@ export default function ITModulesPage() {
                 <div className="hidden md:hidden lg:block w-full px-4 md:px-8 mt-4 md:mt-10">
                     <div className="bg-[#E2E9F1] flex items-center justify-between p-4 rounded-xl">
                         <div className="flex items-center gap-4">
-                            <img src="/image/Group 2.png" className="w-[30px]" />
-                            {/* <Link href="/">
-                                <img src="/image/Vector (1).png" className="w-[18px]" />
-                            </Link> */}
+                            <Link href="/">
+                            <img src="/image/ITServiceSubCategorieshome.png" className="w-[30px] cursor-pointer" />
+                            </Link>
                             <h1 className="text-lg md:text-2xl font-semibold">IT Services</h1>
                         </div>
 
@@ -458,20 +457,20 @@ export default function ITModulesPage() {
 
                             {/* BOOKMARK / LOCATION ICON */}
                             <img
-                                src="/image/Vector (2).png"
+                                 src="/image/ITServiceSubcategoriesbookmark.png"
                                 className="w-[20px] cursor-pointer"
                             />
                         </div>
-                           
+
 
                     </div>
-                    
+
                 </div>
 
-                 {/* ================= NAVBAR MOBILE ================= */}
-            <section>
-                <div
-                    className="
+                {/* ================= NAVBAR MOBILE ================= */}
+                <section>
+                    <div
+                        className="
                                 block md:block lg:hidden
                                 w-full -mt-6 w-screen md:-mx-0 md:-mt-12
                                 bg-[#E2E9F1]
@@ -480,49 +479,49 @@ export default function ITModulesPage() {
                                 rounded-t
                                 gap-3
                             "
-                >
-                    {/* ===== ROW 1: HEADER ===== */}
-                    <div className="flex items-center justify-between">
-                        {/* LEFT */}
-                        <div className="flex items-center gap-3 p-8 min-w-0">
-                            <Link href="/MainModules/OnDemand">
-                                <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
-                            </Link>
+                    >
+                        {/* ===== ROW 1: HEADER ===== */}
+                        <div className="flex items-center justify-between">
+                            {/* LEFT */}
+                            <div className="flex items-center gap-3 p-8 min-w-0">
+                                <Link href="/MainModules/OnDemand">
+                                    <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
+                                </Link>
 
-                            <h1 className="text-[16px] font-semibold truncate">
-                                {/* {formatSlugToTitle(slug)} */} IT Service
-                            </h1>
+                                <h1 className="text-[16px] font-semibold truncate">
+                                    {/* {formatSlugToTitle(slug)} */} IT Service
+                                </h1>
+                            </div>
+
+                            {/* RIGHT */}
+                            <div className="flex items-center justify-center bg-white w-8 h-8 rounded-full shrink-0">
+                                <img
+                                    src="/image/ITServiceSubcategoriesbookmark.png"
+                                    className="w-[14px] h-[14px]"
+                                    alt="Bookmark"
+                                />
+                            </div>
                         </div>
 
-                        {/* RIGHT */}
-                        <div className="flex items-center justify-center bg-white w-8 h-8 rounded-full shrink-0">
-                            <img
-                                src="/image/educationbookmark.png"
-                                className="w-[14px] h-[14px]"
-                                alt="Bookmark"
+                        {/* ===== ROW 2: SEARCH ===== */}
+                        <div className="relative w-[90%] md:w-[95%] mx-auto ml-6">
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full rounded-full bg-white border border-gray-300 px-10 py-2 text-sm outline-none"
                             />
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2">
+                                <img
+                                    src="/image/itsearch.png"
+                                    className="w-[18px] h-[16px]"
+                                    alt="Search"
+                                />
+                            </span>
                         </div>
                     </div>
-
-                    {/* ===== ROW 2: SEARCH ===== */}
-                    <div className="relative w-[90%] md:w-[95%] mx-auto ml-6">
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full rounded-full bg-white border border-gray-300 px-10 py-2 text-sm outline-none"
-                        />
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2">
-                            <img
-                                src="/image/itsearch.png"
-                                className="w-[18px] h-[16px]"
-                                alt="Search"
-                            />
-                        </span>
-                    </div>
-                </div>
-            </section>
+                </section>
 
                 {/* ===== HERO SLIDER ===== */}
                 <div className="w-full px-4 md:px-8 mt-20 overflow-hidden">
@@ -540,7 +539,7 @@ export default function ITModulesPage() {
                                 <div className="relative h-[320px] md:h-[380px] rounded-2xl overflow-hidden">
                                     <img
                                         src={item.bgpath}
-                                        className="w-full h-full object-cover"
+                                         className="w-full h-[200px] md:h-[317px] object-cover rounded-2xl"
                                     />
 
                                     <div className="absolute inset-0 p-6 flex flex-col justify-between">
@@ -553,13 +552,29 @@ export default function ITModulesPage() {
                                             </p>
                                         </div>
 
-                                        <h1 className="text-4xl md:text-6xl mx-auto md:-mt-24 font-bold text-white opacity-80 whitespace-nowrap">
+                                        {/* <h1 className="text-4xl md:text-6xl mx-auto md:-mt-24 font-bold text-white opacity-80 whitespace-nowrap">
+                                            IT SERVICES
+                                        </h1> */}
+                                        <h1
+                                            className="
+                                            absolute
+                                            top-30 md:top-55  lg:top-55 
+                                            left-1/2
+                                            -translate-x-1/2
+                                            text-4xl md:text-[50px] lg:text-[61.14px]
+                                            font-bold
+                                            text-white
+                                            opacity-80
+                                            whitespace-nowrap
+                                        "
+                                        >
                                             IT SERVICES
                                         </h1>
 
+
                                         <img
                                             src={item.path}
-                                            className="absolute bottom-10 lg:-bottom-20 right-10 w-[120px] md:w-[220px]"
+                                            className="absolute bottom-22 right-20 md:bottom-5 lg:-bottom-4 lg:right-70 w-[120px] md:w-[180px] lg:w-[220px]"
                                         />
                                     </div>
                                 </div>

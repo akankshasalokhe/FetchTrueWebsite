@@ -43,7 +43,7 @@ const SERVICES = [
         trusted: true,
         earn: "Earn Up to 4%",
         image: "/image/ItServicecardbg1.png",
-        
+
     },
     {
         id: 3,
@@ -108,7 +108,7 @@ const SERVICES = [
         discount: "18%",
         trusted: true,
         earn: "Earn Up to 3%",
-         image: "/image/ItServicecardbg1.png",
+        image: "/image/ItServicecardbg1.png",
     },
     {
         id: 8,
@@ -192,14 +192,9 @@ export default function Recommendation({ selectedRange, selectedCategory, search
         //     !contextTitle ||
         //     item.title.toLowerCase() === contextTitle.toLowerCase();
         const normalizedTitle = item.title.toLowerCase();
-        const normalizedContext = contextTitle?.toLowerCase();
-
-        console.log("ITEM TITLE 👉", normalizedTitle);
-        console.log("CONTEXT TITLE 👉", normalizedContext);
-        console.log(
-            "MATCH 👉",
-            normalizedTitle === normalizedContext
-        );
+        const normalizedContext = contextTitle
+            ?.toLowerCase()
+            .replace(/-/g, " "); // 👈 FIX
 
         const contextMatch =
             !contextTitle ||
@@ -334,8 +329,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                                 {"★".repeat(item.rating)}
                                                 {"☆".repeat(5 - item.rating)}
                                             </div>
-                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2"> 
-                                          <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
                                             </div>
                                         </div>
                                     </div>
@@ -353,8 +348,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                             truncate 
                                             whitespace-nowrap
                                         "
-                                    > 
-                                  <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>  
+                                    >
+                                        <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
                                         ₹ {item.price}
                                     </div>
                                 </div>

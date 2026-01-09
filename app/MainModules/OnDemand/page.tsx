@@ -502,7 +502,7 @@ export default function OnDemandModulePage() {
                 <div
                     className="
                                 block md:block lg:hidden
-                                w-full -mx-4 -mt-6 w-screen md:-mx-10 md:-mt-12
+                                w-full -mt-6 w-screen  md:-mt-12
                                 bg-[#F6E9E5]
                                 flex flex-col
                                 px-4 py-8 md:px-10 md:py-10
