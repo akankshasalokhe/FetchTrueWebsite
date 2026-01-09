@@ -6,7 +6,11 @@ import RecommendedSection from "@/src/components/Section/RecommendedSection";
 import TopLegalServicesSection from "@/src/components/Section/TopLegalServicesSection";
 import Link from "next/link";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { Search,Bookmark } from "lucide-react";
+import MostlyUsedService from "@/src/components/Legal/MostlyUsedService";
+import TopTrending from "@/src/components/Legal/TopTrending";
+import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
 
 const services = [
   {
@@ -14,7 +18,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
     slug:"business-registration",
     detailslug:"llp"
   },
@@ -23,7 +27,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -32,7 +36,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -41,7 +45,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -50,26 +54,38 @@ const services = [
 
 export default function LegalPage() {
 
- const sliderRef = useRef<HTMLDivElement | null>(null);
+const sliderRef = useRef<HTMLDivElement | null>(null);
 
-const scrollByCard = (direction: "left" | "right") => {
-  if (!sliderRef.current) return;
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
 
-  const cardWidth =
-    sliderRef.current.querySelector<HTMLElement>("[data-card]")?.offsetWidth || 0;
+    let animationFrame: number;
+    const speed = 0.5; // adjust for faster/slower scroll
 
-  sliderRef.current.scrollBy({
-    left: direction === "left" ? -cardWidth : cardWidth,
-    behavior: "smooth",
-  });
-};
+    const autoScroll = () => {
+      slider.scrollLeft += speed;
+
+      // reset scroll seamlessly when half is crossed
+      if (slider.scrollLeft >= slider.scrollWidth / 2) {
+        slider.scrollLeft = 0;
+      }
+
+      animationFrame = requestAnimationFrame(autoScroll);
+    };
+
+    animationFrame = requestAnimationFrame(autoScroll);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+  
   return (
     <div className="">
       <section className="flex justify-center">
       {/* NAVBAR */}
       <div
         className="
-          w-[1329px]
+          w-full
           h-[60px]
           bg-[#F9F5EE]
           flex
@@ -90,16 +106,6 @@ const scrollByCard = (direction: "left" | "right") => {
           />
           </Link>
 
-          {/* Back Icon */}
-          <Link href="/">
-          <img
-            src="/image/Vector (1).png"
-            alt="Back Icon"
-            className="text-black hidden lg:block"
-            
-          />
-          </Link>
-
           {/* Title */}
           <h1
             className="
@@ -114,134 +120,90 @@ const scrollByCard = (direction: "left" | "right") => {
             Legal Service
           </h1>
         </div>
+         
+        <div className="flex items-center gap-8">
+            {/* SEARCH */}
+            <div className="flex items-center gap-2
+                            bg-white backdrop-blur-md
+                            px-4 py-2 rounded-full
+                            border border-[#E1E1E1]
+                            w-full max-w-[320px]">
+              <Search className="w-4 h-4 opacity-80" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="bg-transparent outline-none
+                           placeholder:text-[#00000078]
+                           text-sm w-full"
+              />
+            </div>
 
-        {/* RIGHT SIDE */}
-        <img
-          src="/image/Vector (4).png"
-          alt="Bookmark Icon"
-          className="text-#A3623A"
-          style={{
-            width: "18.61px",
-            height: "27.25px",
-          }}
-        />
+            <Bookmark  className="w-8 h-8" color="#A3623A"/>
+          </div>
       </div>
       </section>
 
       {/* Hero Section */}
-      <section className="relative flex justify-center mt-0  px-4 overflow-hidden ">
-  {/* ================= MAIN HERO CONTAINER ================= */}
-  <div
-    className="
-      relative
-      lg:mt-20
-      top-0
-      w-full
-      max-w-[1079px]
-      h-[400px]
-      sm:h-[480px]
-      lg:h-[519px]
-      rounded-[32px]
-      lg:rounded-[43px]
-      bg-gradient-to-b
-      from-white
-      to-[#F9F5EE]
-    "
-  />
+   <section className="relative max-w-[1440px] mx-auto px-4 py-12 overflow-hidden">
 
-  {/* ================= IMAGE STACK ================= */}
-  <div
-    className="
-      absolute
-      top-8
-      left-1/2
-      -translate-x-1/2
-      w-full
-      max-w-[900px]
-      flex
-      justify-center
-      px-4
-    "
-  >
-    <div className="relative w-full h-[300px] sm:h-[520px] lg:h-[610px]">
-      
-      {/* ---------- BACK IMAGE (BEHIND CENTER) ---------- */}
-      <div
-        className="
-          absolute
-          inset-0
-          flex
-          justify-center
-          top-18
-          lg:top-10
-          z-0
-          sm:flex
-        "
-      >
-        <div className="relative w-[160px] lg:w-[45%] h-[50%]  ">
-          <Image
-            src="/image/backImage.jpg"
-            alt="Back"
-            fill
-            className="object-cover rounded-[28px]"
-          />
-        </div>
+  {/* BACKGROUND CARD */}
+  <div className="relative w-full h-[260px] lg:h-[280px] rounded-[40px] bg-gradient-to-b from-[#FFFFFF] to-[#F9F5EE]" />
+
+  {/* CONTENT WRAPPER */}
+  <div className="absolute inset-0 flex items-center justify-between px-12">
+
+    {/* LEFT TEXT */}
+    <div className="max-w-[520px] -mt-15">
+      <h1 className="text-[32px] font-semibold text-[#524225] mb-3">
+        Legal Service
+      </h1>
+      <p className="text-[18px] text-[#414141] leading-relaxed">
+        Get instant access to verified lawyers, legal advisors, and
+        documentation experts—all in one place.
+      </p>
+    </div>
+
+    {/* RIGHT IMAGE STACK */}
+    <div className="relative w-[520px] h-[260px]">
+
+      {/* BACK IMAGE */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-5 w-[226px] h-[140px] z-0">
+        <Image
+          src="/image/backImage.jpg"
+          alt="Back"
+          fill
+          className="object-cover rounded-[18px]"
+        />
       </div>
 
-      {/* ---------- LEFT IMAGE (DESKTOP ONLY | BEHIND CENTER) ---------- */}
-      <div
-        className="
-        w-[110px]
-        h-[190px]
-          lg:block
-          absolute
-          top-[120px]
-          left-[1.2px]
-          lg:w-[220px]
-          lg:h-[350px]
-          z-10
-        "
-      >
+      {/* LEFT IMAGE */}
+      <div className="absolute left-11 bottom-6 w-[100px] h-[160px] z-10">
         <Image
           src="/image/leftImage.jpg"
           alt="Left"
           fill
-          className="object-cover rounded-[28px]"
+          className="object-cover rounded-[20px]"
         />
       </div>
 
-      {/* ---------- RIGHT IMAGE (DESKTOP ONLY | BEHIND CENTER) ---------- */}
-      <div
-        className="
-        w-[110px]
-        h-[190px]
-          lg:block
-          absolute
-          top-[120px]
-          right-[1.2px]
-          lg:w-[220px]
-          lg:h-[350px]
-          z-10
-        "
-      >
+      {/* RIGHT IMAGE */}
+      <div className="absolute right-11 bottom-6 w-[100px] h-[160px] z-10">
         <Image
           src="/image/rightimage.jpg"
           alt="Right"
           fill
-          className="object-cover rounded-[28px]"
+          className="object-cover rounded-[20px]"
         />
       </div>
 
-      {/* ---------- CENTER IMAGE (FRONT) ---------- */}
-      <div className="relative z-20 w-full h-full flex justify-center">
-        <div className="relative w-full sm:w-[80%] lg:w-full h-full top-14 lg:top-0 ">
-          <Image
-            src="/image/centerImage.png"
-            alt="Center"
-            fill
-            className="object-cover rounded-[28px]"
-          />
-        </div>
+      {/* CENTER IMAGE */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-1 w-[450px] h-[340px] z-20">
+        <Image
+          src="/image/centerImage.png"
+          alt="Center"
+          fill
+          className="object-cover rounded-[28px]"
+        />
       </div>
 
     </div>
@@ -249,41 +211,12 @@ const scrollByCard = (direction: "left" | "right") => {
 </section>
 
 
- <section className="relative z-10 w-full flex justify-center my-20 lg:my-30 px-4">
-      <div className="w-full max-w-[1200px]">
 
-        {/* ================= HEADING ================= */}
-        <div className="text-center mb-12">
-          <h2 className="font-inter font-semibold text-[28px] sm:text-[32px] lg:text-[40px] leading-[42px] lg:leading-[60px] text-[#3A2A13]">
-            Legal Service
-          </h2>
-
-          <p className="font-inter font-medium text-[16px] sm:text-[18px] lg:text-[24px] leading-[24px] lg:leading-[36px] text-[#6B6B6B] max-w-[1133px] mx-auto mt-4">
-            Get instant access to verified lawyers, legal advisors, and
-            documentation experts—all in one place.
-          </p>
-        </div>
+ <section className="relative z-10 w-full flex justify-center my-20 lg:my-10 px-4">
+      <div className="w-full">
 
         {/* ================= CAROUSEL ================= */}
         <div className="relative">
-
-          {/* LEFT ARROW */}
-          <button
-            onClick={() => scrollByCard("left")}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
-          >
-            ‹
-          </button>
-
-          {/* RIGHT ARROW */}
-          <button
-            onClick={() => scrollByCard("right")}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
-          >
-            ›
-          </button>
-
-          {/* SLIDER */}
           <div
             ref={sliderRef}
             className="
@@ -299,27 +232,23 @@ const scrollByCard = (direction: "left" | "right") => {
               no-scrollbar
             "
           >
-            {[1, 2, 3, 4, 5].map((item) => (
+            {/* Duplicate items for infinite loop */}
+            {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
               <div
-                key={item}
+                key={index}
                 data-card
                 className="
                   relative
                   snap-center
-                  min-w-[260px]
-                  sm:min-w-[420px]
-                  lg:min-w-[1007px]
-                  h-[200px]
-                  sm:h-[360px]
-                  lg:h-[577px]
-                  rounded-[35px]
+                  w-[505px]
+                  h-[265px]
                   bg-[#D9D9D9]
                   overflow-hidden
                   flex-shrink-0
                 "
               >
                 <Image
-                  src="/image/backImage.jpg"
+                  src="/image/legalbanner.jpg"
                   alt="Legal Service"
                   fill
                   className="object-cover"
@@ -332,19 +261,11 @@ const scrollByCard = (direction: "left" | "right") => {
       </div>
     </section>
 
-<div className="relative top-[-230px] z-0 ">
-      <CategorySection />
-</div>
-
-
-<RecommendedSection
-        title="Recommended Legal Services"
-        services={services}
-/>
-<TopLegalServicesSection 
-        title="Top Legal Services"
-        services={services}
-/>
+      
+<CategorySection />
+<RecommendedForYou />
+<MostlyUsedService />
+<TopTrending />
 <LegalServiceSpotlight />
 
     </div>

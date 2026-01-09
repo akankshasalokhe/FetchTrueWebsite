@@ -61,10 +61,7 @@ export default function RecommendedForYou() {
       </div>
     </section>
 
-    <MostlyUsed />
-    <TopTrending />
-    <WhyJustOurServices />
-    <SuggestedProviders />
+    
     </>
   );
 }

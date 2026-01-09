@@ -10,7 +10,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -19,7 +19,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -28,7 +28,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -37,7 +37,7 @@ const services = [
     category: "Legal Service",
     price: 4550,
     rating: 4,
-    image: "/image/LLPRegistration.jpg",
+    image: "/image/legalCard.jpg",
      slug:"business-registration",
     detailslug:"llp"
   },
@@ -52,13 +52,12 @@ export default function MostlyUsedService() {
             px-4 sm:px-6 lg:px-15
             flex flex-col
             gap-4 sm:gap-6
-            mb-16 sm:mb-20
-            mt-[40px] sm:mt-[60px] lg:mt-[80px]
+            mb-8 sm:mb-10
           "
         >
           {/* Title */}
           <h2 className="font-inter font-semibold text-[18px] sm:text-[22px] lg:text-[24px]">
-            Mostly Used Services
+            Most Popular
           </h2>
     
           {/* Horizontal Scroll Cards */}

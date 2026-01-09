@@ -45,10 +45,10 @@ export default function CategorySection() {
       <section
         className="
           w-full
-          max-w-[1298px]
+          max-w-[1440px]
           mx-auto
-          px-4 sm:px-6
-          pt-40 sm:pt-30 lg:pt-56
+          p-4 sm:p-6
+          
           mb-10
           flex flex-col gap-5
         "
