@@ -1,4 +1,3 @@
-'use client';
 
 import { useState } from 'react';
 import { User, Phone, Mail, MapPin } from 'lucide-react';

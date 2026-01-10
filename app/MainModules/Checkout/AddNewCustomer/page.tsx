@@ -23,7 +23,7 @@ export default function AddCustomerForm() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Form Data:', formData);
-        // Add your save logic here
+        
     };
 
     return (
@@ -128,6 +128,7 @@ export default function AddCustomerForm() {
                             <option value="Mumbai">Mumbai</option>
                             <option value="Delhi">Delhi</option>
                             <option value="Bangalore">Bangalore</option>
+                             <option value="Pune">Pune</option>
                         </select>
                     </div>
 
