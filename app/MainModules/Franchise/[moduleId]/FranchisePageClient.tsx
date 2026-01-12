@@ -8,14 +8,16 @@ import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import WhyOurFranchise from "@/src/components/Franchise/WhyourFranchise";
 import Categories from "@/src/components/Franchise/Categories";
+import { useParams } from "next/navigation";
 
 
-interface Props {
-  moduleId: string;
-}
 
 
-export default function FranchisePageClient({ moduleId }: Props)  {
+
+export default function FranchisePageClient()  {
+
+  const { moduleId } = useParams<{ moduleId: string }>();
+
 
   console.log("MODULE ID IN CLIENT:", moduleId);
 
@@ -195,7 +197,7 @@ export default function FranchisePageClient({ moduleId }: Props)  {
 {/* -------- FLOW GRID SECTION -------- */}
 
 
-<Categories  moduleId={moduleId}/>
+<Categories/>
 <Recommended />
 <HighDemands />
 <TopGrowingFranchises />
