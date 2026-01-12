@@ -1,108 +1,106 @@
 "use client";
-
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import axios from "axios";
 
-/* ================= TYPES ================= */
+interface KeyValue {
+  key: string;
+  value: string;
+  icon?: string;
+  _id: string;
+}
 
-export type Service = {
+interface FranchiseModel {
+  title: string;
+  agreement: string;
+  price: number;
+  discount?: number;
+  gst: number;
+  fees: number;
+  _id: string;
+}
+
+interface InvestmentRange {
+  range: string;
+  parameters: string;
+  _id: string;
+}
+
+interface MonthlyEarnPotential {
+  range: string;
+  parameters: string;
+  _id: string;
+}
+
+interface FranchiseDetails {
+  commission: string;
+  investmentRange: InvestmentRange[];
+  monthlyEarnPotential: MonthlyEarnPotential[];
+  franchiseModel: FranchiseModel[];
+}
+
+interface Category {
+  _id: string;
+  name: string;
+  image: string;
+}
+
+export interface Service {
   _id: string;
   serviceName: string;
-  thumbnailImage: string;
-  category: {
-    _id: string;
-    name: string;
-    image: string;
-  };
+  category: Category;
+  thumbnailImage?: string;
+  keyValues: KeyValue[];
+  franchiseDetails: FranchiseDetails;
   averageRating: number;
   totalReviews: number;
   recommendedServices: boolean;
-  franchiseDetails:{
-    commission:number;
-  }
-};
+}
 
-interface RecommendedContextType {
+interface RecommendedServicesContextType {
   services: Service[];
   loading: boolean;
   error: string | null;
-  refetchServices: () => Promise<void>;
+  fetchRecommendedServices: (moduleId: string) => Promise<void>;
 }
 
-/* ================= CONTEXT ================= */
+const RecommendedServicesContext = createContext<RecommendedServicesContextType | undefined>(undefined);
 
-const RecommendedContext = createContext<RecommendedContextType | undefined>(
-  undefined
-);
+export const useRecommendedServices = () => {
+  const context = useContext(RecommendedServicesContext);
+  if (!context) throw new Error("useRecommendedServices must be used within RecommendedServicesProvider");
+  return context;
+};
 
-/* ================= PROVIDER ================= */
-
-export const RecommendedProvider = ({
-  children,
-}: {
+interface Props {
   children: ReactNode;
-}) => {
+}
+
+export const RecommendedServicesProvider = ({ children }: Props) => {
   const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchServices = async () => {
+  const fetchRecommendedServices = async (moduleId: string) => {
     try {
       setLoading(true);
       setError(null);
 
-      const res = await axios.get(
-        "https://api.fetchtrue.com/api/service/recommended"
-      );
-
-      // ONLY recommended services
-      const filtered = (res.data?.data || []).filter(
-        (item: Service) => item.recommendedServices === true
-      );
-
-      setServices(filtered);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to load services");
+      const response = await axios.get(`https://api.fetchtrue.com/api/service/recommended?moduleId=${moduleId}`);
+      if (response.data.success) {
+        setServices(response.data.data);
+      } else {
+        setError("Failed to fetch recommended services");
+      }
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
-
   return (
-    <RecommendedContext.Provider
-      value={{
-        services,
-        loading,
-        error,
-        refetchServices: fetchServices,
-      }}
-    >
+    <RecommendedServicesContext.Provider value={{ services, loading, error, fetchRecommendedServices }}>
       {children}
-    </RecommendedContext.Provider>
+    </RecommendedServicesContext.Provider>
   );
-};
-
-/* ================= HOOK ================= */
-
-export const useRecommended = () => {
-  const context = useContext(RecommendedContext);
-
-  if (!context) {
-    throw new Error(
-      "useRecommended must be used inside RecommendedProvider"
-    );
-  }
-
-  return context;
 };

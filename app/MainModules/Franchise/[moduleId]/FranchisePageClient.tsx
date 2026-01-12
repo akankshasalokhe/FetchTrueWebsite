@@ -198,7 +198,7 @@ export default function FranchisePageClient()  {
 
 
 <Categories/>
-<Recommended />
+<Recommended  moduleId={moduleId}/>
 <HighDemands />
 <TopGrowingFranchises />
 <BenefitsSection />

@@ -15,7 +15,7 @@ interface RecommendedCardProps {
   monthly: string;
   investment: string;
   area: string;
-  bgImage?: string; // 👈 background image
+  bgImage?: string; 
 }
 
 export default function RecommendedCard({
