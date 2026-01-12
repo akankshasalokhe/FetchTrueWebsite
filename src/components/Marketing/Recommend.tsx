@@ -1,8 +1,5 @@
 import MarketingCard from "../ui/MarketingCard";
-import MostlyUsed from "./MostlyUsed";
-import SuggestedProviders from "./Providers";
-import TopTrending from "./TopTrending";
-import WhyJustOurServices from "./WhyOurServices";
+
 
 
 const recommendedData = [
