@@ -28,8 +28,8 @@ export interface MostPopularService {
     icon?: string;
   };
   franchiseDetails:{
-    commission:string;
-  }[];
+    commission:number;
+  };
 }
 
 /* ================= CONTEXT TYPE ================= */
