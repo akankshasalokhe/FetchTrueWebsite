@@ -5,88 +5,6 @@ import FranchiseCard from "../ui/FranchiseCard";
 import { useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 
-// const data = [
-//   {
-//     id: 1,
-//     title: "Property Buying & Selling",
-//     category: "Real Estate",
-//     investment: "10L – 25L",
-//     subtitle: "Real Estate",
-//     location: "Mumbai",
-//     earning: "5%",
-//     discount: "30%",
-//     monthly: "1–3 Lak",
-//     outlets: 10,
-//     area: "500–1000sq",
-//     price: "45L",
-//     image: "/image/thumbnailMain.jpg",
-//     rating: 4.5,
-//   },
-//   {
-//     id: 2,
-//     title: "Property Buying & Selling",
-//     category: "Real Estate",
-//     investment: "10L – 25L",
-//     subtitle: "Real Estate",
-//     location: "Mumbai",
-//     earning: "5%",
-//     discount: "30%",
-//     monthly: "1–3 Lak",
-//     outlets: 10,
-//     area: "500–1000 Sq",
-//     price: "45L",
-//     image: "/image/thumbnailMain.jpg",
-//     rating: 4.5,
-//   },
-//   {
-//     id: 3,
-//     title: "Property Buying & Selling",
-//     category: "Real Estate",
-//     investment: "10L – 25L",
-//     subtitle: "Real Estate",
-//     location: "Mumbai",
-//     earning: "5%",
-//     discount: "30%",
-//     monthly: "1–3 Lak",
-//     outlets: 10,
-//     area: "500–1000 Sq",
-//     price: "45L",
-//     image: "/image/thumbnailMain.jpg",
-//     rating: 4.5,
-//   },
-//   {
-//     id: 4,
-//     title: "Property Buying & Selling",
-//     category: "Real Estate",
-//     investment: "10L – 25L",
-//     subtitle: "Real Estate",
-//     location: "Mumbai",
-//     earning: "5%",
-//     discount: "30%",
-//     monthly: "1–3 Lak",
-//     outlets: 10,
-//     area: "500–1000 Sq",
-//     price: "45L",
-//     image: "/image/thumbnailMain.jpg",
-//     rating: 4.5,
-//   },
-//   {
-//     id: 5,
-//     title: "Property Buying & Selling",
-//     category: "Real Estate",
-//     investment: "10L – 25L",
-//     subtitle: "Real Estate",
-//     location: "Mumbai",
-//     earning: "5%",
-//     discount: "30%",
-//     monthly: "1–3 Lak",
-//     outlets: 10,
-//     area: "500–1000 Sq",
-//     price: "45L",
-//     image: "/image/thumbnailMain.jpg",
-//     rating: 4.5,
-//   },
-// ];
 
 
 interface Props {
@@ -120,7 +38,7 @@ export default function RecommendedSection({moduleId}:Props) {
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4 pb-4">
           {services.map((service) => (
-            <Link key={service._id} href={`/MainModules/Franchise/details/${service._id}`}>
+            <Link key={service._id} href={`/MainModules/Franchise/slug/details/${service._id}`}>
               <FranchiseCard 
                             key={service._id}
           image={service.thumbnailImage || "/default-service.png"}
