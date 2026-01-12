@@ -35,7 +35,7 @@ export interface HomeMostPopularService {
 /* ================= CONTEXT TYPE ================= */
 
 interface HomeMostPopularContextType {
-  services: MostPopularService[];
+  services: HomeMostPopularService[];
   loading: boolean;
   error: string | null;
 }
