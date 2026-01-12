@@ -57,11 +57,22 @@ const Packages: React.FC = () => {
     return (
         <section className="bg-[#F7F7F7] py-6 px-4 md:px-4">
             {/* TITLE */}
-           <div className="flex items-start lg:items-center lg:justify-center mt-4 mb-4">
+           {/* <div className="flex items-start lg:items-center lg:justify-center mt-4 mb-4">
                 <h2 className="text-[#2164F4] font-semibold text-[16px] lg:text-[36px]">
-                   Packages
+                  
                 </h2>
-            </div>
+            </div> */}
+
+            <div className="flex items-start md:justify-center mb-4">
+        <h2
+          className="text-white bg-black px-6 md:px-12 py-2  text-[12px] md:text-[18px] lg:text-[36px] font-semibold"
+          style={{
+            clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
+          }}
+        >
+          Packages
+        </h2>
+      </div>
 
             {/* ================= DESKTOP (UNCHANGED) ================= */}
             <div className="hidden lg:grid max-w-6xl mx-auto grid-cols-3 gap-20">
@@ -79,7 +90,7 @@ const Packages: React.FC = () => {
             </div> */}
               <div className="hidden lg:hidden md:grid max-w-6xl mx-auto grid-cols-3 gap-20">
                {PACKAGES.map((pkg) => (
-                        <div key={pkg.id} className="w-[270px] flex-shrink-0">
+                        <div key={pkg.id} className="w-[250px] flex-shrink-0">
                             <PackageCard pkg={pkg} />
                         </div>
                     ))}
@@ -103,11 +114,11 @@ const Packages: React.FC = () => {
 const PackageCard = ({ pkg }: { pkg: PackageItem }) => {
     return (
         // <div className="relative bg-white rounded-2xl w-[172px] min-h-[300px] md:w-[322px] shadow-md md:p-6 p-2 md:min-h-[549px] flex flex-col">
-        <div className="relative bg-white  rounded-2xl w-full min-h-[350px] md:w-[230px] md:min-h-[350px] lg:w-[322px] shadow-md md:p-6 p-3 lg:min-h-[449px] flex flex-col">
+        <div className="relative bg-white  rounded-2xl w-full min-h-[350px] md:w-[190px] md:min-h-[350px] lg:w-[322px] shadow-md md:p-6 p-3 lg:min-h-[449px] flex flex-col">
 
 
             {/* TITLE */}
-            <h3 className="text-center text-[14px] md:text-[32px] font-semibold text-gray-700 mb-4">
+            <h3 className="text-center text-[14px] md:text-[24px] lg:text-[32px] font-semibold text-gray-700 mb-4">
                 {pkg.name}
             </h3>
 
