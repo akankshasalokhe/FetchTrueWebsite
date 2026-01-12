@@ -4,7 +4,7 @@ import { Bookmark } from "lucide-react";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import {Eye,User,PenIcon } from "lucide-react";
-
+import { useRecommended } from "@/src/context/RecommendedContext";
 
 /* ---------------- CATEGORY TABS ---------------- */
 const CATEGORY_TABS = [
@@ -157,6 +157,10 @@ export default function Recommendation({ selectedRange, selectedCategory, search
         text.toLowerCase().replace(/\s+/g, "-");
 
 
+    const {services,
+        loading,
+        error,
+        refetchServices: fetchServices} = useRecommended()
 
     const CARD_CLASSES = `
     snap-center flex-shrink-0

@@ -57,12 +57,6 @@ const Packages: React.FC = () => {
     return (
         <section className="bg-[#F7F7F7] py-6 px-4 md:px-4">
             {/* TITLE */}
-           {/* <div className="flex items-start lg:items-center lg:justify-center mt-4 mb-4">
-                <h2 className="text-[#2164F4] font-semibold text-[16px] lg:text-[36px]">
-                  
-                </h2>
-            </div> */}
-
             <div className="flex items-start md:justify-center mb-4">
         <h2
           className="text-white bg-black px-6 md:px-12 py-2  text-[12px] md:text-[18px] lg:text-[36px] font-semibold"

@@ -1,13 +1,11 @@
 'use client';
 
-
-import BestSeller from '@/src/components/EducationSubCategories/BestSeller';
 import TopPicks from '@/src/components/EducationSubCategories/TopTrending';
 import TopPopular from '@/src/components/EducationSubCategories/MostPopular';
 import Recommended from '@/src/components/EducationSubCategories/Recommended';
 import { useState, use } from "react";
 import Link from 'next/link';
-
+import { useRouter } from 'next/navigation';
 
 type Props = {
     params: Promise<{
@@ -51,6 +49,9 @@ export default function SubCategoryPage({ params }: Props) {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ");
     };
+     const router = useRouter()
+       const toSlug = (text: string) =>
+        text.toLowerCase().trim().replace(/\s+/g, "-");
 
 
     return (
@@ -123,7 +124,10 @@ export default function SubCategoryPage({ params }: Props) {
                         {categories.map((item, index) => (
                             <div
                                 key={index}
-                                onClick={() => setSelectedCategory(item.label)}
+                                // onClick={() => setSelectedCategory(item.label)}
+                                 onClick={() =>
+                                router.push(`/MainModules/Education/${toSlug(item.label)}`)
+                            }
                                 className="
           snap-start cursor-pointer
           flex items-center gap-3
