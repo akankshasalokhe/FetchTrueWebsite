@@ -542,13 +542,7 @@ export default function HighInDemand({ selectedRange, selectedCategory, searchQu
         const normalizedTitle = item.title.toLowerCase();
         const normalizedContext = contextTitle?.toLowerCase();
 
-        console.log("ITEM TITLE 👉", normalizedTitle);
-        console.log("CONTEXT TITLE 👉", normalizedContext);
-        console.log(
-            "MATCH 👉",
-            normalizedTitle === normalizedContext
-        );
-
+       
         const contextMatch =
             !contextTitle ||
             normalizedTitle === normalizedContext;

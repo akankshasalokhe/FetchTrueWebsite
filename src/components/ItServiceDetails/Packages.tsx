@@ -57,34 +57,37 @@ const Packages: React.FC = () => {
     return (
         <section className="bg-[#F7F7F7] py-6 px-4 md:px-4">
             {/* TITLE */}
-            <div className="flex items-start md:justify-center mb-2 md:mb-10">
-                <h2
-                    className="text-white bg-black px-8 py-2 text-[12px] md:text-[32px] font-semibold"
-                    style={{
-                        clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
-                    }}
-                >
-                    Packages
+           <div className="flex items-start lg:items-center lg:justify-center mt-4 mb-4">
+                <h2 className="text-[#2164F4] font-semibold text-[16px] lg:text-[36px]">
+                   Packages
                 </h2>
             </div>
 
             {/* ================= DESKTOP (UNCHANGED) ================= */}
-            <div className="hidden lg:grid max-w-6xl mx-auto grid-cols-3 gap-8">
+            <div className="hidden lg:grid max-w-6xl mx-auto grid-cols-3 gap-20">
                 {PACKAGES.map((pkg) => (
                     <PackageCard key={pkg.id} pkg={pkg} />
                 ))}
             </div>
 
             {/* ================= TABLET (SEPARATE UI) ================= */}
-            <div className="hidden md:grid lg:hidden max-w-4xl mx-auto grid-cols-2 gap-6">
+            {/* <div className="hidden md:grid lg:hidden max-w-84l mx-auto grid-cols-3 gap-6">
                 {PACKAGES.slice(0, 2).map((pkg) => (
                     <PackageCard key={pkg.id} pkg={pkg} />
                 ))}
+               
+            </div> */}
+              <div className="hidden lg:hidden md:grid max-w-6xl mx-auto grid-cols-3 gap-20">
+               {PACKAGES.map((pkg) => (
+                        <div key={pkg.id} className="w-[270px] flex-shrink-0">
+                            <PackageCard pkg={pkg} />
+                        </div>
+                    ))}
             </div>
 
             {/* ================= MOBILE (SWIPE + 3 PLANS) ================= */}
             <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4">
-                <div className="flex gap-6 px-4 py-8">
+                <div className="flex gap-6 px-4 py-4">
                     {PACKAGES.map((pkg) => (
                         <div key={pkg.id} className="w-[170px] flex-shrink-0">
                             <PackageCard pkg={pkg} />
@@ -100,14 +103,8 @@ const Packages: React.FC = () => {
 const PackageCard = ({ pkg }: { pkg: PackageItem }) => {
     return (
         // <div className="relative bg-white rounded-2xl w-[172px] min-h-[300px] md:w-[322px] shadow-md md:p-6 p-2 md:min-h-[549px] flex flex-col">
-        <div className="relative bg-white rounded-2xl w-full min-h-[350px] md:w-[322px] shadow-md md:p-6 p-3 md:min-h-[549px] flex flex-col">
+        <div className="relative bg-white  rounded-2xl w-full min-h-[350px] md:w-[230px] md:min-h-[350px] lg:w-[322px] shadow-md md:p-6 p-3 lg:min-h-[449px] flex flex-col">
 
-            {/* HIGHLIGHT */}
-            {pkg.highlight && (
-                <span className="hidden md:block absolute -top-4 left-1/2 -translate-x-1/2 bg-[#C89B4F] text-white text-xs px-4 py-1 rounded-full whitespace-nowrap">
-                    Most Popular
-                </span>
-            )}
 
             {/* TITLE */}
             <h3 className="text-center text-[14px] md:text-[32px] font-semibold text-gray-700 mb-4">
@@ -115,7 +112,7 @@ const PackageCard = ({ pkg }: { pkg: PackageItem }) => {
             </h3>
 
             {/* PRICE BOX */}
-            <div className="border border-orange-300 rounded-lg py-3 text-center mb-6">
+            <div className="border border-orange-300 rounded-lg py-3 px-4 w-fit mx-auto text-center mb-6">
                 <p className="text-gray-400 line-through text-sm">
                     {pkg.oldPrice}{" "}
                     <span className="text-blue-500">{pkg.discount}</span>
@@ -125,20 +122,21 @@ const PackageCard = ({ pkg }: { pkg: PackageItem }) => {
             </div>
 
             {/* FEATURES */}
+            <div className="mx-auto">
             <p className="font-medium text-[12px] md:text-[18px] mb-3">What You Get -</p>
             <ul className="space-y-2 flex-1">
                 {pkg.features.map((feature, index) => (
                     <li
                         key={index}
-                        className="flex items-start gap-2 text-[10px] md:text-[18px] text-gray-600"
+                        className="flex  gap-2 text-[10px] md:text-[18px] text-gray-600"
                     >
                         <span className="text-green-500">✔</span>
                         {feature}
                     </li>
                 ))}
             </ul>
-             <button className="bg-[#5B3527] text-white mt-5 text-[10px] md:text-[16px] w-[70px] md:w-[180px] p-2 rounded-xl inline-block self-start mx-auto"
-                 style={{fontWeight:500}}>Get Started</button>
+            </div>
+            
         </div>
     );
 };

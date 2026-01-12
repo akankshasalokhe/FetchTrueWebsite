@@ -2,8 +2,8 @@
 
 
 import BestSeller from '@/src/components/EducationSubCategories/BestSeller';
-import TopPicks from '@/src/components/EducationSubCategories/TopPick';
-import TopPopular from '@/src/components/EducationSubCategories/TopPopular';
+import TopPicks from '@/src/components/EducationSubCategories/TopTrending';
+import TopPopular from '@/src/components/EducationSubCategories/MostPopular';
 import Recommended from '@/src/components/EducationSubCategories/Recommended';
 import { useState, use } from "react";
 import Link from 'next/link';
@@ -57,66 +57,83 @@ export default function SubCategoryPage({ params }: Props) {
         <>
             <section className="relative w-full">
                 {/* ===== NAVBAR ===== */}
-                <div className="w-full px-4 md:px-8 mt-4 md:mt-10">
-                    <div className="bg-[#E2E9F1] flex items-center justify-between p-4 rounded-xl w-full">
-                        {/* LEFT */}
-                        <div className="flex items-center gap-3 lg:gap-5">
-                            <img
-                                src="/image/Group 2.png"
-                                className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px]
-                 filter hue-rotate-[140deg] saturate-200 brightness-105"
-                                alt="Home"
-                            />
-                         <Link href="/MainModules/Education">
-                            <img
-                                src="/image/educationback.png"
-                                className="hidden md:block w-[16px] h-[14px] lg:w-[38.6px] lg:h-[35.02px]"
-                                alt="Back"
-                            />
-
-                         </Link>
-
-                            <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
-                                {formatSlugToTitle(slug)}
-                            </h1>
+                <div className="hidden md:hidden lg:block w-screen">
+                    <div className="bg-[#E2E9F1] flex items-center justify-between p-6 rounded-xl">
+                        <div className="flex items-center gap-4 ml-15">
+                            <Link href="/">
+                                <img src="/image/Vector (1).png" className="w-[30px] cursor-pointer" />
+                            </Link>
+                            <h1 className="text-lg md:text-2xl font-semibold">Education Service</h1>
                         </div>
 
-                        {/* RIGHT */}
-                        <img
-                            src="/image/educationbookmark.png"
-                            className="w-[18px] h-[22px]"
-                            alt="Bookmark"
-                        />
+                        {/* SEARCH */}
+                        <div className="flex items-center gap-4 mr-10">
+                            {/* SEARCH */}
+                            <div className="hidden md:block relative w-[260px] lg:w-[307px]">
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="
+                                                      w-full
+                                                      rounded-lg bg-white
+                                                      border border-gray-300
+                                                      px-10 py-2
+                                                      text-sm
+                                                      outline-none
+                                                      focus:border-blue-500
+                                                  "
+                                />
+
+                                {/* search icon */}
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2">
+                                    <img
+                                        src="/image/itsearch.png"
+                                        alt="searchicon"
+                                        className="w-[18px] h-[18px]"
+                                    />
+                                </span>
+                            </div>
+
+                            {/* BOOKMARK / LOCATION ICON */}
+                            <img
+                                src="/image/EducationServicebookmark.png"
+                                className="w-[20px] cursor-pointer"
+                            />
+                        </div>
+
+
                     </div>
+
                 </div>
 
-
-                <section className="relative w-full mt-15 px-4 md:px-8">
+                <section className="relative w-full mt-15 px-4 ml-4 lg:ml-15">
                     <h1 className="text-[16px] md:text-[24px] mb-5">Category</h1>
-
 
                     <div
                         className="
-                        flex gap-4
-                        overflow-x-auto
-                        snap-x snap-mandatory
-                        no-scrollbar
-                        md:flex-wrap md:overflow-visible
-                    "
+      flex gap-4
+      overflow-x-auto
+      snap-x snap-mandatory
+      no-scrollbar
+      md:flex-wrap md:justify-start md:overflow-visible
+    "
                     >
                         {categories.map((item, index) => (
                             <div
                                 key={index}
+                                onClick={() => setSelectedCategory(item.label)}
                                 className="
-                                snap-start cursor-pointer
-                                flex items-center gap-2
-                                p-2 bg-[#FE8F36]
-                                rounded-lg
-                                min-w-[120px]
-                                md:w-[120px]
-                                flex-shrink-0
-                            "
-                             onClick={() => setSelectedCategory(item.label)}
+          snap-start cursor-pointer
+          flex items-center gap-3
+          px-6 py-3
+          bg-[#2818A3]
+          rounded-2xl
+          min-w-[160px]
+          md:w-[180px]
+          flex-shrink-0
+        "
                             >
                                 <img
                                     src={item.path}
@@ -124,58 +141,25 @@ export default function SubCategoryPage({ params }: Props) {
                                     className="w-[26px] h-[26px] object-contain"
                                 />
 
-                                <span className="text-[12px] text-white font-medium leading-tight">
+                                <span className="text-[12px] md:text-[16px] text-white font-medium text-center">
                                     {item.label}
                                 </span>
                             </div>
                         ))}
                     </div>
-
-
                 </section>
+
 
                 {/* ================= SEARCH ACCORDING TO YOU ================= */}
                 <div className="w-full px-4 md:px-8 mt-5">
                     {/* Header Row */}
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
-
-                        <h2 className="text-xl md:text-3xl font-semibold mb-4">
-                            Search According to you
-                        </h2>
-
-
-                        {/* Search Box */}
-                        <div className="relative w-full md:w-[320px]">
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-
-                                className="
-                                      w-full
-                                      rounded-full
-                                      border border-gray-300
-                                      px-10 py-2
-                                      text-sm
-                                      outline-none
-                                      focus:border-blue-500
-                                      "
-                            />
-                            {/* search icon */}
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                <img src="/image/itsearch.png" alt="searchicon" className='w-[20.66px] h-[20.66px]' />
-                            </span>
-                        </div>
-
-                    </div>
 
 
 
 
 
                     {/* ===== SEARCH & FILTER ===== */}
-                    <div className="w-full px-4 md:px-8 mt-5">
+                    <div className="w-full px-4 md:px-8 lg:ml-4 lg:mt-15">
 
                         {/* FILTER PILLS */}
                         <div className="mt-6 flex gap-3 overflow-x-auto no-scrollbar">
@@ -186,7 +170,7 @@ export default function SubCategoryPage({ params }: Props) {
                                     className={`
                                           whitespace-nowrap rounded-full px-5 py-2 text-sm border transition
                                           ${selectedRange === item.value
-                                            ? "bg-black text-white border-black"
+                                            ? "bg-[#2818A3] text-white border-black"
                                             : "bg-white text-black border-black"}
                                             `}
                                 >
@@ -205,10 +189,9 @@ export default function SubCategoryPage({ params }: Props) {
 
 
             <section className="w-full mt-6 md:mt-10">
-                <TopPopular contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
                 <Recommended contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
+                <TopPopular contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
                 <TopPicks contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <BestSeller contextTitle={contextTitle} selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
             </section>
 
         </>

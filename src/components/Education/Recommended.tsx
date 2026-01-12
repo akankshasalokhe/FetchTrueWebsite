@@ -1,8 +1,9 @@
 'use client';
 
 import { Bookmark } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import {Eye,User,PenIcon } from "lucide-react";
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -16,168 +17,139 @@ const CATEGORY_TABS = [
 ];
 
 /* ---------------- SERVICES DATA ---------------- */
-export const SERVICES = [
+const SERVICES = [
     {
         id: 1,
-        title: "Personal Growth Mastery",
-        subtitle: "Build confidence, habits & mindset",
-        category: "Personal Development",
-        users: "3200+ users",
-        rating: 5,
-        price: 299,
+        title: "Figma UI UX Design",
+        subtitle: "Develop your future website",
+        category: "Digital Marketing",
+        users: "2400+ users",
+        rating: 4,
+        price: 450,
         discount: "30%",
-        status: true,
+        trusted: true,
         earn: "Earn Up to 5%",
-        image: "/image/educardbg.png",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 2,
-        title: "Full Stack Web Development",
-        subtitle: "Become a job-ready developer",
-        category: "Development",
-        users: "4100+ users",
+        title: "IT Consulting",
+        subtitle: "Develop your future website",
+        category: "UI / UX",
+        users: "1800+ users",
         rating: 5,
-        price: 599,
+        price: 380,
         discount: "25%",
-        status: true,
-        earn: "Earn Up to 6%",
-        image: "/image/educardbg.png",
+        trusted: true,
+        earn: "Earn Up to 4%",
+        image: "/image/Educationcardbg.png",
+
     },
     {
         id: 3,
-        title: "Cyber Security Fundamentals",
-        subtitle: "Protect systems & networks",
-        category: "IT&Software",
-        users: "2800+ users",
+        title: "App Development",
+        subtitle: "Develop your future website",
+        category: "Graphic Design",
+        users: "1200+ users",
         rating: 4,
-        price: 450,
+        price: 280,
         discount: "20%",
-        status: true,
-        earn: "Earn Up to 5%",
-        image: "/image/educardbg.png",
+        trusted: true,
+        earn: "Earn Up to 3%",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 4,
-        title: "Financial Planning & Investment",
-        subtitle: "Manage money like a pro",
-        category: "Finance Development",
-        users: "2300+ users",
-        rating: 5,
-        price: 399,
-        discount: "35%",
-        status: true,
-        earn: "Earn Up to 6%",
-        image: "/image/educardbg.png",
+        title: "Cyber Security",
+        subtitle: "Develop your future website",
+        category: "Print Design",
+        users: "950+ users",
+        rating: 4,
+        price: 220,
+        discount: "15%",
+        trusted: true,
+        earn: "Earn Up to 2%",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 5,
-        title: "Teaching with Technology",
-        subtitle: "Modern tools for educators",
-        category: "Teaching&Software",
-        users: "1700+ users",
-        rating: 4,
-        price: 349,
-        discount: "20%",
-        status: true,
-        earn: "Earn Up to 4%",
-        image: "/image/educardbg.png",
+        title: "IT Consulting",
+        subtitle: "Develop your future website",
+        category: "Digital Marketing",
+        users: "2100+ users",
+        rating: 5,
+        price: 320,
+        discount: "35%",
+        trusted: true,
+        earn: "Earn Up to 5%",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 6,
-        title: "Business Strategy & Growth",
-        subtitle: "Scale startups & enterprises",
-        category: "Business",
-        users: "3600+ users",
+        title: "Web Development",
+        subtitle: "Develop your future website",
+        category: "UI / UX",
+        users: "1600+ users",
         rating: 5,
-        price: 499,
-        discount: "30%",
-        status: true,
-        earn: "Earn Up to 7%",
-        image: "/image/educardbg.png",
+        price: 520,
+        discount: "20%",
+        trusted: true,
+        earn: "Earn Up to 6%",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 7,
-        title: "Digital Marketing Bootcamp",
-        subtitle: "SEO, Ads & social growth",
-        category: "Marketing",
-        users: "4200+ users",
-        rating: 5,
-        price: 449,
-        discount: "40%",
-        status: true,
-        earn: "Earn Up to 6%",
-        image: "/image/educardbg.png",
+        title: "Cyber Security",
+        subtitle: "Develop your future website",
+        category: "Print Design",
+        users: "1100+ users",
+        rating: 4,
+        price: 480,
+        discount: "18%",
+        trusted: true,
+        earn: "Earn Up to 3%",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 8,
-        title: "Music Production Essentials",
-        subtitle: "Create & mix professional music",
-        category: "Music",
-        users: "1500+ users",
+        title: "Web Development",
+        subtitle: "Develop your future website",
+        category: "Graphic Design",
+        users: "1400+ users",
         rating: 4,
-        price: 379,
-        discount: "25%",
-        status: true,
-        earn: "Earn Up to 4%",
-        image: "/image/educardbg.png",
+        price: 260,
+        discount: "22%",
+        trusted: true,
+        earn: "Earn Up to 3%",
+        image: "/image/Educationcardbg.png",
     },
     {
         id: 9,
-        title: "UI / UX Design Masterclass",
-        subtitle: "Design stunning user experiences",
-        category: "Design",
-        users: "3900+ users",
+        title: "App Development",
+        subtitle: "Develop your future website",
+        category: "Branding",
+        users: "900+ users",
         rating: 5,
-        price: 429,
-        discount: "30%",
-        status: true,
-        earn: "Earn Up to 6%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 10,
-        title: "Fitness & Wellness Program",
-        subtitle: "Transform body & lifestyle",
-        category: "Health&Fitness",
-        users: "2700+ users",
-        rating: 4,
-        price: 299,
-        discount: "35%",
-        status: true,
-        earn: "Earn Up to 5%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 11,
-        title: "Photography & Video Editing",
-        subtitle: "Shoot & edit like a pro",
-        category: "Photography & Video",
-        users: "2100+ users",
-        rating: 5,
-        price: 459,
-        discount: "28%",
-        status: true,
-        earn: "Earn Up to 5%",
-        image: "/image/educardbg.png",
-    },
-    {
-        id: 12,
-        title: "Lifestyle Productivity System",
-        subtitle: "Organize life & boost efficiency",
-        category: "Lifestyle",
-        users: "1900+ users",
-        rating: 4,
-        price: 269,
-        discount: "20%",
-        status: true,
-        earn: "Earn Up to 4%",
-        image: "/image/educardbg.png",
+        price: 750,
+        discount: "40%",
+        trusted: true,
+        earn: "Earn Up to 7%",
+        image: "/image/Educationcardbg.png",
     },
 ];
 
+/* ---------------- COMPONENT ---------------- */
+
+type SectionProps = {
+    selectedRange?: string;
+    selectedCategory?: string;
+    searchQuery?: string;
+    contextTitle?: string; 
+};
 
 
-export default function Recommendation() {
+
+export default function Recommendation({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
@@ -194,142 +166,215 @@ export default function Recommendation() {
     `;
 
 
+
+    const filteredServices = SERVICES.filter((item) => {
+        // PRICE FILTER
+        const rangeMatch =
+            selectedRange === "all" ||
+            (selectedRange === "0-300" && item.price < 300) ||
+            (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
+            (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
+            (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
+            (selectedRange === "800-1000" && item.price > 800);
+
+        // CATEGORY FILTER
+        const categoryMatch =
+            selectedCategory === "all" ||
+            item.title === selectedCategory;
+
+        const normalizedTitle = item.title.toLowerCase();
+        const normalizedContext = contextTitle?.toLowerCase();
+
+        const contextMatch =
+            !contextTitle ||
+            normalizedTitle === normalizedContext;
+
+        // SEARCH
+        const searchMatch =
+            searchQuery === "" ||
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+        return rangeMatch && categoryMatch && searchMatch && contextMatch;
+    });
+
+
+    type CardBgProps = {
+        active?: boolean;
+    };
+
+    const CardBg: React.FC<CardBgProps> = ({ active = false }) => (
+        <svg
+            viewBox="0 0 300 200"
+            preserveAspectRatio="none"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+        >
+            <path
+                d="
+        M 20 0
+        H 280
+        L 300 0
+        V 70
+        Q 350 230 220 200
+        H 0
+        V 30
+        Q 0 0 20 0
+        Z
+      "
+                fill="#E2E9F1"
+            />
+        </svg>
+    );
+
+
+
     return (
-        <div className="w-full p-4 md:ml-6 md:p-6">
+        <div className="w-full p-4 md:ml-15 ">
             {/* TITLE */}
             <h2 className="text-xl md:text-3xl font-semibold mb-4">
                 Recommended for You
             </h2>
 
-
-
             {/* SWIPEABLE CARDS */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-10 overflow-x-auto snap-x snap-mandatory no-scrollbar"
+                className="flex gap-4 md:gap-6 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
             >
+                {SERVICES.length > 0 ? (
+                    SERVICES.map((item) => (
+                        <div
+                            key={item.id}
+                            onClick={() =>
+                                router.push(`/MainModules/Education/ServiceDetails`)
+                            }
+                            className="
+                                relative snap-center flex-shrink-0
+                                w-[290px] min-h-[271px]
+                                sm:w-[70vw] h-[300px]
+                                md:w-[331px] md:h-[372px] lg:h-[349px] lg:w-[352px]
+                                overflow-hidden 
+                                "
+                        >
+                            {/* SVG BACKGROUND */}
+                            {/* <CardBg /> */}
 
-                {SERVICES.map((item) => (
-                    // <div
-                    //     key={item.id}
-                    //     className="snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[362px]
-                    //     sm:w-[70vw] md:w-[390px] rounded-3xl overflow-hidden shadow-lg"
-                    //     style={{ backgroundColor: "#E2E9F1" }}
-                    // >
-                    <div
-                        key={item.id}
-                        // onClick={() =>
-                        //     router.push(`/MainModules/ITModules/${toSlug(item.title)}`)
-                        // }
-                        className="cursor-pointer snap-center flex-shrink-0 w-[290px] min-h-[271px] md:h-[374px]
-                        sm:w-[70vw] md:w-[352px] rounded-3xl overflow-hidden shadow-lg"
-                        style={{ backgroundColor: "#E2E9F1" }}
-                    >
-
-                        {/* IMAGE SECTION */}
-                        <div className="relative md:h-[200px] md:w-[395.31px] w-[285px] h-[156px]">
-                            <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full h-full object-cover"
-                            />
-
-                            <span className="absolute top-3 left-3 bg-white text-blue-600 text-xs font-semibold px-3 py-1 rounded-lg flex items-center gap-1">
-                                <img src="/image/security.png" width={14} height={14} />
-                                Trusted
-                            </span>
-
-                            {/* Discount */}
-                            <span className="absolute top-4 right-24 bg-green-400 text-black text-xs font-semibold px-3 py-1 rounded-lg">
-                                Discount {item.discount}
-                            </span>
-
-                            {/* Bookmark */}
-                            <button className="absolute top-3 right-15 bg-black/70 p-2 rounded-full">
-                                <Bookmark size={16} className="text-white" />
-                            </button>
-                        </div>
-
-                        {/* CONTENT SECTION */}
-                        <div className="relative p-4 text-black">
-
-                                {/* 🔒 TITLE ROW (FIXED HEIGHT) */}
-                                <div className="flex items-start justify-between min-h-[44px]">
-                                    <span
-                                        className="
-                                            text-[16px]
-                                            font-semibold
-                                            leading-snug
-                                            line-clamp-2
-                                            md:text-[20px]
-                                            max-w-[65%] 
-                                        "
-                                    >
-                                        {item.title}
-                                    </span>
-
-                                    <span className="
-                                        bg-white text-xs px-3 py-1
-                                        rounded-full whitespace-nowrap shrink-0
-                                        ">
-                                        {item.earn}
-                                    </span>
-                                </div>
-
-                                {/* ⬇️ BELOW CONTENT (WILL NOT MOVE) */}
-                                <div className="space-y-1 mt-1 mb-5">
-                                    <span className="inline-block bg-white text-[9px] md:text-[10px] px-3 py-1 mb-4 rounded-full">
-                                        {item.category}
-                                    </span>
-
-                                    {item.status && (
-                                        <span className="text-black text-[9px] md:text-[10px] px-5 py-1 rounded-full font-medium">
-                                            🟢 Online mode
+                            {/* CONTENT */}
+                            <div className="relative z-10 lg:h-[349px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
+                                {/* IMAGE SECTION */}
+                                <div className="relative md:h-[170px] w-full p-4 h-[156px]">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-[378px] h-full object-cover
+                                    rounded-xl"
+                                    />
+                                    <div className="">
+                                        <span className="absolute top-5 left-5 bg-white text-blue-600 text-[10px] font-semibold px-3 py-1 rounded-lg flex items-start gap-1">
+                                            <img src="/image/security.png" width={14} height={14} />
+                                            Trusted
                                         </span>
-                                    )}
 
-                                    <div>
-                                        <h4 className="text-xs text-black leading-none">Reviews</h4>
-                                        <div className="flex items-center text-yellow-400 text-[20.03px] md:text-[25.68px] gap-1 leading-none">
-                                            {"★".repeat(item.rating)}
-                                            {"☆".repeat(5 - item.rating)}
-                                        </div>
+                                        {/* Discount */}
+                                        <span className="absolute top-5 right-15 bg-white text-black text-[10px] font-semibold px-1 py-1 rounded-lg">
+                                            Discount {item.discount}
+                                        </span>
+
+                                        {/* Bookmark */}
+                                        <button className="absolute top-5 right-5 bg-black/70 p-2 rounded-full">
+                                            <Bookmark size={16} className="text-white" />
+                                        </button>
                                     </div>
                                 </div>
 
-                                {/* PRICE */}
-                                <div
-                                    className="
-                                        absolute bottom-8 right-4 
-                                        bg-gray/20 text-black font-semibold
-                                        text-[21.71px] md:text-[27.89px]
-                                        px-4 py-1 rounded-2xl shadow-md
-                                        max-w-[85%] truncate whitespace-nowrap
+                                {/* CONTENT SECTION */}
+                                <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex-1">
+                                    
+                                    <div className="flex items-center justify-between mb-2 md:mb-6">
+                                        <span className="inline-block bg-[#FFFFFF] font-semibold text-[12px] md:text-[16px] px-3 py-1 rounded-full">
+                                            {item.title}
+                                        </span>
+
+                                        <span className="text-[8px] md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
+                                            {item.earn}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center lg:-mt-2 mb-2 gap-2">
+                                        <div className="inline-flex items-center gap-2 text-[9px] bg-[#F4F4F4] rounded-xl md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            IT & Software
+                                        </div>
+
+                                        <span className="inline-flex items-center gap-2 text-[9px] bg-[#F4F4F4] rounded-xl md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                           
+                                            <div className="w-[7px] h-[7px] rounded-full bg-green-500"/>Online mode
+                                        </span>
+                                    </div>
+
+
+                                    <div className="flex items-cente mb-2">
+                                        <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                           Create & Practice
+                                        </div>
+
+                                        <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            <Eye className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            Design with empathy
+                                        </span>
+                                    </div>
+
+
+                                    <div className="space-y-1">
+                                        <div>
+                                            {/* <h4 className="text-xs leading-none">Reviews</h4> */}
+                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-2 leading-none">
+                                                {"★".repeat(item.rating)}
+                                                {"☆".repeat(5 - item.rating)}
+                                            </div>
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* PRICE */}
+                                    <div
+                                        className="
+                                            absolute lg:bottom-4 right-4 md:bottom-1 bottom-1
+                                            bg-white text-black font-semibold
+                                            text-[12.71px] md:text-[15px] lg:text-[20px] 
+                                            lg:px-4 lg:py-1 md:px-4 md:py-2
+                                            rounded-2xl shadow-md px-2 py-2
+                                            flex flex-col items-center
+                                            max-w-[85%]
+                                            truncate 
+                                            whitespace-nowrap
                                         "
-                                >
-                                    ₹ {item.price}
+                                    >
+                                        <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
+                                        ₹ {item.price}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="w-full bg-gray-500 flex items-center justify-center">
+                        <div className="bg-white rounded-2xl p-6 text-center w-full">
+                            <p className="text-lg font-semibold text-gray-800">
+                                No Services Found
+                            </p>
+                            <p className="text-sm text-gray-500 mt-2">
+                                Try another price range
+                            </p>
+                        </div>
                     </div>
-
-                ))}
-                {/* : (
-                <div className={`${CARD_CLASSES} bg-gray-500 flex items-center justify-center`}>
-                    <div className="bg-white rounded-2xl p-6 text-center w-full">
-                        <p className="text-lg font-semibold text-gray-800">
-                            No Services Found
-                        </p>
-                        <p className="text-sm text-gray-500 mt-2">
-                            Try another price range
-                        </p>
-                    </div>
-                </div>
-                ) */}
+                )}
 
                 {/* MOBILE SPACER */}
                 <div className="md:hidden min-w-4" />
             </div>
-
         </div>
     );
+
 }
