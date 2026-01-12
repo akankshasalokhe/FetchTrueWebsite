@@ -8,6 +8,7 @@ interface MarketingCardProps {
   image: string;
   title: string;
   category: string;
+  mode?:string;
   price: number | string;
   rating?: number;
   reviews?: string;
@@ -19,6 +20,7 @@ export default function MarketingCard({
   image,
   title,
   category,
+  mode,
   price,
   rating = 4,
   reviews = "2,400+ Reviews",
@@ -78,10 +80,14 @@ export default function MarketingCard({
             <h3 className="text-[15px] sm:text-[16px] font-semibold leading-tight truncate">
               {title}
             </h3>
-
-            <p className="text-[11px] sm:text-[12px] text-center text-[#232323] mb-5 mt-1 bg-[#EFF4FF]  rounded-[9px] ">
+            <div className="flex gap-2">
+            <p className="text-[11px] sm:text-[12px] text-center text-[#232323] mb-5 mt-1 bg-[#EFF4FF]  rounded-[9px] px-2 ">
               {category}
             </p>
+            <p className="text-[11px] sm:text-[12px] text-center text-[#232323] mb-5 mt-1 bg-[#EFF4FF]  rounded-[9px] ">
+              {mode}
+            </p>
+            </div>
           </div>
 
           {/* EARN TAG */}

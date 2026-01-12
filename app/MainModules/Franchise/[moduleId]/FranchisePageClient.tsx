@@ -1,14 +1,24 @@
+"use client";
 import BenefitsSection from "@/src/components/Franchise/BenefitSection";
 import HighDemands from "@/src/components/Franchise/HighDemands";
-import InvestmentOfferSection from "@/src/components/Franchise/InvestmentOffer";
 import LowInvestmentFranchises from "@/src/components/Franchise/LowInvestment";
 import Recommended from "@/src/components/Franchise/recommendFranchise";
 import TopGrowingFranchises from "@/src/components/Franchise/TopGrowing";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import WhyOurFranchise from "@/src/components/Franchise/WhyourFranchise";
+import Categories from "@/src/components/Franchise/Categories";
 
-export default function FranchisePage() {
+
+interface Props {
+  moduleId: string;
+}
+
+
+export default function FranchisePageClient({ moduleId }: Props)  {
+
+  console.log("MODULE ID IN CLIENT:", moduleId);
+
   return (
     <>
       {/* MAIN WRAPPER */}
@@ -183,80 +193,9 @@ export default function FranchisePage() {
       </section>
 
 {/* -------- FLOW GRID SECTION -------- */}
-<section className="w-full flex justify-center mt-10">
-  <div
-    className="
-      w-full lg:w-[1440px]
-      flex flex-wrap
-      gap-[25px]
-      justify-center lg:justify-start
-    "
-  >
-    {[
-      { name: "Real Estate",slug: "real-estate" ,bg: "#F3F7FF", img: "/image/realEstate.png" },
-      { name: "Hotel & Restaurant",slug:"hotel-and-restaurant" ,bg: "#FFFBF2", img: "/image/hotel.png" },
-      { name: "Beauty",slug:"beauty", bg: "#FEFBFF", img: "/image/Beauty.png" },
-      { name: "Sports & Fitness",slug:"sports-and-fitness", bg: "#F7FFF5B8", img: "/image/sports.png" },
-      { name: "Pet",slug:"pet", bg: "#FFFBF6", img: "/image/pet.png" },
-      { name: "Home Based Business", slug:"home-based-business" ,bg: "#FFF6F3", img: "/image/homeBusiness.png" },
-      { name: "Logistic",slug:"logistic", bg: "#F8FCFF", img: "/image/logistic.png" },
-      { name: "Agents Dealers Distribution",slug:"agents-dealers-distribution", bg: "#F9F9F9", img: "/image/dealer.png" },
-      { name: "Automotive",slug:"automotive", bg: "#F9FFFA", img: "/image/automative.png" },
-      { name: "Fashion & Jewelry",slug:"fashion-and-jewelry", bg: "#FFFCFC", img: "/image/fashion.png" },
-      { name: "Food & Beverage",slug:"food-and-beverage", bg: "#FFFBFA", img: "/image/food.png" },
-      { name: "Health care",slug:"health-care", bg: "#FFF6F7", img: "/image/healthCare.png" },
-      { name: "Retail",slug:"retail", bg: "#FEFEFE", img: "/image/retail.png" },
-      { name: "Manufacturing",slug:"manufaturing", bg: "#FFF6F3", img: "/image/manufacture.png" },
-      { name: "Travel",slug:"travel", bg: "#FFFBF2", img: "/image/travel.png" },
-      { name: "Business & Consultancy",slug:"business-and-consultancy", bg: "#FAFDFF", img: "/image/business&consult.png" },
-    ].map((item, index) => (
-      <Link
-        key={index}
-        href={`/MainModules/Franchise/${item.slug}`}
-        className="cursor-pointer"
-      >
-      <div
-        key={index}
-        className="
-          w-[139.3px]
-          h-[159.02px]
-          rounded-[19.71px]
-          border border-[#D3D3D3]
-          flex flex-col items-center
-          pt-[16.43px]
-        "
-        style={{
-          backgroundColor: item.bg,
-        }}
-      >
-        {/* IMAGE */}
-        <img
-          src={item.img}
-          alt={item.name}
-          className="w-[94.65px] h-[94.65px] object-contain"
-        />
-
-        {/* NAME */}
-        <p
-          className="
-            text-[15.77px]
-            leading-[17.08px]
-            text-black
-            font-[400]
-            text-left 
-            w-[108.66px]
-          "
-          style={{ fontFamily: "Inter" }}
-        >
-          {item.name}
-        </p>
-      </div>
-      </Link>
-    ))}
-  </div>
-</section>
 
 
+<Categories  moduleId={moduleId}/>
 <Recommended />
 <HighDemands />
 <TopGrowingFranchises />
