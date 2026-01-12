@@ -28,7 +28,7 @@ export interface MostPopularService {
     icon?: string;
   };
   franchiseDetails:{
-    commission:number;
+    commission:string;
   }[];
 }
 
