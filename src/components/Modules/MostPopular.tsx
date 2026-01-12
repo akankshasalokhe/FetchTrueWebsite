@@ -84,13 +84,13 @@ export default function MostPopular() {
                 </div>
 
                                 {/* Key Values */}
-                {item.keyValues?.length > 0 && (
+                {/* {item.keyValues?.length > 0 && (
                   <div className="flex gap-4 text-[12px] text-gray-600 mb-3">
                     {item.keyValues.slice(0, 2).map((kv, i) => (
                       <p key={i}>{kv.value}</p>
                     ))}
                   </div>
-                )}
+                )} */}
 
 
                 {/* Features */}
