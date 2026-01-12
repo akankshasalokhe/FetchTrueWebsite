@@ -269,7 +269,7 @@ export default function RecommendedServices() {
                   Starting from
                 </span>
                 <span className="text-[16px] font-semibold text-[#000000]">
-                 ₹ {service.startingPrice ?? "0000"} /-
+                 ₹ {"0000"} /-
                 </span>
               </div>
               </div>
