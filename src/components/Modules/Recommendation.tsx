@@ -163,7 +163,7 @@
 import { useRef } from "react";
 import { FaStar } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
-import { useRecommended } from "@/src/context/RecommendedContext";
+import { useRecommended } from "@/src/context/HomeRecommendedContext";
 
 export default function RecommendedServices() {
   const scrollRef = useRef<HTMLDivElement>(null);

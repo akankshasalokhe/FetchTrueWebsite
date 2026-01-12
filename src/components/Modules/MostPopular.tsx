@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
 import Image from "next/image";
 import { User } from "lucide-react";
-import { useMostPopular } from "@/src/context/MostPopularContext";
+import { useMostPopular } from "@/src/context/HomeMostPopularContext";
 
 
 
