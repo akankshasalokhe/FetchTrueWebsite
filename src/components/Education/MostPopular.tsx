@@ -141,6 +141,7 @@ const SERVICES = [
 /* ---------------- COMPONENT ---------------- */
 
 type SectionProps = {
+     moduleId: string,
     selectedRange?: string;
     selectedCategory?: string;
     searchQuery?: string;
@@ -149,7 +150,7 @@ type SectionProps = {
 
 
 
-export default function MostPopular({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
+export default function MostPopular({ selectedRange, selectedCategory, searchQuery = "", contextTitle,moduleId}: SectionProps) {
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();

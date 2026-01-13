@@ -315,9 +315,10 @@
 'use client';
 
 import { Bookmark } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import {Eye,User,PenIcon } from "lucide-react";
+import { Eye, User, PenIcon } from "lucide-react";
+import { useRecommendedServices } from "@/src/context/RecommendedContext";
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -458,18 +459,51 @@ type SectionProps = {
     selectedRange?: string;
     selectedCategory?: string;
     searchQuery?: string;
-    contextTitle?: string; 
+    contextTitle?: string;
 };
 
 
 
 export default function Recommendation({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
 
+
+
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
     const toSlug = (text: string) =>
         text.toLowerCase().replace(/\s+/g, "-");
 
+
+    const {
+        services,
+        loading,
+        error, fetchRecommendedServices
+    } = useRecommendedServices();
+
+    useEffect(() => {
+
+        fetchRecommendedServices("6822e02de8235364b35df1ae");
+    }, []);
+
+
+
+    const mappedServices = services.map((service) => ({
+        id: service._id,
+        title: service.serviceName,
+        category: service.category?.name || "Unknown",
+        image: service.thumbnailImage || "/image/placeholder.png",
+        rating: service.averageRating ?? 0,
+        reviews: service.totalReviews,
+        keyValues: service.keyValues?.map((item) => ({
+            id: item._id,
+            label: item.value,
+        })) || [],
+
+    }));
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
 
     const CARD_CLASSES = `
@@ -479,38 +513,36 @@ export default function Recommendation({ selectedRange, selectedCategory, search
     shadow-lg
     `;
 
+    // const filteredServices = SERVICES.filter((item) => {
+    //     // PRICE FILTER
+    //     const rangeMatch =
+    //         selectedRange === "all" ||
+    //         (selectedRange === "0-300" && item.price < 300) ||
+    //         (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
+    //         (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
+    //         (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
+    //         (selectedRange === "800-1000" && item.price > 800);
 
+    //     // CATEGORY FILTER
+    //     const categoryMatch =
+    //         selectedCategory === "all" ||
+    //         item.title === selectedCategory;
 
-    const filteredServices = SERVICES.filter((item) => {
-        // PRICE FILTER
-        const rangeMatch =
-            selectedRange === "all" ||
-            (selectedRange === "0-300" && item.price < 300) ||
-            (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
-            (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
-            (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
-            (selectedRange === "800-1000" && item.price > 800);
+    //     const normalizedTitle = item.title.toLowerCase();
+    //     const normalizedContext = contextTitle?.toLowerCase();
 
-        // CATEGORY FILTER
-        const categoryMatch =
-            selectedCategory === "all" ||
-            item.title === selectedCategory;
+    //     const contextMatch =
+    //         !contextTitle ||
+    //         normalizedTitle === normalizedContext;
 
-        const normalizedTitle = item.title.toLowerCase();
-        const normalizedContext = contextTitle?.toLowerCase();
+    //     // SEARCH
+    //     const searchMatch =
+    //         searchQuery === "" ||
+    //         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         item.category.toLowerCase().includes(searchQuery.toLowerCase());
 
-        const contextMatch =
-            !contextTitle ||
-            normalizedTitle === normalizedContext;
-
-        // SEARCH
-        const searchMatch =
-            searchQuery === "" ||
-            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-        return rangeMatch && categoryMatch && searchMatch && contextMatch;
-    });
+    //     return rangeMatch && categoryMatch && searchMatch && contextMatch;
+    // });
 
 
     type CardBgProps = {
@@ -554,8 +586,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                 ref={containerRef}
                 className="flex gap-4 md:gap-6 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
             >
-                {SERVICES.length > 0 ? (
-                    SERVICES.map((item) => (
+                {mappedServices.length > 0 ? (
+                    mappedServices.map((item) => (
                         <div
                             key={item.id}
                             onClick={() =>
@@ -579,7 +611,7 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-[378px] h-full object-cover
+                                        className="w-[378px] h-[126px] object-cover
                                     rounded-xl"
                                     />
                                     <div className="">
@@ -590,7 +622,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
                                         {/* Discount */}
                                         <span className="absolute top-5 right-15 bg-white text-black text-[10px] font-semibold px-1 py-1 rounded-lg">
-                                            Discount {item.discount}
+                                            {/* Discount {item.discount} */}
+                                            Discount 5%
                                         </span>
 
                                         {/* Bookmark */}
@@ -601,26 +634,32 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                 </div>
 
                                 {/* CONTENT SECTION */}
-                                <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex-1">
-                                    
+                                {/* <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex-1"> */}
+                                <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex flex-col h-full">
+
+
                                     <div className="flex items-center justify-between mb-2 md:mb-6">
-                                        <span className="inline-block bg-[#FFFFFF] font-semibold text-[12px] md:text-[16px] px-3 py-1 rounded-full">
+                                        <span className="inline-block bg-[#FFFFFF] font-semibold text-[12px] md:text-[16px] px-3 py-1 rounded-full
+                                         leading-snug
+                        line-clamp-2 max-w-[65%]
+                        min-h-[40px] lg:min-h-[40px]">
                                             {item.title}
                                         </span>
 
                                         <span className="text-[8px] md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
-                                            {item.earn}
+                                            {/* {item?.earn} */}
+                                             Earn upto 5 %
                                         </span>
                                     </div>
 
                                     <div className="flex items-center lg:-mt-2 mb-2 gap-2">
                                         <div className="inline-flex items-center gap-2 text-[9px] bg-[#F4F4F4] rounded-xl md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                            IT & Software
+                                            {item.category}
                                         </div>
 
                                         <span className="inline-flex items-center gap-2 text-[9px] bg-[#F4F4F4] rounded-xl md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                           
-                                            <div className="w-[7px] h-[7px] rounded-full bg-green-500"/>Online mode
+
+                                            <div className="w-[7px] h-[7px] rounded-full bg-green-500" />Online mode
                                         </span>
                                     </div>
 
@@ -628,7 +667,15 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                     <div className="flex items-cente mb-2">
                                         <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
                                             <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
-                                           Create & Practice
+                                            Create & Practice
+                                            {/* {item.keyValues.map((kv) => (
+                                                <span
+                                                    key={kv.id}
+                                                    className="text-[11px] text-gray-700 leading-snug"
+                                                >
+                                                    {kv.label}
+                                                </span>
+                                            ))} */}
                                         </div>
 
                                         <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
@@ -640,13 +687,52 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
                                     <div className="space-y-1">
                                         <div>
-                                            {/* <h4 className="text-xs leading-none">Reviews</h4> */}
-                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-2 leading-none">
-                                                {"★".repeat(item.rating)}
-                                                {"☆".repeat(5 - item.rating)}
+                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-1 leading-none">
+                                                {/* {"★".repeat(item.rating)}
+                                                {"☆".repeat(5 - item.rating)} */}
+                                                {/* <div className="flex items-center gap-1 mt-4 md:ml-2 lg:ml-2"> */}
+                                                {(() => {
+                                                    const rating = Math.max(0, Math.min(5, item.rating));
+                                                    const rounded = Math.round(rating * 2) / 2;
+                                                    const fullStars = Math.floor(rounded);
+                                                    const hasHalfStar = rounded % 1 !== 0;
+                                                    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                                                    return (
+                                                        <div className="flex items-center gap-1 text-[20px] md:text-[25px] leading-none">
+                                                            {/* Full stars */}
+                                                            {[...Array(fullStars)].map((_, i) => (
+                                                                <span key={`full-${i}`} className="text-yellow-400">
+                                                                    ★
+                                                                </span>
+                                                            ))}
+
+                                                            {/* Half star */}
+                                                            {hasHalfStar && (
+                                                                <span className="relative inline-block w-[1em]">
+                                                                    <span className="absolute overflow-hidden w-1/2 text-yellow-400">
+                                                                        ★
+                                                                    </span>
+                                                                    <span className="text-gray-300">★</span>
+                                                                </span>
+                                                            )}
+
+                                                            {/* Empty stars */}
+                                                            {[...Array(emptyStars)].map((_, i) => (
+                                                                <span key={`empty-${i}`} className="text-gray-300">
+                                                                    ★
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    );
+                                                })()}
+
+                                                {/* </div> */}
+
+
                                             </div>
                                             <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
-                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" />{item.reviews} reviews
                                             </div>
                                         </div>
                                     </div>
@@ -666,7 +752,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                         "
                                     >
                                         <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
-                                        ₹ {item.price}
+                                        ₹ 999
+                                         {/* {item.price} */}
                                     </div>
                                 </div>
                             </div>

@@ -1,7 +1,8 @@
+
+
 'use client';
 
 
-import { useParams } from 'next/navigation';
 import Recommendation from '@/src/components/Education/Recommended';
 import TopPicks from '@/src/components/Education/TopTrending';
 import MostPopular from '@/src/components/Education/MostPopular';
@@ -10,6 +11,7 @@ import WhyChooseUs from '@/src/components/Education/WhyChooseUs';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
 
 export default function EducationModulePage() {
@@ -142,8 +144,8 @@ export default function EducationModulePage() {
 
 
     const CARD_WIDTH = isMobile
-        ? window.innerWidth
-        : 665;
+        ? window.innerWidth      
+        : 665;                    
 
     return (
         <>
@@ -277,7 +279,7 @@ export default function EducationModulePage() {
                     </div>
                 </div>
 
-
+ 
                 <div className="w-full overflow-hidden">
                     <div
                         ref={bannerRef}
@@ -414,9 +416,9 @@ export default function EducationModulePage() {
             </section>
 
             <section className='relative w-full bg-[#F8F9FA]'>
-                <Recommendation moduleId={moduleId} />
-                <MostPopular />
-                <TopPicks />
+                <Recommendation moduleId={moduleId}/>
+                <MostPopular moduleId={moduleId} />
+                <TopPicks moduleId={moduleId} />
                 <WhyChooseUs />
             </section>
 
