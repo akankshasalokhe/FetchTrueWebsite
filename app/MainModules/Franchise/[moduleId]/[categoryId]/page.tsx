@@ -1824,15 +1824,20 @@
 
 'use client'
 
-import { useRef, useState } from "react";
+import { useRef, useState,useEffect } from "react";
 import Image from "next/image";
 import SearchBudget from "@/src/components/FranchiseCategories/SearchBudget";
-import RecommendedSection from "@/src/components/FranchiseCategories/Recommended";
+import Recommended from "@/src/components/Franchise/recommendFranchise";
+
+// import RecommendedSection from "@/src/components/FranchiseCategories/Recommended";
 import MostPopular from "@/src/components/FranchiseCategories/MostPopular";
 import WhyChooseUs from "@/src/components/FranchiseCategories/WhyChooseUs";
 import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useSubCategory } from "@/src/context/SubCategoriesContext";
+import { useModule } from "@/src/context/CategoriesContext";
 
 /* ======================= DRAG HOOK (FIXED) ======================= */
 const useHorizontalDrag = <T extends HTMLElement>() => {
@@ -1894,55 +1899,98 @@ const useHorizontalDrag = <T extends HTMLElement>() => {
 };
 /* =============================================================== */
 
-export default function FranchiseCategoryServicePage() {
+export default function FranchiseSubCategoryServicePage() {
 
-    const properties = [
-        { id: 1, image: "/mockup/building.png", priceValue: 4500000 },
-        { id: 2, image: "/mockup/building.png", priceValue: 7200000 },
-        { id: 3, image: "/mockup/building.png", priceValue: 8900000 },
-        { id: 4, image: "/mockup/building.png", priceValue: 3800000 },
-        { id: 5, image: "/mockup/building.png", priceValue: 5500000 },
-    ];
+    const { moduleId,categoryId } = useParams();
+      console.log(moduleId, categoryId);
 
-    const priceCategories = [
-        { id: "all", label: "All", min: 0, max: Infinity },
-        { id: "10-20", label: "10L-20L", min: 1000000, max: 2000000 },
-        { id: "20-30", label: "20L-30L", min: 2000000, max: 3000000 },
-        { id: "30-40", label: "30L-40L", min: 3000000, max: 4000000 },
-        { id: "40-50", label: "40L-50L", min: 4000000, max: 5000000 },
-        { id: "50+", label: "50L+", min: 5000000, max: Infinity },
-    ];
 
-    const [selectedCategory, setSelectedCategory] = useState("all");
-    const [filteredProperties, setFilteredProperties] = useState(properties);
+const {
+  categories,
+} = useModule();
+
+const {
+  subCategories,
+  loading,
+  error,
+  fetchSubCategories,
+} = useSubCategory();
+
+const [currentCategory, setCurrentCategory] = useState<any>(null);
+
+    // const properties = [
+    //     { id: 1, image: "/mockup/building.png", priceValue: 4500000 },
+    //     { id: 2, image: "/mockup/building.png", priceValue: 7200000 },
+    //     { id: 3, image: "/mockup/building.png", priceValue: 8900000 },
+    //     { id: 4, image: "/mockup/building.png", priceValue: 3800000 },
+    //     { id: 5, image: "/mockup/building.png", priceValue: 5500000 },
+    // ];
+
+    // const priceCategories = [
+    //     { id: "all", label: "All", min: 0, max: Infinity },
+    //     { id: "10-20", label: "10L-20L", min: 1000000, max: 2000000 },
+    //     { id: "20-30", label: "20L-30L", min: 2000000, max: 3000000 },
+    //     { id: "30-40", label: "30L-40L", min: 3000000, max: 4000000 },
+    //     { id: "40-50", label: "40L-50L", min: 4000000, max: 5000000 },
+    //     { id: "50+", label: "50L+", min: 5000000, max: Infinity },
+    // ];
+
+    // const [selectedCategory, setSelectedCategory] = useState("all");
+    // const [filteredProperties, setFilteredProperties] = useState(properties);
     const [searchQuery, setSearchQuery] = useState("");
 
-    const filterPropertiesByPrice = (categoryId: string) => {
-        setSelectedCategory(categoryId);
 
-        if (categoryId === "all") {
-            setFilteredProperties(properties);
-            return;
-        }
 
-        const category = priceCategories.find(cat => cat.id === categoryId);
-        if (!category) return;
+    // const filterPropertiesByPrice = (categoryId: string) => {
+    //     setSelectedCategory(categoryId);
 
-        setFilteredProperties(
-            properties.filter(
-                p => p.priceValue >= category.min && p.priceValue <= category.max
-            )
-        );
-    };
+    //     if (categoryId === "all") {
+    //         setFilteredProperties(properties);
+    //         return;
+    //     }
 
-    const categoryItems = [
-        { label: "Residential Property", path: "/image/building1.png" },
-        { label: "Commercial Property", path: "/image/building2.png" },
-        { label: "Property Management", path: "/image/building3.png" },
-        { label: "Residential Property", path: "/image/building1.png" },
-        { label: "Commercial Property", path: "/image/building2.png" },
-        { label: "Property Management", path: "/image/building3.png" },
-    ];
+    //     const category = priceCategories.find(cat => cat.id === categoryId);
+    //     if (!category) return;
+
+    //     setFilteredProperties(
+    //         properties.filter(
+    //             p => p.priceValue >= category.min && p.priceValue <= category.max
+    //         )
+    //     );
+    // };
+
+    /* 🔥 FETCH SUB-CATEGORIES */
+
+   useEffect(() => {
+  if (subCategories.length) {
+    const subCat = subCategories.find(sc => sc._id === categoryId);
+    if (subCat) {
+      setCurrentCategory(subCat.category);
+    } else {
+      // fallback: take category from first subcategory
+      setCurrentCategory(subCategories[0].category);
+    }
+  }
+}, [subCategories, categoryId]);
+
+
+ useEffect(() => {
+  if (categoryId) {
+    fetchSubCategories(categoryId as string);
+  }
+}, [categoryId]);
+
+
+
+
+    // const categoryItems = [
+    //     { label: "Residential Property", path: "/image/building1.png" },
+    //     { label: "Commercial Property", path: "/image/building2.png" },
+    //     { label: "Property Management", path: "/image/building3.png" },
+    //     { label: "Residential Property", path: "/image/building1.png" },
+    //     { label: "Commercial Property", path: "/image/building2.png" },
+    //     { label: "Property Management", path: "/image/building3.png" },
+    // ];
 
     /* FIXED: Separate drag hooks */
     const desktopCategoryDrag = useHorizontalDrag<HTMLDivElement>();
@@ -1967,7 +2015,7 @@ export default function FranchiseCategoryServicePage() {
                             <Link href="/">
                                 <img src="/image/Checkoutback.png" className="w-[30px] cursor-pointer" />
                             </Link>
-                            <h1 className="text-lg md:text-2xl font-semibold">Real Estate</h1>
+                            <h1 className="text-lg md:text-2xl font-semibold">  {currentCategory?.name || "Loading..."}</h1>
                         </div>
 
                         {/* SEARCH */}
@@ -2036,7 +2084,7 @@ export default function FranchiseCategoryServicePage() {
                             </Link>
 
                             <h1 className="text-[16px] font-semibold truncate">
-                                {/* {formatSlugToTitle(slug)} */} Real Estate
+                                {/* {formatSlugToTitle(slug)} */}  {currentCategory?.name}
                             </h1>
                         </div>
 
@@ -2078,7 +2126,8 @@ export default function FranchiseCategoryServicePage() {
                     <div className="relative z-10">
                         {/* Background text */}
                         <h1 className="md:text-[100px] lg:text-[131.69px] font-bold text-gray-200 opacity-40 leading-none">
-                            REAL <br /> ESTATE
+                                          {currentCategory?.name}
+
                         </h1>
 
                         {/* Foreground heading */}
@@ -2086,7 +2135,7 @@ export default function FranchiseCategoryServicePage() {
                             className="absolute top-4 left-10 text-[#0C1B36] text-[32px]"
                             style={{ fontFamily: "GFS Didot" }}
                         >
-                            Explore Our Real Estate <br /> Services
+                            Explore Our {currentCategory?.name}
                         </h2>
                     </div>
 
@@ -2119,7 +2168,7 @@ export default function FranchiseCategoryServicePage() {
                     <div className="absolute inset-0 mt-25 ml-4 flex items-start pointer-events-none">
                         <h1 className="font-bold font-[400] text-[52.34px] left-0 text-gray-200 opacity-40 tracking-wider leading-none text-start"
                         >
-                            REAL <br /> ESTATE
+                            {currentCategory?.name}
                         </h1>
                     </div>
 
@@ -2141,7 +2190,7 @@ export default function FranchiseCategoryServicePage() {
                             verticalAlign: "middle",
                         }}
                     >
-                        Explore Our<br /> Real Estate<br />Services
+                        Explore Our<br /> {currentCategory?.name}
                     </h2>
 
                     {/* House Image */}
@@ -2159,22 +2208,24 @@ export default function FranchiseCategoryServicePage() {
             {/* ================= DESKTOP CATEGORY ================= */}
             <div className="hidden lg:block">
                 <p className="text-[24px] font-semibold ml-6">Category</p>
+                {loading && <p className="ml-6 mt-4">Loading...</p>}
+                {error && <p className="ml-6 text-red-500">{error}</p>}
                 <div
                     ref={desktopCategoryDrag.ref}
                     {...desktopCategoryDrag.handlers}
                     className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
                 >
-                    {categoryItems.map((item, index) => (
-                        <div key={index} className="relative shrink-0 w-[189px] h-[226px]">
+                    {subCategories.map((item) => (
+                        <div key={item._id} className="relative shrink-0 w-[189px] h-[226px]">
                             <Image src="/image/rectangularcategory.png" alt="" fill />
                             <Image
-                                src={item.path}
-                                alt=""
+                                src={item.image}
+                                alt={item.name}
                                 width={120}
                                 height={120}
                                 className="absolute left-1/2 bottom-5 -translate-x-1/2"
                             />
-                            <p className="ml-20 text-[16px]">{item.label}</p>
+                            <p className="ml-20 text-[16px]">{item.name}</p>
                         </div>
                     ))}
                 </div>
@@ -2188,18 +2239,18 @@ export default function FranchiseCategoryServicePage() {
                     {...mobileCategoryDrag.handlers}
                     className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
                 >
-                    {categoryItems.map((item, index) => (
-                        <div key={index} className="relative w-[103px] h-[123px] shrink-0">
+                    {subCategories.map((item) => (
+                        <div key={item._id} className="relative w-[103px] h-[123px] shrink-0">
                             <Image src="/image/rectangularcategory.png" alt="" fill />
                             <Image
-                                src={item.path}
-                                alt=""
+                                src={item.image}
+                                alt={item.name}
                                 width={96}
                                 height={96}
                                 className="absolute left-1/2 bottom-2  -translate-x-1/2"
                             />
                             <p className="absolute -top-1 left-12 text-[11px] leading-tight">
-                                {item.label}
+                                {item.name}
                             </p>
                         </div>
                     ))}
@@ -2208,7 +2259,7 @@ export default function FranchiseCategoryServicePage() {
 
             {/* ================= REST SECTIONS (UNCHANGED) ================= */}
             <div className="bg-white rounded-xl">
-                <div className="flex gap-4 p-4 overflow-x-auto no-scrollbar">
+                {/* <div className="flex gap-4 p-4 overflow-x-auto no-scrollbar">
                     {priceCategories.map(category => (
                         <div
                             key={category.id}
@@ -2222,13 +2273,402 @@ export default function FranchiseCategoryServicePage() {
                             {category.label}
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 <SearchBudget />
-                <RecommendedSection />
+                <Recommended moduleId={moduleId}/>
                 <MostPopular />
                 <WhyChooseUs />
             </div>
         </section>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+// 'use client'
+
+// import { useRef, useState, useEffect } from "react";
+// import Image from "next/image";
+// import { useParams } from "next/navigation";
+// import Link from "next/link";
+// import { FiArrowUpRight } from "react-icons/fi";
+
+// import SearchBudget from "@/src/components/FranchiseCategories/SearchBudget";
+// import RecommendedSection from "@/src/components/FranchiseCategories/Recommended";
+// import MostPopular from "@/src/components/FranchiseCategories/MostPopular";
+// import WhyChooseUs from "@/src/components/FranchiseCategories/WhyChooseUs";
+// import { useSubCategory } from "@/src/context/SubCategoriesContext";
+
+
+// /* ======================= DRAG HOOK ======================= */
+// const useHorizontalDrag = <T extends HTMLElement>() => {
+//   const ref = useRef<T | null>(null);
+//   const isDragging = useRef(false);
+//   const startX = useRef(0);
+//   const startScroll = useRef(0);
+
+//   const onMouseDown = (e: React.MouseEvent) => {
+//     if (!ref.current) return;
+//     isDragging.current = true;
+//     startX.current = e.pageX;
+//     startScroll.current = ref.current.scrollLeft;
+//   };
+
+//   const onMouseMove = (e: React.MouseEvent) => {
+//     if (!isDragging.current || !ref.current) return;
+//     const delta = e.pageX - startX.current;
+//     ref.current.scrollLeft = startScroll.current - delta;
+//   };
+
+//   const stopDragging = () => {
+//     isDragging.current = false;
+//   };
+
+//   return {
+//     ref,
+//     handlers: {
+//       onMouseDown,
+//       onMouseMove,
+//       onMouseUp: stopDragging,
+//       onMouseLeave: stopDragging,
+//     },
+//   };
+// };
+// /* ======================================================= */
+
+// export default function FranchiseSubCategoryServicePage() {
+//   const { categoryId } = useParams();
+
+//   const { subCategories, loading, error, fetchSubCategories } =
+//     useSubCategory();
+
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   const desktopCategoryDrag = useHorizontalDrag<HTMLDivElement>();
+//   const mobileCategoryDrag = useHorizontalDrag<HTMLDivElement>();
+
+//   /* 🔥 FETCH SUB-CATEGORIES */
+//   useEffect(() => {
+//     if (categoryId) {
+//       fetchSubCategories(categoryId as string);
+//     }
+//   }, [categoryId]);
+
+//   return (
+//     <section
+//       style={{
+//         backgroundImage: "url('/image/Background design.png')",
+//         backgroundSize: "cover",
+//         backgroundPosition: "center",
+//       }}
+//       className="w-full px-4 lg:px-10 py-6 bg-[#F9F5FF]"
+//     >
+
+//       {/* ---------------- NAVBAR ---------------- */}
+//       <div className="hidden md:flex justify-between items-center">
+//         <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-full">
+//           <Link href="/">
+//             <img src="/image/Checkoutback.png" className="w-[30px]" />
+//           </Link>
+//           <h1 className="text-2xl font-semibold capitalize">
+//             {String(categoryId).replace("-", " ")}
+//           </h1>
+//         </div>
+
+//         <input
+//           type="text"
+//           placeholder="Search"
+//           value={searchQuery}
+//           onChange={(e) => setSearchQuery(e.target.value)}
+//           className="bg-white px-4 py-2 rounded-lg border"
+//         />
+//       </div>
+
+//       {/* ---------------- HERO ---------------- */}
+//       <div className="hidden md:block mt-6">
+//         <div className="bg-white rounded-2xl p-10 flex justify-between">
+//           <div>
+//             <h1 className="text-[120px] font-bold text-gray-200 opacity-40">
+//               {String(categoryId).toUpperCase()}
+//             </h1>
+//             <h2 className="absolute mt-[-110px] ml-6 text-3xl text-[#0C1B36]">
+//               Explore Our Services
+//             </h2>
+//           </div>
+
+//           <div className="flex items-center">
+//             <img src="/image/Houseimage.png" className="w-[300px]" />
+//             <FiArrowUpRight className="text-purple-500 w-16 h-16 bg-purple-100 rounded-full p-4 ml-4" />
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* ================= DESKTOP SUBCATEGORY ================= */}
+//       <div className="hidden lg:block mt-8">
+//         <p className="text-[24px] font-semibold ml-6">Category</p>
+
+//         {loading && <p className="ml-6 mt-4">Loading...</p>}
+//         {error && <p className="ml-6 text-red-500">{error}</p>}
+
+//         <div
+//           ref={desktopCategoryDrag.ref}
+//           {...desktopCategoryDrag.handlers}
+//           className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
+//         >
+//           {subCategories.map((item) => (
+//             <div key={item._id} className="relative w-[189px] h-[226px] shrink-0">
+//               <Image src="/image/rectangularcategory.png" alt="" fill />
+//               <Image
+//                 src={item.image}
+//                 alt={item.name}
+//                 width={120}
+//                 height={120}
+//                 className="absolute left-1/2 bottom-5 -translate-x-1/2"
+//               />
+//               <p className="absolute bottom-3 w-full text-center font-medium">
+//                 {item.name}
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* ================= MOBILE SUBCATEGORY ================= */}
+//       <div className="block lg:hidden mt-6">
+//         <p className="text-[16px] font-semibold ml-6">Category</p>
+
+//         <div
+//           ref={mobileCategoryDrag.ref}
+//           {...mobileCategoryDrag.handlers}
+//           className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
+//         >
+//           {subCategories.map((item) => (
+//             <div key={item._id} className="relative w-[103px] h-[123px] shrink-0">
+//               <Image src="/image/rectangularcategory.png" alt="" fill />
+//               <Image
+//                 src={item.image}
+//                 alt={item.name}
+//                 width={96}
+//                 height={96}
+//                 className="absolute left-1/2 bottom-2 -translate-x-1/2"
+//               />
+//               <p className="absolute -top-1 w-full text-center text-[11px]">
+//                 {item.name}
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* ================= REST SECTIONS ================= */}
+//       <div className="bg-white rounded-xl">
+//         <SearchBudget />
+//         <RecommendedSection />
+//         <MostPopular />
+//         <WhyChooseUs />
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+
+
+// 'use client'
+
+// import { useRef, useState, useEffect } from "react";
+// import Image from "next/image";
+// import { useParams } from "next/navigation";
+// import Link from "next/link";
+// import { FiArrowUpRight } from "react-icons/fi";
+
+// import SearchBudget from "@/src/components/FranchiseCategories/SearchBudget";
+// import RecommendedSection from "@/src/components/FranchiseCategories/Recommended";
+// import MostPopular from "@/src/components/FranchiseCategories/MostPopular";
+// import WhyChooseUs from "@/src/components/FranchiseCategories/WhyChooseUs";
+// import { useSubCategory } from "@/src/context/SubCategoriesContext";
+
+// /* ======================= HORIZONTAL DRAG HOOK ======================= */
+// const useHorizontalDrag = <T extends HTMLElement>() => {
+//   const ref = useRef<T | null>(null);
+//   const isDragging = useRef(false);
+//   const startX = useRef(0);
+//   const startScroll = useRef(0);
+
+//   const onMouseDown = (e: React.MouseEvent) => {
+//     if (!ref.current) return;
+//     isDragging.current = true;
+//     startX.current = e.pageX;
+//     startScroll.current = ref.current.scrollLeft;
+//   };
+
+//   const onMouseMove = (e: React.MouseEvent) => {
+//     if (!isDragging.current || !ref.current) return;
+//     e.preventDefault(); // prevents text selection
+//     const delta = e.pageX - startX.current;
+//     ref.current.scrollLeft = startScroll.current - delta;
+//   };
+
+//   const stopDragging = () => {
+//     isDragging.current = false;
+//   };
+
+//   return {
+//     ref,
+//     handlers: {
+//       onMouseDown,
+//       onMouseMove,
+//       onMouseUp: stopDragging,
+//       onMouseLeave: stopDragging,
+//     },
+//   };
+// };
+// /* ======================================================= */
+
+// export default function FranchiseSubCategoryServicePage() {
+//   const { categoryId } = useParams();
+//   const { subCategories, loading, error, fetchSubCategories } = useSubCategory();
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   const desktopCategoryDrag = useHorizontalDrag<HTMLDivElement>();
+//   const mobileCategoryDrag = useHorizontalDrag<HTMLDivElement>();
+
+//   /* 🔥 FETCH SUB-CATEGORIES */
+//   useEffect(() => {
+//     if (categoryId) fetchSubCategories(categoryId as string);
+//   }, [categoryId]);
+
+//   /* Filter subcategories by search */
+//   const filteredSubCategories = subCategories.filter(sub =>
+//     sub.name.toLowerCase().includes(searchQuery.toLowerCase())
+//   );
+
+//   /* Format categoryId nicely for display */
+//   const formattedCategoryName = String(categoryId)
+//     .replace(/-/g, " ")
+//     .replace(/\b\w/g, c => c.toUpperCase());
+
+//   return (
+//     <section
+//       style={{
+//         backgroundImage: "url('/image/Background design.png')",
+//         backgroundSize: "cover",
+//         backgroundPosition: "center",
+//       }}
+//       className="w-full px-4 lg:px-10 py-6 bg-[#F9F5FF]"
+//     >
+//       {/* ---------------- NAVBAR ---------------- */}
+//       <div className="hidden md:flex justify-between items-center mb-6">
+//         <div className="flex items-center gap-4 bg-white px-6 py-4 rounded-full">
+//           <Link href="/">
+//             <img src="/image/Checkoutback.png" className="w-[30px]" />
+//           </Link>
+//           <h1 className="text-2xl font-semibold">{formattedCategoryName}</h1>
+//         </div>
+
+//         <input
+//           type="text"
+//           placeholder="Search"
+//           value={searchQuery}
+//           onChange={(e) => setSearchQuery(e.target.value)}
+//           className="bg-white px-4 py-2 rounded-lg border"
+//         />
+//       </div>
+
+//       {/* ---------------- HERO ---------------- */}
+//       <div className="hidden md:block mt-6">
+//         <div className="bg-white rounded-2xl p-10 flex justify-between relative">
+//           <div className="relative">
+//             <h1 className="text-[120px] font-bold text-gray-200 opacity-40">
+//               {formattedCategoryName.toUpperCase()}
+//             </h1>
+             
+//             <h2 className="absolute top-6 left-6 text-3xl text-[#0C1B36]">
+//               Explore Our Services
+//             </h2>
+//           </div>
+
+//           <div className="flex items-center">
+//             <img src="/image/Houseimage.png" className="w-[300px]" />
+//             <FiArrowUpRight className="text-purple-500 w-16 h-16 bg-purple-100 rounded-full p-4 ml-4" />
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* ================= DESKTOP SUBCATEGORY ================= */}
+//       <div className="hidden lg:block mt-8">
+//         <p className="text-[24px] font-semibold ml-6 mb-2">Category</p>
+
+//         {loading && <p className="ml-6 mt-4">Loading...</p>}
+//         {error && <p className="ml-6 text-red-500">{error}</p>}
+
+//         <div
+//           ref={desktopCategoryDrag.ref}
+//           {...desktopCategoryDrag.handlers}
+//           className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
+//         >
+//           {filteredSubCategories.map((item) => (
+//             <div key={item._id} className="relative w-[189px] h-[226px] shrink-0">
+//               <Image src="/image/rectangularcategory.png" alt="" fill />
+//               <Image
+//                 src={item.image}
+//                 alt={item.name}
+//                 width={120}
+//                 height={120}
+//                 className="absolute left-1/2 bottom-5 -translate-x-1/2"
+//               />
+//               <p className="absolute bottom-3 w-full text-center font-medium">
+//                 {item.name}
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* ================= MOBILE SUBCATEGORY ================= */}
+//       <div className="block lg:hidden mt-6">
+//         <p className="text-[16px] font-semibold ml-6 mb-2">Category</p>
+
+//         <div
+//           ref={mobileCategoryDrag.ref}
+//           {...mobileCategoryDrag.handlers}
+//           className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
+//         >
+//           {filteredSubCategories.map((item) => (
+//             <div key={item._id} className="relative w-[103px] h-[123px] shrink-0">
+//               <Image src="/image/rectangularcategory.png" alt="" fill />
+//               <Image
+//                 src={item.image}
+//                 alt={item.name}
+//                 width={96}
+//                 height={96}
+//                 className="absolute left-1/2 bottom-2 -translate-x-1/2"
+//               />
+//               <p className="absolute -top-1 w-full text-center text-[11px]">
+//                 {item.name}
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* ================= REST SECTIONS ================= */}
+//       <div className="bg-white rounded-xl mt-6 p-4">
+//         <SearchBudget />
+//         <RecommendedSection />
+//         <MostPopular />
+//         <WhyChooseUs />
+//       </div>
+//     </section>
+//   );
+// }

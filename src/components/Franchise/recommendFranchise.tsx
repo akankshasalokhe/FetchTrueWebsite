@@ -4,6 +4,7 @@ import Link from "next/link";
 import FranchiseCard from "../ui/FranchiseCard";
 import { useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
+import { useParams } from "next/navigation";
 
 
 
@@ -13,6 +14,12 @@ interface Props {
 
 export default function RecommendedSection({moduleId}:Props) {
   const { services, loading, error, fetchRecommendedServices } = useRecommendedServices();
+
+  const { categoryId } = useParams<{
+  moduleId: string;
+  categoryId: string;
+}>();
+
 
   useEffect(()=>{
     if(moduleId){
@@ -38,7 +45,8 @@ export default function RecommendedSection({moduleId}:Props) {
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4 pb-4">
           {services.map((service) => (
-            <Link key={service._id} href={`/MainModules/Franchise/slug/details/${service._id}`}>
+            <Link key={service._id}   href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
+>
               <FranchiseCard 
                             key={service._id}
           image={service.thumbnailImage || "/default-service.png"}

@@ -7,6 +7,8 @@ import { HomeMostPopularProvider } from "@/src/context/HomeMostPopularContext";
 import { CategoriesProvider } from "@/src/context/CategoriesContext";
 import { RecommendedServicesProvider } from "@/src/context/RecommendedContext";
 import { MostPopularProvider } from "@/src/context/MostPopularContext";
+import { SubCategoryProvider } from "@/src/context/SubCategoriesContext";
+import { ServiceDetailsProvider } from "@/src/context/ServiceDetailsContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -23,9 +25,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <HomeMostPopularProvider>
               <RecommendedServicesProvider>
                 <MostPopularProvider>
+                  <SubCategoryProvider>
+                    <ServiceDetailsProvider>
           {/* <Navbar /> */}
           <main>{children}</main>
           <Footer />
+          </ServiceDetailsProvider>
+          </SubCategoryProvider>
           </MostPopularProvider>
           </RecommendedServicesProvider>
           </HomeMostPopularProvider>

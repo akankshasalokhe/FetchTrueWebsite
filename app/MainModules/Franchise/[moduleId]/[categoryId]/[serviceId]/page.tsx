@@ -82,6 +82,7 @@ const advantages = [
 ];
 
 export default function DetailsAllPage() {
+  
   const [activeImage, setActiveImage] = useState(images[0]);
 
   return (
