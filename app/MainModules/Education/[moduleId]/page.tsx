@@ -1,5 +1,3 @@
-
-
 'use client';
 
 
@@ -12,25 +10,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import { useParams } from 'next/navigation';
-
+import { useModule } from '@/src/context/CategoriesContext';
+import { useBannerCategorySelection } from "@/src/context/BannerContext"
 
 export default function EducationModulePage() {
-
-    const categories = [
-        { label: "Personal Development", path: "/image/personaldevelopment.png" },
-        { label: "Development", path: "/image/Development.png" },
-        { label: "IT&Software", path: "/image/it.png" },
-        { label: "Finance Development", path: "/image/Finance.png" },
-        { label: "Teaching&Software", path: "/image/Teaching&Software.png" },
-        { label: "Business", path: "/image/Business.png" },
-        { label: "Marketing", path: "/image/Marketing.png" },
-        { label: "Music", path: "/image/Music.png" },
-        { label: "Design", path: "/image/Design.png" },
-        { label: "Health&Fitness", path: "/image/Health.png" },
-        { label: "Photography & Video", path: "/image/Photography.png" },
-        { label: "Lifestyle", path: "/image/Lifestyle.png" },
-
-    ]
 
     const BannerData = [
         { label: "Image 1", path: "/image/Educationbanner.png" },
@@ -41,6 +24,25 @@ export default function EducationModulePage() {
 
     const sliderRef = useRef<HTMLDivElement>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const {
+        categories, loading, error, fetchCategoriesByModule
+    } = useModule();
+  const {
+        data, fetchBannerCategorySelections,
+    } =  useBannerCategorySelection();
+
+
+
+    const router = useRouter();
+    const params = useParams();
+    const moduleId = params.moduleId as string;
+
+    useEffect(() => {
+        if (!moduleId) return;
+
+        fetchCategoriesByModule(moduleId);
+        fetchBannerCategorySelections(moduleId)
+    }, [moduleId]);
 
     const chunkArray = <T,>(arr: T[], size: number): T[][] => {
         const chunks: T[][] = [];
@@ -50,14 +52,7 @@ export default function EducationModulePage() {
         return chunks;
     };
 
-    const baseSlides = chunkArray(categories, 6);
-
-    const slides = [
-        baseSlides[baseSlides.length - 1], // clone last
-        ...baseSlides,
-        baseSlides[0], // clone first
-    ];
-
+    const slides = chunkArray(categories, 8); // adjust count if needed
 
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -68,33 +63,6 @@ export default function EducationModulePage() {
     }, []);
 
 
-
-    useEffect(() => {
-        const el = sliderRef.current;
-        if (!el) return;
-
-        const slideWidth = el.offsetWidth;
-        let intervalId: NodeJS.Timeout;
-
-        const startAutoSwipe = () => {
-            intervalId = setInterval(() => {
-                el.scrollTo({
-                    left: el.scrollLeft + slideWidth,
-                    behavior: "smooth",
-                });
-            }, 2500); // pause duration between swipes
-        };
-
-        startAutoSwipe();
-
-        return () => clearInterval(intervalId);
-    }, []);
-
-
-    const router = useRouter()
-    const params = useParams();
-    const moduleId = params.moduleId as string;
-    console.log("module id:", moduleId)
 
     const toSlug = (text: string) =>
         text.toLowerCase().trim().replace(/\s+/g, "-");
@@ -144,8 +112,12 @@ export default function EducationModulePage() {
 
 
     const CARD_WIDTH = isMobile
-        ? window.innerWidth      
-        : 665;                    
+        ? window.innerWidth
+        : 665;
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <>
@@ -279,7 +251,7 @@ export default function EducationModulePage() {
                     </div>
                 </div>
 
- 
+
                 <div className="w-full overflow-hidden">
                     <div
                         ref={bannerRef}
@@ -314,27 +286,33 @@ export default function EducationModulePage() {
 
 
             <section className="relative w-full mt-2 p-22 bg-[#F8F9FA]">
-                <h1 className="text-[16px] font-semibold md:text-[24px] mb-5">Category</h1>
+                <h1 className="text-[18px] font-semibold md:text-[24px] mb-5 -ml-18 md:-ml-0">Category</h1>
 
-                {/* ================= DESKTOP (UNCHANGED) ================= */}
+                {/* ================= DESKTOP ================= */}
+                <div
+                    className="hidden md:grid md:grid-cols-4
+                                lg:flex lg:flex-wrap
+                                gap-10
+                                rounded-lg
+                                "
+                              >
 
-                <div className="hidden md:flex flex-wrap gap-10 rounded-lg">
                     {categories.map((item, index) => (
                         <div
                             key={index}
                             onClick={() =>
-                                router.push(`/MainModules/Education/${toSlug(item.label)}`)
+                                router.push(`/MainModules/Education/${moduleId}/${toSlug(item.name)}`)
                             }
-                            className="flex flex-col mb-5 items-center p-3 bg-white/100 rounded-lg w-[120px]"
+                            className="flex flex-col items-center p-3 bg-white rounded-lg"
                         >
                             <img
-                                src={item.path}
-                                alt={item.label}
-                                className="w-[73.16px] h-[73.16px] object-contain"
+                                src={item.image}
+                                alt={item.name}
+                                className="w-[170px] h-[150px] object-contain"
                             />
 
-                            <span className="mt-2 text-[12px] font-medium text-center leading-tight break-words">
-                                {item.label}
+                            <span className="-mt-10 text-[12px] font-semibold text-center leading-tight break-words">
+                                {item.name}
                             </span>
                         </div>
                     ))}
@@ -342,9 +320,8 @@ export default function EducationModulePage() {
 
 
 
-
-                {/*  ================= MOBILE CATEGORY SWIPE =================  */}
-                <section className="md:hidden w-[300px] -ml-15 mt-6">
+                {/* ================= MOBILE CATEGORY SWIPE ================= */}
+                <section className="md:hidden w-[300px] -ml-18 mt-6">
                     <div
                         ref={sliderRef}
                         className="flex overflow-x-scroll snap-x snap-mandatory no-scrollbar scroll-smooth"
@@ -354,42 +331,30 @@ export default function EducationModulePage() {
 
                             const slideWidth = el.offsetWidth;
                             const index = Math.round(el.scrollLeft / slideWidth);
-
-                            // LEFT CLONE
-                            if (index === 0) {
-                                el.scrollLeft = slideWidth * baseSlides.length;
-                                setActiveIndex(baseSlides.length - 1);
-                                return;
-                            }
-
-                            // RIGHT CLONE
-                            if (index === slides.length - 1) {
-                                el.scrollLeft = slideWidth;
-                                setActiveIndex(0);
-                                return;
-                            }
-
-                            setActiveIndex(index - 1);
+                            setActiveIndex(index);
                         }}
                     >
                         {slides.map((slide, slideIndex) => (
-                            <div key={slideIndex} className="min-w-[400px] snap-center px-4">
+                            <div
+                                key={slideIndex}
+                                className="min-w-full snap-center px-4"
+                            >
                                 <div className="grid grid-cols-3 gap-4">
                                     {slide.map((item, i) => (
                                         <div
                                             key={i}
                                             onClick={() =>
-                                                router.push(`/MainModules/Education/${toSlug(item.label)}`)
+                                                router.push(`/MainModules/Education/${toSlug(item.name)}`)
                                             }
                                             className="flex flex-col items-center bg-gray-100 rounded-lg p-4"
                                         >
                                             <img
-                                                src={item.path}
-                                                alt={item.label}
-                                                className="w-[73px] h-[73px] object-contain"
+                                                src={item.image}
+                                                alt={item.name}
+                                                className="w-[93px] h-[93px] object-cover"
                                             />
-                                            <span className="mt-2 text-[12px] text-center">
-                                                {item.label}
+                                            <span className="-mt-5 text-[8px] text-center">
+                                                {item.name}
                                             </span>
                                         </div>
                                     ))}
@@ -398,9 +363,9 @@ export default function EducationModulePage() {
                         ))}
                     </div>
 
-                    {/* INDICATORS (REAL SLIDES ONLY) */}
+                    {/* INDICATORS */}
                     <div className="flex justify-center gap-2 mt-4">
-                        {baseSlides.map((_, i) => (
+                        {slides.map((_, i) => (
                             <div
                                 key={i}
                                 className={`h-[3px] rounded-full transition-all duration-300 ${activeIndex === i
@@ -413,10 +378,11 @@ export default function EducationModulePage() {
                 </section>
 
 
+
             </section>
 
             <section className='relative w-full bg-[#F8F9FA]'>
-                <Recommendation moduleId={moduleId}/>
+                <Recommendation moduleId={moduleId} />
                 <MostPopular moduleId={moduleId} />
                 <TopPicks moduleId={moduleId} />
                 <WhyChooseUs />

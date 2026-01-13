@@ -415,8 +415,8 @@ export default function EducationModulePage() {
 
             <section className='relative w-full bg-[#F8F9FA]'>
                 <Recommendation moduleId={moduleId} />
-                <MostPopular />
-                <TopPicks />
+                <MostPopular  moduleId={moduleId}/>
+                <TopPicks moduleId={moduleId}/>
                 <WhyChooseUs />
             </section>
 

@@ -11,7 +11,7 @@ import axios from "axios";
 
 /* ================= TYPES ================= */
 
-export interface MostPopularService {
+export interface HomeMostPopularService {
   serviceId: string;
   serviceName: string;
   thumbnailImage: string;
@@ -34,26 +34,26 @@ export interface MostPopularService {
 
 /* ================= CONTEXT TYPE ================= */
 
-interface MostPopularContextType {
-  services: MostPopularService[];
+interface HomeMostPopularContextType {
+  services: HomeMostPopularService[];
   loading: boolean;
   error: string | null;
 }
 
 /* ================= CONTEXT ================= */
 
-const MostPopularContext = createContext<MostPopularContextType | undefined>(
+const HomeMostPopularContext = createContext<HomeMostPopularContextType | undefined>(
   undefined
 );
 
 /* ================= PROVIDER ================= */
 
-export const MostPopularProvider = ({
+export const HomeMostPopularProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const [services, setServices] = useState<MostPopularService[]>([]);
+  const [services, setServices] = useState<HomeMostPopularService[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -77,16 +77,16 @@ export const MostPopularProvider = ({
   }, []);
 
   return (
-    <MostPopularContext.Provider value={{ services, loading, error }}>
+    <HomeMostPopularContext.Provider value={{ services, loading, error }}>
       {children}
-    </MostPopularContext.Provider>
+    </HomeMostPopularContext.Provider>
   );
 };
 
 /* ================= HOOK ================= */
 
 export const useMostPopular = () => {
-  const context = useContext(MostPopularContext);
+  const context = useContext(HomeMostPopularContext);
   if (!context) {
     throw new Error(
       "useMostPopular must be used inside MostPopularProvider"

@@ -685,7 +685,7 @@ export default function Recommendation({ selectedRange, selectedCategory, search
     return (
         <div className="w-full p-4 md:ml-15 ">
             {/* TITLE */}
-            <h2 className="text-xl md:text-3xl font-semibold mb-4">
+            <h2 className="text-[18px] md:text-[24px] font-semibold mb-4">
                 Recommended
             </h2>
 
@@ -807,7 +807,7 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                                     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
                                                     return (
-                                                        <div className="flex items-center gap-1 text-[20px] md:text-[25px] leading-none">
+                                                        <div className="flex items-center gap-0 text-[20px] md:text-[25px] leading-none">
                                                             {/* Full stars */}
                                                             {[...Array(fullStars)].map((_, i) => (
                                                                 <span key={`full-${i}`} className="text-yellow-400">

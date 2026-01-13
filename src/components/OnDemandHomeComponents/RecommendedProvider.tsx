@@ -1,53 +1,127 @@
 'use client';
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { useRecommendedProviders } from "@/src/context/RecommendedProviderContext"
+// export default function RecommendedProvider() {
 
-export default function RecommendedProvider() {
+type SectionProps = {
+    moduleId: string,
+    selectedRange?: string;
+    selectedCategory?: string;
+    searchQuery?: string;
+    contextTitle?: string;
+};
+
+
+
+
+export default function RecommendedProvider({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
+    console.log("✅ RecommendedProvidersProvider mounted");
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [isDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
-    const services = [
-        {
-            id: 1,
-            name: "G-Kitchen Costar",
-            description: "We provide you the best kitchen service",
-            phone: "5684562680",
-            email: "company@gmail.com",
-            address: "Plot 3, High Sky Building, Pune 415005",
-            categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
-            experience: "6+ Years",
-            rating: 4,
-            reviews: 300,
-            time: "9-11 PM",
-            tools: "All Tools Included",
-            trusted: true,
-            day: "Sunday",
-            status: "Available",
-            image: "/image/OnDemandRecommended.png",
-        },
-        ...Array.from({ length: 6 }).map((_, i) => ({
-            id: i + 2,
-            name: "Home Chef Pro",
-            description: "Premium home cooking services",
-            phone: "9876543210",
-            email: "chef@gmail.com",
-            address: "Baner Road, Pune",
-            categories: ["Cooking", "Meal Prep"],
-            experience: "4+ Years",
-            rating: 5,
-            reviews: 180,
-            time: "10-8 PM",
-            tools: "All Tools Included",
-            trusted: true,
-            day: "Monday",
-            status: "Available",
-            image: "/image/OnDemandRecommended.png",
-        })),
-    ];
+    // const services = [
+    //     {
+    //         id: 1,
+    //         name: "G-Kitchen Costar",
+    //         description: "We provide you the best kitchen service",
+    //         phone: "5684562680",
+    //         email: "company@gmail.com",
+    //         address: "Plot 3, High Sky Building, Pune 415005",
+    //         categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
+    //         experience: "6+ Years",
+    //         rating: 4,
+    //         reviews: 300,
+    //         time: "9-11 PM",
+    //         tools: "All Tools Included",
+    //         trusted: true,
+    //         day: "Sunday",
+    //         status: "Available",
+    //         image: "/image/OnDemandRecommended.png",
+    //     },
+    //     ...Array.from({ length: 6 }).map((_, i) => ({
+    //         id: i + 2,
+    //         name: "Home Chef Pro",
+    //         description: "Premium home cooking services",
+    //         phone: "9876543210",
+    //         email: "chef@gmail.com",
+    //         address: "Baner Road, Pune",
+    //         categories: ["Cooking", "Meal Prep"],
+    //         experience: "4+ Years",
+    //         rating: 5,
+    //         reviews: 180,
+    //         time: "10-8 PM",
+    //         tools: "All Tools Included",
+    //         trusted: true,
+    //         day: "Monday",
+    //         status: "Available",
+    //         image: "/image/OnDemandRecommended.png",
+    //     })),
+    // ];
+
+    const {
+        providers,
+        loading,
+        error,
+        fetchRecommendedProviders,
+    } = useRecommendedProviders();
+
+    useEffect(() => {
+        if (moduleId) {
+            fetchRecommendedProviders(moduleId);
+        }
+    }, [moduleId]);
+    console.log("Received moduleId:", moduleId);
+
+
+
+    useEffect(() => {
+        console.log("Providers from context:", providers);
+    }, [providers]);
+
+
+    const mappedServices = providers.map((service) => ({
+        id: service._id,
+        name: service.storeInfo?.storeName || "Unknown Store",
+        // Provider / Store
+        providerName: service.fullName,
+        storeName: service.storeInfo?.storeName || "Unknown Store",
+
+        // Image priority: logo → cover → placeholder
+        image:
+            service.storeInfo?.logo ||
+            service.storeInfo?.cover ||
+            "/image/placeholder.png",
+
+        // Rating
+        rating: service.averageRating ?? 0,
+        reviews: service.totalReviews ?? 0,
+
+        // Experience
+        experience: service.storeInfo?.totalExperience
+            ? `${service.storeInfo.totalExperience}+ Years`
+            : "N/A",
+
+        // Availability
+        isOpen: service.isStoreOpen,
+
+        // Address
+        address: service.storeInfo?.address || "",
+        location: `${service.storeInfo?.city || ""}, ${service.storeInfo?.state || ""}`,
+
+        // Tags (chips / badges)
+        tags: service.storeInfo?.tags || [],
+    }));
+
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
 
     return (
         <div className="relative w-full mt-6  lg:mt-2">
@@ -73,8 +147,8 @@ export default function RecommendedProvider() {
             >
                 {/* CARD WRAPPER */}
                 <div className="flex gap-6 min-w-max p-2 lg:p-12">
-                    
-                    {services.map((item) => (
+
+                    {mappedServices.map((item) => (
                         <div
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
@@ -103,12 +177,12 @@ export default function RecommendedProvider() {
                                             <FaMapMarkerAlt className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 inline mr-1" /> {item.address}
                                         </p>
                                     </div>
-                                   <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
+                                    <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
                                 </div>
                             </div>
 
                             {/* STATUS */}
-                           <div className="flex mb-1 mt-2 lg:mt-6">
+                            <div className="flex mb-1 mt-2 lg:mt-6">
                                 <span className="ml-auto bg-green-500 text-white text-[10px] lg:text-[12px] px-3 py-1 rounded-full">
                                     {item.status}
                                 </span>
@@ -154,8 +228,8 @@ export default function RecommendedProvider() {
                                 </div>
                             </div>
 
-                           
-                           {/* ABOUT MOBILE VERSION */}
+
+                            {/* ABOUT MOBILE VERSION */}
                             <div className="block md:hidden mt-4">
                                 <h4 className="text-[10px]  font-medium mb-3">
                                     About Service

@@ -31,7 +31,7 @@ export default function Categories() {
         {categories.map((item) => (
           <Link
             key={item._id}
-            href={`/MainModules/Franchise/${moduleId}/category/${item._id}`}
+            href={`/MainModules/Franchise/${moduleId}/category`}
           >
             <div
               className="
