@@ -2276,7 +2276,7 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
                 </div> */}
 
                 <SearchBudget />
-                <Recommended moduleId={moduleId}/>
+                {/* <Recommended/> */}
                 <MostPopular />
                 <WhyChooseUs />
             </div>
