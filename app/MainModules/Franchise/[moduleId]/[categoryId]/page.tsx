@@ -1821,15 +1821,13 @@
 
 
 
-
 'use client'
+
 
 import { useRef, useState,useEffect } from "react";
 import Image from "next/image";
 import SearchBudget from "@/src/components/FranchiseCategories/SearchBudget";
-import Recommended from "@/src/components/Franchise/recommendFranchise";
-
-// import RecommendedSection from "@/src/components/FranchiseCategories/Recommended";
+import Recommended from "@/src/components/FranchiseCategories/Recommended"
 import MostPopular from "@/src/components/FranchiseCategories/MostPopular";
 import WhyChooseUs from "@/src/components/FranchiseCategories/WhyChooseUs";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -1901,13 +1899,20 @@ const useHorizontalDrag = <T extends HTMLElement>() => {
 
 export default function FranchiseSubCategoryServicePage() {
 
-    const { moduleId,categoryId } = useParams();
+   const { moduleId, categoryId } = useParams<{
+  moduleId: string;
+  categoryId: string;
+}>();
+
+
+
+  console.log("Category ID IN CLIENT:", categoryId);
+
+    // const { moduleId} = useParams();
       console.log(moduleId, categoryId);
 
 
-const {
-  categories,
-} = useModule();
+
 
 const {
   subCategories,
@@ -1971,14 +1976,14 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
       setCurrentCategory(subCategories[0].category);
     }
   }
-}, [subCategories, categoryId]);
+}, [subCategories]);
 
 
  useEffect(() => {
   if (categoryId) {
-    fetchSubCategories(categoryId as string);
+    fetchSubCategories(categoryId);
   }
-}, [categoryId]);
+}, []);
 
 
 
@@ -2276,8 +2281,9 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
                 </div> */}
 
                 <SearchBudget />
-                {/* <Recommended/> */}
-                <MostPopular />
+                <Recommended categoryId={categoryId} moduleId={moduleId} />
+
+                <MostPopular categoryId={categoryId} />
                 <WhyChooseUs />
             </div>
         </section>
