@@ -9,32 +9,32 @@ import {
     Palette,
 } from "lucide-react";
 
-const BENEFITS = [
-    {
-        icon: CheckCircle,
-        text: "Strong Brand Identity",
-    },
-    {
-        icon: Sparkles,
-        text: "Stand Out from Competitors",
-    },
-    {
-        icon: Eye,
-        text: "Professional & Trustworthy Look",
-    },
-    {
-        icon: Smartphone,
-        text: "Works on All Platforms",
-    },
-    {
-        icon: Zap,
-        text: "Quick Recognition",
-    },
-    {
-        icon: Palette,
-        text: "Consistent Branding",
-    },
-];
+// const BENEFITS = [
+//     {
+//         icon: CheckCircle,
+//         text: "Strong Brand Identity",
+//     },
+//     {
+//         icon: Sparkles,
+//         text: "Stand Out from Competitors",
+//     },
+//     {
+//         icon: Eye,
+//         text: "Professional & Trustworthy Look",
+//     },
+//     {
+//         icon: Smartphone,
+//         text: "Works on All Platforms",
+//     },
+//     {
+//         icon: Zap,
+//         text: "Quick Recognition",
+//     },
+//     {
+//         icon: Palette,
+//         text: "Consistent Branding",
+//     },
+// ];
 
 type BenefitProps = {
     benefits: string[];
