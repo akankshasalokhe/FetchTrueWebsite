@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import BusinessCard from "../ui/BusinessCard";
 import { useMostPopular } from "@/src/context/MostPopularContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 
 interface Props {
   moduleId: string;
@@ -12,6 +13,9 @@ interface Props {
 
 export default function HighDemand({ moduleId }: Props) {
   const { services, loading, fetchMostPopular } = useMostPopular();
+  const { fetchServiceDetails,service } = useServiceDetails();
+  
+      const [roiMap, setRoiMap ] = useState<Record<string,string>>({});
 
   const { categoryId } = useParams<{
         moduleId: string;
@@ -23,6 +27,32 @@ export default function HighDemand({ moduleId }: Props) {
       fetchMostPopular(moduleId);
     }
   }, [moduleId]);
+
+   useEffect(() => {
+    const fetchAllROIs = async () => {
+      const map: Record<string, string> = {};
+
+      for (const s of services) {
+        try {
+          const res = await fetch(
+            `https://api.fetchtrue.com/api/service/${s.serviceId}`
+          );
+          const json = await res.json();
+
+          map[s.serviceId] =
+            json?.data?.serviceDetails?.roi?.[0] || "—";
+        } catch {
+          map[s.serviceId] = "—";
+        }
+      }
+
+      setRoiMap(map);
+    };
+
+    if (services.length) {
+      fetchAllROIs();
+    }
+  }, [services]);
 
   const createSlug = (text: string) =>
     text.toLowerCase().replace(/\s+/g, "-");
@@ -85,19 +115,17 @@ export default function HighDemand({ moduleId }: Props) {
                 service.franchiseDetails?.monthlyEarnPotential?.[0]?.range ||
                 "—";
 
-              const roi =
-                service.franchiseDetails?.commission || "—";
+             const roi = roiMap[service.serviceId || "-"]
 
               return (
-                                            <Link key={service.serviceId}   href={`/MainModules/Business/${moduleId}/${categoryId}/${service.serviceId}`}>
+                <Link key={service.serviceId}   href={`/MainModules/Business/${moduleId}/${categoryId}/${service.serviceId}`}>
 
                 <BusinessCard
                 //   key={service.serviceId}
-                  image={
-                    service.thumbnailImage}
+                  image={service.thumbnailImage}
                   title={service.serviceName}
                   category={service.category?.name || ""}
-                  earnPercent={Number(roi.replace("%", "")) || 0}
+                  earnPercent={service.franchiseDetails.commission}
                   investment={investment}
                   earnings={earnings}
                   roi={roi}

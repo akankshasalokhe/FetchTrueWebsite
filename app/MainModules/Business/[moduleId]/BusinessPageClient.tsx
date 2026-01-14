@@ -1032,6 +1032,7 @@
 import Category from "@/src/components/Business/Category";
 import HighDemand from "@/src/components/Business/HighDemand";
 import Recommended from "@/src/components/Business/Recommended";
+import TopRated from "@/src/components/Business/TopRated";
 import BusinessCard from "@/src/components/ui/BusinessCard";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -1292,64 +1293,7 @@ export default function BusinessPageClient() {
 
 <HighDemand moduleId={moduleId}/>
 
-<section className="w-full lg:py-10 bg-white">
-  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
-
-    {/* TITLE – LEFT */}
-    <div className="min-w-[220px] flex flex-col justify-center items-start">
-      <h2 className="text-[28px] lg:text-[34px] font-medium text-[#1D4699] leading-tight">
-        Top
-        <br />
-        <span className="text-[46px] font-semibold">RATED</span>
-      </h2>
-    </div>
-
-    {/* SCROLL AREA – RIGHT */}
-    <div
-      className="
-        relative
-        flex
-        gap-6
-        bg-[#D9DDE6]
-        pt-10 lg:pt-16
-        pb-12 lg:pb-20
-        ps-4 lg:ps-16
-        overflow-x-auto
-        scrollbar-hide
-        scroll-smooth
-        rounded-bl-[36px]
-        w-full
-      "
-    >
-      {/* FADED BACK TEXT */}
-      <h2
-        className="
-          hidden lg:block
-          absolute
-          top-100
-          left-70
-          -translate-x-1/2
-          text-[64px]
-          font-semibold
-          text-[#1D4699]
-          opacity-5
-          pointer-events-none
-          whitespace-nowrap
-        "
-      >
-        TOP RATED
-      </h2>
-
-      {/* CARDS */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
-  {recommendedData.map((item, index) => (
-    <BusinessCard key={index} {...item} />
-  ))}
-</div>
-    </div>
-
-  </div>
-</section>
+<TopRated moduleId={moduleId}/>
 
 <section className="w-full py-20 bg-white">
   <div className="max-w-[1200px] mx-auto px-4">

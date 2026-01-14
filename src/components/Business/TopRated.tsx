@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 import BusinessCard from "../ui/BusinessCard";
-import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import { useTopTrending } from "@/src/context/TopTrendingContext";
 
 interface Props {
   moduleId: string;
 }
 
-export default function Recommended({ moduleId }: Props) {
-  const { services, loading, fetchRecommendedServices } =
-    useRecommendedServices();
+export default function TopRated({ moduleId }: Props) {
+  const { services, loading, fetchTopTrending } =
+    useTopTrending();
 
     const { fetchServiceDetails,service } = useServiceDetails();
 
@@ -26,7 +26,7 @@ export default function Recommended({ moduleId }: Props) {
 
   useEffect(() => {
     if (moduleId) {
-      fetchRecommendedServices(moduleId);
+      fetchTopTrending(moduleId);
     }
   }, [moduleId]);
 
@@ -56,43 +56,64 @@ export default function Recommended({ moduleId }: Props) {
     }
   }, [services]);
 
+  
+
   const createSlug = (text: string) =>
     text.toLowerCase().replace(/\s+/g, "-");
 
   if (loading) return null;
 
   return (
-    <section className="w-full py-15 bg-white">
-      <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
+    <section className="w-full lg:py-10 bg-white">
+  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
 
-        {/* LEFT TITLE */}
-        <div className="min-w-[220px] flex flex-col items-start lg:pt-6 justify-center lg:justify-start">
-          <h2 className="text-[28px] lg:text-[34px] font-semibold text-[#1D4699] leading-tight text-center lg:text-left lg:ms-8">
-            Recommended
-            <br className="hidden lg:block" />
-            For You
-          </h2>
-          <h2 className="hidden lg:block text-[28px] lg:text-[51px] font-semibold text-[#1D4699] leading-tight text-center lg:text-left lg:ms-8 opacity-5">
-            Recommended
-            <br />
-            For You
-          </h2>
-        </div>
+    {/* TITLE – LEFT */}
+    <div className="min-w-[220px] flex flex-col justify-center items-start">
+      <h2 className="text-[28px] lg:text-[34px] font-medium text-[#1D4699] leading-tight">
+        Top
+        <br />
+        <span className="text-[46px] font-semibold">RATED</span>
+      </h2>
+    </div>
 
-        {/* SCROLL AREA */}
-        <div
-          className="
-            bg-[#D9DDE6]
-            pt-8 lg:pt-20
-            pb-8 lg:pb-18
-            ps-4 lg:ps-16
-            overflow-x-auto
-            scrollbar-hide
-            scroll-smooth
-            rounded-tl-[36px]
-          "
-        >
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+    {/* SCROLL AREA – RIGHT */}
+    <div
+      className="
+        relative
+        flex
+        gap-6
+        bg-[#D9DDE6]
+        pt-10 lg:pt-16
+        pb-12 lg:pb-20
+        ps-4 lg:ps-16
+        overflow-x-auto
+        scrollbar-hide
+        scroll-smooth
+        rounded-bl-[36px]
+        w-full
+      "
+    >
+      {/* FADED BACK TEXT */}
+      <h2
+        className="
+          hidden lg:block
+          absolute
+          top-100
+          left-70
+          -translate-x-1/2
+          text-[64px]
+          font-semibold
+          text-[#1D4699]
+          opacity-5
+          pointer-events-none
+          whitespace-nowrap
+        "
+      >
+        TOP RATED
+      </h2>
+
+      {/* CARDS */}
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
             {services.map((service) => {
               const investment =
                 service.franchiseDetails?.investmentRange?.[0]?.range || "—";
@@ -130,8 +151,9 @@ export default function Recommended({ moduleId }: Props) {
               );
             })}
           </div>
-        </div>
-      </div>
-    </section>
+    </div>
+
+  </div>
+</section>
   );
 }

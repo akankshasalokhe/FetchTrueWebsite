@@ -24,8 +24,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
   roi,
   rating,
   trusted = true,
-  slug,
-  detailslug
+  
 }) => {
   return (
 
@@ -76,7 +75,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
             --EARN UP TO--
             <br />
             <span className="text-[#2CB140] text-[14px] font-extrabold">
-              ₹{earnPercent}%
+              ₹ {earnPercent} 
             </span>
           </p>
         </div>
