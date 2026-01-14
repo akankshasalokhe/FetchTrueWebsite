@@ -94,10 +94,7 @@ export default function HighDemand({ moduleId }: Props) {
                 <BusinessCard
                 //   key={service.serviceId}
                   image={
-                    service.thumbnailImage ||
-                    service.category?.image ||
-                    "/image/placeholder.png"
-                  }
+                    service.thumbnailImage}
                   title={service.serviceName}
                   category={service.category?.name || ""}
                   earnPercent={Number(roi.replace("%", "")) || 0}
