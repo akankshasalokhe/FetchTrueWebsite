@@ -7,7 +7,7 @@
 // // export default function RecommendedProvider() {
 
 // type SectionProps = {
-//     moduleId: string,
+//     // moduleId: string,
 //     selectedRange?: string;
 //     selectedCategory?: string;
 //     searchQuery?: string;
@@ -17,51 +17,51 @@
 
 
 
-// export default function RecommendedProvider({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
+// export default function RecommendedProvider({ selectedRange, selectedCategory, searchQuery = "", contextTitle,  }: SectionProps) {
 //     console.log("✅ RecommendedProvidersProvider mounted");
 //     const scrollRef = useRef<HTMLDivElement | null>(null);
 //     const [isDown, setIsDown] = useState(false);
 //     const [startX, setStartX] = useState(0);
 //     const [scrollLeft, setScrollLeft] = useState(0);
 
-//     // const services = [
-//     //     {
-//     //         id: 1,
-//     //         name: "G-Kitchen Costar",
-//     //         description: "We provide you the best kitchen service",
-//     //         phone: "5684562680",
-//     //         email: "company@gmail.com",
-//     //         address: "Plot 3, High Sky Building, Pune 415005",
-//     //         categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
-//     //         experience: "6+ Years",
-//     //         rating: 4,
-//     //         reviews: 300,
-//     //         time: "9-11 PM",
-//     //         tools: "All Tools Included",
-//     //         trusted: true,
-//     //         day: "Sunday",
-//     //         status: "Available",
-//     //         image: "/image/OnDemandRecommended.png",
-//     //     },
-//     //     ...Array.from({ length: 6 }).map((_, i) => ({
-//     //         id: i + 2,
-//     //         name: "Home Chef Pro",
-//     //         description: "Premium home cooking services",
-//     //         phone: "9876543210",
-//     //         email: "chef@gmail.com",
-//     //         address: "Baner Road, Pune",
-//     //         categories: ["Cooking", "Meal Prep"],
-//     //         experience: "4+ Years",
-//     //         rating: 5,
-//     //         reviews: 180,
-//     //         time: "10-8 PM",
-//     //         tools: "All Tools Included",
-//     //         trusted: true,
-//     //         day: "Monday",
-//     //         status: "Available",
-//     //         image: "/image/OnDemandRecommended.png",
-//     //     })),
-//     // ];
+//     const services = [
+//         {
+//             id: 1,
+//             name: "G-Kitchen Costar",
+//             description: "We provide you the best kitchen service",
+//             phone: "5684562680",
+//             email: "company@gmail.com",
+//             address: "Plot 3, High Sky Building, Pune 415005",
+//             categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
+//             experience: "6+ Years",
+//             rating: 4,
+//             reviews: 300,
+//             time: "9-11 PM",
+//             tools: "All Tools Included",
+//             trusted: true,
+//             day: "Sunday",
+//             status: "Available",
+//             image: "/image/OnDemandRecommended.png",
+//         },
+//         ...Array.from({ length: 6 }).map((_, i) => ({
+//             id: i + 2,
+//             name: "Home Chef Pro",
+//             description: "Premium home cooking services",
+//             phone: "9876543210",
+//             email: "chef@gmail.com",
+//             address: "Baner Road, Pune",
+//             categories: ["Cooking", "Meal Prep"],
+//             experience: "4+ Years",
+//             rating: 5,
+//             reviews: 180,
+//             time: "10-8 PM",
+//             tools: "All Tools Included",
+//             trusted: true,
+//             day: "Monday",
+//             status: "Available",
+//             image: "/image/OnDemandRecommended.png",
+//         })),
+//     ];
 
 //     const {
 //         providers,
