@@ -3,15 +3,22 @@ import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useModule } from "@/src/context/CategoriesContext";
 import Link from "next/link";
+import {  useSubCategory } from "@/src/context/SubCategoriesContext";
+
 
 export default function Categories() {
-  const { moduleId } = useParams<{ moduleId: string }>();
   const { categories, fetchCategoriesByModule, loading, error } = useModule();
+const { moduleId } = useParams<{ moduleId: string }>();
 
-  useEffect(() => {
-    if (!moduleId) return;
-    fetchCategoriesByModule(moduleId);
-  }, [moduleId]);
+
+
+ useEffect(() => {
+  if (!moduleId) return;
+  fetchCategoriesByModule(moduleId);
+}, [moduleId]);
+
+
+
 
   if (loading) return <p>Loading categories...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -31,7 +38,7 @@ export default function Categories() {
         {categories.map((item) => (
           <Link
             key={item._id}
-            href={`/MainModules/Franchise/${moduleId}/category`}
+            href={`/MainModules/Franchise/${moduleId}/${item._id}`}
           >
             <div
               className="

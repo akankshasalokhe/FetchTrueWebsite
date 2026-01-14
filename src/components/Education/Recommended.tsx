@@ -699,18 +699,17 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/Education/ServiceDetails`)
+                                router.push(`/MainModules/Education/ServiceDetails/${item.id}`)
                             }
                             className="
                                 relative snap-center flex-shrink-0
                                 w-[290px] min-h-[271px]
                                 sm:w-[70vw] h-[330px]
                                 md:w-[331px] md:h-[382px] lg:h-[349px] lg:w-[352px]
-                                overflow-hidden 
+                                overflow-hidden cursor-pointer
                                 "
                         >
-                            {/* SVG BACKGROUND */}
-                            {/* <CardBg /> */}
+                           
 
                             {/* CONTENT */}
                             <div className="relative z-10 lg:h-[349px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">

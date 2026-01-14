@@ -16,7 +16,7 @@ import { useBannerCategorySelection } from "@/src/context/BannerContext"
 export default function EducationModulePage() {
 
     const BannerData = [
-        { label: "Image 1", path: "/image/Educationbanner.png" },
+        { label: "Image 1", path: "https://ik.imagekit.io/hzyuadmua/banner_5df0d4de-7eb4-4670-ad82-25f3dcea54bb_ZZHxuFnByG" },
         { label: "Image 2", path: "/image/Educationbanner.png" },
         { label: "Image 3", path: "/image/Educationbanner.png" },
         { label: "Image 4", path: "/image/Educationbanner.png" },
@@ -24,12 +24,8 @@ export default function EducationModulePage() {
 
     const sliderRef = useRef<HTMLDivElement>(null);
     const [searchQuery, setSearchQuery] = useState("");
-    const {
-        categories, loading, error, fetchCategoriesByModule
-    } = useModule();
-  const {
-        data, fetchBannerCategorySelections,
-    } =  useBannerCategorySelection();
+    const { categories, loading, error, fetchCategoriesByModule } = useModule();
+    const { data, fetchBannerCategorySelections} = useBannerCategorySelection();
 
 
 
@@ -295,13 +291,14 @@ export default function EducationModulePage() {
                                 gap-10
                                 rounded-lg
                                 "
-                              >
+                >
 
                     {categories.map((item, index) => (
                         <div
                             key={index}
                             onClick={() =>
-                                router.push(`/MainModules/Education/${moduleId}/${toSlug(item.name)}`)
+                                // router.push(`/MainModules/Education/${moduleId}/${toSlug(item.name)}`)
+                                router.push(`/MainModules/Education/${moduleId}/${item._id}`)
                             }
                             className="flex flex-col items-center p-3 bg-white rounded-lg"
                         >
