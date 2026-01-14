@@ -21,12 +21,22 @@ interface Counter {
   title: string;
 }
 
+interface CourseCurriculum {
+  _id: string;
+  title: string;
+  lists: string[];
+  model: string[];
+}
+
+
 interface ServiceDetails {
   benefits: string[];
   aboutUs: string[];
   termsAndConditions: string[];
-  assuredByFetchTrue: ImageTitleDescription[];
+  whatYouWillLearn: string[];
+  eligibleFor: string[];
   whyChooseUs: ImageTitleDescription[];
+  courseCurriculum: CourseCurriculum[];
   weRequired: {
     _id: string;
     title: string;
@@ -116,8 +126,11 @@ export const ServiceDetailsProvider = ({
       );
 
       setService(res.data.data);
-    } catch (err: any) {
-      setError(err?.response?.data?.message || "Failed to fetch service details");
+    } catch (err: unknown) {
+      if(err instanceof Error)
+      setError(err.message || "Failed to fetch service details");
+    else 
+      setError("Failed to fetch service details");
     } finally {
       setLoading(false);
     }

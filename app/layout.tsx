@@ -7,6 +7,9 @@ import { HomeMostPopularProvider } from "@/src/context/HomeMostPopularContext";
 import { CategoriesProvider } from "@/src/context/CategoriesContext";
 import { RecommendedServicesProvider } from "@/src/context/RecommendedContext";
 import { MostPopularProvider } from "@/src/context/MostPopularContext";
+import { TopTrendingProvider } from "@/src/context/TopTrendingContext";
+import { RecommendedProvidersProvider } from "@/src/context/RecommendedProviderContext"
+import { BannerCategorySelectionProvider } from "@/src/context/BannerContext"
 import { SubCategoryProvider } from "@/src/context/SubCategoriesContext";
 import { ServiceDetailsProvider } from "@/src/context/ServiceDetailsContext";
 import { RecommendedServiceByCategoryIdProvider } from "@/src/context/RecommendedServiceByCategoryIdContext";
@@ -23,25 +26,39 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <ModuleProvider>
           <CategoriesProvider>
-          <HomeRecommendedProvider>
-            <HomeMostPopularProvider>
-              <RecommendedServicesProvider>
-                <MostPopularProvider>
-                  <SubCategoryProvider>
-                    <ServiceDetailsProvider>
-                      <RecommendedServiceByCategoryIdProvider>
-                        <MostPopularServiceByCategoryProvider>
-          {/* <Navbar /> */}
-          <main>{children}</main>
-          </MostPopularServiceByCategoryProvider>
-          </RecommendedServiceByCategoryIdProvider>
-          <Footer />
-          </ServiceDetailsProvider>
-          </SubCategoryProvider>
-          </MostPopularProvider>
-          </RecommendedServicesProvider>
-          </HomeMostPopularProvider>
-          </HomeRecommendedProvider>
+            <HomeRecommendedProvider>
+              <HomeMostPopularProvider>
+                <RecommendedServicesProvider>
+                  <MostPopularProvider>
+                    <TopTrendingProvider>
+                      <RecommendedProvidersProvider>
+                        <BannerCategorySelectionProvider>
+                          <SubCategoryProvider>
+                            <ServiceDetailsProvider>
+                              <RecommendedServiceByCategoryIdProvider>
+                                <MostPopularServiceByCategoryProvider>
+                                  {/* <Navbar /> */}
+                                  <main>{children}</main>
+
+                                  <Footer />
+                                </MostPopularServiceByCategoryProvider>
+                              </RecommendedServiceByCategoryIdProvider>
+                            </ServiceDetailsProvider>
+                          </SubCategoryProvider>
+                        </BannerCategorySelectionProvider>
+                      </RecommendedProvidersProvider>
+                    </TopTrendingProvider>
+                  </MostPopularProvider>
+                </RecommendedServicesProvider>
+              </HomeMostPopularProvider>
+            </HomeRecommendedProvider>
+
+
+
+
+            <Footer />
+
+
           </CategoriesProvider>
         </ModuleProvider>
       </body>

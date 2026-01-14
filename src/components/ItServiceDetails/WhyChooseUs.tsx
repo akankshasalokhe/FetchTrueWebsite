@@ -30,7 +30,7 @@ const WhyChooseUs = () => {
             {/* Title */}
       <div className="flex items-start ml-1 md:ml-0 md:justify-center mb-6">
         <h2
-          className="text-white bg-black px-8 py-2 text-[12px] md:text-[32px] font-semibold inline-block"
+          className="text-white bg-black px-8 py-2 text-[12px] md:text-[18px] lg:text-[32px] font-semibold inline-block"
           style={{
             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
           }}
@@ -44,7 +44,7 @@ const WhyChooseUs = () => {
                 {WHY_CHOOSE_US.map((item) => (
                     <div
                         key={item.id}
-                        className="bg-white md:w-[542px] md:h-[277px] rounded-2xl md:p-8 p-2 shadow-md flex flex-col items-center text-center"
+                        className="bg-white md:w-[330px] lg:w-[542px] md:h-[200px] lg:h-[277px] rounded-2xl md:p-8 p-2 shadow-md flex flex-col items-center text-center"
                     >
                         {/* ICON */}
                         <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-4">
@@ -52,12 +52,12 @@ const WhyChooseUs = () => {
                         </div>
 
                         {/* TITLE */}
-                        <h3 className="md:text-[24px] text-[12px] font-semibold text-black mb-2">
+                        <h3 className="lg:text-[24px] md:text-[20px] text-[12px] font-semibold text-black mb-2">
                             {item.title}
                         </h3>
 
                         {/* DESCRIPTION */}
-                        <p className="text-gray-500 md:text-[24px] text-[12px] leading-relaxed">
+                        <p className="text-gray-500 lg:text-[24px] md:text-[20px] text-[12px] leading-relaxed">
                             {item.description}
                         </p>
                     </div>

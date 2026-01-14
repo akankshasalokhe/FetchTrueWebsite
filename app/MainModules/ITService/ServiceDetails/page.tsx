@@ -193,7 +193,7 @@ const ServiceDetails = () => {
                     {/* Title */}
                     <div className="flex items-start md:justify-center">
                         <h2
-                            className="text-white bg-black px-6 py-2 text-[12px] md:text-[32px] font-semibold mb-6 inline-block"
+                            className="text-white bg-black px-6 py-2 text-[12px] md:text-[18px] lg:text-[32px] font-semibold mb-6 inline-block"
                             style={{
                                 clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%)"
 
@@ -204,11 +204,11 @@ const ServiceDetails = () => {
                     </div>
 
                     {/* Benefits List */}
-                    <div className="flex flex-col mx-auto md:w-[1320px] md:h-[354px] md:grid md:grid-cols-2 bg-white rounded-xl md:p-12 p-2 gap-y-4 gap-x-2">
+                    <div className="flex flex-col mx-auto md:w-[700px] lg:w-[1320px] lg:h-[354px] md:grid md:grid-cols-2 bg-white rounded-xl md:p-12 p-2 gap-y-4 gap-x-2">
                         {benefits.map((item, index) => (
                             <div key={index} className="flex items-start gap-2">
-                                <img src="/image/checkmark.png" alt="check" className="w-5 h-5  md:w-10 md:h-10 flex-shrink-0" />
-                                <p className="text-black md:text-[24px]">{item}</p>
+                                <img src="/image/checkmark.png" alt="check" className="w-5 h-5 w-8 h-8 lg:w-10 lg:h-10 flex-shrink-0" />
+                                <p className="text-black md:text-[18px] lg:text-[24px]">{item}</p>
                             </div>
                         ))}
                     </div>

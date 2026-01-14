@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Phone, Mail, Share2, ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 const ConnectWith = () => {
   return (
@@ -29,10 +30,12 @@ const ConnectWith = () => {
 
         {/* RIGHT BUTTONS */}
         <div className="flex items-center gap-3 w-full md:w-auto">
-          <button className="flex items-center w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center">
+          <Link href="/MainModules/Checkout">
+          <button className="flex items-center w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center cursor-pointer">
             <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px]" />
             Check out
           </button>
+          </Link>
 
           <button className="flex items-center w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center">
             <Share2 className="w-5 h-5  md:w-[48px] md:h-[48px]" />

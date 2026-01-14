@@ -42,7 +42,7 @@ export default function HowItWorks() {
       {/* TITLE */}
       <div className="flex  items-start px-4 md:justify-center mb-12">
         <h2
-          className="bg-black text-white px-8 py-2 text-[12px] md:text-[32px] font-semibold"
+          className="bg-black text-white px-8 py-2 text-[12px] md:text-[18px] lg:text-[32px] font-semibold"
           style={{
             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
           }}
@@ -52,7 +52,7 @@ export default function HowItWorks() {
       </div>
 
       {/* ================= DESKTOP (UNCHANGED) ================= */}
-      <div className="hidden md:block relative w-[1200px] mx-auto">
+      <div className="hidden md:hidden lg:block relative w-[1200px] mx-auto">
         <div className="flex justify-between">
           <Card step={STEPS[0]} />
           <Card step={STEPS[1]} />
@@ -80,7 +80,7 @@ export default function HowItWorks() {
       </div>
 
       {/* ================= MOBILE (SAME FLOW AS DESKTOP) ================= */}
-      <div className="md:hidden px-2 relative">
+      <div className="lg:hidden px-2 relative">
         {/* ROW 1 */}
         <div className="grid grid-cols-2 gap-8 items-center">
           <MobileCard step={STEPS[0]} />
@@ -146,8 +146,8 @@ function MobileCard({ step }: { step: Step }) {
       <div className="text-[#8C8CFF] text-[20px] font-semibold mb-1">
         {step.id}.
       </div>
-      <h3 className="text-[12px] font-semibold mb-1">{step.title}</h3>
-      <p className="text-gray-600 text-[12px] leading-snug">
+      <h3 className="text-[12px] md:text-[20px] font-semibold mb-1">{step.title}</h3>
+      <p className="text-gray-600 text-[12px] md:text-[15px] leading-snug">
         {step.description}
       </p>
     </div>
