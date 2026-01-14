@@ -36,7 +36,7 @@ interface ServiceDetails {
   whatYouWillLearn: string[];
   eligibleFor: string[];
   whyChooseUs: ImageTitleDescription[];
-  CourseCurriculum: CourseCurriculum[];
+  courseCurriculum: CourseCurriculum[];
   weRequired: {
     _id: string;
     title: string;
