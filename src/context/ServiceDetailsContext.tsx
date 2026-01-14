@@ -112,7 +112,7 @@ export const ServiceDetailsProvider = ({
       setError(null);
 
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/services/${serviceId}`
+        `https://api.fetchtrue.com/api/service/${serviceId}`
       );
 
       setService(res.data.data);
