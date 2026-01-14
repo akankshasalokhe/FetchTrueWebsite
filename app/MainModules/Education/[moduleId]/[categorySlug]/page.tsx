@@ -326,7 +326,7 @@ export default function CategoryPage() {
 
             {/* CONTENT SECTIONS */}
             <section className="w-full mt-6 md:mt-10">
-                <Recommended selectedRange={selectedRange} searchQuery={searchQuery} />
+                {/* <Recommended selectedRange={selectedRange} searchQuery={searchQuery} /> */}
                 <TopPopular selectedRange={selectedRange} searchQuery={searchQuery} />
                 <TopPicks selectedRange={selectedRange} searchQuery={searchQuery} />
             </section>
