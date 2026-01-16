@@ -102,6 +102,8 @@ export default function Recommended({ moduleId }: Props) {
                 "—";
 
               const roi = roiMap[service._id || "-"]
+
+              const earnpercent = service.franchiseDetails?.commission;
                
                 
 
@@ -117,7 +119,7 @@ export default function Recommended({ moduleId }: Props) {
                   }
                   title={service.serviceName}
                   category={service.category?.name || ""}
-                  earnPercent={service.franchiseDetails?.commission}
+                  earnpercent={earnpercent}
                   investment={investment}
                   earnings={earnings}
                   roi={roi}

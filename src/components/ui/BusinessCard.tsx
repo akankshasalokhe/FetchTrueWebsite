@@ -4,7 +4,7 @@ type BusinessCardProps = {
   image: string;
   title: string;
   category: string;
-  earnPercent: number;
+  earnpercent: string;
   investment: string;
   earnings: string;
   roi: string;
@@ -18,7 +18,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
   image,
   title,
   category,
-  earnPercent,
+  earnpercent,
   investment,
   earnings,
   roi,
@@ -75,7 +75,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
             --EARN UP TO--
             <br />
             <span className="text-[#2CB140] text-[14px] font-extrabold">
-              ₹ {earnPercent} 
+              ₹ {earnpercent} 
             </span>
           </p>
         </div>
