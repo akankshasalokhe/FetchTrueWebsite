@@ -1,7 +1,4 @@
 'use client';
-
-
-
 import MostPopularProvider from '@/src/components/OnDemandSubCategories/MostPopularProvider';
 import RecommendedProvider from '@/src/components/OnDemandSubCategories/RecommendedProvider';
 import TopTrending from '@/src/components/OnDemandSubCategories/TopTrending';

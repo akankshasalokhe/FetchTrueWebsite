@@ -21,6 +21,7 @@ interface StoreInfo {
   storeEmail: string;
   module: ModuleInfo;
   zone: string;
+  aboutUs: string;
   logo?: string;
   cover?: string;
   address: string;
@@ -78,35 +79,35 @@ export const RecommendedProvidersProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
- const fetchRecommendedProviders = async (moduleId: string) => {
-  try {
-    setLoading(true);
-    setError(null);
+  const fetchRecommendedProviders = async (moduleId: string) => {
+    try {
+      setLoading(true);
+      setError(null);
 
-    const res = await axios.get(
-      `https://api.fetchtrue.com/api/provider/recommended?moduleId=${moduleId}`
-    );
+      const res = await axios.get(
+        `https://api.fetchtrue.com/api/provider/recommended?moduleId=${moduleId}`
+      );
 
-    console.log("RAW API RESPONSE:", res.data);
+      console.log("RAW API RESPONSE:", res.data);
 
-    //  API returns array directly
-    if (Array.isArray(res.data)) {
-      setProviders(res.data);
-    } else {
-      setError("Unexpected API response format");
-    }
-  } catch (err: unknown) {
-    if(err instanceof Error){
+      //  API returns array directly
+      if (Array.isArray(res.data)) {
+        setProviders(res.data);
+      } else {
+        setError("Unexpected API response format");
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
         setError(err.message)
+      }
+      else {
+        setError("Something went wrong");
+      }
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
     }
-    else{
-     setError("Something went wrong");
-    }
-    console.error("Fetch error:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <RecommendedProvidersContext.Provider

@@ -19,6 +19,7 @@ interface KeyValue {
     key: string;
     value: string;
     icon?: string;
+    _id: string;
 }
 
 interface InvestmentRange {
@@ -71,6 +72,7 @@ export interface PopularService {
     thumbnailImage: string;
     category: Category;
     keyValues?: KeyValue[];
+    price: number;
     serviceDetails?: ServiceDetails;
     franchiseDetails?: FranchiseDetails;
     averageRating: number;

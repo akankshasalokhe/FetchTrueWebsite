@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState,  ReactNode } from "react";
 import axios from "axios";
 
 interface KeyValue {
@@ -50,6 +50,7 @@ export interface Service {
   category: Category;
   thumbnailImage?: string;
   keyValues: KeyValue[];
+  price: number;
   franchiseDetails: FranchiseDetails;
   averageRating: number;
   totalReviews: number;

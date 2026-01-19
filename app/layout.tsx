@@ -14,6 +14,7 @@ import { SubCategoryProvider } from "@/src/context/SubCategoriesContext";
 import { ServiceDetailsProvider } from "@/src/context/ServiceDetailsContext";
 import { RecommendedServiceByCategoryIdProvider } from "@/src/context/RecommendedServiceByCategoryIdContext";
 import { MostPopularServiceByCategoryProvider } from "@/src/context/MostPopularServiceByCategoryIdContext";
+import { TopTrendingServiceByCategoryIdProvider } from "@/src/context/TopTrendingServiceByCategoryIdContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -37,10 +38,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             <ServiceDetailsProvider>
                               <RecommendedServiceByCategoryIdProvider>
                                 <MostPopularServiceByCategoryProvider>
-                                  {/* <Navbar /> */}
-                                  <main>{children}</main>
+                                  <TopTrendingServiceByCategoryIdProvider>
 
-                                  <Footer />
+                                    {/* <Navbar /> */}
+                                    <main>{children}</main>
+
+                                    <Footer />
+                                  </TopTrendingServiceByCategoryIdProvider>
                                 </MostPopularServiceByCategoryProvider>
                               </RecommendedServiceByCategoryIdProvider>
                             </ServiceDetailsProvider>
@@ -56,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 
 
-            <Footer />
+            
 
 
           </CategoriesProvider>

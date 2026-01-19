@@ -19,6 +19,7 @@ interface KeyValue {
   key: string;
   value: string;
   icon?: string;
+  _id: string;
 }
 
 interface InvestmentRange {
@@ -115,9 +116,14 @@ export const MostPopularServiceByCategoryProvider = ({ children }: Props) => {
       } else {
         setError("Failed to fetch most popular services");
       }
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
-    } finally {
+    } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            }
+            else {
+                setError("Failed to fetch Most Popular Services");
+            }
+        } finally {
       setLoading(false);
     }
   };

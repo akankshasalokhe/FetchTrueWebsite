@@ -420,8 +420,9 @@
 import { Bookmark } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, User, PenIcon } from "lucide-react";
+import { User } from "lucide-react";
 import { useMostPopular } from "@/src/context/MostPopularContext"
+
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -602,10 +603,11 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
         image: service.thumbnailImage || "/image/placeholder.png",
         rating: service.averageRating ?? 0,
         reviews: service.totalReviews,
-        // keyValues: service.keyValues?.map((item) => ({
-        //     id: item._id,
-        //     label: item.value,
-        // })) || [],
+        price: service.price || 0,
+        keyValues: service.keyValues?.map((item) => ({
+            id: item._id,
+            label: item.value,
+        })) || [],
 
     }));
 
@@ -703,14 +705,13 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
                             }
                             className="
                                 relative snap-center flex-shrink-0
-                                w-[290px] min-h-[271px]
+                                w-[285px] min-h-[271px]
                                 sm:w-[70vw] h-[330px]
                                 md:w-[331px] md:h-[382px] lg:h-[349px] lg:w-[352px]
                                 overflow-hidden 
                                 "
                         >
-                            {/* SVG BACKGROUND */}
-                            {/* <CardBg /> */}
+                           
 
                             {/* CONTENT */}
                             <div className="relative z-10 lg:h-[349px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
@@ -743,7 +744,7 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
 
                                 {/* CONTENT SECTION */}
                                 {/* <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex-1"> */}
-                                <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex flex-col h-full">
+                                <div className="relative p-2 lg:-mt-4 md:-mt-8 -mt-4 text-black flex flex-col h-full">
 
 
                                     <div className="flex items-center justify-between mb-2 md:mb-6">
@@ -774,28 +775,28 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
 
                                     <div className="flex items-cente mb-2">
                                         <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                            <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
-                                            Create & Practice
-                                            {/* {item.keyValues.map((kv) => (
+                                            {/* <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            Create & Practice */}
+                                            {item.keyValues.map((kv) => (
                                                 <span
                                                     key={kv.id}
                                                     className="text-[11px] text-gray-700 leading-snug"
                                                 >
                                                     {kv.label}
                                                 </span>
-                                            ))} */}
+                                            ))}
                                         </div>
 
-                                        <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                        {/* <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
                                             <Eye className="inline-block w-[12px] h-[12px] flex-shrink-0" />
                                             Design with empathy
-                                        </span>
+                                        </span> */}
                                     </div>
 
 
                                     <div className="space-y-1">
                                         <div>
-                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-1 leading-none">
+                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 ml-2 lg:ml-1 leading-none">
                                                 {/* {"★".repeat(item.rating)}
                                                 {"☆".repeat(5 - item.rating)} */}
                                                 {/* <div className="flex items-center gap-1 mt-4 md:ml-2 lg:ml-2"> */}
@@ -839,7 +840,7 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
 
 
                                             </div>
-                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2 ml-2">
                                                 <User className="inline-block w-[12px] h-[12px] flex-shrink-0" />{item.reviews} reviews
                                             </div>
                                         </div>
@@ -860,8 +861,8 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
                                         "
                                     >
                                         <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
-                                        ₹ 999
-                                        {/* {item.price} */}
+                                        {/* ₹ 999 */}
+                                       ₹ {item?.price}
                                     </div>
                                 </div>
                             </div>

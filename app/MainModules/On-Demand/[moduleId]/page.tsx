@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-// import RecommendedProvider from '@/src/components/OnDemandHomeComponents/RecommendedProvider';
+import RecommendedProvider from '@/src/components/OnDemandHomeComponents/RecommendedProvider';
 import MostPopularProvider from '@/src/components/OnDemandHomeComponents/MostPopularProvider';
 import TopTrending from '@/src/components/OnDemandHomeComponents/TopTrending';
 import WhyChooseUs from '@/src/components/OnDemandHomeComponents/WhyChooseUs';
@@ -449,8 +449,8 @@ export default function OnDemandModulePage() {
 
             {/* ================= OTHER SECTIONS ================= */}
             <section className="relative w-full ">
-                {/* <RecommendedProvider moduleId={moduleId} /> */}
-                <MostPopularProvider />
+                <RecommendedProvider moduleId={moduleId} />
+                <MostPopularProvider moduleId={moduleId} />
                 <TopTrending />
                 <WhyChooseUs />
             </section>

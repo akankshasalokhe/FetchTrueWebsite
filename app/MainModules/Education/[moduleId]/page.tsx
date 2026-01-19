@@ -13,24 +13,51 @@ import { useParams } from 'next/navigation';
 import { useModule } from '@/src/context/CategoriesContext';
 import { useBannerCategorySelection } from "@/src/context/BannerContext"
 
+type BannerCategorySelection = {
+  _id: string;
+  file: string;
+  page: string;
+  selectionType: string;
+  screenCategory: string;
+  module: {
+    _id: string;
+    name: string;
+  };
+  subcategory?: {
+    _id: string;
+    name: string;
+  };
+};
+
+
+
 export default function EducationModulePage() {
 
-    const BannerData = [
-        { label: "Image 1", path: "https://ik.imagekit.io/hzyuadmua/banner_5df0d4de-7eb4-4670-ad82-25f3dcea54bb_ZZHxuFnByG" },
-        { label: "Image 2", path: "/image/Educationbanner.png" },
-        { label: "Image 3", path: "/image/Educationbanner.png" },
-        { label: "Image 4", path: "/image/Educationbanner.png" },
-    ]
+    // const BannerData = [
+    //     { label: "Image 1", path: "https://ik.imagekit.io/hzyuadmua/banner_5df0d4de-7eb4-4670-ad82-25f3dcea54bb_ZZHxuFnByG" },
+    //     { label: "Image 2", path: "/image/Educationbanner.png" },
+    //     { label: "Image 3", path: "/image/Educationbanner.png" },
+    //     { label: "Image 4", path: "/image/Educationbanner.png" },
+    // ]
+  
 
     const sliderRef = useRef<HTMLDivElement>(null);
     const [searchQuery, setSearchQuery] = useState("");
     const { categories, loading, error, fetchCategoriesByModule } = useModule();
-    const { data, fetchBannerCategorySelections} = useBannerCategorySelection();
+    const { data, fetchBannerCategorySelections } = useBannerCategorySelection();
+
+      const BannerData =
+        data?.map((item: BannerCategorySelection, index: number) => ({
+            label: `Image ${index + 1}`,
+            path: item.file, 
+        })) || [];
 
 
 
     const router = useRouter();
     const params = useParams();
+    console.log("ALL PARAMS:", params);
+
     const moduleId = params.moduleId as string;
 
     useEffect(() => {
@@ -188,8 +215,8 @@ export default function EducationModulePage() {
                     <div className="flex items-center justify-between">
                         {/* LEFT */}
                         <div className="flex items-center gap-3 p-8 min-w-0">
-                            <Link href="/MainModules/OnDemand">
-                                <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
+                            <Link href={`/MainModules/Education/${moduleId}`}>
+                                <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0 -ml-2" />
                             </Link>
 
                             <h1 className="text-[16px] font-semibold truncate">
@@ -300,7 +327,7 @@ export default function EducationModulePage() {
                                 // router.push(`/MainModules/Education/${moduleId}/${toSlug(item.name)}`)
                                 router.push(`/MainModules/Education/${moduleId}/${item._id}`)
                             }
-                            className="flex flex-col items-center p-3 bg-white rounded-lg"
+                            className="flex flex-col items-center p-3 bg-white rounded-lg cursor-pointer"
                         >
                             <img
                                 src={item.image}

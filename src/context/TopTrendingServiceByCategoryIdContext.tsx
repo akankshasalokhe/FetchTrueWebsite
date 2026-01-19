@@ -276,114 +276,114 @@
 
 
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import axios from "axios";
 
 interface KeyValue {
-  key: string;
-  value: string;
-  icon?: string;
-  _id: string;
+    key: string;
+    value: string;
+    icon?: string;
+    _id: string;
 }
 
 interface FranchiseModel {
-  title: string;
-  agreement: string;
-  price: number;
-  discount?: number;
-  gst: number;
-  fees: number;
-  _id: string;
+    title: string;
+    agreement: string;
+    price: number;
+    discount?: number;
+    gst: number;
+    fees: number;
+    _id: string;
 }
 
 interface InvestmentRange {
-  range: string;
-  parameters: string;
-  _id: string;
+    range: string;
+    parameters: string;
+    _id: string;
 }
 
 interface MonthlyEarnPotential {
-  range: string;
-  parameters: string;
-  _id: string;
+    range: string;
+    parameters: string;
+    _id: string;
 }
 
 interface FranchiseDetails {
-  commission: string;
-  investmentRange: InvestmentRange[];
-  monthlyEarnPotential: MonthlyEarnPotential[];
-  franchiseModel: FranchiseModel[];
+    commission: string;
+    investmentRange: InvestmentRange[];
+    monthlyEarnPotential: MonthlyEarnPotential[];
+    franchiseModel: FranchiseModel[];
 }
 
 interface Category {
-  _id: string;
-  name: string;
-  image: string;
+    _id: string;
+    name: string;
+    image: string;
 }
 
 export interface Service {
-  _id: string;
-  serviceName: string;
-  category: Category;
-  thumbnailImage?: string;
-  keyValues: KeyValue[];
-  franchiseDetails: FranchiseDetails;
-  averageRating: number;
-  totalReviews: number;
-  price?: number;
-  recommendedServices: boolean;
+    _id: string;
+    serviceName: string;
+    category: Category;
+    thumbnailImage?: string;
+    keyValues: KeyValue[];
+    franchiseDetails: FranchiseDetails;
+    averageRating: number;
+    totalReviews: number;
+    price?: number;
+    recommendedServices: boolean;
 }
 
-interface RecommendedServiceByCategoryIdContextType {
-  services: Service[];
-  loading: boolean;
-  error: string | null;
-  fetchRecommendedServicesByCategoryId: (categoryId: string) => Promise<void>;
+interface TopTrendingServiceByCategoryIdContextType {
+    services: Service[];
+    loading: boolean;
+    error: string | null;
+    fetchTopTrendingServicesByCategoryId: (categoryId: string) => Promise<void>;
 }
 
-const RecommendedServicesByCategoryIdContext = createContext<RecommendedServiceByCategoryIdContextType | undefined>(undefined);
+const TopTrendingServiceByCategoryIdContext = createContext<TopTrendingServiceByCategoryIdContextType | undefined>(undefined);
 
-export const useRecommendedServiceByCategoryIdContext = () => {
-  const context = useContext(RecommendedServicesByCategoryIdContext);
-  if (!context) throw new Error("useRecommendedServiceByCategoryIdContext must be used within RecommendedServicesProvider");
-  return context;
+export const useTopTrendingServiceByCategoryIdContext = () => {
+    const context = useContext(TopTrendingServiceByCategoryIdContext);
+    if (!context) throw new Error("useTopTrendingServiceByCategoryIdContext must be used within TopTrendingServiceByCategoryIdProvider");
+    return context;
 };
 
 interface Props {
-  children: ReactNode;
+    children: ReactNode;
 }
 
-export const RecommendedServiceByCategoryIdProvider = ({ children }: Props) => {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+export const TopTrendingServiceByCategoryIdProvider = ({ children }: Props) => {
+    const [services, setServices] = useState<Service[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
-  const fetchRecommendedServicesByCategoryId = async (categoryId: string) => {
-    try {
-      setLoading(true);
-      setError(null);
+    const fetchTopTrendingServicesByCategoryId = async (categoryId: string) => {
+        try {
+            setLoading(true);
+            setError(null);
 
-      const response = await axios.get(`https://api.fetchtrue.com/api/service/recommended?categoryId=${categoryId}`);
-      if (response.data.success) {
-        setServices(response.data.data);
-      } else {
-        setError("Failed to fetch recommended services");
-      }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      }
-      else {
-        setError("Failed to fetch Recommended Services");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+            const response = await axios.get(`https://api.fetchtrue.com/api/service/top-trending?categoryId=${categoryId}`);
+            if (response.data.success) {
+                setServices(response.data.data);
+            } else {
+                setError("Failed to fetch recommended services");
+            }
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            }
+            else {
+                setError("Failed to fetch Top Trending Services");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return (
-    <RecommendedServicesByCategoryIdContext.Provider value={{ services, loading, error, fetchRecommendedServicesByCategoryId }}>
-      {children}
-    </RecommendedServicesByCategoryIdContext.Provider>
-  );
+    return (
+        <TopTrendingServiceByCategoryIdContext.Provider value={{ services, loading, error, fetchTopTrendingServicesByCategoryId }}>
+            {children}
+        </TopTrendingServiceByCategoryIdContext.Provider>
+    );
 };
