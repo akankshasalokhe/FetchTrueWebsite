@@ -4,7 +4,8 @@ import RecommendedProvider from '@/src/components/OnDemandSubCategories/Recommen
 import TopTrending from '@/src/components/OnDemandSubCategories/TopTrending';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useState, use } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 type BudgetOption =
     | 'All'
@@ -23,27 +24,22 @@ const budgets: BudgetOption[] = [
     '5k-6k',
 ];
 
-type Props = {
-    params: Promise<{
-        slug: string;
-    }>;
-};
 
-export default function BudgetFilter({ params }: Props) {
+export default function BudgetFilter() {
 
-    const { slug } = use(params);
     const [activeBudget, setActiveBudget] = useState<BudgetOption>('All');
     const [nearMe, setNearMe] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState("");
 
-    const formatSlugToTitle = (slug: string) => {
-        const decodedSlug = decodeURIComponent(slug);
-
-        return decodedSlug
-            .split("-")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    };
+   const params = useParams();
+       const searchParams = useSearchParams();
+   
+   
+       const moduleId = params.moduleId as string;
+       const categoryId = params.categoryId as string;
+   
+   
+     const categoryName = searchParams.get("categoryName");
 
     return (
         <>
@@ -72,7 +68,7 @@ export default function BudgetFilter({ params }: Props) {
 
 
                             <h1 className="text-[16px] lg:text-[24px] font-semibold text-[#000000] whitespace-nowrap">
-                                {formatSlugToTitle(slug)}
+                               {categoryName}
                             </h1>
                         </div>
 
@@ -106,7 +102,7 @@ export default function BudgetFilter({ params }: Props) {
                                 </Link>
 
                                 <h1 className="text-[16px] font-semibold truncate">
-                                    {formatSlugToTitle(slug)}
+                                    {categoryName}
                                 </h1>
                             </div>
 
@@ -215,9 +211,9 @@ export default function BudgetFilter({ params }: Props) {
             </div>
 
             <section className="w-full md:p-6 lg:p-0 mt-2 md:mt-2">
-                <RecommendedProvider />
+                <RecommendedProvider  categoryId={categoryId} moduleId={moduleId}/>
                 <MostPopularProvider />
-                <TopTrending />
+                <TopTrending categoryId={categoryId} moduleId={moduleId}/>
             </section>
         </>
     );

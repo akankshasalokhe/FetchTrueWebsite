@@ -15,6 +15,10 @@ import { ServiceDetailsProvider } from "@/src/context/ServiceDetailsContext";
 import { RecommendedServiceByCategoryIdProvider } from "@/src/context/RecommendedServiceByCategoryIdContext";
 import { MostPopularServiceByCategoryProvider } from "@/src/context/MostPopularServiceByCategoryIdContext";
 import { TopTrendingServiceByCategoryIdProvider } from "@/src/context/TopTrendingServiceByCategoryIdContext";
+import { PopularProvidersProvider } from "@/src/context/PopularProviderContext";
+import { TrendingProvidersProvider } from "@/src/context/TrendingProviderContext";
+import { RecommendedCategoryProvidersProvider } from "@/src/context/RecommendedCategoryProviderContext";
+import { TrendingCategoryProvider } from "@/src/context/TrendingCategoryProviderContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -39,11 +43,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                               <RecommendedServiceByCategoryIdProvider>
                                 <MostPopularServiceByCategoryProvider>
                                   <TopTrendingServiceByCategoryIdProvider>
+                                    <PopularProvidersProvider>
+                                      <TrendingProvidersProvider>
+                                        <RecommendedCategoryProvidersProvider>
+                                          <TrendingCategoryProvider>
 
-                                    {/* <Navbar /> */}
-                                    <main>{children}</main>
+                                            {/* <Navbar /> */}
+                                            <main>{children}</main>
 
-                                    <Footer />
+                                            <Footer />
+                                          </TrendingCategoryProvider>
+                                        </RecommendedCategoryProvidersProvider>
+                                      </TrendingProvidersProvider>
+                                    </PopularProvidersProvider>
                                   </TopTrendingServiceByCategoryIdProvider>
                                 </MostPopularServiceByCategoryProvider>
                               </RecommendedServiceByCategoryIdProvider>
@@ -60,7 +72,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 
 
-            
 
 
           </CategoriesProvider>

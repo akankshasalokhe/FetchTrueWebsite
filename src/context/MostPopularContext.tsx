@@ -51,12 +51,26 @@ interface FranchiseDetails {
   franchiseModel: FranchiseModel[];
 }
 
+interface Package {
+  _id: string;
+  name: string;
+  price: number;
+  discount: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+}
+
+interface ServiceDetails {
+  packages: Package[];
+}
+
 export interface PopularService {
   serviceId: string;
   serviceName: string;
   thumbnailImage: string;
   price: number;
   category: Category;
+  serviceDetails: ServiceDetails;
   keyValues: KeyValue[];
   totalReviews: number;
   packages?: any[];
@@ -116,14 +130,14 @@ export const MostPopularProvider = ({ children }: Props) => {
       } else {
         setError("Failed to fetch most popular services");
       }
-    }catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
-            }
-            else {
-                setError("Failed to fetch Most Popular Services");
-            }
-        } finally {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+      else {
+        setError("Failed to fetch Most Popular Services");
+      }
+    } finally {
       setLoading(false);
     }
   };

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { useRecommendedProviders } from "@/src/context/RecommendedProviderContext"
+import { usePopularProviders } from "@/src/context/PopularProviderContext";
 import { useParams } from "next/navigation";
 
 
@@ -68,8 +68,8 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
         providers,
         loading,
         error,
-        fetchRecommendedProviders,
-    } = useRecommendedProviders();
+        fetchPopularProviders,
+    } = usePopularProviders();
 
 
     const params = useParams();
@@ -79,11 +79,10 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
 
     useEffect(() => {
         if (moduleId) {
-            fetchRecommendedProviders(moduleId);
+            fetchPopularProviders(moduleId,20.175618471885596,72.73285952405311);
         }
     }, [moduleId]);
-    console.log("Received moduleId:", moduleId);
-
+   
 
 
     useEffect(() => {
@@ -147,7 +146,7 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
 
     return (
         <div className="relative w-full mt-6 lg:mt-2">
-            <h1 className="text-[16px] font-semibold  lg:text-[24px] ml-4 lg:ml-12">MostPopular Provider</h1>
+            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-12">MostPopular Provider</h1>
             {/* SCROLL CONTAINER */}
             <div
                 ref={scrollRef}
@@ -176,7 +175,7 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                         >
                             {/* HEADER */}
-                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 h-[130px] bg-[#F7FAFE] rounded-t-xl">
+                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 max-h-[150px] bg-[#F7FAFE] rounded-t-xl">
                                 <div className="flex items-start gap-3">
                                     <img
                                         src={item.image}

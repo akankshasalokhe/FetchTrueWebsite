@@ -88,7 +88,7 @@ export default function MostPopularProvider() {
                                         className="w-[55px] h-[55px] lg:w-[96px] lg:h-[96px] rounded-full object-cover"
                                     />
                                     <div className="flex-1">
-                                        <h2 className="font-semibold text-[14px] lg:text-[20px]">{item.name}</h2>
+                                        <h2 className="font-semibold text-[14px] lg:text-[20px] mb-2">{item.name}</h2>
                                         <p className="lg:text-[16px] text-[12px] text-gray-500">{item.description}</p>
                                         <div className="flex flex-row gap-1 lg:gap-4 mt-2 text-[10px] lg:text-[14px] text-gray-600 whitespace-nowrap">
                                             <p className="flex items-center gap-1">

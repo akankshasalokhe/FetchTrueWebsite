@@ -132,6 +132,7 @@ import { useEffect } from "react";
 import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import { useMostPopular } from "@/src/context/MostPopularContext";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 const bgColors = [
   "bg-[#E9B3A1]",
@@ -145,6 +146,11 @@ interface Props {
 
 export default function MostPopular({ moduleId }: Props) {
   const { services, fetchMostPopular, loading, error } = useMostPopular();
+
+    const { categoryId } = useParams<{
+    moduleId: string;
+    categoryId: string;
+  }>();
 
   useEffect(() => {
     if (moduleId) {
@@ -177,7 +183,7 @@ export default function MostPopular({ moduleId }: Props) {
               service.franchiseDetails.franchiseModel?.[0]?.discount;
 
             return (
-                          <Link key={service.serviceId} href={`/MainModules/Franchise/slug/details/${service.serviceId}`}>
+                          <Link key={service.serviceId} href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service.serviceId}`}>
             
               <FranchiseMostPopularCard
                 key={service.serviceId}

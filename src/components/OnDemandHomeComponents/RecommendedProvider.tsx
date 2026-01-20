@@ -25,44 +25,44 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
-    const services = [
-        {
-            id: 1,
-            name: "G-Kitchen Costar",
-            description: "We provide you the best kitchen service",
-            phone: "5684562680",
-            email: "company@gmail.com",
-            address: "Plot 3, High Sky Building, Pune 415005",
-            categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
-            experience: "6+ Years",
-            rating: 4,
-            reviews: 300,
-            time: "9-11 PM",
-            tools: "All Tools Included",
-            trusted: true,
-            day: "Sunday",
-            status: "Available",
-            image: "/image/OnDemandRecommended.png",
-        },
-        ...Array.from({ length: 6 }).map((_, i) => ({
-            id: i + 2,
-            name: "Home Chef Pro",
-            description: "Premium home cooking services",
-            phone: "9876543210",
-            email: "chef@gmail.com",
-            address: "Baner Road, Pune",
-            categories: ["Cooking", "Meal Prep"],
-            experience: "4+ Years",
-            rating: 5,
-            reviews: 180,
-            time: "10-8 PM",
-            tools: "All Tools Included",
-            trusted: true,
-            day: "Monday",
-            status: "Available",
-            image: "/image/OnDemandRecommended.png",
-        })),
-    ];
+    // const services = [
+    //     {
+    //         id: 1,
+    //         name: "G-Kitchen Costar",
+    //         description: "We provide you the best kitchen service",
+    //         phone: "5684562680",
+    //         email: "company@gmail.com",
+    //         address: "Plot 3, High Sky Building, Pune 415005",
+    //         categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
+    //         experience: "6+ Years",
+    //         rating: 4,
+    //         reviews: 300,
+    //         time: "9-11 PM",
+    //         tools: "All Tools Included",
+    //         trusted: true,
+    //         day: "Sunday",
+    //         status: "Available",
+    //         image: "/image/OnDemandRecommended.png",
+    //     },
+    //     ...Array.from({ length: 6 }).map((_, i) => ({
+    //         id: i + 2,
+    //         name: "Home Chef Pro",
+    //         description: "Premium home cooking services",
+    //         phone: "9876543210",
+    //         email: "chef@gmail.com",
+    //         address: "Baner Road, Pune",
+    //         categories: ["Cooking", "Meal Prep"],
+    //         experience: "4+ Years",
+    //         rating: 5,
+    //         reviews: 180,
+    //         time: "10-8 PM",
+    //         tools: "All Tools Included",
+    //         trusted: true,
+    //         day: "Monday",
+    //         status: "Available",
+    //         image: "/image/OnDemandRecommended.png",
+    //     })),
+    // ];
 
     const {
         providers,
@@ -82,7 +82,7 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
             fetchRecommendedProviders(moduleId);
         }
     }, [moduleId]);
-    console.log("Received moduleId:", moduleId);
+   
 
 
 
@@ -147,7 +147,7 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
 
     return (
         <div className="relative w-full mt-6  lg:mt-2">
-            <h1 className="text-[16px] font-semibold  lg:text-[24px] ml-4 lg:ml-12">Recommended Provider</h1>
+            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-12">Recommended Provider</h1>
             {/* SCROLL CONTAINER */}
             <div
                 ref={scrollRef}
@@ -176,7 +176,7 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                         >
                             {/* HEADER */}
-                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 h-[130px] bg-[#F7FAFE] rounded-t-xl">
+                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 max-h-[150px] bg-[#F7FAFE] rounded-t-xl">
                                 <div className="flex items-start gap-3">
                                     <img
                                         src={item.image}

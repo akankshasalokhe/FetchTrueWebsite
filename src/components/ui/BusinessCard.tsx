@@ -4,7 +4,7 @@ type BusinessCardProps = {
   image: string;
   title: string;
   category: string;
-  earnPercent: number;
+  earnpercent: string;
   investment: string;
   earnings: string;
   roi: string;
@@ -18,21 +18,19 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
   image,
   title,
   category,
-  earnPercent,
+  earnpercent,
   investment,
   earnings,
   roi,
   rating,
   trusted = true,
-  slug,
-  detailslug
+  
 }) => {
   return (
-        <Link href={`/MainModules/Business/${slug}/${detailslug}`} className="block">
 
     <div
       className="
-        min-w-[90%] sm:min-w-[320px] lg:min-w-[381px]
+        w-[90%] sm:min-w-[320px] lg:w-[381px] h-[360px]
         bg-white
         rounded-[16px]
         border border-[#E6E6E6]
@@ -63,9 +61,9 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
 
       {/* CONTENT */}
       <div className="px-3 pb-4">
-        <div className="flex justify-between gap-2 px-2">
+        <div className="flex justify-between items-center gap-2 px-2">
           <div>
-            <h3 className="text-[16px] font-medium text-[#232323] mb-1">
+            <h3 className="text-[16px] w-[200px] font-medium text-[#232323] mb-1">
               {title}
             </h3>
             <p className="text-[14px] font-semibold text-[#868686]">
@@ -73,11 +71,11 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
             </p>
           </div>
 
-          <p className="text-[12px] text-[#4A2E82] font-bold text-right">
-            EARN UP TO
+          <p className="text-[12px]  text-[#4A2E82] font-bold text-right">
+            --EARN UP TO--
             <br />
             <span className="text-[#2CB140] text-[14px] font-extrabold">
-              ₹{earnPercent}%
+              ₹ {earnpercent} 
             </span>
           </p>
         </div>
@@ -99,7 +97,6 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
         </div>
       </div>
     </div>
-    </Link>
   );
 };
 

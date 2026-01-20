@@ -359,7 +359,7 @@ import HighInDemand from '@/src/components/ITModules/HighInDemand';
 import MostlyUsed from '@/src/components/ITModules/MostlyUsed';
 import Recommendation from '@/src/components/ITModules/Recommendation';
 import WhyChooseUs from '@/src/components/ITModules/WhyChooseUs';
-import { ChevronLeft, Search } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -370,14 +370,6 @@ export default function ITModulesPage() {
     const router = useRouter();
     const { categories, loading, error, fetchCategoriesByModule } = useModule();
     const { data, fetchBannerCategorySelections } = useBannerCategorySelection();
-
-
-    // const categories = [
-    //     { label: 'Cyber Security', path: '/image/cybersecurity.png' },
-    //     { label: 'IT Consulting', path: '/image/ItConsulting1.png' },
-    //     { label: 'Web Development', path: '/image/webdevelopment.png' },
-    //     { label: 'App Development', path: '/image/appdevelopment.png' },
-    // ];
 
     const BannerData = [
         { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },

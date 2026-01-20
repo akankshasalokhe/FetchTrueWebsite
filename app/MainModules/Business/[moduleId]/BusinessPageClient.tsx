@@ -1029,19 +1029,24 @@
 
 
 "use client";
+import Category from "@/src/components/Business/Category";
+import HighDemand from "@/src/components/Business/HighDemand";
+import Recommended from "@/src/components/Business/Recommended";
+import TopRated from "@/src/components/Business/TopRated";
 import BusinessCard from "@/src/components/ui/BusinessCard";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-const categories = [
-  { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
-  { title: "Transportation Business", slug: "transportation-business", image: "/image/Busi1.png" },
-  { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
-  { title: "E-Commerce Business", slug: "e-commerce-business", image: "/image/Busi1.png" },
-  { title: "Event Business", slug: "event-business", image: "/image/Busi1.png" },
-  { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
-  { title: "Transportation Business", slug: "transportation-business", image: "/image/Busi1.png" },
-  { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
-];
+// const categories = [
+//   { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
+//   { title: "Transportation Business", slug: "transportation-business", image: "/image/Busi1.png" },
+//   { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
+//   { title: "E-Commerce Business", slug: "e-commerce-business", image: "/image/Busi1.png" },
+//   { title: "Event Business", slug: "event-business", image: "/image/Busi1.png" },
+//   { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
+//   { title: "Transportation Business", slug: "transportation-business", image: "/image/Busi1.png" },
+//   { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
+// ];
 
 const recommendedData = [
   {
@@ -1130,7 +1135,12 @@ const recommendedData = [
   },
 ];
 
-export default function BusinessPage() {
+export default function BusinessPageClient() {
+
+    const { moduleId } = useParams<{ moduleId: string }>();
+    
+    
+      console.log("MODULE ID IN CLIENT:", moduleId);
   
   return (
 
@@ -1255,124 +1265,11 @@ export default function BusinessPage() {
 
        </section>
 
-<section className="w-full bg-white  lg:py-12">
-  <div className="max-w-[1440px] mx-auto px-4">
 
-    {/* TITLE */}
-    <h2 className="text-[30px] font-semibold text-[#1D4699] mb-10">
-      Category
-    </h2>
+{/* category */}
+<Category />
 
-    {/* CATEGORY LIST */}
-    <div
-      className="
-        relative
-        flex
-        gap-10
-        overflow-x-auto
-        overflow-y-visible
-        scrollbar-hide
-        pb-8
-        pt-12
-      "
-    >
-      {categories.map((item, index) => (
-        <Link href={`/MainModules/Business/${item.slug}`} key={index} className="flex-shrink-0">
-        <div
-          key={index}
-          className="
-            relative
-            min-w-[180px]
-            h-[120px]
-            bg-white
-            rounded-[12px]
-            border
-            border-[#F1F1F1]
-            shadow-[0px_4px_12px_rgba(0,0,0,0.06)]
-            px-4
-            pt-12
-            pb-4
-            flex-shrink-0
-            overflow-visible
-          "
-        >
-          {/* MAIN IMAGE – TOP RIGHT (OUTSIDE CARD) */}
-          <img
-            src={item.image}
-            alt={item.title}
-            className="
-              absolute
-              -top-10
-              -right-9
-              w-[90px]
-              h-[90px]
-              object-contain
-              z-30
-              pointer-events-none
-            "
-          />
-
-          {/* BOTTOM CONTENT */}
-          <div className="absolute bottom-4 left-3 right-3 flex items-end justify-between">
-            <p className="text-[16px] font-normal text-black leading-tight max-w-[90px]">
-              {item.title}
-            </p>
-
-            <img
-              src="/image/Group 1000004004 (1).png"
-              alt=""
-              className="w-[50px] h-[50px] "
-            />
-          </div>
-        </div>
-        </Link>
-      ))}
-    </div>
-
-  </div>
-</section>
-
-<section className="w-full py-15 bg-white">
-  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
-
-    {/* LEFT TITLE */}
-    <div className="min-w-[220px] flex-- flex-col items-start lg:pt-6 justify-center lg:justify-start">
-      <h2 className="text-[28px] lg:text-[34px] font-semibold text-[#1D4699] leading-tight text-center lg:text-left lg:ms-8">
-        Recommended
-        <br className="hidden lg:block" />
-         For You
-      </h2>
-      <h2 className="hidden lg:block text-[28px] lg:text-[51px] font-semibold text-[#1D4699] leading-tight text-center lg:text-left lg:ms-8 opacity-5">
-        Recommended
-        <br className="" />
-         For You
-      </h2>
-    </div>
-
-    {/* SCROLL AREA */}
-    <div
-      className="
-        
-        bg-[#D9DDE6]
-        pt-8 lg:pt-20
-        pb-8 lg:pb-18
-        ps-4 lg:ps-16
-        overflow-x-auto
-        scrollbar-hide
-        scroll-smooth
-        rounded-tl-[36px]
-      "
-    >
-      
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
-  {recommendedData.map((item, index) => (
-    <BusinessCard key={index} {...item} />
-  ))}
-</div>
-    </div>
-
-  </div>
-</section>
+<Recommended moduleId={moduleId}/>
 
 <section className="w-full px-4 lg:px-0 py-8 md:py-12 flex justify-center">
   <div
@@ -1394,144 +1291,9 @@ export default function BusinessPage() {
   </div>
 </section>
 
-<section className="w-full py-16 bg-white">
-  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-8 lg:gap-20">
-    
-    {/* SCROLL AREA (LEFT ON DESKTOP) */}
-    <div
-      className="
-        relative
-        order-2
-        lg:order-1
-        flex
-        gap-6
-        bg-[#D9DDE6]
-        pt-10
-        lg:pt-15
-        pb-10
-        lg:pb-20
-        pe-4
-        lg:pe-16
-        overflow-x-auto
-        scrollbar-hide
-        scroll-smooth
-        rounded-br-[36px]
-      "
-    >
+<HighDemand moduleId={moduleId}/>
 
-       {/* FADED BACK TEXT */}
-      <h2
-        className="
-           hidden lg:block
-    absolute
-    top-108
-    left-200
-    -translate-x-1/2
-    -translate-y-1/2
-    text-[50px]
-    font-semibold
-    text-[#1D4699]
-    pointer-events-none
-    opacity-5
-    fixed-bottom-right
-        "
-      >
-        HIGH DEMAND
-      </h2>
-      {/* INNER SHADOW */}
-      <div className="pointer-events-none absolute inset-0 rounded-tl-[36px]" />
-
-<div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
-  {recommendedData.map((item, index) => (
-    <BusinessCard key={index} {...item} />
-  ))}
-</div>
-      
-    </div>
-
-    {/* TITLE (RIGHT ON DESKTOP) */}
-    <div className="order-1 lg:order-2 min-w-[220px] flex flex-col justify-center items-start lg:items-end">
-      <h2
-        className="
-          text-[28px]
-          lg:text-[34px]
-          font-medium
-          text-[#1D4699]
-          leading-tight
-          text-left
-          lg:text-right
-          drop-shadow-[0_6px_10px_rgba(29,70,153,0.25)]
-        "
-      >
-        High
-        <br />
-        <span className="text-[46px] font-semibold">DEMAND</span>
-
-      </h2>
-
-     
-    </div>
-  </div>
-</section>
-
-<section className="w-full lg:py-10 bg-white">
-  <div className="mx-auto px-4 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
-
-    {/* TITLE – LEFT */}
-    <div className="min-w-[220px] flex flex-col justify-center items-start">
-      <h2 className="text-[28px] lg:text-[34px] font-medium text-[#1D4699] leading-tight">
-        Top
-        <br />
-        <span className="text-[46px] font-semibold">RATED</span>
-      </h2>
-    </div>
-
-    {/* SCROLL AREA – RIGHT */}
-    <div
-      className="
-        relative
-        flex
-        gap-6
-        bg-[#D9DDE6]
-        pt-10 lg:pt-16
-        pb-12 lg:pb-20
-        ps-4 lg:ps-16
-        overflow-x-auto
-        scrollbar-hide
-        scroll-smooth
-        rounded-bl-[36px]
-        w-full
-      "
-    >
-      {/* FADED BACK TEXT */}
-      <h2
-        className="
-          hidden lg:block
-          absolute
-          top-100
-          left-70
-          -translate-x-1/2
-          text-[64px]
-          font-semibold
-          text-[#1D4699]
-          opacity-5
-          pointer-events-none
-          whitespace-nowrap
-        "
-      >
-        TOP RATED
-      </h2>
-
-      {/* CARDS */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
-  {recommendedData.map((item, index) => (
-    <BusinessCard key={index} {...item} />
-  ))}
-</div>
-    </div>
-
-  </div>
-</section>
+<TopRated moduleId={moduleId}/>
 
 <section className="w-full py-20 bg-white">
   <div className="max-w-[1200px] mx-auto px-4">

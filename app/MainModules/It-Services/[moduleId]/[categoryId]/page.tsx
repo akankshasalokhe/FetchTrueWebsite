@@ -3,11 +3,11 @@
 import Recommendation from "@/src/components/ITModulesSubCategories/Recommendation";
 import MostlyUsed from "@/src/components/ITModulesSubCategories/MostlyUsed";
 import HighInDemand from "@/src/components/ITModulesSubCategories/HighInDemand";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
-import { useModule } from '@/src/context/CategoriesContext';
+
 
 export default function SubCategoryPage() {
 
@@ -88,7 +88,7 @@ export default function SubCategoryPage() {
                             <Link href={`/MainModules/It-Services/${moduleId}`}>
                             <img src="/image/Vector (1).png" className="w-[23px] h-[20px] cursor-pointer" />
                             </Link>
-                            <h1 className="text-lg md:text-2xl font-semibold"> {categoryName}</h1>
+                            <h1 className="text-lg md:text-2xl font-semibold">{categoryName}</h1>
                         </div>
 
                         {/* SEARCH */}

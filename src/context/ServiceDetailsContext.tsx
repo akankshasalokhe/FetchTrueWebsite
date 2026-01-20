@@ -59,6 +59,7 @@ interface ServiceDetails {
     question: string;
     answer: string;
   }[];
+  roi:string[];
   brochureImage: string[];
   emiavalable: string[];
   counter: Counter[];
