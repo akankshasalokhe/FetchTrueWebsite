@@ -132,13 +132,11 @@ export default function TopRated({ moduleId }: Props) {
                 <BusinessCard
                   key={service._id}
                   image={
-                    service.thumbnailImage ||
-                    service.category?.image ||
-                    "/image/placeholder.png"
+                    service.thumbnailImage 
                   }
                   title={service.serviceName}
                   category={service.category?.name || ""}
-                  earnPercent={service.franchiseDetails?.commission}
+                  earnpercent={service.franchiseDetails?.commission}
                   investment={investment}
                   earnings={earnings}
                   roi={roi}

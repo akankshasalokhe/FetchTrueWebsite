@@ -1,3 +1,5 @@
+"use client";
+
 import BestSellingSection from "@/src/components/Finance/BestSelling";
 import CategorySection from "@/src/components/Finance/Category";
 import CostEfficientSection from "@/src/components/Finance/CostEfficient";
@@ -6,8 +8,15 @@ import RecentlyAddedSection from "@/src/components/Finance/RecentlyAdded";
 import RecommendedSection from "@/src/components/Finance/RecommendedSection";
 import WhatYouWillArchive from "@/src/components/Finance/WhatYouWillArchive";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-export default function FinancePage() {
+export default function FinancePageClient() {
+
+    const { moduleId } = useParams<{ moduleId: string }>();
+    
+    
+      console.log("MODULE ID IN CLIENT:", moduleId);
+
   return (
     
     <>
@@ -111,11 +120,11 @@ export default function FinancePage() {
 
 
            <CategorySection />
-           <RecommendedSection />
-           <BestSellingSection />
-           <RecentlyAddedSection />
-           <WhatYouWillArchive />
-           <CostEfficientSection />
+           <RecommendedSection moduleId={moduleId} />
+           <BestSellingSection moduleId={moduleId}/>
+           <RecentlyAddedSection  moduleId={moduleId}/>
+           <WhatYouWillArchive moduleId={moduleId}/>
+           {/* <CostEfficientSection /> */}
       </div>
     </>
   )

@@ -1,5 +1,9 @@
+
+
+
+
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import axios from "axios";
 
 interface KeyValue {
@@ -14,7 +18,6 @@ interface FranchiseModel {
   agreement: string;
   price: number;
   discount?: number;
-  discountedPrice:number;
   gst: number;
   fees: number;
   _id: string;
@@ -39,19 +42,6 @@ interface FranchiseDetails {
   franchiseModel: FranchiseModel[];
 }
 
-interface Package {
-  name: string;
-  price: number;
-  discount?: number;
-  discountedPrice: number;
-  whatYouGet: string[];
-  _id: string;
-}
-
-interface serviceDetails {
-  packages:Package[];
-}
-
 interface Category {
   _id: string;
   name: string;
@@ -68,21 +58,34 @@ export interface Service {
   franchiseDetails: FranchiseDetails;
   averageRating: number;
   totalReviews: number;
-  recommendedServices: boolean;
+  TopTrendingServices: boolean;
 }
 
-interface RecommendedServicesContextType {
+interface Package {
+  name: string;
+  price: number;
+  discount?: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+  _id: string;
+}
+
+interface serviceDetails {
+  packages:Package[];
+}
+
+interface TopTrendingServiceByCategoryIdContextType {
   services: Service[];
   loading: boolean;
   error: string | null;
-  fetchRecommendedServices: (moduleId: string) => Promise<void>;
+  fetchTopTrendingServicesByCategoryId: (categoryId: string) => Promise<void>;
 }
 
-const RecommendedServicesContext = createContext<RecommendedServicesContextType | undefined>(undefined);
+const TopTrendingServicesByCategoryIdContext = createContext<TopTrendingServiceByCategoryIdContextType | undefined>(undefined);
 
-export const useRecommendedServices = () => {
-  const context = useContext(RecommendedServicesContext);
-  if (!context) throw new Error("useRecommendedServices must be used within RecommendedServicesProvider");
+export const useTopTrendingServiceByCategoryIdContext = () => {
+  const context = useContext(TopTrendingServicesByCategoryIdContext);
+  if (!context) throw new Error("useTopTrendingServiceByCategoryIdContext must be used within TopTrendingServicesProvider");
   return context;
 };
 
@@ -90,21 +93,21 @@ interface Props {
   children: ReactNode;
 }
 
-export const RecommendedServicesProvider = ({ children }: Props) => {
+export const TopTrendingServiceByCategoryIdProvider = ({ children }: Props) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchRecommendedServices = async (moduleId: string) => {
+  const fetchTopTrendingServicesByCategoryId = async (categoryId: string) => {
     try {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get(`https://api.fetchtrue.com/api/service/recommended?moduleId=${moduleId}`);
+      const response = await axios.get(`https://api.fetchtrue.com/api/service/top-trending?categoryId=${categoryId}`);
       if (response.data.success) {
         setServices(response.data.data);
       } else {
-        setError("Failed to fetch recommended services");
+        setError("Failed to fetch TopTrending services");
       }
     } catch (err: any) {
       setError(err.message || "Something went wrong");
@@ -114,8 +117,8 @@ export const RecommendedServicesProvider = ({ children }: Props) => {
   };
 
   return (
-    <RecommendedServicesContext.Provider value={{ services, loading, error, fetchRecommendedServices }}>
+    <TopTrendingServicesByCategoryIdContext.Provider value={{ services, loading, error, fetchTopTrendingServicesByCategoryId }}>
       {children}
-    </RecommendedServicesContext.Provider>
+    </TopTrendingServicesByCategoryIdContext.Provider>
   );
 };

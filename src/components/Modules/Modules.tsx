@@ -128,6 +128,9 @@ export default function ServiceCategory() {
     return <div className="text-center py-20 text-red-500">{error}</div>;
   }
 
+  const toFolderName = (name: string) =>
+  name.trim().replace(/\s+/g, "-");
+
   return (
     <>
     <div className="mx-auto text-center my-8 ">
@@ -148,7 +151,7 @@ export default function ServiceCategory() {
           {modules.map((module,) => (
             <Link
             key={module._id}
-              href={`/MainModules/${module.name}/${module._id}`}
+              href={`/MainModules/${toFolderName(module.name)}/${module._id}`}
               
               className="flex flex-col items-center gap-2 cursor-pointer"
             >

@@ -2,48 +2,23 @@
 
 "use client";
 
+import { useTopTrending } from "@/src/context/TopTrendingContext";
 import ServiceCard from "../ui/ServiceCard";
+import { useEffect } from "react";
 
-const services = [
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-];
 
-export default function TopTrending() {
+
+export default function TopTrending({moduleId}:{moduleId:string}) {
+   const { services,loading,error,fetchTopTrending } = useTopTrending();
+    
+    useEffect(()=>{
+      if(moduleId) {
+        fetchTopTrending(moduleId)
+      }
+    },[moduleId])
+  
+    if(loading) return null;
+    if (error) return null;
   return (
     <section
           className="
@@ -71,10 +46,31 @@ export default function TopTrending() {
               snap-x snap-mandatory
             "
           >
-            {services.map((item, index) => (
-              <div key={index} className="snap-start shrink-0">
-                <ServiceCard {...item} />
-              </div>
+            {services.map((service) => (
+               <div key={service._id} className="snap-start shrink-0">
+                              <ServiceCard  
+                                key={service._id}
+                            title={service.serviceName}
+                            category={service.category?.name}
+                            keyvalues={service.keyValues?.map(kv => kv.value)}
+                            commission={service.franchiseDetails?.commission}
+                            price={service.serviceDetails?.packages?.[0]?.price || 0}
+                            discountedprice={service.serviceDetails?.packages?.[0]?.discountedPrice || 0}
+                            discount={service.serviceDetails?.packages?.[0]?.discount || 0}
+                            rating={Math.round(service.averageRating || 0)}
+                            totalreviews={service.totalReviews}
+                            image={
+                              service.thumbnailImage ||
+                              service.category?.image ||
+                              "/image/defaultService.jpg"
+                            }
+                            slug={service.category?.name
+                              ?.toLowerCase()
+                              .replace(/\s+/g, "-")}
+                            detailslug={service._id}
+              
+                              />
+                            </div>
             ))}
           </div>
         </section>

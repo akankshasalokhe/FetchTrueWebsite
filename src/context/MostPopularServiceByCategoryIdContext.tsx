@@ -50,6 +50,19 @@ interface FranchiseDetails {
   franchiseModel: FranchiseModel[];
 }
 
+interface Package {
+  name: string;
+  price: number;
+  discount?: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+  _id: string;
+}
+
+interface serviceDetails {
+  packages:Package[];
+}
+
 export interface PopularService {
   serviceId: string;
   serviceName: string;
@@ -57,8 +70,8 @@ export interface PopularService {
   price: number;
   category: Category;
   keyValues: KeyValue[];
+  serviceDetails:serviceDetails;
   totalReviews: number;
-  packages?: any[];
   franchiseDetails: FranchiseDetails;
   averageRating: number;
 }

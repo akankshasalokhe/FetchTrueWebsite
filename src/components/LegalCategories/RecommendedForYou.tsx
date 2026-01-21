@@ -2,58 +2,26 @@
 
 "use client";
 
-import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
+import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
+import Link from "next/link";
 
-// const services = [
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-// ];
+interface Props {
+  categoryId: string;
+  moduleId: string;
+}
 
-export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
 
-  const { services,loading,error,fetchRecommendedServices } = useRecommendedServices();
+export default function RecommendedForYou({ categoryId, moduleId }: Props) {
+
+  const { services,loading,error,fetchRecommendedServicesByCategoryId } = useRecommendedServiceByCategoryIdContext();
   
   useEffect(()=>{
-    if(moduleId) {
-      fetchRecommendedServices(moduleId)
+    if(categoryId) {
+      fetchRecommendedServicesByCategoryId(categoryId)
     }
-  },[moduleId])
+  },[categoryId])
 
   if(loading) return null;
   if (error) return null;
@@ -73,7 +41,7 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
         >
           {/* Title */}
           <h2 className="font-inter font-semibold text-[18px] sm:text-[22px] lg:text-[24px]">
-            Recommended For You
+            Recommended
           </h2>
     
           {/* Horizontal Scroll Cards */}
@@ -89,7 +57,9 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
           >
             {services.map((service) => (
 
-              <div key={service._id} className="snap-start shrink-0">
+              <Link key={service._id} 
+              href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
+               className="snap-start shrink-0">
                 <ServiceCard  
                   key={service._id}
               title={service.serviceName}
@@ -102,9 +72,7 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
               rating={Math.round(service.averageRating || 0)}
               totalreviews={service.totalReviews}
               image={
-                service.thumbnailImage ||
-                service.category?.image ||
-                "/image/defaultService.jpg"
+                service.thumbnailImage 
               }
               slug={service.category?.name
                 ?.toLowerCase()
@@ -112,7 +80,7 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
               detailslug={service._id}
 
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </section>

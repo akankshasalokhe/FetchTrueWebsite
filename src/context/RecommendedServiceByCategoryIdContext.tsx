@@ -327,10 +327,24 @@ export interface Service {
   category: Category;
   thumbnailImage?: string;
   keyValues: KeyValue[];
+  serviceDetails: serviceDetails; 
   franchiseDetails: FranchiseDetails;
   averageRating: number;
   totalReviews: number;
   recommendedServices: boolean;
+}
+
+interface Package {
+  name: string;
+  price: number;
+  discount?: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+  _id: string;
+}
+
+interface serviceDetails {
+  packages:Package[];
 }
 
 interface RecommendedServiceByCategoryIdContextType {

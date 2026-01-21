@@ -1048,92 +1048,92 @@ import { useParams } from "next/navigation";
 //   { title: "Service Sector Business", slug: "service-sector-business", image: "/image/Busi1.png" },
 // ];
 
-const recommendedData = [
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
- {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 5.1,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 3.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 5.1,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-];
+// const recommendedData = [
+//   {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 4.5,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+//  {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 5.1,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+//   {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 4.5,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+//   {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 3.5,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+//   {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 4.5,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+//   {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 4.5,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+//   {
+//     image: "/image/image 111.png",
+//     title: "Property Buying & Selling",
+//     category: "Agricultural",
+//     earnPercent: 15,
+//     investment: "₹10L – 25L",
+//     earnings: "1.5–3L/month",
+//     rating: 5.1,
+//     roi: "25–30%",
+//     slug:"agricultural-business",
+//     detailslug:"property-buying-selling"
+//   },
+// ];
 
 export default function BusinessPageClient() {
 

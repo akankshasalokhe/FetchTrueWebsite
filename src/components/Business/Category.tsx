@@ -32,7 +32,7 @@ export default function Category(){
   <div className="max-w-[1440px] mx-auto px-4">
 
     {/* TITLE */}
-    <h2 className="text-[30px] font-semibold text-[#1D4699] mb-10">
+    <h2 className="text-[30px] font-semibold text-[#1D4699] ">
       Category
     </h2>
 
@@ -65,7 +65,7 @@ export default function Category(){
             border-[#F1F1F1]
             shadow-[0px_4px_12px_rgba(0,0,0,0.06)]
             px-4
-            pt-12
+            pt-10
             pb-4
             flex-shrink-0
             overflow-visible

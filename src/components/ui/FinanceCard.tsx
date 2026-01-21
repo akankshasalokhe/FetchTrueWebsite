@@ -8,11 +8,9 @@ interface FinanceCardProps {
   category: string;
   discount?: string;
   earnUpto?: string;
-  rating?: number;
-  loanAmount: string;
-  approvalTime: string;
-  duration: string;
-  interestRate: string;
+  rating: number;
+  keyvalues:string;
+  
   slug?: string;
   detailslug?: string;
 }
@@ -23,18 +21,14 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
   category,
   discount,
   earnUpto,
-  rating = 5,
-  loanAmount,
-  approvalTime,
-  duration,
-  interestRate,
-  slug,
-  detailslug,
+  rating,
+  keyvalues,
+  
 }) => {
   return (
-        <Link href={`/MainModules/Finance/${slug}/${detailslug}`} className="block">
+        // <Link href={`/MainModules/Finance/${moduleId}/${categoryId}`} className="block">
 
-    <div className="min-w-[340px] lg:min-w-[400px] bg-white rounded-[14px] border border-[#E7E7E7] shadow-[0px_4px_14px_rgba(0,0,0,0.06)] overflow-hidden">
+    <div className="w-[340px] lg:w-[430px] h-[440px] bg-white rounded-[14px] border border-[#E7E7E7] shadow-[0px_4px_14px_rgba(0,0,0,0.06)] overflow-hidden">
       
       {/* IMAGE */}
       <div className="relative w-full aspect-[16/9]">
@@ -49,7 +43,7 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
         {/* DISCOUNT */}
         {discount && (
           <span className="absolute top-3 left-3 bg-[#EDFBEF] text-[12px] font-medium px-2 py-[2px] rounded-full shadow">
-            Discount {discount}
+            Discount {discount}%
           </span>
         )}
 
@@ -60,7 +54,7 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
       </div>
 
       {/* CONTENT */}
-      <div className="p-4 pt-1">
+      <div className="px-4">
         {/* HEADER */}
         <div className="flex justify-between items-start gap-3">
           <div>
@@ -80,13 +74,37 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
             )}
 
             {/* RATING */}
-            <div className="flex justify-end gap-1 mt-2">
-              {Array.from({ length: rating }).map((_, index) => (
-                <span key={index} className="text-[#FFC531] text-[14px]">
-                  ★
-                </span>
-              ))}
-            </div>
+           <div className="flex justify-end gap-1 mt-2">
+  {[1, 2, 3, 4, 5].map((star) => {
+    const fullStars = Math.floor(rating);
+    const isHalfStar = rating - fullStars >= 0.5;
+
+    return (
+      <div key={star} className="relative text-[21px]">
+        {/* Empty star */}
+        <span className="text-gray-300">★</span>
+
+        {/* Full star */}
+        {star <= fullStars && (
+          <span className="absolute left-0 top-0 text-[#FBBD1D]">★</span>
+        )}
+
+        {/* Half star */}
+        {star === fullStars + 1 && isHalfStar && (
+          <span
+            className="absolute left-0 top-0 overflow-hidden text-[#FBBD1D]"
+            style={{ width: "50%" }}
+          >
+            ★
+          </span>
+        )}
+      </div>
+    );
+  })}
+</div>
+
+
+
           </div>
         </div>
 
@@ -94,7 +112,7 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
         {/* <div className="h-px bg-[#EEEEEE] my-4" /> */}
 
         {/* DETAILS */}
-        <div className="grid grid-cols-2  gap-4 text-[12px] mt-6">
+        {/* <div className="grid grid-cols-2  gap-4 text-[12px] mt-6">
           {[
             ["Loan Amount", loanAmount],
             ["Approval Time", approvalTime],
@@ -115,10 +133,26 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
+        <div className="grid grid-cols-2 gap-4 text-[12px] ms-5 mt-5">
+  {keyvalues?.slice(0, 4).map((item) => (
+    <div key={item._id} className="flex items-start gap-2">
+     
+      <div>
+        <p className="font-semibold text-[#606060] text-[14px]">
+          {item.key}
+        </p>
+        <p className="text-[#868686] text-[12px] ms-6">
+          {item.value}
+        </p>
       </div>
     </div>
-        </Link>
+  ))}
+</div>
+
+      </div>
+    </div>
+        // </Link>
     
   );
 };

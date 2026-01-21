@@ -14,7 +14,7 @@ interface ServiceItem {
   title: string;
   description: string;
   icon: string;
-  list: string;
+  list?: string;
 }
 
 interface Module {
@@ -57,8 +57,8 @@ export const WhyChooseServiceProvider = ({
   const [error, setError] = useState<string | null>(null);
 
   /* ---------- FETCH BY MODULE ID ---------- */
-  const fetchWhyServices = async (moduleId: string) => {
-    if (!moduleId) return;
+  const fetchWhyServices = async (moduleid: string) => {
+    if (!moduleid) return;
 
     try {
       setLoading(true);
@@ -67,7 +67,7 @@ export const WhyChooseServiceProvider = ({
       const res = await axios.get(
         `https://api.fetchtrue.com/api/category/whyjustourservice`,
         {
-          params: { moduleId },
+          params: { moduleid },
         }
       );
 

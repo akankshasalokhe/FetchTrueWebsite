@@ -25,7 +25,7 @@ export interface SubCategory {
 
 /* ================= CONTEXT TYPE ================= */
 
-interface SubCategoryContextType {
+interface SubCategoriesContextType {
   subCategories: SubCategory[];
   loading: boolean;
   error: string | null;
@@ -34,7 +34,7 @@ interface SubCategoryContextType {
 
 /* ================= CONTEXT ================= */
 
-const SubCategoryContext = createContext<SubCategoryContextType | undefined>(undefined);
+const SubCategoriesContext = createContext<SubCategoriesContextType | undefined>(undefined);
 
 /* ================= PROVIDER ================= */
 
@@ -83,22 +83,24 @@ export const SubCategoryProvider = ({
   useEffect(() => {
     if (initialCategoryId) {
       fetchSubCategories(initialCategoryId);
+          console.log("Fetching subcategories for:", initialCategoryId);
+
     }
   }, [initialCategoryId]);
 
   return (
-    <SubCategoryContext.Provider
+    <SubCategoriesContext.Provider
       value={{ subCategories, loading, error, fetchSubCategories }}
     >
       {children}
-    </SubCategoryContext.Provider>
+    </SubCategoriesContext.Provider>
   );
 };
 
 /* ================= HOOK ================= */
 
 export const useSubCategory = () => {
-  const context = useContext(SubCategoryContext);
+  const context = useContext(SubCategoriesContext);
   if (!context) {
     throw new Error("useSubCategory must be used within SubCategoryProvider");
   }
