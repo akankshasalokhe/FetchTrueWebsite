@@ -19,6 +19,8 @@ interface KeyValue {
   key: string;
   value: string;
   icon?: string;
+  _id: string;
+
 }
 
 interface InvestmentRange {
