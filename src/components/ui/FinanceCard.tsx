@@ -2,20 +2,20 @@
 import Link from "next/link";
 import { CiBookmark } from "react-icons/ci";
 
-interface FinanceCardProps {
-  image: string;
-  title: string;
-  category: string;
-  discount?: string;
-  earnUpto?: string;
-  rating: number;
-  keyvalues:[];
+// interface FinanceCardProps {
+//   image: string;
+//   title: string;
+//   category: string;
+//   discount?: string;
+//   earnUpto?: string;
+//   rating: number;
+//   keyvalues:[];
   
-  slug?: string;
-  detailslug?: string;
-}
+//   slug?: string;
+//   detailslug?: string;
+// }
 
-const FinanceCard: React.FC<FinanceCardProps> = ({
+export default function FinanceCard ({
   image,
   title,
   category,
@@ -24,7 +24,7 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
   rating,
   keyvalues,
   
-}) => {
+}:any) {
   return (
         // <Link href={`/MainModules/Finance/${moduleId}/${categoryId}`} className="block">
 
@@ -158,4 +158,3 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
   );
 };
 
-export default FinanceCard;

@@ -72,7 +72,7 @@ const MostPopular = ({ categoryId,moduleId }:Props) => {
                           keyvalues={service.keyValues}
                           earnUpto={service.franchiseDetails?.commission}
                           
-                          discount={service.serviceDetails?.packages?.[0]?.discount || 20}
+                          discount={service.serviceDetails?.packages?.[0]?.discount}
                           rating={Math.round(service.averageRating || 0)}
                           totalreviews={service.totalReviews}
                           image={
