@@ -17,7 +17,7 @@ export default function ServiceCard({
   commission,
   slug,
   detailslug,
-}: ) {
+}:any ) {
   return (
     <Link
       href={`/MainModules/LegalService/${slug}/${detailslug}`}
