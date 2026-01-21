@@ -9,7 +9,7 @@ interface FinanceCardProps {
   discount?: string;
   earnUpto?: string;
   rating: number;
-  keyvalues:string;
+  keyvalues:[];
   
   slug?: string;
   detailslug?: string;
@@ -134,20 +134,22 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
             </div>
           ))}
         </div> */}
-        <div className="grid grid-cols-2 gap-4 text-[12px] ms-5 mt-5">
-  {keyvalues?.slice(0, 4).map((item, index) => (
-    <div key={index} className="flex items-start gap-2">
-      <div>
-        <p className="font-semibold text-[#606060] text-[14px]">
-          {item.key}
-        </p>
-        <p className="text-[#868686] text-[12px] ms-6">
-          {item.value}
-        </p>
+       {keyvalues?.length > 0 && (
+  <div className="grid grid-cols-2 gap-4 text-[12px] ms-5 mt-5">
+    {keyvalues.slice(0, 4).map((item, index) => (
+      <div key={index} className="flex items-start gap-2">
+        <div>
+          <p className="font-semibold text-[#606060] text-[14px]">
+            {item.key}
+          </p>
+          <p className="text-[#868686] text-[12px] pl-4">
+            {item.value}
+          </p>
+        </div>
       </div>
-    </div>
-  ))}
-</div>
+    ))}
+  </div>
+)}
 
       </div>
     </div>
