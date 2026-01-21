@@ -17,7 +17,7 @@ export default function ServiceCard({
   commission,
   slug,
   detailslug,
-}: any) {
+}: ) {
   return (
     <Link
       href={`/MainModules/LegalService/${slug}/${detailslug}`}
@@ -64,9 +64,9 @@ export default function ServiceCard({
           <div className="flex gap-4 text-[12px] text-[#232323] mt-3 justify-between">
             {keyvalues && keyvalues.length > 0 && (
   <ul className="flex flex-wrap gap-2 text-[12px] ">
-    {keyvalues.slice(0, 3).map((value, index) => (
+    {keyvalues.slice(0, 3).map((item: any, index: number) => (
       <li key={index} className=" px-2 py-1 rounded">
-        {value}
+        {item.value}
       </li>
     ))}
   </ul>
