@@ -123,6 +123,9 @@ export default function TopRated({ moduleId }: Props) {
                 "—";
 
               const roi = roiMap[service._id || "-"]
+
+              const earnpercent = service.franchiseDetails?.commission;
+
                
                 
 
@@ -132,11 +135,13 @@ export default function TopRated({ moduleId }: Props) {
                 <BusinessCard
                   key={service._id}
                   image={
-                    service.thumbnailImage 
+                    service.thumbnailImage ||
+                    service.category?.image ||
+                    "/image/placeholder.png"
                   }
                   title={service.serviceName}
                   category={service.category?.name || ""}
-                  earnpercent={service.franchiseDetails?.commission}
+                  earnpercent={earnpercent}
                   investment={investment}
                   earnings={earnings}
                   roi={roi}
