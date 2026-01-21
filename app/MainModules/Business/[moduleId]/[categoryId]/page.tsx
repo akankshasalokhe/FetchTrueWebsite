@@ -210,14 +210,14 @@ const mappedServices = useMemo(() => {
       "
     >
     
-      {filteredData.map((item, index) => (
+      {/* {filteredData.map((item, index) => (
         <div
           key={index}
           className="min-w-[330px] lg:min-w-full"
         >
           <BusinessCard {...item} />
         </div>
-      ))}
+      ))} */}
 
       {!loading && filteredData.length === 0 && (
               <p className="text-center text-gray-500 col-span-full">
