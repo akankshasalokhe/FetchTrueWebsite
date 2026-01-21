@@ -135,9 +135,8 @@ const FinanceCard: React.FC<FinanceCardProps> = ({
           ))}
         </div> */}
         <div className="grid grid-cols-2 gap-4 text-[12px] ms-5 mt-5">
-  {keyvalues?.slice(0, 4).map((item) => (
-    <div key={item._id} className="flex items-start gap-2">
-     
+  {keyvalues?.slice(0, 4).map((item, index) => (
+    <div key={index} className="flex items-start gap-2">
       <div>
         <p className="font-semibold text-[#606060] text-[14px]">
           {item.key}
