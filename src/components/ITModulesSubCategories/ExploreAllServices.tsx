@@ -361,7 +361,7 @@ export default function Recommendation({   selectedRange = "all",
                             className="
               relative snap-center flex-shrink-0
               w-[290px] min-h-[271px]
-              sm:w-[70vw]
+              sm:w-[70vw] cursor-pointer
               md:w-[390px] md:h-[362px]
               overflow-hidden 
             "

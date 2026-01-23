@@ -293,14 +293,14 @@ export default function Recommendation({ categoryId, moduleId }: Props) {
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/ITService/ServiceDetails`)
+                                router.push(`/MainModules/It-Services/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
                                  relative snap-center flex-shrink-0
                                 w-[290px] min-h-[271px]
                                 sm:w-[70vw] h-[330px]
                                 md:w-[331px] md:h-[372px] lg:h-[372.04px] lg:w-[331px]
-                                overflow-hidden 
+                                overflow-hidden cursor-pointer
                                 "
                         >
                             {/* SVG BACKGROUND */}

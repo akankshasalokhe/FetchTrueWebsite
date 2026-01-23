@@ -5,6 +5,7 @@ import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRecommendedProviders } from "@/src/context/RecommendedProviderContext"
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 type SectionProps = {
@@ -24,6 +25,7 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
     const [isDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
+    const router = useRouter();
 
     // const services = [
     //     {
@@ -172,6 +174,9 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
                         <div
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
+                            onClick={() => {
+                               router.push(`/MainModules/On-Demand/servicedetails/${item.id}?service=${encodeURIComponent(item.name)}`)
+                            }}
                         >
                             {/* HEADER */}
                             <div className="-mx-4 -mt-4 lg:-mt-4 p-4 max-h-[150px] bg-[#F7FAFE] rounded-t-xl">

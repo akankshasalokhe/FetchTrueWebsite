@@ -56,7 +56,7 @@ export default function ServiceDetails() {
 
     const params = useParams();
     const serviceId = params.id as string;
-   
+
     useEffect(() => {
         if (!serviceId) return;
 
@@ -67,7 +67,7 @@ export default function ServiceDetails() {
 
     const serviceName = searchParams.get("service");
 
-   
+
 
     if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -98,7 +98,7 @@ export default function ServiceDetails() {
                         {/* IMAGE */}
                         <div className="relative md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
                             <img
-                                src="/image/eduserbg.png"
+                                src={service?.bannerImages?.[0] || "/image/eduserbg.png"}
                                 alt="Course"
                                 className="w-full h-full object-cover"
                             />

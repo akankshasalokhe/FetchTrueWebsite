@@ -292,7 +292,7 @@ export default function HighInDemand({ categoryId, moduleId }: Props) {
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/ITService/ServiceDetails`)
+                               router.push(`/MainModules/It-Services/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
                                  relative snap-center flex-shrink-0

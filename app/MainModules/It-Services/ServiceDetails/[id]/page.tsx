@@ -121,9 +121,9 @@ const ServiceDetails = () => {
                             {/* IMAGE */}
                             <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
                                 <img
-                                    src="/image/itservicenavbg.png"
+                                     src={service?.bannerImages?.[0] || "/image/itservicenavbg.png"}
                                     alt="Managed IT Service"
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-fit"
                                 />
                             </div>
 
@@ -182,10 +182,10 @@ const ServiceDetails = () => {
                     {/* ================= MOBILE VERSION ================= */}
                     <div className="block lg:hidden w-full mb-5">
                         {/* FULL WIDTH IMAGE */}
-                        <div className="relative w-screen h-[429px] overflow-hidden ">
+                        <div className="relative w-screen h-[429px] overflow-hidden">
 
                             {/* HEADER OVER IMAGE */}
-                            <div className="absolute top-8 left-0 z-10 w-full flex items-center gap-3 px-4 py-4 bg-white/80 backdrop-blur-sm">
+                            <div className="absolute top-0 left-0 z-10 w-full flex items-center gap-3 px-4 py-4 bg-white/80 backdrop-blur-sm">
                                 <Link href="/MainModules/ITService">
                                     <ChevronLeft size={28} className="cursor-pointer" />
                                 </Link>
@@ -193,14 +193,15 @@ const ServiceDetails = () => {
                             </div>
 
                             <img
-                                src="/image/itservicenavbg.png"
+                                // src="/image/itservicenavbg.png"
+                                 src={service?.bannerImages?.[0] || "/image/itservicenavbg.png"}
                                 alt="Managed IT Service"
-                                className="absolute top-0 left-0 w-full h-full object-contain"
+                                className="absolute -top-10 left-0 w-full h-full object-contain"
                             />
                         </div>
 
                         {/* CONTENT */}
-                        <div className="flex flex-col gap-4 px-4 -mt-10">
+                        <div className="flex flex-col gap-4 px-4 -mt-35 md:mt-2">
                             <h2 className="text-lg font-semibold text-black">
                                 Managed IT Service & Support
                             </h2>
