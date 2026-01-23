@@ -11,72 +11,71 @@ import { Search,Bookmark } from "lucide-react";
 import MostlyUsedService from "@/src/components/Legal/MostlyUsedService";
 import TopTrending from "@/src/components/Legal/TopTrending";
 import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
+import { useParams } from "next/navigation";
 
-const services = [
-  {
-    title: "LLP Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-    slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "LLP Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "LLP Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "LLP Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-];
+// const services = [
+//   {
+//     title: "LLP Registration",
+//     category: "Legal Service",
+//     price: 4550,
+//     rating: 4,
+//     image: "/image/legalCard.jpg",
+//     slug:"business-registration",
+//     detailslug:"llp"
+//   },
+//   {
+//     title: "LLP Registration",
+//     category: "Legal Service",
+//     price: 4550,
+//     rating: 4,
+//     image: "/image/legalCard.jpg",
+//      slug:"business-registration",
+//     detailslug:"llp"
+//   },
+//   {
+//     title: "LLP Registration",
+//     category: "Legal Service",
+//     price: 4550,
+//     rating: 4,
+//     image: "/image/legalCard.jpg",
+//      slug:"business-registration",
+//     detailslug:"llp"
+//   },
+//   {
+//     title: "LLP Registration",
+//     category: "Legal Service",
+//     price: 4550,
+//     rating: 4,
+//     image: "/image/legalCard.jpg",
+//      slug:"business-registration",
+//     detailslug:"llp"
+//   },
+// ];
 
 
-export default function LegalPage() {
+export default function LegalPageClient() {
 
-const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const slider = sliderRef.current;
+const { moduleId } = useParams<{ moduleId: string }>();
+
+
+  console.log("MODULE ID IN CLIENT:", moduleId);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+    const slider = scrollRef.current;
     if (!slider) return;
 
-    let animationFrame: number;
-    const speed = 0.5; // adjust for faster/slower scroll
+    const interval = setInterval(() => {
+      slider.scrollLeft += 1;
 
-    const autoScroll = () => {
-      slider.scrollLeft += speed;
-
-      // reset scroll seamlessly when half is crossed
-      if (slider.scrollLeft >= slider.scrollWidth / 2) {
+      if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
         slider.scrollLeft = 0;
       }
+    }, 20);
 
-      animationFrame = requestAnimationFrame(autoScroll);
-    };
-
-    animationFrame = requestAnimationFrame(autoScroll);
-
-    return () => cancelAnimationFrame(animationFrame);
+    return () => clearInterval(interval);
   }, []);
   
   return (
@@ -218,28 +217,22 @@ const sliderRef = useRef<HTMLDivElement | null>(null);
         {/* ================= CAROUSEL ================= */}
         <div className="relative">
           <div
-            ref={sliderRef}
+            ref={scrollRef}
             className="
               flex
               gap-8
-              overflow-x-auto
-              scroll-smooth
-              snap-x
-              snap-mandatory
               px-[12%]
               sm:px-[10%]
               lg:px-[8%]
-              no-scrollbar
+              overflow-hidden
             "
           >
-            {/* Duplicate items for infinite loop */}
-            {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
+            {["/image/legalbanner.jpg","/image/legalbanner.jpg","/image/legalbanner.jpg"].map((img, index) => (
               <div
                 key={index}
-                data-card
                 className="
                   relative
-                  snap-center
+                  snap-start
                   w-[505px]
                   h-[265px]
                   bg-[#D9D9D9]
@@ -248,10 +241,11 @@ const sliderRef = useRef<HTMLDivElement | null>(null);
                 "
               >
                 <Image
-                  src="/image/legalbanner.jpg"
+                  src={img}
                   alt="Legal Service"
                   fill
                   className="object-cover"
+                  priority
                 />
               </div>
             ))}
@@ -263,9 +257,9 @@ const sliderRef = useRef<HTMLDivElement | null>(null);
 
       
 <CategorySection />
-<RecommendedForYou />
-<MostlyUsedService />
-<TopTrending />
+<RecommendedForYou moduleId={moduleId}/>
+<MostlyUsedService moduleId={moduleId}/>
+<TopTrending moduleId={moduleId}/>
 <LegalServiceSpotlight />
 
     </div>

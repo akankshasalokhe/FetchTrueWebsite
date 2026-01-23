@@ -3,10 +3,15 @@
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import FinanceCard from "../ui/FinanceCard";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
 
+interface Props {
+  categoryId: string;
+  moduleId: string;
+}
 
-
-const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
+const Recommended = ({ categoryId,moduleId }:Props) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     
       const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -23,18 +28,17 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
         }
       };
 
-       const { services,loading,error,fetchRecommendedServices } = useRecommendedServices();
-        
-        useEffect(()=>{
-          if(moduleId) {
-            fetchRecommendedServices(moduleId)
-          }
-        },[moduleId])
-
-        console.log("finance Module Id:",moduleId)
-      
-        if(loading) return null;
-        if (error) return null;
+     const { services,loading,error,fetchRecommendedServicesByCategoryId } = useRecommendedServiceByCategoryIdContext();
+       
+       useEffect(()=>{
+         if(categoryId) {
+           fetchRecommendedServicesByCategoryId(categoryId)
+         }
+       },[categoryId])
+       
+     
+       if(loading) return null;
+       if (error) return null;
 
   return (
     <section className="w-full py-14 bg-[#F6FBF7]">
@@ -60,7 +64,9 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <div key={service._id} className="snap-start shrink-0">
+            <Link key={service._id} 
+                          href={`/MainModules/Finance/${moduleId}/${categoryId}/${service._id}`}
+            className="snap-start shrink-0">
                             <FinanceCard  
                               key={service._id}
                           title={service.serviceName}
@@ -82,7 +88,7 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
                           detailslug={service._id}
             
                             />
-                          </div>
+                          </Link>
           ))}
         </div>
 
@@ -91,4 +97,4 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
   );
 };
 
-export default RecommendedSection;
+export default Recommended;

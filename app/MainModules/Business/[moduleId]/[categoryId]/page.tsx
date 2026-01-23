@@ -1,196 +1,118 @@
 "use client";
 import BusinessCard from "@/src/components/ui/BusinessCard";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SubCategoryStrip from "@/src/components/Business/Subcategory";
+import { useParams } from "next/navigation";
+import { SubCategoryProvider } from "@/src/context/SubCategoriesContext";
+import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 
 
 
-const recommendedData = [
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 2.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
- {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 5.1,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 3.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 5.1,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-    {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
- {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 5.1,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 3.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-  {
-    image: "/image/image 111.png",
-    title: "Property Buying & Selling",
-    category: "Agricultural",
-    earnPercent: 15,
-    investment: "₹10L – 25L",
-    earnings: "1.5–3L/month",
-    rating: 4.5,
-    roi: "25–30%",
-    slug:"agricultural-business",
-    detailslug:"property-buying-selling"
-  },
-];
+
 
 const tabs = ["All", "Low to High", "High to Low", "Top Rated"];
 
 export default function BusinessCategoryDetailPage() {
 
      const [active, setActive] = useState("All");
-     const filteredData = (() => {
-  switch (active) {
-    case "Low to High":
-      return [...recommendedData].sort(
-        (a, b) => a.rating - b.rating
-      );
 
-    case "High to Low":
-      return [...recommendedData].sort(
-        (a, b) => b.rating - a.rating
-      );
 
-    case "Top Rated":
-      return recommendedData.filter(
-        (item) => item.rating >= 4.5
-      );
+ const { moduleId, categoryId } = useParams<{
+  moduleId: string;
+  categoryId: string;
+}>();
 
-    case "All":
-    default:
-      return recommendedData;
-  }
-})();
+const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
+
+    const { fetchServiceDetails,service } = useServiceDetails();
+
+
+
+  console.log("Category ID IN CLIENT in business:", categoryId);
+      const [roiMap, setRoiMap ] = useState<Record<string,string>>({});
+
+
+    // const { moduleId} = useParams();
+      console.log(moduleId, categoryId);
+
+      useEffect(()=>{
+        if (categoryId){
+          fetchServicesByCategory(categoryId)
+        }
+      },[categoryId]);
+
+         useEffect(() => {
+    const fetchAllROIs = async () => {
+      const map: Record<string, string> = {};
+
+      for (const s of services) {
+        try {
+          const res = await fetch(
+            `https://api.fetchtrue.com/api/service/${s._id}`
+          );
+          const json = await res.json();
+
+          map[s._id] =
+            json?.data?.serviceDetails?.roi?.[0] || "—";
+        } catch {
+          map[s._id] = "—";
+        }
+      }
+
+      setRoiMap(map);
+    };
+
+    if (services.length) {
+      fetchAllROIs();
+    }
+  }, [services]);
+
+
+const mappedServices = useMemo(() => {
+  return services.map((service) => ({
+    image:
+      service.thumbnailImage ||
+      service.category?.image ||
+      "/image/placeholder.png",
+
+    title: service.serviceName,
+    category: service.category?.name || "",
+
+    earnPercent: service.franchiseDetails?.commission || "—",
+    investment:
+      service.franchiseDetails?.investmentRange?.[0]?.range || "—",
+    earnings:
+      service.franchiseDetails?.monthlyEarnPotential?.[0]?.range || "—",
+    roi: roiMap[service._id] || "—",
+
+    rating: service.averageRating || 0,
+    trusted: true,
+
+    
+  }));
+}, [services, roiMap]);
+
+
+  /* ================= FILTER LOGIC (UNCHANGED) ================= */
+  const filteredData = (() => {
+    switch (active) {
+      case "Low to High":
+        return [...mappedServices].sort((a, b) => a.rating - b.rating);
+
+      case "High to Low":
+        return [...mappedServices].sort((a, b) => b.rating - a.rating);
+
+      case "Top Rated":
+        return mappedServices.filter((item) => item.rating >= 4.5);
+
+      case "All":
+      default:
+        return mappedServices;
+    }
+  })();
+
+
 
 
     return (
@@ -227,7 +149,10 @@ export default function BusinessCategoryDetailPage() {
 
 
 
-<SubCategoryStrip />
+<SubCategoryProvider initialCategoryId={categoryId}>
+  <SubCategoryStrip />
+</SubCategoryProvider>
+
 
 <section className="w-full bg-white py-8 lg:py-12">
   <div className="w-full">
@@ -285,14 +210,20 @@ export default function BusinessCategoryDetailPage() {
       "
     >
     
-      {filteredData.map((item, index) => (
+      {/* {filteredData.map((item, index) => (
         <div
           key={index}
           className="min-w-[330px] lg:min-w-full"
         >
           <BusinessCard {...item} />
         </div>
-      ))}
+      ))} */}
+
+      {!loading && filteredData.length === 0 && (
+              <p className="text-center text-gray-500 col-span-full">
+                No services found
+              </p>
+            )}
     </div>
 
   </div>

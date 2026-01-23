@@ -2,48 +2,26 @@
 
 "use client";
 
+import { useMostPopular } from "@/src/context/MostPopularContext";
 import ServiceCard from "../ui/ServiceCard";
+import { useEffect } from "react";
 
-const services = [
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-  {
-    title: "GST Registration",
-    category: "Legal Service",
-    price: 4550,
-    rating: 4,
-    image: "/image/legalCard.jpg",
-     slug:"business-registration",
-    detailslug:"llp"
-  },
-];
 
-export default function MostlyUsedService() {
+
+export default function MostlyUsedService({moduleId}:{moduleId:string}) {
+
+    const { services, loading, error, fetchMostPopular } = useMostPopular();
+
+    useEffect(()=>{
+      if(moduleId){
+        fetchMostPopular(moduleId)
+      }
+    },[moduleId])
+
+    
+  if (loading) return null;
+  if (error) return null;
+
   return (
     <section
           className="
@@ -71,9 +49,26 @@ export default function MostlyUsedService() {
               snap-x snap-mandatory
             "
           >
-            {services.map((item, index) => (
-              <div key={index} className="snap-start shrink-0">
-                <ServiceCard {...item} />
+            {services.map((service) => (
+              <div key={service.serviceId} className="snap-start shrink-0">
+               <ServiceCard
+                             title={service.serviceName}
+                             category={service.category?.name}
+                             keyvalues={service.keyValues?.map(kv => kv.value)}
+                             commission={service.franchiseDetails?.commission}
+                             price={service.serviceDetails?.packages?.[0]?.price}
+                             discountedprice={service.serviceDetails?.packages?.[0]?.discountedPrice}
+                             discount={service.serviceDetails?.packages?.[0]?.discount}
+                             rating={Math.round(service.averageRating || 0)}
+                             totalreviews={service.totalReviews}
+                             image={
+                               service.thumbnailImage 
+                             }
+                             slug={service.category?.name
+                               ?.toLowerCase()
+                               .replace(/\s+/g, "-")}
+                             detailslug={service.serviceId}
+                           />
               </div>
             ))}
           </div>

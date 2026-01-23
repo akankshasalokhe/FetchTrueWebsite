@@ -276,7 +276,7 @@
 
 
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import axios from "axios";
 
 interface KeyValue {
@@ -347,6 +347,19 @@ export interface Service {
   serviceDetails: ServiceDetails;
   price?: number;
   recommendedServices: boolean;
+}
+
+interface Package {
+  name: string;
+  price: number;
+  discount: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+  _id: string;
+}
+
+interface serviceDetails {
+  packages:Package[];
 }
 
 interface RecommendedServiceByCategoryIdContextType {

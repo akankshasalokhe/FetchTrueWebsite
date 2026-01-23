@@ -30,12 +30,12 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
 
     <div
       className="
-        w-[90%] sm:min-w-[320px] lg:w-[381px] h-[360px]
+        w-[340px] h-[340px] lg:w-[381px] lg:h-[360px]
         bg-white
         rounded-[16px]
         border border-[#E6E6E6]
         shadow-[0px_2px_10px_rgba(0,0,0,0.08)]
-        flex-shrink-0
+        flex-shrink-0 
     
       "
     >

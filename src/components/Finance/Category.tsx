@@ -1,23 +1,26 @@
 "use client";
 
+import { useModule } from "@/src/context/CategoriesContext";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
-interface CategoryItem {
-  title: string;
-  icon: string;
-  slug: string;
-}
 
-const categories: CategoryItem[] = [
-  { title: "Banking", slug: "banking", icon: "/image/Banking.png" },
-  { title: "Investment", slug: "investment", icon: "/image/investment.png" },
-  { title: "Insurance", slug: "insurance", icon: "/image/insurans.png" },
-  { title: "Loans", slug: "loans", icon: "/image/Loans.png" },
-  { title: "Cooperative Finance", slug: "cooperative-finance", icon: "/image/cooperative finance.png" },
-  { title: "Credit Card", slug: "credit-card", icon: "/image/creditcard.png" },
-];
+
 
 const CategorySection = () => {
+
+  const { categories, fetchCategoriesByModule, loading, error } = useModule();
+    const { moduleId } = useParams<{ moduleId: string }>();
+
+     useEffect(()=>{
+        if(!moduleId) return;
+        fetchCategoriesByModule(moduleId);
+      },[moduleId]);
+
+      if (loading) return <p>Loading categories...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+
   return (
     <section className="w-full pt-10 bg-[#F6FBF7]">
       <div className="max-w-[1440px] mx-auto px-4">
@@ -37,14 +40,14 @@ const CategorySection = () => {
             scrollbar-hide
           "
         >
-          {categories.map((item, index) => (
+          {categories.map((item) => (
              <Link
-              key={index}
-                href={`/MainModules/Finance/${item.slug}`}
+              key={item._id}
+                href={`/MainModules/Finance/${moduleId}/${item._id}`}
               className="snap-start"
             >
             <div
-              key={index}
+              key={item._id}
               className="
                 flex-shrink-0
                 flex
@@ -57,14 +60,14 @@ const CategorySection = () => {
             >
               <div className="w-[165px] h-[155px] flex items-center justify-center bg-[#FFFDF9] rounded-[8px] border border-[#EDEDED] mb-2">
                 <img
-                  src={item.icon}
-                  alt={item.title}
+                  src={item.image}
+                  alt={item.name}
                   className="w-[117px] h-[112px] object-contain"
                 />
               </div>
 
               <p className="text-[24px] font-normal text-[#000000] text-center whitespace-nowrap">
-                {item.title}
+                {item.name}
               </p>
             </div>
             </Link>

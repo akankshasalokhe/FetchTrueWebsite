@@ -442,141 +442,21 @@
 import { Bookmark } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import {Eye,User,PenIcon } from "lucide-react";
+import {User } from "lucide-react";
 import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
-import { p } from "framer-motion/client";
+
 
 /* ---------------- CATEGORY TABS ---------------- */
-const CATEGORY_TABS = [
-    { label: "All", value: "all" },
-    { label: "300", value: "0-300" },
-    { label: "300 - 400 Rs", value: "300-400" },
-    { label: "400 - 600 Rs", value: "400-600" },
-    { label: "600 - 800 Rs", value: "600-800" },
-    { label: "800 - 1000 Rs", value: "800-1000" },
-];
+// const CATEGORY_TABS = [
+//     { label: "All", value: "all" },
+//     { label: "300", value: "0-300" },
+//     { label: "300 - 400 Rs", value: "300-400" },
+//     { label: "400 - 600 Rs", value: "400-600" },
+//     { label: "600 - 800 Rs", value: "600-800" },
+//     { label: "800 - 1000 Rs", value: "800-1000" },
+// ];
 
-/* ---------------- SERVICES DATA ---------------- */
-const SERVICES = [
-    {
-        id: 1,
-        title: "Figma UI UX Design",
-        subtitle: "Develop your future website",
-        category: "Digital Marketing",
-        users: "2400+ users",
-        rating: 4,
-        price: 450,
-        discount: "30%",
-        trusted: true,
-        earn: "Earn Up to 5%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 2,
-        title: "IT Consulting",
-        subtitle: "Develop your future website",
-        category: "UI / UX",
-        users: "1800+ users",
-        rating: 5,
-        price: 380,
-        discount: "25%",
-        trusted: true,
-        earn: "Earn Up to 4%",
-        image: "/image/Educationcardbg.png",
 
-    },
-    {
-        id: 3,
-        title: "App Development",
-        subtitle: "Develop your future website",
-        category: "Graphic Design",
-        users: "1200+ users",
-        rating: 4,
-        price: 280,
-        discount: "20%",
-        trusted: true,
-        earn: "Earn Up to 3%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 4,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Print Design",
-        users: "950+ users",
-        rating: 4,
-        price: 220,
-        discount: "15%",
-        trusted: true,
-        earn: "Earn Up to 2%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 5,
-        title: "IT Consulting",
-        subtitle: "Develop your future website",
-        category: "Digital Marketing",
-        users: "2100+ users",
-        rating: 5,
-        price: 320,
-        discount: "35%",
-        trusted: true,
-        earn: "Earn Up to 5%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 6,
-        title: "Web Development",
-        subtitle: "Develop your future website",
-        category: "UI / UX",
-        users: "1600+ users",
-        rating: 5,
-        price: 520,
-        discount: "20%",
-        trusted: true,
-        earn: "Earn Up to 6%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 7,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Print Design",
-        users: "1100+ users",
-        rating: 4,
-        price: 480,
-        discount: "18%",
-        trusted: true,
-        earn: "Earn Up to 3%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 8,
-        title: "Web Development",
-        subtitle: "Develop your future website",
-        category: "Graphic Design",
-        users: "1400+ users",
-        rating: 4,
-        price: 260,
-        discount: "22%",
-        trusted: true,
-        earn: "Earn Up to 3%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 9,
-        title: "App Development",
-        subtitle: "Develop your future website",
-        category: "Branding",
-        users: "900+ users",
-        rating: 5,
-        price: 750,
-        discount: "40%",
-        trusted: true,
-        earn: "Earn Up to 7%",
-        image: "/image/Educationcardbg.png",
-    },
-];
 
 /* ---------------- COMPONENT ---------------- */
 
@@ -631,12 +511,12 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
 
 
 
-    const CARD_CLASSES = `
-    snap-center flex-shrink-0
-    w-[88vw] sm:w-[70vw] md:w-[390px] md:h-[362.04px]
-    rounded-3xl p-3
-    shadow-lg
-    `;
+    // const CARD_CLASSES = `
+    // snap-center flex-shrink-0
+    // w-[88vw] sm:w-[70vw] md:w-[390px] md:h-[362.04px]
+    // rounded-3xl p-3
+    // shadow-lg
+    // `;
 
 
 
@@ -672,9 +552,9 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
     // });
 
 
-    type CardBgProps = {
-        active?: boolean;
-    };
+    // type CardBgProps = {
+    //     active?: boolean;
+    // };
 
     const getStartingPackage = (packages: Package[] = []) => {
         if (!packages.length) return null;
@@ -708,28 +588,28 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
-    const CardBg: React.FC<CardBgProps> = ({ active = false }) => (
-        <svg
-            viewBox="0 0 300 200"
-            preserveAspectRatio="none"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-        >
-            <path
-                d="
-        M 20 0
-        H 280
-        L 300 0
-        V 70
-        Q 350 230 220 200
-        H 0
-        V 30
-        Q 0 0 20 0
-        Z
-      "
-                fill="#E2E9F1"
-            />
-        </svg>
-    );
+    // const CardBg: React.FC<CardBgProps> = ({ active = false }) => (
+    //     <svg
+    //         viewBox="0 0 300 200"
+    //         preserveAspectRatio="none"
+    //         className="absolute inset-0 w-full h-full pointer-events-none"
+    //     >
+    //         <path
+    //             d="
+    //     M 20 0
+    //     H 280
+    //     L 300 0
+    //     V 70
+    //     Q 350 230 220 200
+    //     H 0
+    //     V 30
+    //     Q 0 0 20 0
+    //     Z
+    //   "
+    //             fill="#E2E9F1"
+    //         />
+    //     </svg>
+    // );
 
 
 

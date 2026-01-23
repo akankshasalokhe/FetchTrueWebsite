@@ -1,18 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { Bookmark } from "lucide-react";
+import { Bookmark, Strikethrough } from "lucide-react";
 import Link from "next/link";
 
 export default function ServiceCard({
   title,
   category,
   price,
+  keyvalues,
   rating,
   image,
+  totalreviews,
+  discount,
+  discountedprice,
+  commission,
   slug,
   detailslug,
-}: any) {
+}:any ) {
   return (
     <Link
       href={`/MainModules/LegalService/${slug}/${detailslug}`}
@@ -43,26 +48,34 @@ export default function ServiceCard({
           </h3>
 
           {/* TAGS */}
-          <div className="flex gap-2 mt-2">
+          <div className="flex gap-2 mt-2 justify-between">
             <span className="bg-white px-3 py-[3px] rounded-full text-[11px] text-[#868686]">
               {category}
             </span>
             <span className="bg-[#548AFE] px-3 py-[3px] rounded-full text-[11px] text-white">
-              Earn Up to 5%
+              Earn Up to {commission}
             </span>
-            <span className="bg-[#6FFF84] px-3 py-[3px] rounded-full text-[11px] text-black">
+            {/* <span className="bg-[#6FFF84] px-3 py-[3px] rounded-full text-[11px] text-black">
               Discount 30%
-            </span>
+            </span> */}
           </div>
 
           {/* FEATURES */}
-          <div className="flex gap-4 text-[12px] text-[#232323] mt-3">
-            <span>⚖️ Experts Lawyers</span>
-            <span>💰 Affordable Lawyers</span>
+          <div className="flex gap-4 text-[12px] text-[#232323] mt-3 justify-between">
+            {keyvalues && keyvalues.length > 0 && (
+  <ul className="flex flex-wrap gap-2 text-[12px] ">
+    {keyvalues.slice(0, 3).map((item: any, index: number) => (
+      <li key={index} className=" px-2 py-1 rounded">
+        {item.value}
+      </li>
+    ))}
+  </ul>
+)}
+
           </div>
 
           {/* RATING + PRICE */}
-          <div className="flex justify-between items-end mt-3">
+          <div className="flex justify-between mt-2 leading-6">
             <div>
               <p className="text-[10px] text-[#232323]">Reviews</p>
               <div className="flex">
@@ -77,12 +90,18 @@ export default function ServiceCard({
                   </span>
                 ))}
               </div>
-              <p className="text-[11px] text-[#919191]">2,400+ Reviews</p>
+              <p className="text-[11px] text-[#919191]">{totalreviews}+ Reviews</p>
             </div>
 
-            <div className="">
+            <div className="  justify-items-end me-2">
+              <p className="bg-[#BC9958] text-[#FFFFFF]  font-normal p-[2px] rounded-[3px]">{discount}% OFF</p>
               <p className="text-[11px] text-[#393737]">Starting from</p>
-              <p className="font-semibold text-[24px] text-[#232323]">₹ {price}</p>
+              <p className="font-semibold flex  text-[20px] gap-1 text-[#232323]">
+                <div>
+                <span className="text-[16px] text-[#868686] me-2"><s>₹ {discountedprice}</s></span>
+                 <span>₹ {price}</span>
+                 </div>
+              </p>
             </div>
           </div>
         </div>

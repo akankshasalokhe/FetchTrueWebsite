@@ -13,13 +13,14 @@ import axios from "axios";
 interface Category {
     _id: string;
     name: string;
+    image:string;
 }
 
 interface KeyValue {
     key: string;
     value: string;
     icon?: string;
-    _id: string;
+    _id:string;
 }
 
 interface InvestmentRange {
@@ -38,7 +39,8 @@ interface FranchiseModel {
     title: string;
     agreement: string;
     price: number;
-    discount: number;
+    discount?: number;
+    discountedPrice:number;
     gst: number;
     fees: number;
     _id: string;
@@ -55,7 +57,7 @@ interface Package {
     _id: string;
     name: string;
     price: number;
-    discount: number;
+    discount?: number;
     discountedPrice: number;
     whatYouGet: string[];
 }
@@ -69,12 +71,11 @@ interface ServiceDetails {
 export interface PopularService {
     _id: string;
     serviceName: string;
-    thumbnailImage: string;
+    thumbnailImage?: string;
     category: Category;
-    keyValues?: KeyValue[];
-    price: number;
-    serviceDetails?: ServiceDetails;
-    franchiseDetails?: FranchiseDetails;
+    keyValues: KeyValue[];
+    serviceDetails: ServiceDetails;
+    franchiseDetails: FranchiseDetails;
     averageRating: number;
     totalReviews: number;
     isTrending: boolean;

@@ -131,7 +131,6 @@ export default function ServiceCategory() {
   const toFolderName = (name: string) =>
   name.trim().replace(/\s+/g, "-");
 
-
   return (
     <>
     <div className="mx-auto text-center my-8 ">

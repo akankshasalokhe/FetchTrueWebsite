@@ -44,6 +44,19 @@ interface FranchiseModel {
   _id: string;
 }
 
+interface Package {
+  name: string;
+  price: number;
+  discount: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+  _id: string;
+}
+
+interface serviceDetails {
+  packages:Package[];
+}
+
 interface FranchiseDetails {
   commission: string;
   investmentRange: InvestmentRange[];
@@ -73,7 +86,6 @@ export interface PopularService {
   serviceDetails: ServiceDetails;
   keyValues: KeyValue[];
   totalReviews: number;
-  packages?: any[];
   franchiseDetails: FranchiseDetails;
   averageRating: number;
 }

@@ -3,41 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import LegalExpertsSection from "./LegalExpert";
+import { useParams } from "next/navigation";
+import { useModule } from "@/src/context/CategoriesContext";
+import { useEffect } from "react";
 
-const categories = [
-  {
-    title: "Business Registration",
-    slug: "business-registration",
-    image: "/image/BuisenessRegistration.png",
-  },
-  {
-    title: "Tax & Compliance",
-    slug: "tax-compliance",
-    image: "/image/TaxCompilance.png",
-  },
-  {
-    title: "Licenses & Certifications",
-    slug: "licenses-certifications",
-    image: "/image/LicenceCertification.png",
-  },
-  {
-    title: "Legal Drafting & Documentation",
-    slug: "legal-drafting-documentation",
-    image: "/image/LegalDrafting.png",
-  },
-  {
-    title: "Business Conversion",
-    slug: "business-conversion",
-    image: "/image/BusinessConversion.png",
-  },
-  {
-    title: "Real Estate Legal",
-    slug: "real-estate-legal",
-    image: "/image/RealEstateLegal.png",
-  },
-];
 
 export default function CategorySection() {
+
+  const { categories, fetchCategoriesByModule, loading, error } = useModule();
+  const { moduleId } = useParams<{ moduleId: string }>();
+
+  useEffect(()=>{
+    if(!moduleId) return;
+    fetchCategoriesByModule(moduleId);
+  },[moduleId]);
+
+
+    if (loading) return <p>Loading categories...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+
   return (
     <div className="w-full bg-[#F9F5EE] rounded-[15px] mx-auto">
 
@@ -68,58 +52,45 @@ export default function CategorySection() {
             touch-pan-x
           "
         >
-          {categories.map((item, index) => (
+          {categories.map((item) => (
             <Link
-              key={index}
-                href={`/MainModules/LegalService/${item.slug}`}
+              key={item._id}
+                href={`/MainModules/Legal-Services/${moduleId}/${item._id}`}
               className="snap-start"
             >
               <div
-                className="
-                  relative
-                  min-w-[146px] sm:w-[146px]
-                  h-[166px]
-                  rounded-[14.65px]
-                  bg-white
-                  flex-shrink-0
-                  cursor-pointer
-                  hover:shadow-md
-                  transition
-                "
-              >
-                {/* IMAGE BOX */}
-                <div
-                  className="
-                    w-[100px] h-[79px]
-                    mx-auto
-                    mt-[-2px]
-                    rounded-[8.54px]
-                    bg-[#F5E8E0]
-                    flex items-center justify-center ml-12
-                  "
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={61}
-                    height={54}
-                    className="object-contain"
-                  />
-                </div>
+  className="
+    w-[140px] sm:w-[146px]
+    h-[160px] sm:h-[166px]
+    rounded-[14.65px]
+    bg-white
+    flex flex-col
+    items-center
+    justify-between
+    py-4
+    flex-shrink-0
+    cursor-pointer
+    hover:shadow-md
+    transition
+  "
+>
+  {/* IMAGE */}
+  <div className="flex items-center justify-center h-[90px] mt-4">
+    <Image
+      src={item.image}
+      alt={item.name}
+      width={120}
+      height={80}
+      className="object-contain"
+    />
+  </div>
 
-                {/* TITLE */}
-                <h3
-                  className="
-                    absolute bottom-4 left-3 right-3
-                    font-inter font-semibold
-                    text-[14px] sm:text-[15px]
-                    leading-[20px]
-                    text-black text-left
-                  "
-                >
-                  {item.title}
-                </h3>
-              </div>
+  {/* TITLE */}
+  <h3 className="text-center text-[14px] sm:text-[15px] lg:text-[16px] font-medium px-2 leading-tight">
+    {item.name}
+  </h3>
+</div>
+
             </Link>
           ))}
         </div>

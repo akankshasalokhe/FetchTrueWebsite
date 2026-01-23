@@ -3,10 +3,16 @@
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import FinanceCard from "../ui/FinanceCard";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
+import { useTopTrendingServiceByCategoryIdContext } from "@/src/context/TopTrendingServiceByCategoryIdContext";
 
+interface Props {
+  categoryId: string;
+  moduleId: string;
+}
 
-
-const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
+const TopTrending = ({ categoryId,moduleId }:Props) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     
       const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -23,18 +29,16 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
         }
       };
 
-       const { services,loading,error,fetchRecommendedServices } = useRecommendedServices();
-        
-        useEffect(()=>{
-          if(moduleId) {
-            fetchRecommendedServices(moduleId)
-          }
-        },[moduleId])
-
-        console.log("finance Module Id:",moduleId)
-      
-        if(loading) return null;
-        if (error) return null;
+     const { services,loading,error,fetchTopTrendingServicesByCategoryId } = useTopTrendingServiceByCategoryIdContext();
+       
+       useEffect(()=>{
+         if(categoryId) {
+           fetchTopTrendingServicesByCategoryId(categoryId)
+         }
+       },[categoryId])
+     
+       if(loading) return null;
+       if (error) return null;
 
   return (
     <section className="w-full py-14 bg-[#F6FBF7]">
@@ -42,7 +46,7 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
 
         {/* TITLE */}
         <h2 className="text-[24px] font-Medium text-[#1A1A1A] mb-6">
-          Recommended Service
+          Top Trending
         </h2>
 
         {/* HORIZONTAL SCROLL */}
@@ -60,15 +64,17 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <div key={service._id} className="snap-start shrink-0">
+            <Link key={service._id} 
+                          href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
+            className="snap-start shrink-0">
                             <FinanceCard  
                               key={service._id}
                           title={service.serviceName}
                           category={service.category?.name}
                           keyvalues={service.keyValues}
                           earnUpto={service.franchiseDetails?.commission}
-                          
-                          discount={service.serviceDetails?.packages?.[0]?.discount || 0}
+                          discount={service.serviceDetails?.packages?.[0]?.discount}
+                        //   discount={service.serviceDetails?.packages?.[0]?.discount || 0}
                           rating={Math.round(service.averageRating || 0)}
                           totalreviews={service.totalReviews}
                           image={
@@ -82,7 +88,7 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
                           detailslug={service._id}
             
                             />
-                          </div>
+                          </Link>
           ))}
         </div>
 
@@ -91,4 +97,4 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
   );
 };
 
-export default RecommendedSection;
+export default TopTrending;

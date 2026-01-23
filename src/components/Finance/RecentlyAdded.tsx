@@ -1,98 +1,13 @@
 "use client";
 
+import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import FinanceCard from "../ui/FinanceCard";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useTopTrending } from "@/src/context/TopTrendingContext";
 
 
 
-const recommendedServices = [
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-  {
-    image: "/image/FinanceImage.jpg",
-    title: "Personal Loan",
-    category: "Banking",
-    discount: "5%",
-    earnUpto: "6%",
-    rating: 5,
-    loanAmount: "Upto 20 Lac",
-    approvalTime: "24 Hours",
-    duration: "12–60 Months",
-    interestRate: "Starting 10.99%",
-  },
-];
-
-const RecentlyAddedSection = () => {
+const TopTrendingSection = ({ moduleId }:{ moduleId:string}) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     
       const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -108,18 +23,32 @@ const RecentlyAddedSection = () => {
           scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
         }
       };
+
+       const { services,loading,error,fetchTopTrending } = useTopTrending();
+        
+        useEffect(()=>{
+          if(moduleId) {
+            fetchTopTrending(moduleId)
+          }
+        },[moduleId])
+
+        console.log("finance Module Id:",moduleId)
+      
+        if(loading) return null;
+        if (error) return null;
+
   return (
     <section className="w-full py-14 bg-[#F6FBF7]">
       <div className="max-w-[1440px] mx-auto px-4">
 
         {/* TITLE */}
         <h2 className="text-[24px] font-Medium text-[#1A1A1A] mb-6">
-            Recently Added
+          Top Trending
         </h2>
 
         {/* HORIZONTAL SCROLL */}
         <div
-          ref={scrollRef}
+        ref={scrollRef}
           tabIndex={0}                     
           onKeyDown={handleKeyDown}
           className="
@@ -131,8 +60,30 @@ const RecentlyAddedSection = () => {
             pb-4
           "
         >
-          {recommendedServices.map((item, index) => (
-            <FinanceCard key={index} {...item} />
+          {services.map((service) => (
+            <div key={service._id} className="snap-start shrink-0">
+                            <FinanceCard  
+                              key={service._id}
+                          title={service.serviceName}
+                          category={service.category?.name}
+                          keyvalues={service.keyValues}
+                          earnUpto={service.franchiseDetails?.commission}
+                          
+                          discount={service.serviceDetails?.packages?.[0]?.discount || 0}
+                          rating={Math.round(service.averageRating || 0)}
+                          totalreviews={service.totalReviews}
+                          image={
+                            service.thumbnailImage ||
+                            service.category?.image ||
+                            "/image/defaultService.jpg"
+                          }
+                          slug={service.category?.name
+                            ?.toLowerCase()
+                            .replace(/\s+/g, "-")}
+                          detailslug={service._id}
+            
+                            />
+                          </div>
           ))}
         </div>
 
@@ -141,4 +92,4 @@ const RecentlyAddedSection = () => {
   );
 };
 
-export default RecentlyAddedSection;
+export default TopTrendingSection;

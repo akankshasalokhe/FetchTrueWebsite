@@ -14,7 +14,7 @@ interface ServiceItem {
   title: string;
   description: string;
   icon: string;
-  list: string;
+  list?: string;
 }
 
 interface Module {

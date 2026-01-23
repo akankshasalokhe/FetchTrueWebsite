@@ -257,7 +257,7 @@ export default function Recommendation({ selectedRange, selectedCategory, search
         image: service.thumbnailImage || "/image/placeholder.png",
         rating: service.averageRating ?? 0,
         reviews: service.totalReviews,
-        price: service.price || 0,
+        // price: service.price || 0,
         keyValues: service.keyValues?.map((item) => ({
             id: item._id,
             label: item.value,

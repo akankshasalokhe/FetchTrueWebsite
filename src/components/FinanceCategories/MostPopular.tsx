@@ -1,12 +1,16 @@
 "use client";
 
-import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import FinanceCard from "../ui/FinanceCard";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
 
+interface Props {
+  categoryId: string;
+  moduleId: string;
+}
 
-
-const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
+const MostPopular = ({ categoryId,moduleId }:Props) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     
       const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -23,18 +27,16 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
         }
       };
 
-       const { services,loading,error,fetchRecommendedServices } = useRecommendedServices();
-        
-        useEffect(()=>{
-          if(moduleId) {
-            fetchRecommendedServices(moduleId)
-          }
-        },[moduleId])
-
-        console.log("finance Module Id:",moduleId)
-      
-        if(loading) return null;
-        if (error) return null;
+     const { services,loading,error,fetchMostPopularServiceByCategory } = useMostPopularServiceByCategory();
+       
+       useEffect(()=>{
+         if(categoryId) {
+           fetchMostPopularServiceByCategory(categoryId)
+         }
+       },[categoryId])
+     
+       if(loading) return null;
+       if (error) return null;
 
   return (
     <section className="w-full py-14 bg-[#F6FBF7]">
@@ -42,7 +44,7 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
 
         {/* TITLE */}
         <h2 className="text-[24px] font-Medium text-[#1A1A1A] mb-6">
-          Recommended Service
+          Most Popular
         </h2>
 
         {/* HORIZONTAL SCROLL */}
@@ -60,29 +62,29 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <div key={service._id} className="snap-start shrink-0">
+            <Link key={service.serviceId} 
+                          href={`/MainModules/Finance/${moduleId}/${categoryId}/${service.serviceId}`}
+            className="snap-start shrink-0">
                             <FinanceCard  
-                              key={service._id}
+                              key={service.serviceId}
                           title={service.serviceName}
                           category={service.category?.name}
                           keyvalues={service.keyValues}
                           earnUpto={service.franchiseDetails?.commission}
                           
-                          discount={service.serviceDetails?.packages?.[0]?.discount || 0}
+                          discount={service.serviceDetails?.packages?.[0]?.discount}
                           rating={Math.round(service.averageRating || 0)}
                           totalreviews={service.totalReviews}
                           image={
-                            service.thumbnailImage ||
-                            service.category?.image ||
-                            "/image/defaultService.jpg"
+                            service.thumbnailImage 
                           }
                           slug={service.category?.name
                             ?.toLowerCase()
                             .replace(/\s+/g, "-")}
-                          detailslug={service._id}
+                          detailslug={service.serviceId}
             
                             />
-                          </div>
+                          </Link>
           ))}
         </div>
 
@@ -91,4 +93,4 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
   );
 };
 
-export default RecommendedSection;
+export default MostPopular;

@@ -14,6 +14,7 @@ interface FranchiseModel {
   agreement: string;
   price: number;
   discount?: number;
+  discountedPrice:number;
   gst: number;
   fees: number;
   _id: string;
@@ -36,6 +37,12 @@ interface FranchiseDetails {
   investmentRange: InvestmentRange[];
   monthlyEarnPotential: MonthlyEarnPotential[];
   franchiseModel: FranchiseModel[];
+}
+
+
+
+interface serviceDetails {
+  packages:Package[];
 }
 
 interface Category {
@@ -64,8 +71,7 @@ export interface Service {
   category: Category;
   thumbnailImage?: string;
   keyValues: KeyValue[];
-  serviceDetails: ServiceDetails;
-  price: number;
+  serviceDetails: serviceDetails; 
   franchiseDetails: FranchiseDetails;
   averageRating: number;
   totalReviews: number;
