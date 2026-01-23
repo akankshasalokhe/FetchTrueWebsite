@@ -73,25 +73,19 @@ export default function TopTrending({ selectedRange, selectedCategory, searchQue
 
 
     const params = useParams();
-    console.log("ALL PARAMS:", params);
-
-    console.log("Module ID in TopTrending component:", moduleId);
-
-
+ 
     useEffect(() => {
         if (moduleId) {
             fetchTrendingProviders(moduleId, 20.175618471885596, 72.73285952405311);
-            console.log("Fetching trending providers for moduleId:", moduleId);
+            
         }
     }, [moduleId]);
 
-    console.log("Received moduleId:", moduleId);
-
-    console.log("Providers Trending data:", providers);
+   
 
 
     useEffect(() => {
-        console.log("Providers from context:", providers);
+        
     }, [providers]);
 
 
@@ -199,9 +193,20 @@ export default function TopTrending({ selectedRange, selectedCategory, searchQue
                                             </p>
                                         </div>
 
-                                        <p className="text-[10px] lg:text-[14px] text-gray-600 mt-1 whitespace-nowrap">
-                                            <FaMapMarkerAlt className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 inline mr-1" /> {item.address}
-                                        </p>
+                                        <div className="mt-1 flex gap-1 text-[10px] lg:text-[14px] text-gray-600">
+                                            <FaMapMarkerAlt
+                                                className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 shrink-0 mt-[2px]"
+                                            />
+
+                                            <span className="
+                                                    break-words
+                                                    md:whitespace-normal
+                                                    lg:whitespace-nowrap
+                                                    lg:truncate
+                                                ">
+                                                {item.address}
+                                            </span>
+                                        </div>
                                     </div>
                                     <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
                                 </div>
@@ -247,8 +252,8 @@ export default function TopTrending({ selectedRange, selectedCategory, searchQue
                                     <div className="flex gap-2">
                                         <span className="text-orange-500">⭐</span>
                                         <div>
-                                            <p className="text-[13px] font-medium">{item.rating} Rating</p>
-                                            <p className="text-[12px] text-gray-500">{item.reviews} Reviews</p>
+                                            <p className="text-[10px] lg:text-[13px] font-medium">{item.rating} Rating</p>
+                                            <p className="text-[10px] lg:text-[12px] text-gray-500">{item.reviews} Reviews</p>
                                         </div>
                                     </div>
                                 </div>
@@ -271,8 +276,8 @@ export default function TopTrending({ selectedRange, selectedCategory, searchQue
                                     <div className="flex gap-2">
                                         <span className="text-orange-500">⭐</span>
                                         <div>
-                                            <p className="text-[10px]  font-medium">{item.rating} Rating</p>
-                                            <p className="text-[10px]  text-gray-500">{item.reviews} Reviews</p>
+                                            <p className="text-[10px] lg:text-[13px] font-medium">{item.rating} Rating</p>
+                                            <p className="text-[10px] lg:text-[12px] text-gray-500">{item.reviews} Reviews</p>
                                         </div>
                                     </div>
                                 </div>

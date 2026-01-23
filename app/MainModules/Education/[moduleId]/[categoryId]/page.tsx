@@ -210,14 +210,10 @@ export default function CategoryPage() {
     const router = useRouter();
 
     const params = useParams();
-    console.log("ALL PARAMS:", params);
+   
 
     const moduleId = params.moduleId as string;
     const categoryId = params.categoryId as string;
-
-    console.log("moduleId:", moduleId);
-    console.log("categoryId:", categoryId);
-
 
     const {
         subCategories,
@@ -401,7 +397,7 @@ export default function CategoryPage() {
                                 onClick={() => setSelectedRange(item.value)}
                                 className={`rounded-full px-5 py-2 text-sm border whitespace-nowrap ${selectedRange === item.value
                                     ? "bg-[#2818A3] text-white border-black"
-                                    : "bg-white text-black border-black"
+                                    : "bg-white text-black border"
                                     }`}
                             >
                                 {item.label}

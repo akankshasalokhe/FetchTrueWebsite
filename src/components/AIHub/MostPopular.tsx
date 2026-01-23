@@ -214,7 +214,7 @@ export default function MostPopular({ moduleId }: PopularProps) {
 
 
     return (
-        <div className="w-full">
+        <div className="w-full mb-6">
             <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 ml-4">
                 Most Popular
             </h1>
@@ -312,6 +312,9 @@ export default function MostPopular({ moduleId }: PopularProps) {
                                     <Settings size={14} />
                                     Maintenance: {p.maintenance}
                                 </p> */}
+                                <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
+                                    Setup & Time
+                                </p>
                                 {p.keyValues.map((kv) => (
                                     <div
                                         key={kv.id}

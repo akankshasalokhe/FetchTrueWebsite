@@ -216,7 +216,7 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
     return (
         <div className="w-full">
             <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 ml-4">
-               Top Trending
+                Top Trending
             </h1>
 
             <div
@@ -312,6 +312,9 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
                                     <Settings size={14} />
                                     Maintenance: {p.maintenance}
                                 </p> */}
+                                <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
+                                    Setup & Time
+                                </p>
                                 {p.keyValues.map((kv) => (
                                     <div
                                         key={kv.id}

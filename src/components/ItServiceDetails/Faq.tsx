@@ -29,21 +29,28 @@ const FAQ_DATA = [
   },
 ];
 
+type FAQsProps = {
+  faq: {
+    _id: string;
+    question: string;
+    answer: string;
+  }[];
+};
 
-const FAQs = () => {
-  const [activeId, setActiveId] = useState<number | null>(null);
-
-  const toggleFAQ = (id: number) => {
-    setActiveId(activeId === id ? null : id);
-  };
+export default function FAQs ({ faq }: FAQsProps) {
+  const [activeId, setActiveId] = useState<string | null>(null);
+ 
+     const toggleFAQ = (id: string) => {
+         setActiveId(activeId === id ? null : id);
+     };
 
   return (
     <section className="bg-gray-100 py-4">
-      <div className="md:w-[1249px] mx-auto px-4">
+      <div className="md:w-[700px] lg:w-[1340px] mx-auto px-4">
         {/* TITLE */}
         <div className="flex items-start md:justify-center mb-2">
           <h2
-            className="bg-black text-white px-6 py-2 text-[12px] md:text-[32px] font-semibold"
+            className="bg-black text-white px-6 py-2 text-[12px] md:text-[24px] lg:text-[32px] font-semibold"
             style={{
               clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
             }}
@@ -54,21 +61,21 @@ const FAQs = () => {
 
         {/* FAQ LIST */}
         <div className="space-y-4">
-          {FAQ_DATA.map((faq) => {
-            const isOpen = activeId === faq.id;
+          {faq.map((faq) => {
+            const isOpen = activeId === faq._id;
 
             return (
               <div
-                key={faq.id}
+                key={faq._id}
                 className="bg-white rounded-lg shadow-sm overflow-hidden"
               >
                 {/* QUESTION */}
                 <button
-                  onClick={() => toggleFAQ(faq.id)}
+                  onClick={() => toggleFAQ(faq._id)}
                   className="w-full flex justify-between items-center px-5 py-4 text-left"
                 >
-                  <span className="text-[14px] md:text-[24px] font-medium text-gray-800">
-                    {faq.id}. {faq.question}
+                  <span className="text-[14px] md:text-[18px] lg:text-[24px] font-medium text-gray-800">
+                    {faq.question}
                   </span>
 
                   {/* ARROW */}
@@ -87,7 +94,7 @@ const FAQs = () => {
                     isOpen ? "max-h-40 pb-4" : "max-h-0"
                   }`}
                 >
-                  <p className="text-[12px] md:text-[20px] text-gray-600 leading-relaxed">
+                  <p className="text-[12px] md:text-[15px] lg:text-[20px] text-gray-600 leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>
@@ -100,4 +107,4 @@ const FAQs = () => {
   );
 };
 
-export default FAQs;
+

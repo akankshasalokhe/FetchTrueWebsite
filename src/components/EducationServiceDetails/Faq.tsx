@@ -2,69 +2,51 @@
 
 import React, { useState } from "react";
 
-const FAQ_DATA = [
-    {
-        id: 1,
-        question: "What include in Managed IT Services?",
-        answer:
-            "Managed IT Services include proactive monitoring, maintenance, security management, backups, and technical support to ensure smooth business operations.",
-    },
-    {
-        id: 2,
-        question: "Can I customize the service according to my business size?",
-        answer:
-            "Yes, our services are fully customizable based on your business size, requirements, and growth plans.",
-    },
-    {
-        id: 3,
-        question: "What if a major issue occurs during business hours?",
-        answer:
-            "Our support team provides priority assistance during business hours to resolve critical issues quickly.",
-    },
-    {
-        id: 4,
-        question: "Is my business data secure?",
-        answer:
-            "Yes, we follow strict security protocols including encryption, access controls, and regular audits to keep your data safe.",
-    },
-];
 
 
-const FAQs = () => {
-    const [activeId, setActiveId] = useState<number | null>(null);
+type faqProps = {
+    faq: {
+        _id: string;
+        question: string;
+        answer: string;
+    }[];
+}
 
-    const toggleFAQ = (id: number) => {
+export default function FAQs ({ faq }:  faqProps ) {
+    const [activeId, setActiveId] = useState<string | null>(null);
+
+    const toggleFAQ = (id: string) => {
         setActiveId(activeId === id ? null : id);
     };
 
     return (
         <section className="bg-gray-100 py-4">
             {/* TITLE */}
-            <div className="flex items-start ml-6 px-1 md:px-12 mb-12">
+            <div className="flex items-start ml-6 px-1 md:px-12 mb-8">
                 <h2 className="more-info-title">
                     FAQs
                 </h2>
             </div>
 
-            <div className="md:w-[1249px] mx-auto px-4">
+            <div className="md:w-[750px] lg:w-[1249px] mx-auto px-4">
 
                 {/* FAQ LIST */}
                 <div className="space-y-4">
-                    {FAQ_DATA.map((faq) => {
-                        const isOpen = activeId === faq.id;
+                    {faq.map((faq) => {
+                        const isOpen = activeId === faq._id;
 
                         return (
                             <div
-                                key={faq.id}
+                                key={faq._id}
                                 className="bg-white rounded-lg shadow-sm overflow-hidden"
                             >
                                 {/* QUESTION */}
                                 <button
-                                    onClick={() => toggleFAQ(faq.id)}
+                                    onClick={() => toggleFAQ(faq._id)}
                                     className="w-full flex justify-between items-center px-5 py-4 text-left"
                                 >
                                     <span className="text-[14px] md:text-[24px] font-medium text-gray-800">
-                                        {faq.id}. {faq.question}
+                                         {faq.question}
                                     </span>
 
                                     {/* ARROW */}
@@ -94,4 +76,3 @@ const FAQs = () => {
     );
 };
 
-export default FAQs;

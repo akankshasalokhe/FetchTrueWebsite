@@ -19,7 +19,7 @@ import Link from "next/link";
 import { Eye, Pencil } from "lucide-react";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 
 type CourseInfo = {
@@ -56,16 +56,20 @@ export default function ServiceDetails() {
 
     const params = useParams();
     const serviceId = params.id as string;
-    console.log("Service ID from Params:", serviceId);
+   
     useEffect(() => {
         if (!serviceId) return;
 
         fetchServiceDetails(serviceId);
     }, [serviceId]);
 
-    console.log("Service Details Data:", service);
+    const searchParams = useSearchParams();
 
-    if (loading) return <p>Loading...</p>;
+    const serviceName = searchParams.get("service");
+
+   
+
+    if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -115,7 +119,7 @@ export default function ServiceDetails() {
                     </div>
 
                     <div className="flex-1 space-y-3">
-                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{DATA.title}</h1>
+                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{serviceName}</h1>
                         <p className="text-gray-500 text-[24px]">Education Service</p>
 
                         <div className="flex items-center gap-2 text-[20px]">
@@ -307,17 +311,17 @@ export default function ServiceDetails() {
                 <Benefits benefits={service?.serviceDetails?.benefits || []} />
                 <AboutUs aboutUs={service?.serviceDetails?.aboutUs || []} />
                 <WhyChooseUs whyChooseUs={service?.serviceDetails?.whyChooseUs || []} />
-                <LearnAndEligible whatYouWillLearn={service?.serviceDetails?.whatYouWillLearn || []}  eligibleFor={service?.serviceDetails?.eligibleFor || []} />
+                <LearnAndEligible whatYouWillLearn={service?.serviceDetails?.whatYouWillLearn || []} eligibleFor={service?.serviceDetails?.eligibleFor || []} />
                 <CourseCurriculum courseCurriculum={service?.serviceDetails?.courseCurriculum || []} />
-                <CourseIncludes />
-                <Certification />
+                <CourseIncludes courseIncludes={service?.serviceDetails?.courseIncludes || []} />
+                <Certification certificateImage={service?.serviceDetails?.certificateImage} />
                 <InstructorSection />
-                <CourseOffers />
-                <MoreInformation />
-                <TermsAndConditions />
-                <FAQs />
+                <CourseOffers assuredByFetchTrue={service?.serviceDetails?.assuredByFetchTrue || []} />
+                <MoreInformation moreInfo={service?.serviceDetails?.moreInfo || []} />
+                <TermsAndConditions termsAndConditions={service?.serviceDetails?.termsAndConditions || []} />
+                <FAQs faq={service?.serviceDetails?.faq || []} />
                 <RatingsReviews />
-                <ConnectWith />
+                <ConnectWith connectWith={service?.serviceDetails?.connectWith || []} />
             </section>
         </>
 

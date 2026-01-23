@@ -1038,7 +1038,7 @@ export default function AIHubModulesPage() {
                             {/* LEFT */}
                             <div className="flex items-center gap-3 lg:gap-5">
                                 <div className="bg-white rounded-full p-1">
-                                    <Link href="/">
+                                    <Link href="/MainModules">
                                         <img
                                             src="/image/AIHome.png"
                                             className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] cursor-pointer lg:p-1 object-cover"
@@ -1212,9 +1212,9 @@ export default function AIHubModulesPage() {
                         <div
                             key={index}
                             onClick={() =>
-                                router.push(`/MainModules/AIHub/${toSlug(item.name)}`)
+                               router.push(`/MainModules/AI-Hub/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
                             }
-                            className="flex flex-col mb-5 items-center p-1 lg:ml-8 md:ml-15 rounded-lg w-[120px]"
+                            className="flex flex-col mb-5 items-center p-1 lg:ml-8 md:ml-15 rounded-lg w-[120px] cursor-pointer"
                         >
                             <img
                                 src={item.image}
@@ -1285,7 +1285,7 @@ export default function AIHubModulesPage() {
                                             <div
                                                 key={i}
                                                 onClick={() =>
-                                                    router.push(`/MainModules/AIHub/${item._id}`)
+                                                     router.push(`/MainModules/AI-Hub/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
                                                 }
                                                 className="flex flex-col space-y-6 items-center text-center"
                                             >
@@ -1335,7 +1335,7 @@ export default function AIHubModulesPage() {
 
                 <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
                     <div className="max-w-8xl mx-auto px-6 md:px-12 mb-6 lg:mb-12 py-8 md:py-12">
-                        <WhyChooseUs />
+                        <WhyChooseUs moduleId={moduleId}/>
                     </div>
                 </section>
 

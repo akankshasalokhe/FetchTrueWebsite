@@ -321,6 +321,21 @@ interface Category {
     image: string;
 }
 
+interface Package {
+  _id: string;
+  name: string;
+  price: number;
+  discount: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+}
+
+
+interface ServiceDetails {
+  packages: Package[];
+}
+
+
 export interface Service {
     _id: string;
     serviceName: string;
@@ -329,6 +344,7 @@ export interface Service {
     keyValues: KeyValue[];
     franchiseDetails: FranchiseDetails;
     averageRating: number;
+    serviceDetails: ServiceDetails;
     totalReviews: number;
     price?: number;
     recommendedServices: boolean;

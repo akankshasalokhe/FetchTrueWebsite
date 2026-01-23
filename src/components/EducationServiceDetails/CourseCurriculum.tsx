@@ -245,7 +245,7 @@ export default function CourseCurriculum({ courseCurriculum }: CourseCurriculumP
         <section className="bg-[#F7F7F7] py-12">
             <div className="max-w-[1320px] w-full mx-auto p-6">
                 {/* TITLE */}
-                <div className="flex items-start ml-0 md:-ml-14 mb-8 md:mb-18">
+                <div className="flex items-start ml-0 md:ml-2 lg:-ml-14 mb-8 md:mb-18">
                     <h2 className="more-info-title">
                         Course Curriculum
                     </h2>
@@ -256,9 +256,9 @@ export default function CourseCurriculum({ courseCurriculum }: CourseCurriculumP
                     const sectionNumber = formatSectionNumber(index);
                     const duration = getDurationText(index);
                     return (
-                        <div key={item._id} className="relative mb-15 border rounded-lg gap-8">
+                        <div key={item._id} className="relative mb-15 border rounded-tr-lg rounded-br-lg rounded-bl-lg rounded-tl-none gap-8">
                             {/* Section badge */}
-                            <span className="absolute md:-top-11 -top-6 inline-block w-fit bg-indigo-600 text-white text-[12px] md:text-[24px] font-semibold px-3 py-1 rounded-t-xl">
+                            <span className="absolute md:-ml-0.5 -ml-0.5 md:-top-9 lg:-top-11 -top-6 inline-block w-fit bg-indigo-600 text-white text-[12px] md:text-[18px] lg:text-[24px] font-semibold px-3 py-1 rounded-t-xl">
                                 Section {sectionNumber} – Duration {duration}
                             </span>
                             {/* Section Header */}
@@ -271,7 +271,7 @@ export default function CourseCurriculum({ courseCurriculum }: CourseCurriculumP
                                     {/* <div className="flex items-center justify-between gap-4"> */}
                                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
                                         {/* Title */}
-                                        <p className="font-medium text-start  md:ml-2 text-[12px] md:text-[24px] text-gray-700">
+                                        <p className="font-medium text-start  md:ml-2 text-[12px] md:text-[18px] lg:text-[24px] text-gray-700">
                                             {item.title}
                                         </p>
 
@@ -280,7 +280,7 @@ export default function CourseCurriculum({ courseCurriculum }: CourseCurriculumP
                                             {item.lists.map((sub, index) => (
                                                 <span
                                                     key={index}
-                                                    className="md:text-[16px] text-[8px] font-bold bg-gray-200 text-gray-700 px-3 py-1 rounded-full"
+                                                    className="md:text-[12px] lg:text-[16px] text-[8px] inline-block font-bold bg-gray-200 text-gray-700 px-3 py-1 rounded-full"
                                                 >
                                                     {sub}
                                                 </span>
@@ -289,13 +289,13 @@ export default function CourseCurriculum({ courseCurriculum }: CourseCurriculumP
                                     </div>
                                 </div>
 
-                                <div className="flex items-center -mt-28 -mr-6 md:-mt-34 gap-2 md:gap-4 shrink-0">
+                                <div className="flex items-center -mt-28 -mr-6 md:-mt-40 lg:-mt-34 gap-0 md:gap-4 shrink-0">
                                     <img
                                         src="/image/GraduationCap.png"
                                         alt="GraduationCap"
                                         className="object-cover w-[18px] h-[18px] md:w-[38px] md:h-[38px]"
                                     />
-                                    <span className="text-[10px] md:text-[24px] text-gray-600 font-semibold">
+                                    <span className="text-[10px] md:text-[18px] lg:text-[24px] text-gray-600 font-semibold">
                                         Vidit Aatrey
                                     </span>
 

@@ -1,20 +1,18 @@
 'use client';
 
 import Recommended from '@/src/components/AIHubSubCategories/RecommendedService';
-import { useState, use } from "react";
+import { useState, useEffect } from "react";
 import Link from 'next/link';
 import TopTrending from '@/src/components/AIHubSubCategories/TopTrending';
 import FreeTrialAvailable from '@/src/components/AIHubSubCategories/FreeTrialAvailable';
 import CategorySection from '@/src/components/AIHubSubCategories/CategorySection';
 import CostSavingAI from '@/src/components/AIHubSubCategories/CostSavingAI';
 import { ChevronLeft, SearchCheckIcon } from 'lucide-react';
+import { useParams, useSearchParams } from 'next/navigation';
+import { Category, useSubCategory } from '@/src/context/SubCategoriesContext';
 
 
-type Props = {
-    params: Promise<{
-        slug: string;
-    }>;
-};
+
 
 const categories = [
     { label: "Leadership", path: "/image/Business.png" },
@@ -24,12 +22,38 @@ const categories = [
     { label: "Motivation", path: "/image/Lifestyle.png" },
 ]
 
+type SubCategory = {
+    _id: string;
+    name: string;
+    image: string;
+    category: Category;
+};
 
-export default function SubCategoryPage({ params }: Props) {
 
-    const { slug } = use(params);   // ✅ unwrap params
-    const contextTitle = slug;
+export default function SubCategoryPage() {
 
+    const params = useParams();
+    const searchParams = useSearchParams();
+
+
+    const moduleId = params.moduleId as string;
+    const categoryId = params.categoryId as string;
+    const categoryName = searchParams.get("categoryName");
+
+    const {
+        subCategories,
+        loading,
+        error,
+        fetchSubCategories,
+    } = useSubCategory();
+
+
+
+    useEffect(() => {
+        if (categoryId) {
+            fetchSubCategories(categoryId);
+        }
+    }, [categoryId, fetchSubCategories]);
 
 
     const valueRange = [
@@ -46,15 +70,15 @@ export default function SubCategoryPage({ params }: Props) {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
 
-  
-    const formatSlugToTitle = (slug: string) => {
-        const decodedSlug = decodeURIComponent(slug);
 
-        return decodedSlug
-            .split("-")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    };
+    // const formatSlugToTitle = (slug: string) => {
+    //     const decodedSlug = decodeURIComponent(slug);
+
+    //     return decodedSlug
+    //         .split("-")
+    //         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    //         .join(" ");
+    // };
 
 
     return (
@@ -66,7 +90,7 @@ export default function SubCategoryPage({ params }: Props) {
                         {/* LEFT */}
                         <div className="flex  p-2 items-center gap-3 lg:gap-5">
 
-                            <Link href="/MainModules/AIHub">
+                            <Link href={`/MainModules/AI-Hub/${moduleId}`}>
                                 <img
                                     src="/image/AIHubback.png"
                                     className="hidden md:block w-[16px] h-[14px] lg:w-[38.6px] lg:h-[35.02px]"
@@ -81,7 +105,7 @@ export default function SubCategoryPage({ params }: Props) {
 
 
                             <h1 className="text-[18px] lg:text-[24px] font-semibold text-[#000000] ">
-                                {formatSlugToTitle(slug)}
+                                {categoryName}
                             </h1>
                         </div>
 
@@ -129,12 +153,12 @@ export default function SubCategoryPage({ params }: Props) {
 
 
             <section className="w-full p-6 mt-6 md:mt-10">
-                <Recommended />
-                <FreeTrialAvailable />
-                <TopTrending />
+                <Recommended categoryId={categoryId} moduleId={moduleId} />
+                <FreeTrialAvailable categoryId={categoryId} moduleId={moduleId}/>
+                <TopTrending categoryId={categoryId} moduleId={moduleId} />
             </section>
 
-            <section className="relative w-full mt-4 mb-2 p-6 lg:p-12">
+            {/* <section className="relative w-full mt-4 mb-2 p-6 lg:p-12">
                 <div className="flex flex-col items-center text-center">
                     <h1 className="lg:text-[32px] font-semibold">Sort By Your Business Goal </h1>
                     <p className="lg:text-[20px]">get the service that matches your business goal </p>
@@ -142,8 +166,8 @@ export default function SubCategoryPage({ params }: Props) {
                 <h1 className="text-[16px] md:text-[24px] font-semibold mb-5">Category</h1>
 
                 <div className="grid grid-cols-2 gap-2 md:flex md:flex-row md:flex-wrap">
-                    {categories.map((item, index) => {
-                        const isActive = item.label === selectedCategory; // check if active
+                    {(subCategories as SubCategory[]).map((item,index) => {
+                        const isActive = item.name === selectedCategory; // check if active
 
                         return (
                             <div
@@ -151,21 +175,21 @@ export default function SubCategoryPage({ params }: Props) {
                                 className={`
                                     cursor-pointer
                                     flex items-center gap-2
-                                    p-2 rounded-lg border border-black
+                                    p-2 rounded-lg border border-gray-500
                                     flex-shrink-0 px-4 py-2
-                                    w-full md:w-[120px]
+                                    w-full md:w-[220px]
                                     ${isActive ? "bg-[#009ABF] text-white" : "bg-white text-black"}
                                     `}
-                                onClick={() => setSelectedCategory(item.label)}
+                                onClick={() => setSelectedCategory(item.name)}
                             >
                                 <img
-                                    src={item.path}
-                                    alt={item.label}
+                                    src={item.image}
+                                    alt={item.name}
                                     className="w-[26px] h-[26px] object-contain"
                                 />
 
-                                <span className="text-[12px] font-medium leading-tight">
-                                    {item.label}
+                                <span className="text-[12px] md:text-[16px] font-medium leading-tight">
+                                    {item.name}
                                 </span>
                             </div>
                         );
@@ -174,11 +198,11 @@ export default function SubCategoryPage({ params }: Props) {
 
 
 
-            </section>
-            <section className="w-full p-6 mt-2 md:mt-2">
+            </section> */}
+            {/* <section className="w-full p-6 mt-2 md:mt-2">
                 <CategorySection />
                 <CostSavingAI />
-            </section>
+            </section> */}
 
 
 

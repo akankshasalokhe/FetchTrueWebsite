@@ -386,7 +386,7 @@ export default function ITModulesPage() {
 
 
     const params = useParams();
-    console.log("ALL PARAMS:", params);
+  
 
     const moduleId = params.moduleId as string;
 
@@ -644,7 +644,7 @@ export default function ITModulesPage() {
                 <Recommendation moduleId={moduleId} />
                 <MostlyUsed moduleId={moduleId} />
                 <HighInDemand moduleId={moduleId} />
-                <WhyChooseUs />
+                <WhyChooseUs moduleId={moduleId}/>
             </section>
         </>
     );

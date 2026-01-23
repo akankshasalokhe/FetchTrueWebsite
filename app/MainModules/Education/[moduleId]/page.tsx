@@ -56,7 +56,7 @@ export default function EducationModulePage() {
 
     const router = useRouter();
     const params = useParams();
-    console.log("ALL PARAMS:", params);
+   
 
     const moduleId = params.moduleId as string;
 
@@ -409,7 +409,7 @@ export default function EducationModulePage() {
                 <Recommendation moduleId={moduleId} />
                 <MostPopular moduleId={moduleId} />
                 <TopPicks moduleId={moduleId} />
-                <WhyChooseUs />
+                <WhyChooseUs  moduleId={moduleId} />
             </section>
 
         </>

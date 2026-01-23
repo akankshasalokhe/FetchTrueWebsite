@@ -169,8 +169,6 @@ export default function Recommendation({ categoryId, moduleId }: Props) {
     }, [moduleId, categoryId]);
 
 
-    console.log("Recommended API categoryId:", categoryId);
-    console.log("Recommended Services:", services);
 
 
     if (loading)

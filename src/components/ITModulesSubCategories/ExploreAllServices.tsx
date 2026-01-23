@@ -295,10 +295,6 @@ export default function Recommendation({   selectedRange = "all",
         const contextMatch =
             !contextTitle || itemSlug === contextTitle;
 
-        console.log("ITEM SLUG 👉", itemSlug);
-        console.log("CONTEXT SLUG 👉", contextTitle);
-        console.log("FINAL CONTEXT MATCH 👉", contextMatch);
-
 
 
         // SEARCH

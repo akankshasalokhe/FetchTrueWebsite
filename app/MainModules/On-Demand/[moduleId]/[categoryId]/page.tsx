@@ -53,7 +53,7 @@ export default function BudgetFilter() {
                         {/* LEFT */}
                         <div className="flex  p-2 items-center gap-3 lg:gap-5">
 
-                            <Link href="/MainModules/OnDemand">
+                            <Link href={`/MainModules/On-Demand/${moduleId}`}>
                                 <img
                                     src="/image/educationback.png"
                                     className="hidden md:block w-[16px] h-[14px] lg:w-[38.6px] lg:h-[35.02px]"
@@ -97,7 +97,7 @@ export default function BudgetFilter() {
                         <div className="flex items-center justify-between">
                             {/* LEFT */}
                             <div className="flex items-center gap-3 min-w-0">
-                                <Link href="/MainModules/OnDemand">
+                               <Link href={`/MainModules/On-Demand/${moduleId}`}>
                                     <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
                                 </Link>
 

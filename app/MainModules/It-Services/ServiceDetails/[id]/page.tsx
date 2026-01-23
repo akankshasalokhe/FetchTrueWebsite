@@ -12,9 +12,12 @@ import Packages from "@/src/components/ItServiceDetails/Packages";
 import RatingsReviews from "@/src/components/ItServiceDetails/Reviews";
 import TermsAndConditions from "@/src/components/ItServiceDetails/TermsAndConditions";
 import WhyChooseUs from "@/src/components/ItServiceDetails/WhyChooseUs";
+import { useParams, useSearchParams } from "next/navigation";
 
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 
 const ServiceDetails = () => {
 
@@ -28,7 +31,63 @@ const ServiceDetails = () => {
         "Personalized EMI & Tenure Plans",
         "Transparent Fees — No Hidden Charges",
     ];
+    const { service, loading, error, fetchServiceDetails } = useServiceDetails();
 
+    const params = useParams();
+    const serviceId = params.id as string;
+
+    useEffect(() => {
+        if (!serviceId) return;
+
+        fetchServiceDetails(serviceId);
+    }, [serviceId]);
+
+    const searchParams = useSearchParams();
+
+    const serviceName = searchParams.get("service");
+
+
+      function extractBenefits(html: string): string[] {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const results: string[] = [];
+
+        doc.querySelectorAll("li").forEach(li => {
+            const text = li.textContent?.trim();
+            if (text) results.push(text);
+        });
+
+        doc.querySelectorAll("p").forEach(p => {
+            if (!p.closest("li")) {
+                const text = p.textContent?.trim();
+                if (text) results.push(text);
+            }
+        });
+
+        if (results.length === 0) {
+            const text = doc.body.textContent || "";
+            text
+                .split("\n")
+                .map(t => t.trim())
+                .filter(Boolean)
+                .forEach(t => results.push(t));
+        }
+
+        return results;
+    }
+
+    const parsedBenefits = service?.serviceDetails?.benefits.flatMap(extractBenefits) || [];
+
+    // Split ONLY for desktop
+    const mid = Math.ceil(parsedBenefits.length / 2);
+    const left = parsedBenefits.slice(0, mid);
+    const right = parsedBenefits.slice(mid);
+
+
+
+
+    if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
+    if (error) return <p>{error}</p>;
     return (
         <>
             <section className="relative w-full lg:p-8 p-0">
@@ -76,7 +135,7 @@ const ServiceDetails = () => {
                             {/* TOP INFO */}
                             <div className="space-y-4">
                                 <h2 className="text-[40px] font-semibold text-black">
-                                    Managed IT Service & Support
+                                    {serviceName}
                                 </h2>
 
                                 <p className="text-gray-500 text-[32px]">IT Service</p>
@@ -205,9 +264,9 @@ const ServiceDetails = () => {
 
                     {/* Benefits List */}
                     <div className="flex flex-col mx-auto md:w-[700px] lg:w-[1320px] lg:h-[354px] md:grid md:grid-cols-2 bg-white rounded-xl md:p-12 p-2 gap-y-4 gap-x-2">
-                        {benefits.map((item, index) => (
+                        {parsedBenefits.map((item, index) => (
                             <div key={index} className="flex items-start gap-2">
-                                <img src="/image/checkmark.png" alt="check" className="w-5 h-5 w-8 h-8 lg:w-10 lg:h-10 flex-shrink-0" />
+                                {/* <img src="/image/checkmark.png" alt="check" className="w-5 h-5 w-8 h-8 lg:w-10 lg:h-10 flex-shrink-0" /> */}
                                 <p className="text-black md:text-[18px] lg:text-[24px]">{item}</p>
                             </div>
                         ))}
@@ -239,18 +298,18 @@ const ServiceDetails = () => {
 
 
             <section className="relative w-full">
-                <AboutSection />
-                <WhyChooseUs />
-                <HowItWorks />
-                <AssuredByFetchTrue />
-                <Packages />
-                <Documents />
-                <MoreInformation />
+                <AboutSection aboutUs={service?.serviceDetails?.aboutUs || []} highlight={service?.serviceDetails?.highlight || []} />
+                <WhyChooseUs whyChooseUs={service?.serviceDetails?.whyChooseUs || []} />
+                <HowItWorks howItWorks={service?.serviceDetails?.howItWorks || []} />
+                <AssuredByFetchTrue assuredByFetchTrue={service?.serviceDetails?.assuredByFetchTrue || []} />
+                <Packages packages={service?.serviceDetails?.packages || []} />
+                <Documents weRequired={service?.serviceDetails?.weRequired || []} weDeliver={service?.serviceDetails?.weDeliver || []} />
+                <MoreInformation moreInfo={service?.serviceDetails?.moreInfo || []} />
                 <ChooseProvider />
-                <TermsAndConditions />
-                <FAQs />
+                <TermsAndConditions termsAndConditions={service?.serviceDetails?.termsAndConditions || []} />
+                <FAQs faq={service?.serviceDetails?.faq || []} />
                 <RatingsReviews />
-                <ConnectWith />
+                <ConnectWith connectWith={service?.serviceDetails?.connectWith || []} />
             </section>
         </>
     );

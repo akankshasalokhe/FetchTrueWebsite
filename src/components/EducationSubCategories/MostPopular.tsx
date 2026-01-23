@@ -171,7 +171,6 @@
 //     const containerRef = useRef<HTMLDivElement | null>(null);
 //     const router = useRouter();
 
-//     console.log("Most Popular Services from Context:", services);
 
 //     useEffect(() => {
 //         if (categoryId && moduleId) {
@@ -239,8 +238,6 @@
 //         })) || [],
 
 //     }));
-
-//     console.log("Most Popular Mapped Services:", mappedServices);
 
 
 //     if (loading) return <p>Loading...</p>;
@@ -604,6 +601,16 @@ interface Props {
     moduleId: string;
 }
 
+interface Package {
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+}
+
+
 export default function MostPopular({ categoryId, moduleId }: Props) {
     const {
         services,
@@ -614,7 +621,7 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
 
-    console.log("Most Popular Services from Context:", services);
+   
 
     useEffect(() => {
         if (categoryId && moduleId) {
@@ -669,22 +676,33 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
         active?: boolean;
     };
 
-     const mappedServices = services.map((service) => ({
-        id: service.serviceId,
-        title: service.serviceName,
-        category: service.category?.name || "Unknown",
-        image: service.thumbnailImage || "/image/placeholder.png",
-        rating: service.averageRating ?? 0,
-        reviews: service.totalReviews,
-        price: service.price || 0,
-        keyValues: service.keyValues?.map((item) => ({
-            id: item._id,
-            label: item.value,
-        })) || [],
+    const getStartingPackage = (packages: Package[] = []) => {
+        if (!packages.length) return null;
 
-    }));
+        return packages.reduce((min, pkg) =>
+            pkg.discountedPrice < min.discountedPrice ? pkg : min
+        );
+    };
 
-    console.log("Most Popular Mapped Services:", mappedServices);
+      const mappedServices = services.map((service) => {
+        const packages = service.packages || [];
+        const startingPackage = getStartingPackage(packages);
+        return ({
+            id: service.serviceId,
+            title: service.serviceName,
+            category: service.category?.name || "Unknown",
+            image: service.thumbnailImage || "/image/placeholder.png",
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews,
+            price: startingPackage?.discountedPrice ?? 0,
+            originalPrice: startingPackage?.price ?? 0,
+            discount: startingPackage?.discount ?? 0,
+            keyValues: service.keyValues?.map((item) => ({
+                id: item._id,
+                label: item.value,
+            })) || [],
+
+        })});
 
 
     if (loading) return <p>Loading...</p>;
@@ -732,25 +750,25 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/Education/ServiceDetails`)
+                               router.push(`/MainModules/Education/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
-                                relative snap-center flex-shrink-0
-                                w-[285px] min-h-[275px]
+                                 relative snap-center flex-shrink-0
+                                w-[285px] min-h-[271px]
                                 sm:w-[70vw] h-[330px]
-                                md:w-[331px] md:h-[382px] lg:h-[349px] lg:w-[352px]
-                                overflow-hidden 
+                                md:w-[331px] md:h-[392px] lg:h-[361px] lg:w-[352px]
+                                overflow-hidden cursor-pointer
                                 "
                         >
 
                             {/* CONTENT */}
-                            <div className="relative z-10 lg:h-[349px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
+                            <div className="relative z-10 md:h-[362px] lg:h-[361px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
                                 {/* IMAGE SECTION */}
                                 <div className="relative md:h-[170px] w-full p-3 h-[156px]">
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-[378px] h-[126px] object-cover
+                                        className="w-[378px] h-[126px] object-fit
                                     rounded-xl"
                                     />
                                     <div className="">
@@ -778,14 +796,14 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
 
 
                                     <div className="flex items-center justify-between mb-2 md:mb-6">
-                                        <span className="inline-block bg-[#FFFFFF] font-semibold text-[12px] md:text-[16px] px-3 py-1 rounded-full
+                                        <span className="inline-block font-semibold text-[12px] md:text-[16px] px-3 py-1  md:mt-4 lg:mt-0 mt-0
                                          leading-snug
                                         line-clamp-2 max-w-[65%]
                                         min-h-[40px] lg:min-h-[40px]">
                                             {item.title}
                                         </span>
 
-                                        <span className="text-[8px] md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
+                                        <span className="text-[8px] md:text-[10px] text-white lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
                                             {/* {item?.earn} */}
                                             Earn upto 5 %
                                         </span>
@@ -877,7 +895,7 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
                                     </div>
 
                                     {/* PRICE */}
-                                    <div
+                                    {/* <div
                                         className="
                                             absolute lg:bottom-4 right-4 md:bottom-1 bottom-1
                                             bg-white text-black font-semibold
@@ -889,10 +907,30 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
                                             truncate 
                                             whitespace-nowrap
                                         "
-                                    >
+                                     >
                                         <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
-                                        {/* ₹ 999 */}
+                                        
                                       ₹ {item?.price}
+                                    </div> */}
+                                    <div className="absolute bottom-0 right-3 bg-[#F7F7F7] rounded-2xl mb-1 px-3 lg:px-2 py-1 lg:py-1 text-center">
+                                        <p className="text-[10px] lg:text-[10px]">
+                                            Starting from
+                                        </p>
+
+                                        <div className="font-semibold text-[16px] lg:text-[20px] flex flex-col items-center">
+                                            <span>₹{item.price}</span>
+
+                                            {item.discount > 0 && (
+                                                <div className="flex flex-row gap-2 text-center">
+                                                    <span className="line-through text-gray-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                                        ₹{item.originalPrice}
+                                                    </span>
+                                                    <span className="text-blue-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                                        ({item.discount}% off)
+                                                    </span>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

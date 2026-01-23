@@ -151,7 +151,7 @@ export default function SubCategoryPage() {
                         <div className="flex items-center justify-between">
                             {/* LEFT */}
                             <div className="flex items-center gap-3 p-8 min-w-0">
-                                <Link href="/MainModules/OnDemand">
+                                <Link href={`/MainModules/It-Services/${moduleId}`}>
                                     <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
                                 </Link>
 

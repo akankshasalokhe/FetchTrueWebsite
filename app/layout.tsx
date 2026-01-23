@@ -19,6 +19,7 @@ import { PopularProvidersProvider } from "@/src/context/PopularProviderContext";
 import { TrendingProvidersProvider } from "@/src/context/TrendingProviderContext";
 import { RecommendedCategoryProvidersProvider } from "@/src/context/RecommendedCategoryProviderContext";
 import { TrendingCategoryProvider } from "@/src/context/TrendingCategoryProviderContext";
+import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -47,11 +48,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                       <TrendingProvidersProvider>
                                         <RecommendedCategoryProvidersProvider>
                                           <TrendingCategoryProvider>
+                                            <WhyChooseServiceProvider>
 
-                                            {/* <Navbar /> */}
-                                            <main>{children}</main>
+                                              {/* <Navbar /> */}
+                                              <main>{children}</main>
 
-                                            <Footer />
+                                              <Footer />
+                                            </WhyChooseServiceProvider>
                                           </TrendingCategoryProvider>
                                         </RecommendedCategoryProvidersProvider>
                                       </TrendingProvidersProvider>

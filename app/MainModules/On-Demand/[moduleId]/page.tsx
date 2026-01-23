@@ -169,11 +169,13 @@ export default function OnDemandModulePage() {
                             <div className="flex items-center justify-between p-4 w-full">
                                 {/* LEFT */}
                                 <div className="flex items-center gap-3 lg:gap-5">
-                                    <img
-                                        src="/image/OnDemandnavhome.png"
-                                        className="w-[26px] h-[30px] lg:w-[34px] lg:h-[42px] bg-white rounded-full"
-                                        alt="Home"
-                                    />
+                                    <Link href="/">
+                                        <img
+                                            src="/image/OnDemandnavhome.png"
+                                            className="w-[26px] h-[30px] lg:w-[38px] lg:h-[42px] bg-white rounded-full cursor-pointer"
+                                            alt="Home"
+                                        />
+                                    </Link>
                                     <h1 className="text-[18px] lg:text-[24px] font-semibold">
                                         On Demand Service
                                     </h1>
@@ -293,7 +295,7 @@ export default function OnDemandModulePage() {
 
 
             {/* ================= CATEGORY ================= */}
-            <section className="relative w-full mt-10 p-22 mb-8">
+            <section className="relative w-full mt-10 p-4 lg:p-22 mb-8">
                 <h1 className="text-[16px] md:text-[24px] lg:text-[32px] font-semibold mb-5">
                     Category
                 </h1>
@@ -433,7 +435,8 @@ export default function OnDemandModulePage() {
                                     <div
                                         key={i}
                                         onClick={() =>
-                                            router.push(`/MainModules/OnDemand/${toSlug(item.name)}`)}
+                                             router.push(`/MainModules/On-Demand/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
+                                        }
                                         className="flex flex-col items-center"
                                     >
                                         <img
@@ -457,7 +460,7 @@ export default function OnDemandModulePage() {
                 <RecommendedProvider moduleId={moduleId} />
                 <MostPopularProvider moduleId={moduleId} />
                 <TopTrending moduleId={moduleId} />
-                <WhyChooseUs />
+                <WhyChooseUs moduleId={moduleId} />
             </section>
         </>
     );

@@ -553,7 +553,7 @@ export default function MostlyUsed({ categoryId, moduleId }: SectionProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
 
-    console.log("IT Service Most Popular Services from Context:", services);
+   
 
     useEffect(() => {
         if (categoryId && moduleId) {
@@ -561,7 +561,7 @@ export default function MostlyUsed({ categoryId, moduleId }: SectionProps) {
         }
     }, [moduleId, categoryId]);
 
-    console.log("Category ID in  MostlyUsed Component:", categoryId);
+ 
     
 
     const CARD_CLASSES = `

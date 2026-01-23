@@ -169,9 +169,6 @@ export default function HighInDemand({ categoryId, moduleId }: Props) {
     }, [moduleId, categoryId]);
 
 
-    console.log("Top Trending API categoryId:", categoryId);
-    console.log("Top Trending Services:", services);
-
 
     if (loading)
         return <p className="text-center py-10">Loading top trending services...</p>;

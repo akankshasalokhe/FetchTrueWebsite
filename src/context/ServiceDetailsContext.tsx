@@ -12,8 +12,7 @@ interface ImageTitleDescription {
   title: string;
   description: string;
   icon?: string;
-  image?: string;
-}
+}[]
 
 interface Counter {
   _id: string;
@@ -35,19 +34,39 @@ interface ServiceDetails {
   termsAndConditions: string[];
   whatYouWillLearn: string[];
   eligibleFor: string[];
+  highlight: string[];
   whyChooseUs: ImageTitleDescription[];
   courseCurriculum: CourseCurriculum[];
+  courseIncludes: string[];
+  certificateImage: string[];
+  packages:{
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+  }[];
   weRequired: {
     _id: string;
     title: string;
-    description: string;
   }[];
   weDeliver: {
     _id: string;
     title: string;
-    description: string;
   }[];
-  moreInfo: ImageTitleDescription[];
+  moreInfo: {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+}[];
+  assuredByFetchTrue: {
+    _id: string;
+    title: string;
+    description: string;
+    icon: string;
+  }[];
   connectWith: {
     _id: string;
     name: string;
@@ -58,6 +77,12 @@ interface ServiceDetails {
     _id: string;
     question: string;
     answer: string;
+  }[];
+  howItWorks: {
+   _id: string;
+   title: string;
+   description: string;
+   icon?: string;
   }[];
   roi:string[];
   brochureImage: string[];

@@ -535,6 +535,16 @@ interface Props {
     moduleId: string;
 }
 
+interface Package {
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+}
+
+
 export default function TopTrending({ categoryId, moduleId }: Props) {
     const {
         services, loading, error, fetchTopTrendingServicesByCategoryId 
@@ -548,10 +558,6 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
             fetchTopTrendingServicesByCategoryId(categoryId);
         }
     }, [moduleId, categoryId]);
-
-
-    console.log("Top Trending API categoryId:", categoryId);
-    console.log("Top Trending Services:", services);
 
 
     if (loading)
@@ -571,23 +577,36 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
         text.toLowerCase().replace(/\s+/g, "-");
 
 
-    const mappedServices = services.map((service) => ({
-        id: service._id,
-        title: service.serviceName,
-        category: service.category?.name || "Unknown",
-        image: service.thumbnailImage || "/image/placeholder.png",
-        rating: service.averageRating ?? 0,
-        reviews: service.totalReviews,
-        price : service.price || 0,
-        keyValues: service.keyValues?.map((item) => ({
-            id: item._id,
-            label: item.value,
-        })) || [],
+   const getStartingPackage = (packages: Package[] = []) => {
+        if (!packages.length) return null;
 
-    }));
+        return packages.reduce((min, pkg) =>
+            pkg.discountedPrice < min.discountedPrice ? pkg : min
+        );
+    };
 
 
-    if (loading) return <p>Loading...</p>;
+     const mappedServices = services.map((service) => {
+        const packages = service.serviceDetails?.packages || [];
+        const startingPackage = getStartingPackage(packages);
+        return ({
+            id: service._id,
+            title: service.serviceName,
+            category: service.category?.name || "Unknown",
+            image: service.thumbnailImage || "/image/placeholder.png",
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews,
+            price: startingPackage?.discountedPrice ?? 0,
+            originalPrice: startingPackage?.price ?? 0,
+            discount: startingPackage?.discount ?? 0,
+            keyValues: service.keyValues?.map((item) => ({
+                id: item._id,
+                label: item.value,
+            })) || [],
+
+        })});
+
+    if (loading) return <p className="text-[12px] md;text-[24px] text-center">Loading...</p>;
     if (error) return <p>{error}</p>;
 
 
@@ -676,11 +695,11 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/Education/ServiceDetails`)
+                                router.push(`/MainModules/Education/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
                                 relative snap-center flex-shrink-0
-                                w-[285px] min-h-[275px]
+                                w-[285px] min-h-[275px] cursor-pointer
                                 sm:w-[70vw] h-[330px]
                                 md:w-[331px] md:h-[382px] lg:h-[349px] lg:w-[352px]
                                 overflow-hidden 
@@ -694,7 +713,7 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-[378px] h-[126px] object-cover
+                                        className="w-[378px] h-[126px] object-fit
                                     rounded-xl"
                                     />
                                     <div className="">
@@ -729,7 +748,7 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                                             {item.title}
                                         </span>
 
-                                        <span className="text-[8px] md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
+                                        <span className="text-[8px] md:text-[10px] text-white lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
                                             {/* {item?.earn} */}
                                             Earn upto 5 %
                                         </span>
@@ -821,7 +840,7 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                                     </div>
 
                                     {/* PRICE */}
-                                    <div
+                                    {/* <div
                                         className="
                                             absolute lg:bottom-4 right-4 md:bottom-1 bottom-1
                                             bg-white text-black font-semibold
@@ -835,8 +854,27 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                                         "
                                     >
                                         <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
-                                        {/* ₹ 999 */}
                                       ₹ {item?.price}
+                                    </div> */}
+                                     <div className="absolute bottom-0 right-3 bg-[#F7F7F7] rounded-2xl mb-1 px-3 lg:px-2 py-1 lg:py-1 text-center">
+                                        <p className="text-[10px] lg:text-[10px]">
+                                            Starting from
+                                        </p>
+
+                                        <div className="font-semibold text-[16px] lg:text-[20px] flex flex-col items-center">
+                                            <span>₹{item.price}</span>
+
+                                            {item.discount > 0 && (
+                                                <div className="flex flex-row gap-2 text-center">
+                                                    <span className="line-through text-gray-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                                        ₹{item.originalPrice}
+                                                    </span>
+                                                    <span className="text-blue-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                                        ({item.discount}% off)
+                                                    </span>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
