@@ -192,7 +192,7 @@ export default function SearchBudget({ categoryId, moduleId }: Props) {
             
               <FranchiseMostPopularCard
                 key={service._id}
-                image={service.thumbnailImage}
+                image={service.thumbnailImage || "/default-service.png"}
                 title={service.serviceName}
                 category={service.category.name}
                 rating={service.averageRating}
