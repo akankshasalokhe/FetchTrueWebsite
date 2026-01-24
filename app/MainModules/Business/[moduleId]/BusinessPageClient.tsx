@@ -1271,25 +1271,7 @@ export default function BusinessPageClient() {
 
 <Recommended moduleId={moduleId}/>
 
-<section className="w-full px-4 lg:px-0 py-8 md:py-12 flex justify-center">
-  <div
-    className="
-      relative
-      w-full
-      max-w-[934px]
-      aspect-[934/502]
-      rounded-[12px]
-      overflow-hidden
-      shadow-[0px_20px_40px_rgba(0,0,0,0.12)]
-    "
-  >
-    <img
-      src="/image/businessflex.png"
-      alt="Business Banner"
-      className="w-full h-full object-cover"
-    />
-  </div>
-</section>
+
 
 <HighDemand moduleId={moduleId}/>
 

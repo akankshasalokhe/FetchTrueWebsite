@@ -9,6 +9,7 @@ import Link from "next/link";
 import WhyOurFranchise from "@/src/components/Franchise/WhyourFranchise";
 import Categories from "@/src/components/Franchise/Categories";
 import { useParams } from "next/navigation";
+import AllServices from "@/src/components/Franchise/AllServices";
 
 
 
@@ -198,12 +199,13 @@ export default function FranchisePageClient()  {
 
 
 <Categories/>
+<AllServices moduleId={moduleId}/>
 <Recommended  moduleId={moduleId}/>
 <HighDemands moduleId={moduleId}/>
-<TopGrowingFranchises />
-<BenefitsSection />
+{/* <TopGrowingFranchises /> */}
+{/* <BenefitsSection /> */}
 {/* <InvestmentOfferSection /> */}
-<LowInvestmentFranchises />
+<LowInvestmentFranchises moduleId={moduleId}/>
 <WhyOurFranchise />
 
 

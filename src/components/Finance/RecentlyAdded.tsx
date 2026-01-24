@@ -4,6 +4,8 @@ import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import FinanceCard from "../ui/FinanceCard";
 import { useEffect, useRef } from "react";
 import { useTopTrending } from "@/src/context/TopTrendingContext";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 
 
 
@@ -31,6 +33,11 @@ const TopTrendingSection = ({ moduleId }:{ moduleId:string}) => {
             fetchTopTrending(moduleId)
           }
         },[moduleId])
+
+        const { categoryId } = useParams<{
+                  moduleId: string;
+                  categoryId: string;
+                }>();
 
         console.log("finance Module Id:",moduleId)
       
@@ -61,7 +68,8 @@ const TopTrendingSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <div key={service._id} className="snap-start shrink-0">
+            <Link href={`/MainModules/Finance/${moduleId}/${categoryId}/${service._id}`}
+            key={service._id} className="snap-start shrink-0">
                             <FinanceCard  
                               key={service._id}
                           title={service.serviceName}
@@ -83,7 +91,7 @@ const TopTrendingSection = ({ moduleId }:{ moduleId:string}) => {
                           detailslug={service._id}
             
                             />
-                          </div>
+                          </Link>
           ))}
         </div>
 

@@ -5,6 +5,8 @@
 import { useMostPopular } from "@/src/context/MostPopularContext";
 import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 
 
@@ -17,6 +19,11 @@ export default function MostlyUsedService({moduleId}:{moduleId:string}) {
         fetchMostPopular(moduleId)
       }
     },[moduleId])
+
+     const { categoryId } = useParams<{
+                moduleId: string;
+                categoryId: string;
+              }>();
 
     
   if (loading) return null;
@@ -50,7 +57,8 @@ export default function MostlyUsedService({moduleId}:{moduleId:string}) {
             "
           >
             {services.map((service) => (
-              <div key={service.serviceId} className="snap-start shrink-0">
+              <Link  href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service.serviceId}`}
+              key={service.serviceId} className="snap-start shrink-0">
                <ServiceCard
                              title={service.serviceName}
                              category={service.category?.name}
@@ -69,7 +77,7 @@ export default function MostlyUsedService({moduleId}:{moduleId:string}) {
                                .replace(/\s+/g, "-")}
                              detailslug={service.serviceId}
                            />
-              </div>
+              </Link>
             ))}
           </div>
         </section>

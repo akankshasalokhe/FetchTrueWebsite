@@ -152,95 +152,187 @@
 // }
 
 
+// "use client";
+
+// import Image from "next/image";
+
+// export default function BestOffers() {
+//   return (
+//     <section className="w-full py-14 bg-white">
+//       <div className="max-w-[1440px] mx-auto px-6">
+
+//         {/* Heading */}
+//         <div className="mb-8">
+//           <h2 className="text-[22px] lg:text-[32px] font-semibold">Our Best Offers</h2>
+//           <p className="lg:text-[24px] text-gray-500">
+//             Explore our best app offers
+//           </p>
+//         </div>
+
+//         {/* Cards */}
+//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+//           {/* Refer & Earn */}
+//           <div className="bg-[#FFF9EB] rounded-[18px] p-8 flex flex-col justify-between min-h-[397px]">
+
+//             {/* Image */}
+//             <div className="flex justify-end">
+//               <Image
+//                 src="/image/refer-earn.png"
+//                 alt="Refer and Earn"
+//                 width={360}
+//                 height={240}
+//                 className="max-w-full h-auto"
+//               />
+//             </div>
+
+//             {/* Content */}
+//             <div className="flex items-end justify-between gap-6">
+//               <div>
+//                 <h3 className="text-[24px] font-semibold mb-2">
+//                   Refer and Earn
+//                 </h3>
+
+//                 <p className="text-[16px] text-gray-600 max-w-[420px]">
+//                   Refer your app code and share it with your friends earn up to
+//                   maximum earning. Don&apos;t just use the app — make earning easy.
+//                 </p>
+//               </div>
+
+//               <button className="bg-[#2164F4] text-white text-[14px] px-6 py-2 rounded-[10px] whitespace-nowrap">
+//                 View →
+//               </button>
+//             </div>
+//           </div>
+
+//           {/* Team Build */}
+//           <div className="bg-[#F0F5FE] rounded-[18px] p-8 flex flex-col justify-between min-h-[397px]">
+
+//             {/* Image */}
+//             <div className="flex justify-end">
+//               <Image
+//                 src="/image/team-build.png"
+//                 alt="Team Build"
+//                 width={360}
+//                 height={240}
+//                 className="max-w-full h-auto"
+//               />
+//             </div>
+
+//             {/* Content */}
+//             <div className="flex items-end justify-between gap-6 mt-6">
+//               <div>
+//                 <h3 className="text-[24px] font-semibold mb-2">
+//                   Team Build
+//                 </h3>
+
+//                 <p className="text-[16px] text-[#595959] max-w-[420px]">
+//                   Make your own team in our app. Start earning with people and
+//                   grow together.
+//                 </p>
+//               </div>
+
+//               <button className="bg-[#2164F4] text-white text-[14px] px-6 py-2 rounded-[10px] whitespace-nowrap">
+//                 View →
+//               </button>
+//             </div>
+//           </div>
+
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
 "use client";
 
-import Image from "next/image";
+import { useOffers } from "@/src/context/OfferContext";
+import { useRef, useState } from "react";
 
-export default function BestOffers() {
+export default function TodaysBestOffer() {
+  const { offers, loading } = useOffers();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  if (loading || !offers.length) return null;
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+
+    const container = scrollRef.current;
+    const cardWidth = container.firstElementChild?.clientWidth || 1;
+    const index = Math.round(container.scrollLeft / cardWidth);
+
+    setActiveIndex(index);
+  };
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollRef.current) return;
+
+    const cardWidth =
+      scrollRef.current.firstElementChild?.clientWidth || 0;
+
+    scrollRef.current.scrollTo({
+      left: index * cardWidth,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <section className="w-full py-14 bg-white">
+    <section className="w-full bg-white py-20">
       <div className="max-w-[1440px] mx-auto px-6">
 
         {/* Heading */}
-        <div className="mb-8">
-          <h2 className="text-[22px] lg:text-[32px] font-semibold">Our Best Offers</h2>
-          <p className="lg:text-[24px] text-gray-500">
-            Explore our best app offers
+        <div className="text-center mb-10">
+          <h2 className="text-[26px] font-semibold text-gray-900">
+            Todays Best Offer for you
+          </h2>
+          <p className="text-[14px] text-gray-500 mt-2">
+            Grab the opportunity & win amazing offer
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-          {/* Refer & Earn */}
-          <div className="bg-[#FFF9EB] rounded-[18px] p-8 flex flex-col justify-between min-h-[397px]">
-
-            {/* Image */}
-            <div className="flex justify-end">
-              <Image
-                src="/image/refer-earn.png"
-                alt="Refer and Earn"
-                width={360}
-                height={240}
-                className="max-w-full h-auto"
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar"
+        >
+          {offers.map((offer) => (
+            <div
+              key={offer._id}
+              className="shrink-0 w-[360px] lg:w-[400px] bg-[#F6F0FF] rounded-[18px]"
+            >
+              <img
+                src={offer.thumbnailImage}
+                alt="Offer Thumbnail"
+                className="w-full h-[240px] rounded-[18px] object-cover"
               />
             </div>
-
-            {/* Content */}
-            <div className="flex items-end justify-between gap-6">
-              <div>
-                <h3 className="text-[24px] font-semibold mb-2">
-                  Refer and Earn
-                </h3>
-
-                <p className="text-[16px] text-gray-600 max-w-[420px]">
-                  Refer your app code and share it with your friends earn up to
-                  maximum earning. Don&apos;t just use the app — make earning easy.
-                </p>
-              </div>
-
-              <button className="bg-[#2164F4] text-white text-[14px] px-6 py-2 rounded-[10px] whitespace-nowrap">
-                View →
-              </button>
-            </div>
-          </div>
-
-          {/* Team Build */}
-          <div className="bg-[#F0F5FE] rounded-[18px] p-8 flex flex-col justify-between min-h-[397px]">
-
-            {/* Image */}
-            <div className="flex justify-end">
-              <Image
-                src="/image/team-build.png"
-                alt="Team Build"
-                width={360}
-                height={240}
-                className="max-w-full h-auto"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="flex items-end justify-between gap-6 mt-6">
-              <div>
-                <h3 className="text-[24px] font-semibold mb-2">
-                  Team Build
-                </h3>
-
-                <p className="text-[16px] text-[#595959] max-w-[420px]">
-                  Make your own team in our app. Start earning with people and
-                  grow together.
-                </p>
-              </div>
-
-              <button className="bg-[#2164F4] text-white text-[14px] px-6 py-2 rounded-[10px] whitespace-nowrap">
-                View →
-              </button>
-            </div>
-          </div>
-
+          ))}
         </div>
+
+        {/* Dynamic Dots */}
+        <div className="flex justify-center gap-3 mt-8">
+          {offers.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollToIndex(index)}
+              className={`h-[4px] rounded-full transition-all duration-300 ${
+                activeIndex === index
+                  ? "w-10 bg-black"
+                  : "w-6 bg-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );
 }
+
+
+
 

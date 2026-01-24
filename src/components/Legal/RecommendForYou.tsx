@@ -5,6 +5,8 @@
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 // const services = [
 //   {
@@ -55,6 +57,11 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
     }
   },[moduleId])
 
+  const { categoryId } = useParams<{
+            moduleId: string;
+            categoryId: string;
+          }>();
+
   if(loading) return null;
   if (error) return null;
 
@@ -89,7 +96,8 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
           >
             {services.map((service) => (
 
-              <div key={service._id} className="snap-start shrink-0">
+              <Link  href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
+               key={service._id} className="snap-start shrink-0">
                 <ServiceCard  
                   key={service._id}
               title={service.serviceName}
@@ -112,7 +120,7 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
               detailslug={service._id}
 
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </section>

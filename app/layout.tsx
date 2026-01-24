@@ -15,6 +15,8 @@ import { ServiceDetailsProvider } from "@/src/context/ServiceDetailsContext";
 import { RecommendedServiceByCategoryIdProvider } from "@/src/context/RecommendedServiceByCategoryIdContext";
 import { MostPopularServiceByCategoryProvider } from "@/src/context/MostPopularServiceByCategoryIdContext";
 import { TopTrendingServiceByCategoryIdProvider } from "@/src/context/TopTrendingServiceByCategoryIdContext";
+import { OfferProvider } from "@/src/context/OfferContext";
+import { ModulewiseServiceProvider } from "@/src/context/ModulewiseServiceContext";
 import { PopularProvidersProvider } from "@/src/context/PopularProviderContext";
 import { TrendingProvidersProvider } from "@/src/context/TrendingProviderContext";
 import { RecommendedCategoryProvidersProvider } from "@/src/context/RecommendedCategoryProviderContext";
@@ -55,8 +57,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <WhyChooseServiceProvider>
                                               <CategorywiseServiceProvider>
 
+                                          <ModulewiseServiceProvider>
+                                          <OfferProvider>
                                                 {/* <Navbar /> */}
                                                 <main>{children}</main>
+                                  </OfferProvider>
+                                  </ModulewiseServiceProvider>
 
                                                 <Footer />
                                               </CategorywiseServiceProvider>

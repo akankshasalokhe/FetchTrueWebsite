@@ -170,6 +170,8 @@
 import FinanceCard from "../ui/FinanceCard";
 import { useEffect, useRef } from "react";
 import { useMostPopular } from "@/src/context/MostPopularContext";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 
 
@@ -197,6 +199,11 @@ const MostPopularSection = ({ moduleId }:{ moduleId:string}) => {
             fetchMostPopular(moduleId)
           }
         },[moduleId])
+
+        const { categoryId } = useParams<{
+                  moduleId: string;
+                  categoryId: string;
+                }>();
 
         console.log("finance Module Id:",moduleId)
       
@@ -227,7 +234,8 @@ const MostPopularSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <div key={service.serviceId} className="snap-start shrink-0">
+            <Link href={`/MainModules/Finance/${moduleId}/${categoryId}/${service._id}`}
+             key={service.serviceId} className="snap-start shrink-0">
                             <FinanceCard  
                               key={service.serviceId}
                           title={service.serviceName}
@@ -247,7 +255,7 @@ const MostPopularSection = ({ moduleId }:{ moduleId:string}) => {
                           detailslug={service.serviceId}
             
                             />
-                          </div>
+                          </Link>
           ))}
         </div>
 

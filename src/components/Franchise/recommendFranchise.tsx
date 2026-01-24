@@ -60,11 +60,15 @@ export default function RecommendedSection({moduleId}:Props) {
                     : "0%"
                 }
                 monthly={
-                  service.franchiseDetails?.monthlyEarnPotential?.[0]?.parameters ||
-                  "N/A"
+                  service.franchiseDetails?.monthlyEarnPotential?.[0]?.range
+                  
+                }
+                parameter={
+                  service.franchiseDetails?.monthlyEarnPotential?.[0]?.parameters
+                  
                 }
                 investment={
-                  service.franchiseDetails?.investmentRange?.[0]?.parameters ||
+                  service.franchiseDetails?.investmentRange?.[0]?.range ||
                   "N/A"
                 }
                 area={

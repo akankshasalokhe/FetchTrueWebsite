@@ -3,43 +3,43 @@
 import Link from "next/link";
 import FranchiseCard from "../ui/FranchiseCard";
 import { useEffect } from "react";
-import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
+import { useTopTrendingServiceByCategoryIdContext } from "@/src/context/TopTrendingServiceByCategoryIdContext";
 
 interface Props {
   categoryId: string;
   moduleId: string;
 }
 
-export default function Recommended({ categoryId, moduleId }: Props) {
+export default function TopTrending({ categoryId, moduleId }: Props) {
   const {
     services,
     loading,
     error,
-    fetchRecommendedServicesByCategoryId,
-  } = useRecommendedServiceByCategoryIdContext();
+    fetchTopTrendingServicesByCategoryId,
+  } = useTopTrendingServiceByCategoryIdContext();
 
   useEffect(() => {
     if (categoryId) {
-      fetchRecommendedServicesByCategoryId(categoryId);
+      fetchTopTrendingServicesByCategoryId(categoryId);
     }
   }, [categoryId]);
 
-  console.log("Recommended API categoryId:", categoryId);
+  console.log("Top Trending API categoryId:", categoryId);
 
 
   if (loading)
-    return <p className="text-center py-10">Loading recommended services...</p>;
+    return <p className="text-center py-10">Loading TopTrending services...</p>;
 
   if (error)
     return <p className="text-center py-10 text-red-500">{error}</p>;
 
   if (services.length === 0)
-    return <p className="text-center py-10">No recommended services found.</p>;
+    return <p className="text-center py-10">No TopTrending services found.</p>;
 
   return (
     <section className="w-full mt-8 lg:mt-18">
       <div className="max-w-[1440px] mx-auto px-4 mb-6">
-        <h2 className="text-[24px] font-semibold">Recommended For You</h2>
+        <h2 className="text-[24px] font-semibold">TopTrending For You</h2>
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
