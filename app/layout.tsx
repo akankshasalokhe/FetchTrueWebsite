@@ -51,15 +51,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 <MostPopularServiceByCategoryProvider>
                                   <TopTrendingServiceByCategoryIdProvider>
                                     <PopularProvidersProvider>
-                                      <WhyChooseServiceProvider>
-                                        <TopTrendingServiceByCategoryIdProvider>
-                                  {/* <Navbar /> */}
-                                  <main>{children}</main>
-                                      </TopTrendingServiceByCategoryIdProvider>
-                                     </WhyChooseServiceProvider>
-                                  <Footer />
-                                   </PopularProvidersProvider>
-                                  </CategorywiseServiceProvider>
+                                      <TrendingProvidersProvider>
+                                        <RecommendedCategoryProvidersProvider>
+                                          <TrendingCategoryProvider>
+                                            <WhyChooseServiceProvider>
+                                              <CategorywiseServiceProvider>
+
+                                          <ModulewiseServiceProvider>
+                                          <OfferProvider>
+                                                {/* <Navbar /> */}
+                                                <main>{children}</main>
+                                  </OfferProvider>
+                                  </ModulewiseServiceProvider>
+
+                                                <Footer />
+                                              </CategorywiseServiceProvider>
+                                            </WhyChooseServiceProvider>
+                                          </TrendingCategoryProvider>
+                                        </RecommendedCategoryProvidersProvider>
+                                      </TrendingProvidersProvider>
+                                    </PopularProvidersProvider>
+                                  </TopTrendingServiceByCategoryIdProvider>
                                 </MostPopularServiceByCategoryProvider>
                               </RecommendedServiceByCategoryIdProvider>
                             </ServiceDetailsProvider>
