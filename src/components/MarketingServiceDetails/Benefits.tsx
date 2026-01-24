@@ -162,7 +162,6 @@ export default function Benefits({ benefits }: BenefitsProps) {
                 <div className="flex flex-col gap-4 md:hidden mt-6">
                     {parsedBenefits.map((text, index) => (
                         <div key={index} className="flex items-start gap-4">
-                            <span className="text-[#2164F4] text-[18px] mt-[2px]">✔</span>
                             <p className="text-[#606060] text-[12px] leading-relaxed">
                                 {text}
                             </p>
@@ -176,8 +175,7 @@ export default function Benefits({ benefits }: BenefitsProps) {
                         <div key={colIdx} className="space-y-6">
                             {column.map((text, index) => (
                                 <div key={index} className="flex items-start gap-4">
-                                    <span className="text-[#2164F4] text-[24px] mt-[2px]">✔</span>
-                                    <p className="text-[#606060] text-[14px] lg:text-[24px] leading-relaxed">
+                                    <p className="text-[#606060] text-[14px] lg:text-[24px] flex items-center justify-center leading-relaxed">
                                         {text}
                                     </p>
                                 </div>
