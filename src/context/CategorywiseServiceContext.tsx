@@ -54,7 +54,7 @@ export interface FranchiseDetails {
   investmentRange: InvestmentRange[];
   monthlyEarnPotential: MonthlyEarnPotential[];
   franchiseModel: FranchiseModel[];
-  extraSections?: any[];
+  extraSections?: [];
   extraImages?: string[];
 }
 
@@ -84,14 +84,14 @@ export interface ServiceDetails {
     answer: string;
     _id: string;
   }[];
-  extraSections?: any[];
+  extraSections?: [];
   whyChooseUs?: {
     title: string;
     icon: string;
     description: string;
     _id: string;
   }[];
-  packages?: any[];
+  packages?: [];
   weRequired?: {
     title: string;
     description: string;
@@ -119,9 +119,9 @@ export interface ServiceDetails {
   operatingCities?: string[];
   brochureImage?: string[];
   emiAvailable?: string[];
-  counter?: any[];
-  franchiseOperatingModel?: any[];
-  keyAdvantages?: any[];
+  counter?: [];
+  franchiseOperatingModel?: [];
+  keyAdvantages?: [];
   completeSupportSystem?: {
     icon: string;
     title: string;
@@ -129,29 +129,29 @@ export interface ServiceDetails {
     _id: string;
   }[];
   trainingDetails?: string[];
-  agreementDetails?: any[];
-  goodThings?: any[];
-  compareAndChoose?: any[];
-  companyDetails?: any[];
+  agreementDetails?: [];
+  goodThings?: [];
+  compareAndChoose?: [];
+  companyDetails?: [];
   roi?: string[];
   level?: string;
   lessonCount?: number | null;
-  whatYouWillLearn?: any[];
-  eligibleFor?: any[];
-  courseCurriculum?: any[];
-  courseIncludes?: any[];
+  whatYouWillLearn?: [];
+  eligibleFor?: [];
+  courseCurriculum?: [];
+  courseIncludes?: [];
   certificateImage?: string[];
-  whomToSell?: any[];
-  include?: any[];
-  notInclude?: any[];
-  safetyAndAssurance?: any[];
+  whomToSell?: [];
+  include?: [];
+  notInclude?: [];
+  safetyAndAssurance?: [];
 }
 
 export interface Service {
   _id: string;
   serviceName: string;
   category: Category;
-  subcategory: any;
+  subcategory: [];
   price: number;
   discount: number;
   gst: number;
@@ -159,7 +159,7 @@ export interface Service {
   gstInRupees?: number;
   totalWithGst: number;
   discountedPrice: number;
-  providerPrices?: any[];
+  providerPrices?:[];
   thumbnailImage: string;
   bannerImages: string[];
   tags: string[];
