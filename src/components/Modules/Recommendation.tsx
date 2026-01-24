@@ -158,128 +158,259 @@
 // }
 
 
-"use client";
+// "use client";
 
-import { useRef } from "react";
-import { FaStar } from "react-icons/fa";
-import { CiBookmark } from "react-icons/ci";
-import { useRecommended } from "@/src/context/HomeRecommendedContext";
+// import { useRef } from "react";
+// import { FaStar } from "react-icons/fa";
+// import { CiBookmark } from "react-icons/ci";
+// import { useRecommended } from "@/src/context/HomeRecommendedContext";
 
-export default function RecommendedServices() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const { services, loading, error } = useRecommended();
+// export default function RecommendedServices() {
+//   const scrollRef = useRef<HTMLDivElement>(null);
+//   const { services, loading, error } = useRecommended();
 
-  if (loading) {
-    return <div className="text-center py-20">Loading services...</div>;
-  }
+//   if (loading) {
+//     return <div className="text-center py-20">Loading services...</div>;
+//   }
 
-  if (error) {
-    return <div className="text-center py-20 text-red-500">{error}</div>;
-  }
+//   if (error) {
+//     return <div className="text-center py-20 text-red-500">{error}</div>;
+//   }
 
-  return (
-    <section className="w-full py-16 bg-[#F6F9FF]">
-      <div className="max-w-[1440px] mx-auto px-6">
+//   return (
+//     <section className="w-full py-16 bg-[#F6F9FF]">
+//       <div className="max-w-[1440px] mx-auto px-6">
 
-        {/* Heading */}
-        <h2 className="text-[22px] font-semibold mb-8">
-          Recommended Services
-        </h2>
+//         {/* Heading */}
+//         <h2 className="text-[22px] font-semibold mb-8">
+//           Recommended Services
+//         </h2>
 
-        {/* Manual Scroll Row */}
-        <div
-          ref={scrollRef}
-          tabIndex={0}
-          className="
-            flex gap-6
-            overflow-x-auto
-            scroll-smooth
-            no-scrollbar
-            focus:outline-none
-          "
-        >
-          {services.map((service) => (
-            <div
-              key={service._id}
-              className="min-w-[314px] bg-[#F4F4F4] rounded-[18px] p-4 shadow-sm"
-            >
-              {/* Image */}
-              <div className="relative w-[286px] h-[152px] rounded-[15px] overflow-hidden">
-                <img
-                  src={service.thumbnailImage}
-                  alt={service.serviceName}
-                  className="w-full h-full object-cover"
-                />
+//         {/* Manual Scroll Row */}
+//         <div
+//           ref={scrollRef}
+//           tabIndex={0}
+//           className="
+//             flex gap-6
+//             overflow-x-auto
+//             scroll-smooth
+//             no-scrollbar
+//             focus:outline-none
+//           "
+//         >
+//           {services.map((service) => (
+//             <div
+//               key={service._id}
+//               className="min-w-[314px] bg-[#F4F4F4] rounded-[18px] p-4 shadow-sm"
+//             >
+//               {/* Image */}
+//               <div className="relative w-[286px] h-[152px] rounded-[15px] overflow-hidden">
+//                 <img
+//                   src={service.thumbnailImage}
+//                   alt={service.serviceName}
+//                   className="w-full h-full object-cover"
+//                 />
 
-                {/* Bookmark */}
-                <div className="absolute top-3 right-3 w-[32px] h-[32px] bg-black/70 rounded-full flex items-center justify-center">
-                  <CiBookmark size={18} color="white" />
-                </div>
-              </div>
+//                 {/* Bookmark */}
+//                 <div className="absolute top-3 right-3 w-[32px] h-[32px] bg-black/70 rounded-full flex items-center justify-center">
+//                   <CiBookmark size={18} color="white" />
+//                 </div>
+//               </div>
 
-              {/* Title */}
-              <h3 className="mt-3 text-[14px] font-semibold leading-tight line-clamp-2">
-                {service.serviceName}
-              </h3>
+//               {/* Title */}
+//               <h3 className="mt-3 text-[14px] font-semibold leading-tight line-clamp-2">
+//                 {service.serviceName}
+//               </h3>
 
-              {/* Category + Rating */}
-              <div className="flex justify-between items-center mt-1">
-                <span className="text-[11px] font-semibold bg-[#FFFFFF] px-3 py-[1px] rounded-[12px]">
-                  {service.category?.name}
-                </span>
+//               {/* Category + Rating */}
+//               <div className="flex justify-between items-center mt-1">
+//                 <span className="text-[11px] font-semibold bg-[#FFFFFF] px-3 py-[1px] rounded-[12px]">
+//                   {service.category?.name}
+//                 </span>
 
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar
-                      key={i}
-                      size={18}
-                      color={i < service.averageRating ? "#FFC531" : "#E0E0E0"}
-                    />
-                  ))}
-                </div>
-              </div>
+//                 <div className="flex gap-1">
+//                   {[...Array(5)].map((_, i) => (
+//                     <FaStar
+//                       key={i}
+//                       size={18}
+//                       color={i < service.averageRating ? "#FFC531" : "#E0E0E0"}
+//                     />
+//                   ))}
+//                 </div>
+//               </div>
 
-              {/* Discount / Earn */}
-              <div className="flex justify-between items-center  mt-4">
-                {/* Setup */}
-              <p className="text-[11px] text-gray-400 mt-3">
-                Setup & Time
-              </p>
-              <div className="flex gap-2">
-                <span className="text-[11px] bg-blue-100 text-blue-600 px-4 py-[1px]  rounded-full">
-                  Discount 5%
-                </span>
-                <span className="text-[11px] bg-green-100 text-green-600 px-4 py-[1px] rounded-full">
-                  Earn {service.franchiseDetails?.commission}
-                </span>
-                </div>
-              </div>
+//               {/* Discount / Earn */}
+//               <div className="flex justify-between items-center  mt-4">
+//                 {/* Setup */}
+//               <p className="text-[11px] text-gray-400 mt-3">
+//                 Setup & Time
+//               </p>
+//               <div className="flex gap-2">
+//                 <span className="text-[11px] bg-blue-100 text-blue-600 px-4 py-[1px]  rounded-full">
+//                   Discount 5%
+//                 </span>
+//                 <span className="text-[11px] bg-green-100 text-green-600 px-4 py-[1px] rounded-full">
+//                   Earn {service.franchiseDetails?.commission}
+//                 </span>
+//                 </div>
+//               </div>
 
               
-            <div className="flex justify-between items-center mt-4"> 
-              <ul className="text-[11px] text-[#000000] mt-2 space-y-1">
-                <li>⚡ Setup: 1–3 days</li>
-                <li>🤖 AI Training: Included</li>
-                <li>🛠 Maintenance: Auto-managed</li>
-              </ul>
+//             <div className="flex justify-between items-center mt-4"> 
+//               <ul className="text-[11px] text-[#000000] mt-2 space-y-1">
+//                 <li>⚡ Setup: 1–3 days</li>
+//                 <li>🤖 AI Training: Included</li>
+//                 <li>🛠 Maintenance: Auto-managed</li>
+//               </ul>
 
-              {/* Price */}
-              <div className="flex flex-col justify-between items-center bg-[#FFFFFF] mt-4 py-2 px-6 rounded-[12px]">
-                <span className="text-[11px] text-[#686363]">
-                  Starting from
-                </span>
-                <span className="text-[16px] font-semibold text-[#000000]">
-                 ₹ {"0000"} /-
-                </span>
-              </div>
-              </div>
-            </div>
-          ))}
-        </div>
+//               {/* Price */}
+//               <div className="flex flex-col justify-between items-center bg-[#FFFFFF] mt-4 py-2 px-6 rounded-[12px]">
+//                 <span className="text-[11px] text-[#686363]">
+//                   Starting from
+//                 </span>
+//                 <span className="text-[16px] font-semibold text-[#000000]">
+//                  ₹ {"0000"} /-
+//                 </span>
+//               </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
 
-      </div>
-    </section>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+"use client";
+
+import React from "react";
+import HomeCard from "../ui/HomeCard";
+
+const recommendedServices = [
+  {
+    image: "/image/legalMainImage.png",
+    title: "Personal Loan",
+    type: "Finance",
+    category: "Personal Loan",
+    earnUpto: "Earn Up to 5%",
+    rating: 4,
+    reviews: "2,400+ Reviews",
+    features: [
+      { title: "Up To 20 Lac Loan Amount" },
+      { title: "24 Hrs Approval Time" },
+      { title: "12-60 Duration in months" },
+    ],
+  },
+  {
+    image: "/image/legalMainImage.png",
+    title: "LLP Registration",
+    type: "Legal Service",
+    category: "Business Registration",
+    earnUpto: "Earn Up to 5%",
+    rating: 4,
+    reviews: "2,400+ Reviews",
+    features: [
+      { title: "Experts Lawyers" },
+      { title: "Affordable Lawyers" },
+    ],
+    oldPrice: 4000,
+    price: 2999,
+    discount: "25% OFF",
+  },
+  {
+    image: "/image/legalMainImage.png",
+    title: "Figma UI UX Design",
+    type: "Education",
+    category: "IT & Software",
+    earnUpto: "Earn Up to 5%",
+    rating: 4,
+    reviews: "2,400+ Reviews",
+    features: [
+      { title: "Online Mode" },
+      { title: "Faster project delivery" },
+      { title: "24x7 technical support" },
+    ],
+    oldPrice: 4000,
+    price: 2999,
+    discount: "25% OFF",
+  },
+];
+
+export default function RecommendedSection() {
+  return (
+    <div className="flex gap-4 overflow-x-auto py-4 scrollbar-hide">
+      {recommendedServices.map((service, index) => (
+        <HomeCard key={index} {...service} />
+      ))}
+    </div>
   );
 }
+
+
+// "use client";
+
+// import React from "react";
+// import Image from "next/image";
+// import HomeCard from "../ui/HomeCard";
+// import { useRecommended } from "@/src/context/HomeRecommendedContext";
+
+// export default function RecommendedSection() {
+//   const { recommended, loading } = useRecommended();
+
+//   if (loading) return null;
+
+//   return (
+//     <div className="flex gap-4 overflow-x-auto py-4 scrollbar-hide">
+//       {recommended.map((item) => {
+//         const service = item.service;
+
+//         // 🔹 keyValues → HomeCard features (INLINE MAPPING)
+//         const features =
+//           service.keyValues?.map((kv) => ({
+//             title: `${kv.key} ${kv.value}`,
+//             icon: kv.icon ? (
+//               <Image
+//                 key={kv._id}
+//                 src={kv.icon}
+//                 alt={kv.key}
+//                 width={16}
+//                 height={16}
+//               />
+//             ) : undefined,
+//           })) || [];
+
+//         return (
+//           <HomeCard
+//             key={item._id}
+//             image={service.thumbnailImage}
+//             title={service.serviceName}
+//             category={service.category.name}
+
+//             /* ✅ TYPE FROM DATABASE (DYNAMIC) */
+//             type={service.category.name}
+
+//             rating={service.averageRating}
+//             reviews={`${service.totalReviews} Reviews`}
+
+//             /* ✅ FEATURES FROM keyValues */
+//             features={features}
+
+//             /* optional */
+//             earnUpto={
+//               item.franchiseDetails?.commission
+//                 ? `Earn Up to ${item.franchiseDetails.commission}`
+//                 : undefined
+//             }
+//           />
+//         );
+//       })}
+//     </div>
+//   );
+// }
+
+
+
 
 

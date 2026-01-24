@@ -338,10 +338,65 @@ export default function AppHero() {
   }, []);
   return (
     <>
-    <section className="w-full py-10 bg-gradient-to-b from-[#FFFFFF] to-[#90b3ff6b] overflow-hidden">
+    
+
+ <section className="w-full py-8">
+      <div className=" mx-auto ">
+
+        {/* ---------- AUTO SCROLL CAROUSEL ---------- */}
+        <div
+          ref={scrollRef}
+          className="
+            flex gap-6
+            overflow-hidden
+          "
+        >
+          {[
+            "/image/homeBanner.jpg",
+            "/image/homeBanner.jpg",
+            "/image/homeBanner.jpg",
+            "/image/homeBanner.jpg", 
+          ].map((img, index) => (
+            <div
+              key={index}
+              className="
+                snap-start
+                shrink-0
+                w-full
+                sm:w-[90%]
+                lg:w-[1278px]
+                h-[200px]
+                sm:h-[260px]
+                lg:h-[331px]
+                rounded-[16px]
+                overflow-hidden
+                relative
+              "
+            >
+              <Image
+                src={img}
+                alt="Marketing Banner"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+    </>
+  );
+}
+
+
+
+
+
+{/* <section className="w-full py-10 bg-gradient-to-b from-[#FFFFFF] to-[#90b3ff6b] overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-4 text-center relative">
 
-        {/* ---------- HEADING ---------- */}
         <h1 className="text-[36px] sm:text-[42px] font-semibold text-[#1F2937]">
           All Your Essential Services, One Powerful App
         </h1>
@@ -349,7 +404,6 @@ export default function AppHero() {
           Book verified professionals for home, business, and daily needs—anytime, anywhere.
         </p>
 
-        {/* ---------- CTA ---------- */}
         <div className="flex justify-center gap-4 mt-8">
           <button className="px-6 py-3 bg-[#2563EB] text-white rounded-full text-sm font-medium">
             Download App
@@ -359,7 +413,6 @@ export default function AppHero() {
           </button>
         </div>
 
-        {/* ---------- CIRCLES ---------- */}
         <div className="relative -mt-40 flex justify-center">
           <div className="absolute w-[800px] h-[800px] rounded-full top-[144px] border-[2px] border-[#2164F433]" />
           <div className="absolute w-[650px] h-[650px] rounded-full top-[218px] border-[2px] border-[#2164F433] " />
@@ -368,7 +421,6 @@ export default function AppHero() {
           <div className="absolute w-[200px] h-[200px] rounded-full top-[444px] border-[2px] border-[#2164F433]" />
 
 
-          {/* ---------- MOBILE IMAGE ---------- */}
           <div className="relative z-10 w-[164px] h-[480px] top-[140px]">
             <Image
               src="/image/Nothing Phone 1.png"
@@ -378,7 +430,6 @@ export default function AppHero() {
             />
           </div>
 
-          {/* ---------- AVATARS ---------- */}
           {[
             { top: "297px", left: "510px" },
             { top: "275px", left: "403px" },
@@ -404,70 +455,17 @@ export default function AppHero() {
             </div>
           ))}
 
-          {/* ---------- TESTIMONIAL LEFT ---------- */}
           <div className="absolute top-[142px] left-[759px] bg-white px-4 py-3 rounded-xl shadow text-left max-w-[240px] text-sm">
             “Quick service and very professional. Got my work done in no time!” ⚡👏
           </div>
 
-          {/* ---------- TESTIMONIAL RIGHT ---------- */}
           <div className="absolute top-[331px] left-[966px] bg-white px-4 py-3 rounded-xl shadow text-left max-w-[260px] text-sm">
             Easy to book, transparent pricing, and great support 👍💼
           </div>
 
-          {/* ---------- TESTIMONIAL BOTTOM ---------- */}
           <div className="absolute bottom-[206px] left-[219px] bg-white px-4 py-3 rounded-xl shadow text-left max-w-[260px] text-sm">
             Verified experts and smooth experience from start to finish! ✅😊
           </div>
         </div>
       </div>
-    </section>
-
- <section className="w-full py-8">
-      <div className="max-w-[1440px] mx-auto px-4">
-
-        {/* ---------- AUTO SCROLL CAROUSEL ---------- */}
-        <div
-          ref={scrollRef}
-          className="
-            flex gap-6
-            overflow-hidden
-          "
-        >
-          {[
-            "/image/homeBanner.jpg",
-            "/image/homeBanner.jpg",
-            "/image/homeBanner.jpg",
-            "/image/homeBanner.jpg", 
-          ].map((img, index) => (
-            <div
-              key={index}
-              className="
-                snap-start
-                shrink-0
-                w-full
-                sm:w-[90%]
-                lg:w-[1100px]
-                h-[200px]
-                sm:h-[260px]
-                lg:h-[320px]
-                rounded-[16px]
-                overflow-hidden
-                relative
-              "
-            >
-              <Image
-                src={img}
-                alt="Marketing Banner"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          ))}
-        </div>
-
-      </div>
-    </section>
-    </>
-  );
-}
+    </section> */}

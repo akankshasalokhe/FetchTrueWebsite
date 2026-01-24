@@ -31,7 +31,7 @@ export default function FranchiseMostPopularCard({
   bg,
 }: MostPopularCardProps) {
   return (
-    <div className={`min-w-[330px] rounded-[16px] p-3 text-white ${bg}`}>
+    <div className={`w-[338px] h-[340px] rounded-[16px] p-3 text-white ${bg}`}>
       {/* IMAGE */}
       <div className="relative w-full h-[150px] rounded-[12px] overflow-hidden">
         <Image src={image} alt={title} fill className="object-cover" />

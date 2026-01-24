@@ -19,8 +19,8 @@ export default function ServiceCard({
   detailslug,
 }:any ) {
   return (
-    <Link
-      href={`/MainModules/LegalService/${slug}/${detailslug}`}
+    <div
+      // href={`/MainModules/Legal-Service/${slug}/${detailslug}`}
       className="block"
     >
       <div className="w-[350px] bg-[#F9F5EE] rounded-[12px] p-3 relative">
@@ -97,15 +97,15 @@ export default function ServiceCard({
               <p className="bg-[#BC9958] text-[#FFFFFF]  font-normal p-[2px] rounded-[3px]">{discount}% OFF</p>
               <p className="text-[11px] text-[#393737]">Starting from</p>
               <p className="font-semibold flex  text-[20px] gap-1 text-[#232323]">
-                <div>
+                {/* <div> */}
                 <span className="text-[16px] text-[#868686] me-2"><s>₹ {discountedprice}</s></span>
                  <span>₹ {price}</span>
-                 </div>
+                 {/* </div> */}
               </p>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

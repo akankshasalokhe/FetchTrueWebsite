@@ -13,6 +13,7 @@ interface RecommendedCardProps {
   earning: string;
   discount: string;
   monthly: string;
+  parameter:string;
   investment: string;
   area: string;
   bgImage?: string; 
@@ -26,13 +27,14 @@ export default function RecommendedCard({
   earning,
   discount,
   monthly,
+  parameter,
   investment,
   area,
   bgImage = "/image/recommendedrealestate.png", // default bg
 }: RecommendedCardProps) {
   return (
     <div
-      className="relative w-[300px]  rounded-[13px] border border-[#E6E6E6] shadow-sm overflow-hidden"
+      className="relative w-[300px] h-[300px] rounded-[13px] border border-[#E6E6E6] shadow-sm overflow-hidden"
       style={{
         backgroundImage: `url(${bgImage}) `,
         backgroundSize: "cover",
@@ -72,7 +74,7 @@ export default function RecommendedCard({
 
         {/* CONTENT */}
         <div className="mt-3">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <div>
               <h3 className="text-[15px] font-semibold leading-tight">
                 {title}
@@ -81,8 +83,8 @@ export default function RecommendedCard({
             </div>
 
             {/* BADGES */}
-            <div className="flex flex-col items-end gap-1 text-[10px]">
-              <span className="text-white bg-[#548AFE] rounded-[4px] px-2 py-[2px]">
+            <div className="flex flex-col items-end gap-1 text-[10px] ">
+              <span className="text-white bg-[#548AFE] rounded-[4px] w-[75px] h-[19px] text-center py-0.5">
                 Earn Upto {earning}
               </span>
               <span className="bg-[#76FF8B] text-[#232323] px-2 py-[2px] rounded">
@@ -92,14 +94,14 @@ export default function RecommendedCard({
           </div>
 
           {/* STATS */}
-          <div className="grid grid-cols-3 text-center mt-3 pt-3">
+          <div className="grid grid-cols-3 text-center mt-2">
             <div>
-              <p className="text-[14px] font-semibold">₹ {monthly}</p>
+              <p className="text-[14px] font-semibold">₹ {monthly} {parameter}</p>
               <p className="text-[12px] text-gray-400">Monthly Earning</p>
             </div>
 
             <div className="border-x border-[#BBBBBB]">
-              <p className="text-[14px] font-semibold">₹ {investment}</p>
+              <p className="text-[14px] font-semibold">₹ {investment} {parameter}</p>
               <p className="text-[12px] text-gray-400">Investment Range</p>
             </div>
 

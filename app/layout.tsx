@@ -18,6 +18,8 @@ import { CategorywiseServiceProvider } from "@/src/context/CategorywiseServiceCo
 import {  PopularProvidersProvider } from "@/src/context/PopularProviderContext";
 import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext";
 import { TopTrendingServiceByCategoryIdProvider } from "@/src/context/TopTrendingServiceByCategoryIdContext";
+import { OfferProvider } from "@/src/context/OfferContext";
+import { ModulewiseServiceProvider } from "@/src/context/ModulewiseServiceContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -45,8 +47,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                     <PopularProvidersProvider>
                                       <WhyChooseServiceProvider>
                                         <TopTrendingServiceByCategoryIdProvider>
+                                          <ModulewiseServiceProvider>
+                                          <OfferProvider>
                                   {/* <Navbar /> */}
                                   <main>{children}</main>
+                                  </OfferProvider>
+                                  </ModulewiseServiceProvider>
                                       </TopTrendingServiceByCategoryIdProvider>
                                      </WhyChooseServiceProvider>
                                   <Footer />

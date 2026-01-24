@@ -133,16 +133,16 @@ export default function ServiceCategory() {
 
   return (
     <>
-    <div className="mx-auto text-center my-8 ">
+    {/* <div className="mx-auto text-center my-8 ">
        <h2 className="text-[24px] lg:text-[32px] font-semibold text-[#232323]">Explore Our Services</h2>
        <p className="text-[18px] lg:text-[24px] mx-2 lg:mx-0 font-normal text-[#595959]">from marketing in an single screen to legal we cover all industries </p>
-    </div>
+    </div> */}
     <section className="w-full bg-[#F5F8FF] pt-10">
       <div className="max-w-[1440px] mx-auto px-6">
 
         {/* Heading */}
         <h2 className="text-[20px] lg:text-[24px] font-semibold mb-6">
-          Service Category -
+          Modules
         </h2>
 
         {/* Category Row */}
@@ -183,7 +183,6 @@ export default function ServiceCategory() {
         </div>
       </div>
 
-      <Recommendation />
     </section>
 
     </>

@@ -24,13 +24,19 @@ const { moduleId } = useParams<{ moduleId: string }>();
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <section className="w-full flex justify-center mt-10 px-3 lg:px-0">
+    <section className="w-full flex justify-center mt-10">
       <div
         className="
           w-full lg:w-[1440px]
-          flex flex-wrap
-          gap-[8px] lg:gap-[20px]
-          justify-center lg:justify-start
+
+    grid
+    grid-rows-3
+    grid-flow-col
+
+    gap-[8px] lg:gap-[20px]
+    px-4
+    overflow-x-auto
+    overflow-y-hidden
         "
       >
         {categories.length === 0 && <p>No categories found</p>}
@@ -58,7 +64,7 @@ const { moduleId } = useParams<{ moduleId: string }>();
                   rounded-[19px]
                 "
               />
-              <p className="-mt-10 text-sm lg:text-base text-center px-1">
+              <p className="-mt-11 text-[16px]  text-center px-1 ">
                 {item.name}
               </p>
             </div>

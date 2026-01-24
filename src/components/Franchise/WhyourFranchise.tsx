@@ -1,13 +1,33 @@
 "use client";
 
-import {
-  FaBriefcase,
-  FaGraduationCap,
-  FaBullhorn,
-  FaLaptop,
-} from "react-icons/fa";
+import { useWhyChooseService } from "@/src/context/WhyJustOurServiceContext";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
+
+
 
 export default function WhyOurFranchise() {
+
+    const {moduleId} = useParams();
+    const { services, loading, fetchWhyServices } = useWhyChooseService();
+  
+    useEffect(()=>{
+      if(moduleId){
+        fetchWhyServices(moduleId as string)
+      }
+    },[moduleId]);
+  
+    console.log("whyjust moduleid:",moduleId)
+  
+      if (loading) return null;
+  
+   const moduleServices = services.filter(
+      (service) => service.module._id === moduleId
+    );
+  
+    // Flatten all items from this module
+    const items = moduleServices.flatMap((service) => service.items);
+
   return (
     <section className="w-full py-8 lg:py-15 bg-white">
       {/* ---------- HEADING ---------- */}
@@ -18,8 +38,7 @@ export default function WhyOurFranchise() {
       {/* ---------- GRID ---------- */}
       <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 px-4">
         
-        {/* CARD 1 */}
-        <div className="flex items-start gap-4">
+        {/* <div className="flex items-start gap-4">
           <div className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-white">
             <FaBriefcase size={20} />
           </div>
@@ -33,7 +52,6 @@ export default function WhyOurFranchise() {
           </div>
         </div>
 
-        {/* CARD 2 */}
         <div className="flex items-start gap-4">
           <div className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-white">
             <FaGraduationCap size={20} />
@@ -48,7 +66,6 @@ export default function WhyOurFranchise() {
           </div>
         </div>
 
-        {/* CARD 3 */}
         <div className="flex items-start gap-4">
           <div className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-white">
             <FaBullhorn size={20} />
@@ -63,7 +80,6 @@ export default function WhyOurFranchise() {
           </div>
         </div>
 
-        {/* CARD 4 */}
         <div className="flex items-start gap-4">
           <div className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-white">
             <FaLaptop size={20} />
@@ -76,8 +92,26 @@ export default function WhyOurFranchise() {
               CRM, mobile app, and management software provided
             </p>
           </div>
-        </div>
+        </div> */}
 
+        {items.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-start gap-4"
+            >
+              {item.icon && (
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-whitew-12 h-12"
+                />
+              )}
+              <div>
+              <h3 className="text-[16px] font-semibold mb-1">{item.title}</h3>
+              <p className="text-[14px] text-gray-500 max-w-[420px]">{item.description}</p>
+              </div>
+        </div>
+          ))}
       </div>
     </section>
   );

@@ -1836,6 +1836,8 @@ import { ChevronLeft } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useSubCategory } from "@/src/context/SubCategoriesContext";
 import { useModule } from "@/src/context/CategoriesContext";
+import TopTrending from "@/src/components/FranchiseCategories/TopTrending";
+import AllServices from "@/src/components/FranchiseCategories/AllServices";
 
 /* ======================= DRAG HOOK (FIXED) ======================= */
 const useHorizontalDrag = <T extends HTMLElement>() => {
@@ -1899,6 +1901,8 @@ const useHorizontalDrag = <T extends HTMLElement>() => {
 
 export default function FranchiseSubCategoryServicePage() {
 
+    const { categories,fetchCategoriesByModule } = useModule();
+const [currentCategory, setCurrentCategory] = useState<any>(null);
    const { moduleId, categoryId } = useParams<{
   moduleId: string;
   categoryId: string;
@@ -1921,81 +1925,36 @@ const {
   fetchSubCategories,
 } = useSubCategory();
 
-const [currentCategory, setCurrentCategory] = useState<any>(null);
 
-    // const properties = [
-    //     { id: 1, image: "/mockup/building.png", priceValue: 4500000 },
-    //     { id: 2, image: "/mockup/building.png", priceValue: 7200000 },
-    //     { id: 3, image: "/mockup/building.png", priceValue: 8900000 },
-    //     { id: 4, image: "/mockup/building.png", priceValue: 3800000 },
-    //     { id: 5, image: "/mockup/building.png", priceValue: 5500000 },
-    // ];
-
-    // const priceCategories = [
-    //     { id: "all", label: "All", min: 0, max: Infinity },
-    //     { id: "10-20", label: "10L-20L", min: 1000000, max: 2000000 },
-    //     { id: "20-30", label: "20L-30L", min: 2000000, max: 3000000 },
-    //     { id: "30-40", label: "30L-40L", min: 3000000, max: 4000000 },
-    //     { id: "40-50", label: "40L-50L", min: 4000000, max: 5000000 },
-    //     { id: "50+", label: "50L+", min: 5000000, max: Infinity },
-    // ];
-
-    // const [selectedCategory, setSelectedCategory] = useState("all");
-    // const [filteredProperties, setFilteredProperties] = useState(properties);
     const [searchQuery, setSearchQuery] = useState("");
 
 
 
-    // const filterPropertiesByPrice = (categoryId: string) => {
-    //     setSelectedCategory(categoryId);
-
-    //     if (categoryId === "all") {
-    //         setFilteredProperties(properties);
-    //         return;
-    //     }
-
-    //     const category = priceCategories.find(cat => cat.id === categoryId);
-    //     if (!category) return;
-
-    //     setFilteredProperties(
-    //         properties.filter(
-    //             p => p.priceValue >= category.min && p.priceValue <= category.max
-    //         )
-    //     );
-    // };
-
     /* 🔥 FETCH SUB-CATEGORIES */
 
-   useEffect(() => {
-  if (subCategories.length) {
-    const subCat = subCategories.find(sc => sc._id === categoryId);
-    if (subCat) {
-      setCurrentCategory(subCat.category);
-    } else {
-      // fallback: take category from first subcategory
-      setCurrentCategory(subCategories[0].category);
-    }
+     useEffect(() => {
+  if (moduleId) {
+    fetchCategoriesByModule(moduleId);
   }
-}, [subCategories]);
+}, [moduleId]);
+
+useEffect(() => {
+  if (categories?.length && categoryId) {
+    const cat = categories.find(
+      (c: any) => c._id === categoryId
+    );
+    setCurrentCategory(cat);
+  }
+}, [categories, categoryId]);
 
 
  useEffect(() => {
   if (categoryId) {
     fetchSubCategories(categoryId);
   }
-}, []);
+}, [categoryId]);
 
 
-
-
-    // const categoryItems = [
-    //     { label: "Residential Property", path: "/image/building1.png" },
-    //     { label: "Commercial Property", path: "/image/building2.png" },
-    //     { label: "Property Management", path: "/image/building3.png" },
-    //     { label: "Residential Property", path: "/image/building1.png" },
-    //     { label: "Commercial Property", path: "/image/building2.png" },
-    //     { label: "Property Management", path: "/image/building3.png" },
-    // ];
 
     /* FIXED: Separate drag hooks */
     const desktopCategoryDrag = useHorizontalDrag<HTMLDivElement>();
@@ -2017,7 +1976,7 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
                 <div className="hidden md:block lg:block w-full">
                     <div className="flex items-center justify-between rounded-xl">
                         <div className="flex items-center bg-[#FFFFFF] px-18 py-4 rounded-4xl gap-4 ml-10">
-                            <Link href="/">
+                            <Link href={`/MainModules/Franchise/${moduleId}`}>
                                 <img src="/image/Checkoutback.png" className="w-[30px] cursor-pointer" />
                             </Link>
                             <h1 className="text-lg md:text-2xl font-semibold">  {currentCategory?.name || "Loading..."}</h1>
@@ -2081,9 +2040,7 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
                     <div className="flex items-center justify-between">
                         {/* LEFT */}
                         <div className="flex items-center gap-3 px-4 py-3 min-w-0 bg-white rounded-full">
-                            {/* <Link href="/MainModules/OnDemand">
-                                <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer  p-1 shrink-0" />
-                            </Link> */}
+                            
                             <Link href="/">
                                 <img src="/image/Checkoutback.png" className="w-[28px] h-[28px] text-black cursor-pointer  p-1 shrink-0" />
                             </Link>
@@ -2130,17 +2087,17 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
                     {/* LEFT CONTENT */}
                     <div className="relative z-10">
                         {/* Background text */}
-                        <h1 className="md:text-[100px] lg:text-[131.69px] font-bold text-gray-200 opacity-40 leading-none">
+                        <h1 className="md:text-[100px] lg:text-[131.69px] lg:ms-10 font-bold text-[#F1F2FF]  leading-none">
                                           {currentCategory?.name}
 
                         </h1>
 
                         {/* Foreground heading */}
                         <h2
-                            className="absolute top-4 left-10 text-[#0C1B36] text-[32px]"
+                            className="absolute top-4 left-10 text-[#263238] text-[32px]"
                             style={{ fontFamily: "GFS Didot" }}
                         >
-                            Explore Our {currentCategory?.name}
+                            Explore Our {currentCategory?.name} <br/>services
                         </h2>
                     </div>
 
@@ -2212,7 +2169,7 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
             </div>
             {/* ================= DESKTOP CATEGORY ================= */}
             <div className="hidden lg:block">
-                <p className="text-[24px] font-semibold ml-6">Category</p>
+                <p className="text-[24px] font-semibold ml-6">SubCategory</p>
                 {loading && <p className="ml-6 mt-4">Loading...</p>}
                 {error && <p className="ml-6 text-red-500">{error}</p>}
                 <div
@@ -2238,7 +2195,7 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
 
             {/* ================= MOBILE CATEGORY ================= */}
             <div className="block lg:hidden">
-                <p className="text-[16px] font-semibold ml-6">Category</p>
+                <p className="text-[16px] font-semibold ml-6">Sub Category</p>
                 <div
                     ref={mobileCategoryDrag.ref}
                     {...mobileCategoryDrag.handlers}
@@ -2264,27 +2221,13 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
 
             {/* ================= REST SECTIONS (UNCHANGED) ================= */}
             <div className="bg-white rounded-xl">
-                {/* <div className="flex gap-4 p-4 overflow-x-auto no-scrollbar">
-                    {priceCategories.map(category => (
-                        <div
-                            key={category.id}
-                            onClick={() => filterPropertiesByPrice(category.id)}
-                            className={`w-[100px] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer shrink-0
-                ${selectedCategory === category.id
-                                    ? "bg-purple-500 text-white"
-                                    : "bg-gray-200 text-black"
-                                }`}
-                        >
-                            {category.label}
-                        </div>
-                    ))}
-                </div> */}
-
-                <SearchBudget />
+              
+                <AllServices categoryId={categoryId} moduleId={moduleId}/> 
+                <SearchBudget categoryId={categoryId} moduleId={moduleId}/>
                 <Recommended categoryId={categoryId} moduleId={moduleId} />
 
                 <MostPopular categoryId={categoryId} />
-                <WhyChooseUs />
+                {/* <WhyChooseUs /> */}
             </div>
         </section>
     );

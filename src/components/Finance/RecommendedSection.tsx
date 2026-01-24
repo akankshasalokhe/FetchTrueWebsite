@@ -3,6 +3,8 @@
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import FinanceCard from "../ui/FinanceCard";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 
 
@@ -30,6 +32,13 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
             fetchRecommendedServices(moduleId)
           }
         },[moduleId])
+
+        
+          const { categoryId } = useParams<{
+          moduleId: string;
+          categoryId: string;
+        }>();
+        
 
         console.log("finance Module Id:",moduleId)
       
@@ -60,7 +69,8 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <div key={service._id} className="snap-start shrink-0">
+            <Link href={`/MainModules/Finance/${moduleId}/${categoryId}/${service._id}`}
+            key={service._id} className="snap-start shrink-0">
                             <FinanceCard  
                               key={service._id}
                           title={service.serviceName}
@@ -82,7 +92,7 @@ const RecommendedSection = ({ moduleId }:{ moduleId:string}) => {
                           detailslug={service._id}
             
                             />
-                          </div>
+                          </Link>
           ))}
         </div>
 

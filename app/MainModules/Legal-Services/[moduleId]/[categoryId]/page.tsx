@@ -129,49 +129,7 @@ useEffect(() => {
       </div>
       </section>
 
-      <section className=" w-full flex justify-center my-10  px-4">
-            <div className="w-full">
       
-              {/* ================= CAROUSEL ================= */}
-              <div className="relative">
-                        <div
-                          ref={scrollRef}
-                          className="
-                            flex
-                            gap-8
-                            px-[12%]
-                            sm:px-[10%]
-                            lg:px-[8%]
-                            overflow-hidden
-                          "
-                        >
-                          {["/image/legalbanner.jpg","/image/legalbanner.jpg","/image/legalbanner.jpg"].map((img, index) => (
-                            <div
-                              key={index}
-                              className="
-                                relative
-                                snap-start
-                                w-[505px]
-                                h-[265px]
-                                bg-[#D9D9D9]
-                                overflow-hidden
-                                flex-shrink-0
-                              "
-                            >
-                              <Image
-                                src={img}
-                                alt="Legal Service"
-                                fill
-                                className="object-cover"
-                                priority
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-      
-            </div>
-          </section>
 
       
       <RecommendedForYou categoryId={categoryId} moduleId={moduleId}/>
