@@ -85,6 +85,7 @@ export interface PopularService {
   category: Category;
   serviceDetails: ServiceDetails;
   keyValues: KeyValue[];
+  packages: Package[];
   totalReviews: number;
   franchiseDetails: FranchiseDetails;
   averageRating: number;

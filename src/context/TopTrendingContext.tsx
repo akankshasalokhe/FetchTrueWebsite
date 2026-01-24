@@ -57,7 +57,7 @@ interface Package {
     _id: string;
     name: string;
     price: number;
-    discount?: number;
+    discount: number;
     discountedPrice: number;
     whatYouGet: string[];
 }
