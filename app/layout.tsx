@@ -63,7 +63,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                 <main>{children}</main>
                                   </OfferProvider>
                                   </ModulewiseServiceProvider>
-
                                                 <Footer />
                                               </CategorywiseServiceProvider>
                                             </WhyChooseServiceProvider>

@@ -234,7 +234,7 @@ const MostPopularSection = ({ moduleId }:{ moduleId:string}) => {
           "
         >
           {services.map((service) => (
-            <Link href={`/MainModules/Finance/${moduleId}/${categoryId}/${service._id}`}
+            <Link href={`/MainModules/Finance/${moduleId}/${categoryId}/${service.serviceId}`}
              key={service.serviceId} className="snap-start shrink-0">
                             <FinanceCard  
                               key={service.serviceId}
