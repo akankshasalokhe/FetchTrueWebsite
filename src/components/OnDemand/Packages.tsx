@@ -187,7 +187,7 @@ type Props = {
 
 function PackageCard({ pkg }: Props) {
   return (
-    <div className="bg-white border border-gray-100 rounded-xl overflow-hidden flex flex-col shadow-md h-full">
+    <div className="bg-white border border-lb-xl border-gray-200 rounded-xl overflow-hidden flex flex-col h-full">
       {/* CONTENT */}
       <div className="p-6 flex-1">
         <h3 className="text-[12px] lg:text-[24px] font-semibold mb-3">

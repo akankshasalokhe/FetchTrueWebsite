@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
+import { useRouter } from "next/navigation";
+
 
 type RecommendedProps = {
     moduleId: string;
@@ -107,6 +109,7 @@ export default function Recommended({ moduleId }: RecommendedProps) {
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
+    const router = useRouter();
 
     const {
         services,
@@ -234,8 +237,10 @@ export default function Recommended({ moduleId }: RecommendedProps) {
                             p-4
                             flex-shrink-0
                             overflow-hidden
-                            relative
-                        "
+                            relative"
+                        onClick={() => {
+                              router.push(`/MainModules/AI-Hub/ServiceDetails/${p.id}?service=${encodeURIComponent(p.title)}`)
+                        }}
                     >
                         {/* IMAGE */}
                         <div className="relative w-full h-40 rounded-xl overflow-hidden">

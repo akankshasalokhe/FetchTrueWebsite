@@ -97,7 +97,8 @@ export default function ServiceDetails() {
                         {/* IMAGE */}
                         <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
                             <img
-                                src="/image/ondemandnavbg.png"
+                                // src="/image/ondemandnavbg.png"
+                                src={service?.bannerImages?.[0] || "/image/ondemandnavbg.png"}
                                 alt="OnDemand"
                                 className="w-full h-full object-cover"
                             />
@@ -107,12 +108,16 @@ export default function ServiceDetails() {
 
                     <div className="flex-1 space-y-4">
                         <h1 className="text-[40px] font-semibold whitespace-nowrap">{serviceName}</h1>
-                        <p className="text-gray-500 text-[24px]">{DATA.subtitle}</p>
+                        <p className="text-gray-500 text-[24px]">On Demand Service</p>
 
                         <div className="flex items-center gap-2 text-[20px]">
                             <span className="text-yellow-500">★</span>
-                            <span className="font-semibold">{DATA.rating}</span>
-                            <span className="text-gray-500">({DATA.reviews})</span>
+                            <span className="font-semibold">{service?.averageRating}</span>
+                            <span className="text-gray-500"> (
+                                {service?.totalReviews === 1
+                                    ? "1 review"
+                                    : `${service?.totalReviews || 0} reviews`}
+                                )</span>
                         </div>
                         {/* 
                         <div className="gap-4 p-2 flex items-center">
@@ -226,20 +231,20 @@ export default function ServiceDetails() {
             </section>
 
             <section>
-                <Benefits benefits={service.}/>
-                <AboutSection />
-                <WhyChooseUs />
-                <HowItWorksSteps />
-                <SafetyandAssurance />
-                <Documents />
+                <Benefits benefits={service?.serviceDetails?.benefits || []} />
+                <AboutSection aboutUs={service?.serviceDetails?.aboutUs || []} />
+                <WhyChooseUs whyChooseUs={service?.serviceDetails?.whyChooseUs || []} />
+                <HowItWorksSteps howItWorks={service?.serviceDetails?.howItWorks || []} />
+                <SafetyandAssurance safetyAndAssurance={service?.serviceDetails?.safetyAndAssurance || []} />
+                <Documents weRequired={service?.serviceDetails?.weRequired || []} weDeliver={service?.serviceDetails?.weDeliver || []} />
                 <SelectPackage />
-                <Included />
-                <AssuredByFetchTrue />
-                <MoreInformation />
-                <TermsAndConditions />
-                <FAQs />
+                <Included notInclude={service?.serviceDetails?.notInclude || []} include={service?.serviceDetails?.include || []} highlight={service?.serviceDetails?.highlight || []} />
+                <AssuredByFetchTrue assuredByFetchTrue={service?.serviceDetails?.assuredByFetchTrue || []} />
+                <MoreInformation moreInfo={service?.serviceDetails?.moreInfo || []} />
+                <TermsAndConditions termsAndConditions={service?.serviceDetails?.termsAndConditions || []} />
+                <FAQs faq={service?.serviceDetails?.faq || []}/>
                 <RatingsReviews />
-                <ConnectWith />
+                <ConnectWith connectWith={service?.serviceDetails?.connectWith || []}/>
             </section>
         </>
 

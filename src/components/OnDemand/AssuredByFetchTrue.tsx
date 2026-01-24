@@ -63,23 +63,32 @@ const ASSURED_DATA: AssuredItem[] = [
     },
 ];
 
+
+type assuredByFetchTrueProps = {
+
+    assuredByFetchTrue: {
+        title: string;
+        description: string;
+        icon: string;
+    }[];
+};
 /* ================= COMPONENT ================= */
-const AssuredByFetchTrue: React.FC = () => {
+export default function AssuredByFetchTrue({ assuredByFetchTrue }: assuredByFetchTrueProps) {
     return (
         <section className="bg-[#EEF3F9] py-8 px-4">
             {/* TITLE */}
             <div className="flex items-start md:justify-start lg:items-start mb-4">
                 <h2
-                    className="text-[#D56839] lg:ml-14 px-6 md:px-12 py-2 text-[16px] md:text-[32px] font-semibold"
+                    className="text-[#D56839] lg:ml-14 px-6 md:px-12 py-2 text-[16px] md:text-[24px] lg:text-[32px] font-semibold"
                 >
                     Assured by Fetch True
                 </h2>
             </div>
             {/* CARDS GRID */}
             <div className="max-w-4xl lg:max-w-none lg:max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-2 p-8 gap-18 md:gap-8">
-                {ASSURED_DATA.map((item) => (
+                {assuredByFetchTrue.map((item, index) => (
                     <div
-                        key={item.id}
+                        key={index}
                         className="relative bg-white w-[140px] md:w-[330px] lg:w-[526px] min-h-[105px] md:min-h-[219px] rounded-2xl p-2 px-2 -ml-8 lg:ml-16 md:ml-1 py-2 md:px-6 md:pt-15 md:pb-6 mb-0 md:mb-8 lg:mb-8 shadow-md text-center"
                     >
                         {/* ICON PLACEHOLDER */}
@@ -87,17 +96,17 @@ const AssuredByFetchTrue: React.FC = () => {
                             <div className="flex items-center justify-center">
                                 {/* You will add icon here */}
 
-                                <img src={item.icon} alt="fetchtrue" className="object-cover md:w-[88px] md:h-[88px] w-[41px] h-[41px]" />
+                                <img src={item.icon} alt="fetchtrue" className="object-cover md:w-[61px] md:h-[61px] lg:w-[88px] lg:h-[88px] w-[41px] h-[41px]" />
                             </div>
                         </div>
 
                         {/* TITLE */}
-                        <h3 className="md:text-[32px] text-[12px] font-semibold text-black mt-5 mb-2">
+                        <h3 className="md:text-[24px] lg:text-[32px] text-[12px] font-semibold text-black mt-5 mb-2">
                             {item.title}
                         </h3>
 
                         {/* DESCRIPTION */}
-                        <p className="text-gray-500 md:text-[24px] text-[12px] justify-between leading-relaxed">
+                        <p className="text-gray-500 md:text-[18px] lg:text-[24px] text-[12px] justify-between leading-relaxed">
                             {item.description}
                         </p>
                     </div>
@@ -107,4 +116,4 @@ const AssuredByFetchTrue: React.FC = () => {
     );
 };
 
-export default AssuredByFetchTrue;
+

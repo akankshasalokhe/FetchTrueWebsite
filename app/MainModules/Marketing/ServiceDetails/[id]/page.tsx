@@ -15,6 +15,9 @@ import ConnectWith from "@/src/components/MarketingServiceDetails/ConnectWith";
 import Documents from "@/src/components/MarketingServiceDetails/Documents";
 import Packages from "@/src/components/MarketingServiceDetails/Packages";
 import AssuredByFetchTrue from "@/src/components/MarketingServiceDetails/AssuredFetchTrue";
+import { useEffect } from "react";
+import { useParams } from "next/navigation";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 
 type CourseInfo = {
     title: string;
@@ -45,6 +48,21 @@ const DATA: CourseInfo = {
 };
 
 export default function ServiceDetails() {
+    const { service, loading, error, fetchServiceDetails } = useServiceDetails();
+
+    const params = useParams();
+    const serviceId = params.id as string;
+
+    useEffect(() => {
+        if (!serviceId) return;
+
+        fetchServiceDetails(serviceId);
+    }, [serviceId]);
+
+
+    if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
+    if (error) return <p>{error}</p>;
+
     return (
         <>
             <section className="w-full bg-white">
@@ -71,7 +89,8 @@ export default function ServiceDetails() {
                         {/* IMAGE */}
                         <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
                             <img
-                                src="/image/marnavbg.png"
+                                // src="/image/marnavbg.png"
+                                 src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
                                 alt="Marketing"
                                 className="w-full h-full object-cover"
                             />
@@ -107,7 +126,7 @@ export default function ServiceDetails() {
                             </div>
 
                         </div>
-                        
+
                         <div className="rounded-xl p-5 border-t-4 border-blue-500 bg-gray-200 flex justify-between items-center">
                             <div className="space-y-4">
                                 <p className="font-semibold text-[24px]">Franchise Commission</p>
@@ -137,7 +156,8 @@ export default function ServiceDetails() {
 
                         {/* Image */}
                         <img
-                            src="/image/marnavbg.png"
+                            // src="/image/marnavbg.png"
+                             src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
                             alt="course"
                             className="w-full h-[220px] object-cover"
                         />
@@ -172,7 +192,7 @@ export default function ServiceDetails() {
                             {/* <span className="text-orange-500">{DATA.discount}</span> */}
                         </div>
 
-                      
+
 
                         <div className="flex flex-row gap-2">
                             <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
@@ -186,7 +206,7 @@ export default function ServiceDetails() {
                             </div>
 
                         </div>
-                        
+
                         {/* COMMISSION */}
                         <div className="mt-4 bg-white rounded-xl p-4 shadow border-t-4 border-blue-500 flex justify-between items-center">
                             <div>
@@ -205,19 +225,19 @@ export default function ServiceDetails() {
             </section>
 
             <section>
-              <Benefits />
-              <AboutUs />
-              <WhyChooseUs />
-              <HowItWorks />
-              <AssuredByFetchTrue />
-              <Packages />
-              <Documents />
-              <MoreInformation />
-              <ChooseProvider />
-              <TermsAndConditions />
-              <FAQs />
-              <RatingsReviews />
-              <ConnectWith />
+                <Benefits benefits={service?.serviceDetails?.benefits || []}/>
+                <AboutUs />
+                <WhyChooseUs />
+                <HowItWorks />
+                <AssuredByFetchTrue />
+                <Packages />
+                <Documents />
+                <MoreInformation />
+                <ChooseProvider />
+                <TermsAndConditions />
+                <FAQs />
+                <RatingsReviews />
+                <ConnectWith />
             </section>
         </>
 

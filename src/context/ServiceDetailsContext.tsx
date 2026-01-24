@@ -84,6 +84,9 @@ interface ServiceDetails {
    description: string;
    icon?: string;
   }[];
+  notInclude: string[];
+  include: string[];
+  safetyAndAssurance: string[];
   roi:string[];
   brochureImage: string[];
   emiavalable: string[];

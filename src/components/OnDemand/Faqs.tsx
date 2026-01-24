@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 const FAQ_DATA = [
     {
@@ -29,8 +29,15 @@ const FAQ_DATA = [
     },
 ];
 
+type FAQprops =  {
+    faq: {
+    question: string,
+    answer: string,
+    _id: string
+    }[];
+}
 
-const FAQs = () => {
+export default function FAQs ({faq} : FAQprops) {
     const [activeId, setActiveId] = useState<number | null>(null);
 
     const toggleFAQ = (id: number) => {
@@ -42,31 +49,31 @@ const FAQs = () => {
             {/* TITLE */}
             <div className="flex items-start md:justify-start lg:items-start mb-4">
                 <h2
-                    className="text-[#D56839] lg:ml-18 px-6 md:px-12 py-2 text-[16px] md:text-[32px] font-semibold"
+                    className="text-[#D56839] lg:ml-18 px-6 md:px-12 py-2 text-[16px] md:text-[24px] lg:text-[32px] font-semibold"
                 >
                     FAQs
                 </h2>
             </div>
 
-            <div className="lg:w-[1300px] md:max-w-6xl lg:max-w-none mx-auto rounded-xl bg-white px-2 py-2 md:px-4 md:py-4 lg:px-12 lg:py-12">
+            <div className="lg:w-[1300px] md:w-[700px] lg:max-w-none mx-auto rounded-xl px-2 py-2 md:px-4 md:py-4 lg:px-12 lg:py-12">
 
                 {/* FAQ LIST */}
                 <div className="space-y-4">
-                    {FAQ_DATA.map((faq) => {
-                        const isOpen = activeId === faq.id;
+                    {faq.map((faq,index) => {
+                        const isOpen = activeId === index;
 
                         return (
                             <div
-                                key={faq.id}
+                                key={index}
                                 className="bg-white rounded-lg shadow-sm overflow-hidden"
                             >
                                 {/* QUESTION */}
                                 <button
-                                    onClick={() => toggleFAQ(faq.id)}
+                                    onClick={() => toggleFAQ(index)}
                                     className="w-full flex justify-between items-center px-5 py-4 text-left"
                                 >
-                                    <span className="text-[14px] md:text-[24px] font-medium text-gray-800">
-                                        {faq.id}. {faq.question}
+                                    <span className="text-[14px] md:text-[18px] lg:text-[24px] font-medium text-gray-800">
+                                         {faq.question}
                                     </span>
 
                                     {/* ARROW */}
@@ -83,7 +90,7 @@ const FAQs = () => {
                                     className={`px-5 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40 pb-4" : "max-h-0"
                                         }`}
                                 >
-                                    <p className="text-[12px] md:text-[20px] text-gray-600 leading-relaxed">
+                                    <p className="text-[12px] md:text-[18px] lg:text-[20px] text-gray-600 leading-relaxed">
                                         {faq.answer}
                                     </p>
                                 </div>
@@ -96,4 +103,3 @@ const FAQs = () => {
     );
 };
 
-export default FAQs;

@@ -43,7 +43,16 @@ const INFO_DATA: InfoItem[] = [
 ];
 
 /* ================= COMPONENT ================= */
-const MoreInformation: React.FC = () => {
+type MoreInformationProps = {
+    moreInfo: {
+        _id: string;
+        title: string;
+        description: string;
+        image: string;
+    }[];
+};
+
+export default function MoreInformation ({ moreInfo }: MoreInformationProps) {
     const [activeId, setActiveId] = useState<number>(1);
 
     return (
@@ -51,23 +60,23 @@ const MoreInformation: React.FC = () => {
             {/* TITLE */}
             <div className="flex items-start md:justify-start lg:items-start mb-4">
                 <h2
-                    className="text-[#D56839] lg:ml-14 px-6 md:px-12 py-2 text-[16px] md:text-[32px] font-semibold"
+                    className="text-[#D56839] lg:ml-14 px-6 md:px-12 py-2 text-[16px] md:text-[24px] lg:text-[32px] font-semibold"
                 >
                     More Information
                 </h2>
             </div>
 
 
-            {/* ================= DESKTOP (UNCHANGED) ================= */}
+            {/* ================= DESKTOP ================= */}
             <div className="hidden md:flex max-w-7xl p-12 bg-white/100 rounded-2xl  mx-auto h-auto gap-4">
-                {INFO_DATA.map((item) => {
-                    const isActive = activeId === item.id;
+                {moreInfo.map((item, index) => {
+                    const isActive = activeId === index + 1;
 
                     return (
                         <div
-                            key={item.id}
-                            onClick={() => setActiveId(item.id)}
-                            className={`relative  cursor-pointer  w-[900px] h-[600px] rounded-2xl overflow-hidden transition-all duration-500
+                            key={index}
+                            onClick={() => setActiveId(index + 1)}
+                            className={`relative  cursor-pointer  w-[900px] md:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden transition-all duration-500
                 ${isActive ? "flex-[3]" : "flex-[1]"}
               `}
                         >
@@ -85,10 +94,10 @@ const MoreInformation: React.FC = () => {
 
                             {isActive && (
                                 <div className="absolute inset-0 p-8 flex flex-col justify-start text-white">
-                                    <h3 className="md:text-[36px] font-semibold mb-3">
+                                    <h3 className="md:text-[24px] lg:text-[36px] font-semibold mb-3">
                                         {item.title}
                                     </h3>
-                                    <p className="md:text-[24px] leading-relaxed max-w-md">
+                                    <p className="md:text-[18px] lg:text-[24px] leading-relaxed max-w-md">
                                         {item.description}
                                     </p>
                                 </div>
@@ -101,13 +110,13 @@ const MoreInformation: React.FC = () => {
 
             {/* ================= MOBILE COLUMN (TAP TO REVEAL) ================= */}
             <div className="md:hidden max-w-md mx-auto space-y-4">
-                {INFO_DATA.map((item) => {
-                    const isActive = activeId === item.id;
+                {moreInfo.map((item, index) => {
+                    const isActive = activeId === index + 1;
 
                     return (
                         <div
-                            key={item.id}
-                            onClick={() => setActiveId(item.id)}
+                            key={index}
+                            onClick={() => setActiveId(index + 1)}
                             className={`
           relative w-full rounded-2xl overflow-hidden cursor-pointer
           transition-all duration-500 ease-in-out
@@ -131,7 +140,7 @@ const MoreInformation: React.FC = () => {
                             {/* CONTENT ON IMAGE */}
                             <div
                                 className={`
-            absolute inset-0 p-4 flex flex-col justify-end text-white
+            absolute inset-0 p-4 flex flex-col justify-start text-white
             transition-all duration-400
             ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
           `}
@@ -155,4 +164,4 @@ const MoreInformation: React.FC = () => {
     );
 };
 
-export default MoreInformation;
+

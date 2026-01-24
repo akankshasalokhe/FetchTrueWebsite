@@ -1,4 +1,9 @@
-export default function AboutSection() {
+
+type AboutSectionProps = {
+  aboutContent?: string;
+};
+
+export default function AboutSection({ aboutContent }: AboutSectionProps) {
   return (
     <section className="w-full bg-gray-100 py-8 px-4">
       {/* Title */}
