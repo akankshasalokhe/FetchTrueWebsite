@@ -896,19 +896,34 @@ import Recommendation from '@/src/components/AIHub/Recommended';
 import TopTrending from '@/src/components/AIHub/TopTrending';
 import WhyChooseUs from '@/src/components/AIHub/WhyChooseUs';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { useModule } from '@/src/context/CategoriesContext';
 
 export default function AIHubModulesPage() {
 
-    const categories = [
-        { label: "Finance & Accounting AI", path: "/image/personaldevelopment.png" },
-        { label: "Employee Onboarding ", path: "/image/Development.png" },
-        { label: "Customer Onboarding", path: "/image/it.png" },
-        { label: "Business Intelligence", path: "/image/Finance.png" },
-        { label: "Sales & Marketing  ", path: "/image/Teaching&Software.png" },
-        { label: "Customer Supporting AI", path: "/image/Business.png" },
-    ]
+    const { categories, loading, error, fetchCategoriesByModule } = useModule();
+
+    // const categories = [
+    //     { label: "Finance & Accounting AI", path: "/image/personaldevelopment.png" },
+    //     { label: "Employee Onboarding ", path: "/image/Development.png" },
+    //     { label: "Customer Onboarding", path: "/image/it.png" },
+    //     { label: "Business Intelligence", path: "/image/Finance.png" },
+    //     { label: "Sales & Marketing  ", path: "/image/Teaching&Software.png" },
+    //     { label: "Customer Supporting AI", path: "/image/Business.png" },
+    // ]
+
+    const params = useParams();
+    const moduleId = params.moduleId as string;
+
+    useEffect(() => {
+        if (!moduleId) return;
+
+        fetchCategoriesByModule(moduleId);
+    }, [moduleId]);
+
+    const safeCategories = Array.isArray(categories) ? categories : [];
+
 
     const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -920,13 +935,27 @@ export default function AIHubModulesPage() {
         return chunks;
     };
 
-    const baseSlides = chunkArray(categories, 6);
+    // const baseSlides = chunkArray(categories, 6);
 
-    const slides = [
-        baseSlides[baseSlides.length - 1], // clone last
-        ...baseSlides,
-        baseSlides[0], // clone first
-    ];
+    // const slides = [
+    //     baseSlides[baseSlides.length - 1], // clone last
+    //     ...baseSlides,
+    //     baseSlides[0], // clone first
+    // ];
+
+
+    const baseSlides = safeCategories.length
+        ? chunkArray(safeCategories, 6)
+        : [];
+
+    const slides =
+        baseSlides.length > 0
+            ? [
+                baseSlides[baseSlides.length - 1],
+                ...baseSlides,
+                baseSlides[0],
+            ]
+            : [];
 
 
     const [activeIndex, setActiveIndex] = useState(0);
@@ -994,6 +1023,10 @@ export default function AIHubModulesPage() {
     const toSlug = (text: string) =>
         text.toLowerCase().replace(/\s+/g, "-");
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
 
     return (
         <>
@@ -1005,12 +1038,12 @@ export default function AIHubModulesPage() {
                             {/* LEFT */}
                             <div className="flex items-center gap-3 lg:gap-5">
                                 <div className="bg-white rounded-full p-1">
-                                     <Link href="/">
-                                    <img
-                                        src="/image/AIHome.png"
-                                        className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] cursor-pointer lg:p-1 object-cover"
-                                        alt="Home"
-                                    /></Link></div>
+                                    <Link href="/MainModules">
+                                        <img
+                                            src="/image/AIHome.png"
+                                            className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] cursor-pointer lg:p-1 object-cover"
+                                            alt="Home"
+                                        /></Link></div>
 
 
 
@@ -1179,18 +1212,18 @@ export default function AIHubModulesPage() {
                         <div
                             key={index}
                             onClick={() =>
-                                router.push(`/MainModules/AIHub/${toSlug(item.label)}`)
+                               router.push(`/MainModules/AI-Hub/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
                             }
-                            className="flex flex-col mb-5 items-center p-1 lg:ml-8 md:ml-15 rounded-lg w-[120px]"
+                            className="flex flex-col mb-5 items-center p-1 lg:ml-8 md:ml-15 rounded-lg w-[120px] cursor-pointer"
                         >
                             <img
-                                src={item.path}
-                                alt={item.label}
+                                src={item.image}
+                                alt={item.name}
                                 className="w-[133px] h-[143px] border border-[#A7DFFF] bg-white/50 rounded-2xl object-contain"
                             />
 
-                            <span className="mt-2 md:text-[18px] lg:text-[24px] font-medium text-center leading-tight break-words">
-                                {item.label}
+                            <span className="mt-2 md:text-[18px] lg:text-[24px] font-medium text-center leading-tight break-words line-clamp-3 max-w-[250px]">
+                                {item.name}
                             </span>
                         </div>
                     ))}
@@ -1201,10 +1234,10 @@ export default function AIHubModulesPage() {
 
                 {/*  ================= MOBILE CATEGORY SWIPE =================  */}
                 <section className="md:hidden max-w-full mt-6">
-                    <div
+                    {/* <div
                         ref={sliderRef}
                         className="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth"
-                    >
+                     >
                         {slides.map((slide, slideIndex) => (
                             <div
                                 key={slideIndex}
@@ -1215,22 +1248,22 @@ export default function AIHubModulesPage() {
                                         <div
                                             key={i}
                                             onClick={() =>
-                                                router.push(`/MainModules/AIHub/${toSlug(item.label)}`)
+                                                router.push(`/MainModules/AIHub/${(item._id)}`)
                                             }
                                             className="flex flex-col space-y-6 items-center text-center"
                                         >
-                                            {/* IMAGE BOX */}
+                                            
                                             <div className="w-[90px] h-[96px] flex items-center justify-center border border-[#A7DFFF] rounded-2xl bg-[#F6FCFF] p-1">
                                                 <img
-                                                    src={item.path}
-                                                    alt={item.label}
+                                                    src={item.image}
+                                                    alt={item.name}
                                                     className="w-full h-full object-contain"
                                                 />
                                             </div>
 
-                                            {/* LABEL */}
+                                            
                                             <span className="text-[12px] mb-4 leading-[16px] font-medium max-w-[96px]">
-                                                {item.label}
+                                                {item.name}
                                             </span>
                                         </div>
 
@@ -1238,7 +1271,43 @@ export default function AIHubModulesPage() {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
+
+                    {slides.length > 0 && (
+                        <div
+                            ref={sliderRef}
+                            className="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth"
+                        >
+                            {slides.map((slide, slideIndex) => (
+                                <div key={slideIndex} className="min-w-full snap-center">
+                                    <div className="grid grid-cols-3 gap-0">
+                                        {slide.map((item, i) => (
+                                            <div
+                                                key={i}
+                                                onClick={() =>
+                                                     router.push(`/MainModules/AI-Hub/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
+                                                }
+                                                className="flex flex-col space-y-6 items-center text-center"
+                                            >
+                                                <div className="w-[90px] h-[96px] flex items-center justify-center border border-[#A7DFFF] rounded-2xl bg-[#F6FCFF] p-1">
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        className="w-full h-full object-contain"
+                                                    />
+                                                </div>
+
+                                                <span className="text-[12px] mb-4 leading-[16px] font-medium max-w-[96px]">
+                                                    {item.name}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
 
                     {/* INDICATORS */}
                     <div className="flex justify-center gap-2 mt-4">
@@ -1255,18 +1324,18 @@ export default function AIHubModulesPage() {
                 </section>
 
 
-                <Recommendation />
-                <MostPopular />
-                <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
+                <Recommendation moduleId={moduleId} />
+                <MostPopular moduleId={moduleId}/>
+                {/* <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
                     <div className="max-w-8xl mx-auto px-6 md:px-12 mb-6 lg:mb-12 py-8 md:py-12">
                         <LiveSection />
                     </div>
-                </section>
-                <TopTrending />
+                </section> */}
+                <TopTrending moduleId={moduleId}/>
 
                 <section className="bg-[#C9DEE9] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
                     <div className="max-w-8xl mx-auto px-6 md:px-12 mb-6 lg:mb-12 py-8 md:py-12">
-                        <WhyChooseUs />
+                        <WhyChooseUs moduleId={moduleId}/>
                     </div>
                 </section>
 

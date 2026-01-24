@@ -1,50 +1,151 @@
+// "use client";
+
+// import React from "react";
+// import { Phone, Mail, Share2, ShoppingCart } from "lucide-react";
+// import Link from "next/link";
+
+// const ConnectWith = () => {
+//   return (
+//     <section className="bg-gray-100 py-6">
+//       <div className="md:w-[1320px] mx-auto bg-white rounded-xl px-4 py-5 md:px-10 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+
+//         {/* LEFT */}
+//         <div>
+//           <p className="text-teal-600 text-[10px] md:text-[24px] mb-1">Connect With</p>
+//           <h2 className="text-[14px] md:text-[36px] font-semibold text-[#5A3A2E]">
+//             IT Service Manager
+//           </h2>
+//         </div>
+
+//         {/* CENTER ICONS */}
+//         <div className="flex items-center gap-4">
+//           <button className="p-2 rounded-full hover:bg-gray-100">
+//             <Phone className="text-green-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
+//           </button>
+
+//           <button className="p-2 rounded-full hover:bg-gray-100">
+//             <Mail className="text-blue-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
+//           </button>
+//         </div>
+
+//         {/* RIGHT BUTTONS */}
+//         <div className="flex items-center gap-3 w-full md:w-auto">
+//           <Link href="/MainModules/Checkout">
+//           <button className="flex items-center w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center cursor-pointer">
+//             <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px]" />
+//             Check out
+//           </button>
+//           </Link>
+
+//           <button className="flex items-center w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center">
+//             <Share2 className="w-5 h-5  md:w-[48px] md:h-[48px]" />
+//             Share
+//           </button>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default ConnectWith;
+
+
+
+
+
+
 "use client";
 
-import React from "react";
 import { Phone, Mail, Share2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
-const ConnectWith = () => {
+type ConnectWithItem = {
+  _id: string;
+  name: string;
+  mobileNo: string;
+  email: string;
+};
+
+type ConnectWithProps = {
+  connectWith?: ConnectWithItem[];
+};
+
+export default function ConnectWith({ connectWith }: ConnectWithProps) {
+  const manager = connectWith?.[0];
+
+  if (!manager) return null;
+
   return (
-    <section className="bg-gray-100 py-6">
-      <div className="md:w-[1320px] mx-auto bg-white rounded-xl px-4 py-5 md:px-10 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        
+    <section className="bg-gray-100 p-4">
+      <div className="md:w-[700px] lg:w-[1320px] mx-auto md:flex-none lg:flex lg:items-center lg:justify-between bg-white rounded-xl px-4 py-5 md:px-10 md:py-10  gap-4">
+
         {/* LEFT */}
-        <div>
-          <p className="text-teal-600 text-[10px] md:text-[24px] mb-1">Connect With</p>
-          <h2 className="text-[14px] md:text-[36px] font-semibold text-[#5A3A2E]">
-            IT Service Manager
+        <div className="flex flex-row items-center gap-6">
+          <p className="text-teal-600 text-[10px] md:text-[24px] mb-1">
+            Connect With
+          </p>
+          <h2 className="text-[14px] md:text-[28px] lg:text-[36px] font-semibold text-[#5A3A2E]">
+            {manager.name}
           </h2>
-        </div>
 
-        {/* CENTER ICONS */}
-        <div className="flex items-center gap-4">
-          <button className="p-2 rounded-full hover:bg-gray-100">
+          <div className="flex items-center gap-4">
+          <a
+            href={`tel:${manager.mobileNo}`}
+            className="p-2 rounded-full hover:bg-gray-100"
+          >
             <Phone className="text-green-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
-          </button>
+          </a>
 
-          <button className="p-2 rounded-full hover:bg-gray-100">
+          <a
+            href={`mailto:${manager.email}`}
+            className="p-2 rounded-full hover:bg-gray-100"
+          >
             <Mail className="text-blue-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
-          </button>
+          </a>
         </div>
 
+        </div>
+
+       
+        
         {/* RIGHT BUTTONS */}
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          <Link href="/MainModules/Checkout">
-          <button className="flex items-center w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center cursor-pointer">
-            <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px]" />
-            Check out
-          </button>
-          </Link>
 
-          <button className="flex items-center w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md text-sm font-medium  justify-center">
-            <Share2 className="w-5 h-5  md:w-[48px] md:h-[48px]" />
-            Share
-          </button>
+        {/* DESKTOP VERSION */}
+        <div className="hidden md:hidden lg:block items-center gap-3 w-full md:w-auto">
+          <div className="flex flex-row gap-4">
+            <Link href="/MainModules/Checkout">
+              <button className="flex items-center w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md font-medium justify-center">
+                <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px]" />
+                Check out
+              </button>
+            </Link>
+
+            <button className="flex items-center w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md font-medium justify-center">
+              <Share2 className="w-5 h-5 md:w-[48px] md:h-[48px]" />
+              Share
+            </button>
+          </div>
         </div>
+
+        {/* MOBILE VERSION */}
+        <div className="block md:block lg:hidden flex flex-row items-center gap-3 w-full md:w-auto">
+          <div className="flex flex-row md:flex-row gap-4 mt-4">
+            <Link href="/MainModules/Checkout">
+              <button className="flex items-center w-[100px] md:w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[24px] lg:text-[32px] px-5 py-3 rounded-md font-medium justify-center whitespace-nowrap">
+                <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px] flex shrink-0" />
+                Check out
+              </button>
+            </Link>
+
+            <button className="flex items-center w-[100px] md:w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[24px] lg:text-[32px] px-2 py-3 rounded-md font-medium justify-center">
+              <Share2 className="w-5 h-5 md:w-[48px] md:h-[48px]" />
+              Share
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
   );
-};
+}
 
-export default ConnectWith;

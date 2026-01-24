@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-// import RecommendedProvider from '@/src/components/OnDemandHomeComponents/RecommendedProvider';
+import RecommendedProvider from '@/src/components/OnDemandHomeComponents/RecommendedProvider';
 import MostPopularProvider from '@/src/components/OnDemandHomeComponents/MostPopularProvider';
 import TopTrending from '@/src/components/OnDemandHomeComponents/TopTrending';
 import WhyChooseUs from '@/src/components/OnDemandHomeComponents/WhyChooseUs';
@@ -123,6 +123,10 @@ export default function OnDemandModulePage() {
     };
 
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
 
     return (
         <>
@@ -165,11 +169,13 @@ export default function OnDemandModulePage() {
                             <div className="flex items-center justify-between p-4 w-full">
                                 {/* LEFT */}
                                 <div className="flex items-center gap-3 lg:gap-5">
-                                    <img
-                                        src="/image/OnDemandnavhome.png"
-                                        className="w-[26px] h-[30px] lg:w-[34px] lg:h-[42px] bg-white rounded-full"
-                                        alt="Home"
-                                    />
+                                    <Link href="/">
+                                        <img
+                                            src="/image/OnDemandnavhome.png"
+                                            className="w-[26px] h-[30px] lg:w-[38px] lg:h-[42px] bg-white rounded-full cursor-pointer"
+                                            alt="Home"
+                                        />
+                                    </Link>
                                     <h1 className="text-[18px] lg:text-[24px] font-semibold">
                                         On Demand Service
                                     </h1>
@@ -289,8 +295,8 @@ export default function OnDemandModulePage() {
 
 
             {/* ================= CATEGORY ================= */}
-            <section className="relative w-full mt-10 p-22 mb-8">
-                <h1 className="text-[16px] md:text-[32px] font-semibold mb-5">
+            <section className="relative w-full mt-10 p-4 lg:p-22 mb-8">
+                <h1 className="text-[16px] md:text-[24px] lg:text-[32px] font-semibold mb-5">
                     Category
                 </h1>
 
@@ -316,13 +322,13 @@ export default function OnDemandModulePage() {
                     </div>
                 </div>  */}
                 {/* DESKTOP – SWIPEABLE */}
-                 <div
+                <div
                     ref={scrollRef}
                     className="
         hidden md:flex
         overflow-x-auto
         scrollbar-hide
-        cursor-grab active:cursor-grabbing
+        cursor-pointer active:cursor-grabbing
         select-none
     "
                     onMouseDown={onMouseDown}
@@ -330,46 +336,47 @@ export default function OnDemandModulePage() {
                     onMouseUp={onMouseUp}
                     onMouseMove={onMouseMove}
                 >
-                      <div
-                    className="hidden md:grid md:grid-cols-4
+                    <div
+                        className="hidden md:grid md:grid-cols-4
                                 lg:flex lg:flex-wrap
                                 gap-5
                                 rounded-lg
                                 "
-                >
-                       
-                    {categories.map((item, index) => (
-                        <div
-                            key={index}
-                            onClick={() =>
-                                router.push(`/MainModules/On-Demand/${moduleId}/${toSlug(item.name)}`)
-                            }
-                            className="flex flex-col items-center"
-                        >
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                className="w-[170px] h-[150px] object-contain p-3 bg-[#FFF6EF] rounded-lg"
-                            />
+                    >
 
-                            <span
-                                className="
+                        {categories.map((item, index) => (
+                            <div
+                                key={index}
+                                onClick={() =>
+                                    router.push(`/MainModules/On-Demand/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
+                                }
+                                className="flex flex-col items-center"
+                            >
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-[133px] h-[143px] object-contain p-3 bg-[#FFF6EF] rounded-lg"
+                                />
+
+                                <span
+                                    className="
                                     mt-2
                                     w-[170px]
                                     text-[20px]
-                                    font-semibold
+                                    font-regualr
+                                    cursor-pointer
                                     text-center
                                     leading-tight
                                     whitespace-normal
                                     break-words
                                 "
-                            >
-                                {item.name}
-                            </span>
+                                >
+                                    {item.name}
+                                </span>
 
 
-                        </div>
-                    ))}
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -428,7 +435,8 @@ export default function OnDemandModulePage() {
                                     <div
                                         key={i}
                                         onClick={() =>
-                                            router.push(`/MainModules/OnDemand/${toSlug(item.name)}`)}
+                                             router.push(`/MainModules/On-Demand/${moduleId}/${item._id}?categoryName=${encodeURIComponent(item.name)}`)
+                                        }
                                         className="flex flex-col items-center"
                                     >
                                         <img
@@ -449,10 +457,10 @@ export default function OnDemandModulePage() {
 
             {/* ================= OTHER SECTIONS ================= */}
             <section className="relative w-full ">
-                {/* <RecommendedProvider moduleId={moduleId} /> */}
-                <MostPopularProvider />
-                <TopTrending />
-                <WhyChooseUs />
+                <RecommendedProvider moduleId={moduleId} />
+                <MostPopularProvider moduleId={moduleId} />
+                <TopTrending moduleId={moduleId} />
+                <WhyChooseUs moduleId={moduleId} />
             </section>
         </>
     );

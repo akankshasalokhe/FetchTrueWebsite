@@ -1,10 +1,25 @@
 'use client';
 
 import Image from "next/image";
-import { Bookmark, Zap, Brain, Settings } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { useMostPopular } from "@/src/context/MostPopularContext";
 
-export default function MostPopular() {
+type PopularProps = {
+    moduleId: string;
+};
+
+interface Package {
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+}
+
+
+export default function MostPopular({ moduleId }: PopularProps) {
     const properties = [
         {
             id: 1,
@@ -93,6 +108,19 @@ export default function MostPopular() {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
+    const {
+        services,
+        loading,
+        error, fetchMostPopular
+    } = useMostPopular();
+
+    useEffect(() => {
+        if (!moduleId) return;
+
+        fetchMostPopular(moduleId);
+    }, [moduleId]);
+
+
     const getMaxScroll = () => {
         const container = containerRef.current;
         if (!container) return 0;
@@ -144,22 +172,63 @@ export default function MostPopular() {
         };
     }, [isDragging, startX, scrollLeft]);
 
+    const getStartingPackage = (packages: Package[] = []) => {
+        if (!packages.length) return null;
+
+        return packages.reduce((min, pkg) =>
+            pkg.discountedPrice < min.discountedPrice ? pkg : min
+        );
+    };
+
+
+    const mappedServices = services.map((service) => {
+        const packages = service.packages || [];
+        const startingPackage = getStartingPackage(packages);
+
+        return {
+            id: service.serviceId,
+            title: service.serviceName,
+            category: service.category?.name || "Unknown",
+            image: service.thumbnailImage || "/image/placeholder.png",
+
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews ?? 0,
+
+            price: startingPackage?.discountedPrice ?? 0,
+            originalPrice: startingPackage?.price ?? 0,
+            discount: startingPackage?.discount ?? 0,
+
+            keyValues:
+                service.keyValues?.map((item) => ({
+                    id: item._id,
+                    key: item.key,
+                    label: item.value,
+                })) || [],
+        };
+    });
+
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
     return (
-        <div className="w-full">
-            <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 mt-2 ml-4">
-               Most Popular 
+        <div className="w-full mb-6">
+            <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 ml-4">
+                Most Popular
             </h1>
 
             <div
                 ref={containerRef}
                 className="flex gap-6 w-full p-4 overflow-x-auto snap-x snap-mandatory no-scrollbar cursor-grab"
             >
-                {properties.map((p) => (
+                {mappedServices.map((p) => (
                     <div
                         key={p.id}
                         className="
                             snap-center
-                            w-[270px] md:w-[308px] lg:w-[408px]
+                            w-[270px] md:w-[308px] lg:w-[408px] lg:h-[373.99px]
                             bg-[#F4F4F4] mx-auto
                             rounded-2xl
                             p-4
@@ -174,7 +243,7 @@ export default function MostPopular() {
                                 src={p.image}
                                 alt={p.title}
                                 fill
-                                className="object-cover rounded-xl pointer-events-none"
+                                className="object-fit rounded-xl pointer-events-none w-[286px] h-[132px] lg:w-[398px] lg:h-[183px]"
                             />
                             <button className="absolute top-2 right-2 bg-black/60 p-1.5 rounded-full">
                                 <Bookmark size={18} className="text-white" />
@@ -195,7 +264,7 @@ export default function MostPopular() {
                                 className="
                         text-[14px] lg:text-[20px]
                         font-semibold
-                        text-black -mt-6 lg:-mt-2
+                        text-black -mt-1 lg:-mt-2
                         leading-snug
                         line-clamp-2 max-w-[65%]
                         min-h-[40px] lg:min-h-[56px]
@@ -206,28 +275,29 @@ export default function MostPopular() {
 
 
                             <span className="inline-block text-[10px] lg:text-[12px] bg-white px-2 py-1 rounded-lg">
-                                {p.type}
+                                {p.category}
                             </span>
 
 
-                            <div className="flex -mt-8 md:-mt-15">
-                                <div className=" items-end ml-auto gap-1 text-yellow-400 text-sm mb-4">
-                                    {"⭐".repeat(p.rating)}
+                            <div className="flex -mt-12 md:-mt-18">
+                                <div className=" items-end ml-auto gap-1 text-yellow-400 text-[22px] mb-4">
+                                    {/* {"⭐".repeat(p.rating)} */}
+                                    {"★".repeat(p.rating)}
                                 </div>
                             </div>
 
 
-                            <div className="flex justify-end gap-2">
-                                <span className="bg-[#548AFE] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
-                                    Discount {p.earning}
-                                </span>
-                                <span className="bg-[#89FF9B] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
-                                    Earn {p.discount}
+                            <div className="flex justify-end gap-2 -mt-4">
+                                {/* <span className="bg-[#548AFE] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
+                                    Discount {p.discount} %
+                                </span> */}
+                                <span className="bg-green-600 text-white  text-[8px] lg:text-[10px] px-1 py-1 rounded-lg font-semibold">
+                                    Earn Up to {p.discount} %
                                 </span>
                             </div>
 
-                            <div className="space-y-1 text-black">
-                                <p className="font-semibold text-[10px] lg:text-[14px]">
+                            <div className="space-y-1 text-black mt-8">
+                                {/* <p className="font-semibold text-[10px] lg:text-[14px]">
                                     Setup & Time
                                 </p>
                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
@@ -241,21 +311,49 @@ export default function MostPopular() {
                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
                                     <Settings size={14} />
                                     Maintenance: {p.maintenance}
+                                </p> */}
+                                <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
+                                    Setup & Time
                                 </p>
+                                {p.keyValues.map((kv) => (
+                                    <div
+                                        key={kv.id}
+                                        className="flex flex-col text-[10px] lg:text-[14px] text-gray-700 leading-snug"
+                                    >
+                                        <div className="flex flex-row space-x-1">
+                                            <span className="font-medium">{kv.key}:</span>
+                                            <span className="text-gray-500">{kv.label}</span>
+                                        </div>
+                                    </div>
+                                ))}
+
                             </div>
                         </div>
 
 
 
                         {/* PRICE */}
-                        <div className="absolute bottom-3 right-3 bg-white rounded-2xl px-3 lg:px-8 py-2 text-center">
-                            <p className="text-[10px] lg:text-[14px]">
+                        <div className="absolute bottom-4 right-3 bg-white rounded-2xl px-3 lg:px-2 py-2 lg:py-1 text-center">
+                            <p className="text-[10px] lg:text-[10px]">
                                 Starting from
                             </p>
-                            <p className="font-semibold text-[16px] lg:text-[24px]">
-                                ₹{p.price}
-                            </p>
+
+                            <div className="font-semibold text-[16px] lg:text-[20px] flex flex-col items-center">
+                                <span>₹{p.price}</span>
+
+                                {p.discount > 0 && (
+                                    <div className="flex flex-row gap-2 text-center">
+                                        <span className="line-through text-gray-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                            ₹{p.originalPrice}
+                                        </span>
+                                        <span className="text-blue-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                            ({p.discount}% off)
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
+
                     </div>
                 ))}
             </div>

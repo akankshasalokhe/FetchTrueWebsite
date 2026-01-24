@@ -19,6 +19,7 @@ export interface StoreInfo {
   zone: string;
   logo: string;
   cover: string;
+  aboutUs?: string;
   address: string;
   city: string;
   state: string;

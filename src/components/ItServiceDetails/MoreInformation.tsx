@@ -43,7 +43,17 @@ const INFO_DATA: InfoItem[] = [
 ];
 
 /* ================= COMPONENT ================= */
-const MoreInformation: React.FC = () => {
+
+type MoreInformationProps = {
+    moreInfo: {
+        _id: string;    
+        title: string;    
+        image: string;    
+        description: string;  
+    }[];
+};
+
+export default function MoreInformation({ moreInfo }: MoreInformationProps) {
     const [activeId, setActiveId] = useState<number>(1);
 
     return (
@@ -62,14 +72,14 @@ const MoreInformation: React.FC = () => {
 
             {/* ================= DESKTOP (UNCHANGED) ================= */}
             <div className="hidden md:flex max-w-6xl mx-auto h-auto gap-4">
-                {INFO_DATA.map((item) => {
-                    const isActive = activeId === item.id;
+                {moreInfo.map((item,index) => {
+                    const isActive = activeId === index + 1;
 
                     return (
                         <div
-                            key={item.id}
-                            onClick={() => setActiveId(item.id)}
-                            className={`relative cursor-pointer w-[600px] h-[600px] rounded-2xl overflow-hidden transition-all duration-500
+                            key={index}
+                            onClick={() => setActiveId(index + 1)}
+                            className={`relative cursor-pointer w-[600px] md:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden transition-all duration-500
                 ${isActive ? "flex-[3]" : "flex-[1]"}
               `}
                         >
@@ -87,10 +97,10 @@ const MoreInformation: React.FC = () => {
 
                             {isActive && (
                                 <div className="absolute inset-0 p-8 flex flex-col justify-start text-white">
-                                    <h3 className="md:text-[36px] font-semibold mb-3">
+                                    <h3 className="md:text-[24px] lg:text-[36px] font-semibold mb-3">
                                         {item.title}
                                     </h3>
-                                    <p className="md:text-[24px] leading-relaxed max-w-md">
+                                    <p className="md:text-[18px] lg:text-[24px] leading-relaxed max-w-md">
                                         {item.description}
                                     </p>
                                 </div>
@@ -102,59 +112,58 @@ const MoreInformation: React.FC = () => {
 
 
             {/* ================= MOBILE COLUMN (TAP TO REVEAL) ================= */}
-           <div className="md:hidden max-w-md mx-auto space-y-4">
-  {INFO_DATA.map((item) => {
-    const isActive = activeId === item.id;
+            <div className="md:hidden max-w-md mx-auto space-y-4">
+                {INFO_DATA.map((item) => {
+                    const isActive = activeId === item.id;
 
-    return (
-      <div
-        key={item.id}
-        onClick={() => setActiveId(item.id)}
-        className={`
+                    return (
+                        <div
+                            key={item.id}
+                            onClick={() => setActiveId(item.id)}
+                            className={`
           relative w-full rounded-2xl overflow-hidden cursor-pointer
           transition-all duration-500 ease-in-out
           ${isActive ? "h-[292px]" : "h-[90px]"}
         `}
-      >
-        {/* IMAGE */}
-        <img
-          src={item.image}
-          alt={item.title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+                        >
+                            {/* IMAGE */}
+                            <img
+                                src={item.image}
+                                alt={item.title}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
 
-        {/* DARK OVERLAY */}
-        <div
-          className={`absolute inset-0 bg-black transition-opacity duration-300
+                            {/* DARK OVERLAY */}
+                            <div
+                                className={`absolute inset-0 bg-black transition-opacity duration-300
             ${isActive ? "opacity-70" : "opacity-40"}
           `}
-        />
+                            />
 
-        {/* CONTENT ON IMAGE */}
-        <div
-          className={`
-            absolute inset-0 p-4 flex flex-col justify-end text-white
+                            {/* CONTENT ON IMAGE */}
+                            <div
+                                className={`
+            absolute inset-0 p-4 flex flex-col justify-start text-white
             transition-all duration-400
             ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
           `}
-        >
-          <h3 className="text-lg font-semibold mb-2">
-            {item.title}
-          </h3>
+                            >
+                                <h3 className="text-lg font-semibold mb-2">
+                                    {item.title}
+                                </h3>
 
-          <p className="text-sm leading-relaxed">
-            {item.description}
-          </p>
-        </div>
-      </div>
-    );
-  })}
-</div>
+                                <p className="text-sm leading-relaxed">
+                                    {item.description}
+                                </p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
 
-           
+
 
         </section>
     );
 };
 
-export default MoreInformation;

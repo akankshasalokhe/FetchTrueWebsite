@@ -3,41 +3,24 @@
 import React, { useState } from "react";
 
 /* ================= TYPES ================= */
-type DocumentSection = {
+type DocumentItem = {
+  _id: string;
   title: string;
-  items: string[];
 };
 
-/* ================= MOCK DATA ================= */
-const REQUIRED: DocumentSection = {
-  title: "We Required",
-  items: [
-    "Brand Name & Tagline",
-    "About Business",
-    "Target Audience",
-    "Color & Style Preferences",
-    "Reference Logos",
-    "Old Logo (if any)",
-    "Usage Needs (where logo will be used)",
-  ],
-};
-
-const DELIVER: DocumentSection = {
-  title: "We Deliver",
-  items: [
-    "Final Logo (PNG, JPG, SVG, PDF)",
-    "Transparent Logo",
-    "Black & White Version",
-    "Color Variations",
-    "Logo Usage Guide",
-    "Social Media Logo Files",
-    "Favicon / App Icon",
-  ],
+type DocumentsProps = {
+  weRequired: DocumentItem[];
+  weDeliver: DocumentItem[];
 };
 
 /* ================= COMPONENT ================= */
-const Documents: React.FC = () => {
+export default function Documents({
+  weRequired = [],
+  weDeliver = [],
+}: DocumentsProps) {
   const [activeTab, setActiveTab] = useState<"required" | "deliver">("required");
+
+  if (!weRequired.length && !weDeliver.length) return null;
 
   return (
     <section className="bg-[#F7F7F7] py-2 -mt-5 md:py-18 px-4">
@@ -49,14 +32,14 @@ const Documents: React.FC = () => {
             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
           }}
         >
-          Assured by Fetch True
+          Documents
         </h2>
       </div>
 
       {/* ================= DESKTOP ================= */}
       <div className="hidden md:grid max-w-6xl mx-auto grid-cols-2 gap-8">
-        <DocumentCard section={REQUIRED} />
-        <DocumentCard section={DELIVER} />
+        <DocumentCard title="We Required" items={weRequired} />
+        <DocumentCard title="We Deliver" items={weDeliver} />
       </div>
 
       {/* ================= MOBILE (TABS) ================= */}
@@ -85,34 +68,46 @@ const Documents: React.FC = () => {
           </button>
         </div>
 
-        {/* Tab Content */}
-        {activeTab === "required" && <DocumentCard section={REQUIRED} />}
-        {activeTab === "deliver" && <DocumentCard section={DELIVER} />}
+        {activeTab === "required" && (
+          <DocumentCard title="We Required" items={weRequired} />
+        )}
+        {activeTab === "deliver" && (
+          <DocumentCard title="We Deliver" items={weDeliver} />
+        )}
       </div>
     </section>
   );
-};
+}
 
 /* ================= CARD ================= */
-const DocumentCard = ({ section }: { section: DocumentSection }) => {
+function DocumentCard({
+  title,
+  items,
+}: {
+  title: string;
+  items: DocumentItem[];
+}) {
+  if (!items.length) return null;
+
   return (
     <div className="bg-white rounded-xl mt-4 shadow-md p-4 md:p-0">
       {/* Header */}
       <div className="bg-[#A7C2E3] hidden md:block md:text-[24px] text-white w-full text-center py-2 rounded-md font-semibold mb-4">
-        {section.title}
+        {title}
       </div>
 
       {/* List */}
       <ul className="space-y-3 md:p-6">
-        {section.items.map((item, index) => (
-          <li key={index} className="flex items-start gap-2 text-[14px] md:text-[20px] text-gray-700">
+        {items.map((item) => (
+          <li
+            key={item._id}
+            className="flex items-start gap-2 text-[14px] md:text-[20px] text-gray-700"
+          >
             <span className="text-green-500 mt-0.5">✔</span>
-            <span>{item}</span>
+            <span>{item.title}</span>
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default Documents;
+}

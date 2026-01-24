@@ -14,12 +14,18 @@ import { SubCategoryProvider } from "@/src/context/SubCategoriesContext";
 import { ServiceDetailsProvider } from "@/src/context/ServiceDetailsContext";
 import { RecommendedServiceByCategoryIdProvider } from "@/src/context/RecommendedServiceByCategoryIdContext";
 import { MostPopularServiceByCategoryProvider } from "@/src/context/MostPopularServiceByCategoryIdContext";
-import { CategorywiseServiceProvider } from "@/src/context/CategorywiseServiceContext";
-import {  PopularProvidersProvider } from "@/src/context/PopularProviderContext";
-import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext";
 import { TopTrendingServiceByCategoryIdProvider } from "@/src/context/TopTrendingServiceByCategoryIdContext";
 import { OfferProvider } from "@/src/context/OfferContext";
 import { ModulewiseServiceProvider } from "@/src/context/ModulewiseServiceContext";
+import { PopularProvidersProvider } from "@/src/context/PopularProviderContext";
+import { TrendingProvidersProvider } from "@/src/context/TrendingProviderContext";
+import { RecommendedCategoryProvidersProvider } from "@/src/context/RecommendedCategoryProviderContext";
+import { TrendingCategoryProvider } from "@/src/context/TrendingCategoryProviderContext";
+import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext";
+import { CategorywiseServiceProvider } from "@/src/context/CategorywiseServiceContext";
+
+
+
 
 export const metadata = {
   title: "Fetch True",
@@ -43,16 +49,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                             <ServiceDetailsProvider>
                               <RecommendedServiceByCategoryIdProvider>
                                 <MostPopularServiceByCategoryProvider>
-                                  <CategorywiseServiceProvider>
+                                  <TopTrendingServiceByCategoryIdProvider>
                                     <PopularProvidersProvider>
                                       <WhyChooseServiceProvider>
                                         <TopTrendingServiceByCategoryIdProvider>
-                                          <ModulewiseServiceProvider>
-                                          <OfferProvider>
                                   {/* <Navbar /> */}
                                   <main>{children}</main>
-                                  </OfferProvider>
-                                  </ModulewiseServiceProvider>
                                       </TopTrendingServiceByCategoryIdProvider>
                                      </WhyChooseServiceProvider>
                                   <Footer />
@@ -69,12 +71,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 </RecommendedServicesProvider>
               </HomeMostPopularProvider>
             </HomeRecommendedProvider>
-
-
-
-
-
-
           </CategoriesProvider>
         </ModuleProvider>
       </body>

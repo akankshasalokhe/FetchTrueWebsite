@@ -1,10 +1,25 @@
 'use client';
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { usePopularProviders } from "@/src/context/PopularProviderContext";
+import { useParams } from "next/navigation";
 
-export default function MostPopularProvider() {
+
+type SectionProps = {
+    moduleId: string,
+    selectedRange?: string;
+    selectedCategory?: string;
+    searchQuery?: string;
+    contextTitle?: string;
+};
+
+
+
+
+export default function MostPopularProvider({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
+
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [isDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -49,9 +64,89 @@ export default function MostPopularProvider() {
         })),
     ];
 
+    const {
+        providers,
+        loading,
+        error,
+        fetchPopularProviders,
+    } = usePopularProviders();
+
+
+    const params = useParams();
+    
+
+
+
+    useEffect(() => {
+        if (moduleId) {
+            fetchPopularProviders(moduleId,20.175618471885596,72.73285952405311);
+        }
+    }, [moduleId]);
+   
+
+
+    useEffect(() => {
+      
+    }, [providers]);
+
+
+    const mappedServices = providers.map((service) => ({
+        id: service._id,
+        name: service.storeInfo?.storeName || "Unknown Store",
+        phone: service.phoneNo,
+        email: service.email,
+        status: service.isStoreOpen ? "Available" : "Closed",
+        categories: service.category_list,
+        description: service.storeInfo?.aboutUs || "No description available",
+        // Provider / Store
+        providerName: service.fullName,
+        storeName: service.storeInfo?.storeName || "Unknown Store",
+
+        // Image priority: logo → cover → placeholder
+        image:
+            service.storeInfo?.logo ||
+            service.storeInfo?.cover ||
+            "/image/placeholder.png",
+
+        // Rating
+        rating: service.averageRating ?? 0,
+        reviews: service.totalReviews ?? 0,
+
+        // Experience
+        experience: service.storeInfo?.totalExperience
+            ? `${service.storeInfo.totalExperience}+ Years`
+            : "N/A",
+
+        // Availability
+        isOpen: service.isStoreOpen,
+
+        // Address
+        address: service.storeInfo?.address || "",
+        location: `${service.storeInfo?.city || ""}, ${service.storeInfo?.state || ""}`,
+
+        // Tags (chips / badges)
+        tags: service.storeInfo?.tags || [],
+    }));
+
+
+    const tagIcons = [
+        <Clock key="clock" className="w-4 h-4 text-blue-500" />,
+        <img key="tools" src="/image/OnDemandTools.png" className="w-4 h-4" />,
+        <ShieldCheck key="shield" className="w-4 h-4 text-blue-500" />,
+        <Calendar key="calendar" className="w-4 h-4 text-blue-500" />,
+    ];
+
+    const getTagIcon = (index: number) => {
+        return tagIcons[index] || <Clock className="w-4 h-4 text-blue-500" />;
+    };
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
     return (
         <div className="relative w-full mt-6 lg:mt-2">
-            <h1 className="text-[16px] font-semibold lg:text-[24px] ml-4 lg:ml-12">Most Popular Provider</h1>
+            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-12">MostPopular Provider</h1>
             {/* SCROLL CONTAINER */}
             <div
                 ref={scrollRef}
@@ -72,15 +167,15 @@ export default function MostPopularProvider() {
                 }}
             >
                 {/* CARD WRAPPER */}
-                <div className="flex gap-6 w-max p-2 lg:p-12">
-                    
-                    {services.map((item) => (
+                <div className="flex gap-6 min-w-max p-2 lg:p-12">
+
+                    {mappedServices.map((item) => (
                         <div
                             key={item.id}
-                            className="shrink-0 w-[290px] lg:w-[479px] bg-white border border-gray-300 rounded-xl p-4 ml-2 lg:-ml-0 shadow-sm"
+                            className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                         >
                             {/* HEADER */}
-                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 h-[130px] bg-[#F7FAFE] rounded-t-xl">
+                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 max-h-[150px] bg-[#F7FAFE] rounded-t-xl">
                                 <div className="flex items-start gap-3">
                                     <img
                                         src={item.image}
@@ -89,7 +184,7 @@ export default function MostPopularProvider() {
                                     />
                                     <div className="flex-1">
                                         <h2 className="font-semibold text-[14px] lg:text-[20px]">{item.name}</h2>
-                                        <p className="lg:text-[16px] text-[12px] text-gray-500">{item.description}</p>
+                                        <p className="lg:text-[16px] text-[12px] text-gray-500 leading-snug line-clamp-2 max-h-[80%]">{item.description}</p>
                                         <div className="flex flex-row gap-1 lg:gap-4 mt-2 text-[10px] lg:text-[14px] text-gray-600 whitespace-nowrap">
                                             <p className="flex items-center gap-1">
                                                 <Phone className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500" /> <span>{item.phone}</span>
@@ -99,16 +194,27 @@ export default function MostPopularProvider() {
                                             </p>
                                         </div>
 
-                                        <p className="text-[10px] lg:text-[14px] text-gray-600 mt-1 whitespace-nowrap">
-                                            <FaMapMarkerAlt className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 inline mr-1" /> {item.address}
-                                        </p>
+                                        <div className="mt-1 flex gap-1 text-[10px] lg:text-[14px] text-gray-600">
+                                            <FaMapMarkerAlt
+                                                className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 shrink-0 mt-[2px]"
+                                            />
+
+                                            <span className="
+                                                    break-words
+                                                    md:whitespace-normal
+                                                    lg:whitespace-nowrap
+                                                    lg:truncate
+                                                ">
+                                                {item.address}
+                                            </span>
+                                        </div>
                                     </div>
-                                   <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
+                                    <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
                                 </div>
                             </div>
 
                             {/* STATUS */}
-                           <div className="flex mb-1 mt-2 lg:mt-6">
+                            <div className="flex mb-1 mt-2 lg:mt-6">
                                 <span className="ml-auto bg-green-500 text-white text-[10px] lg:text-[12px] px-3 py-1 rounded-full">
                                     {item.status}
                                 </span>
@@ -147,15 +253,15 @@ export default function MostPopularProvider() {
                                     <div className="flex gap-2">
                                         <span className="text-orange-500">⭐</span>
                                         <div>
-                                            <p className="text-[13px] font-medium">{item.rating} Rating</p>
-                                            <p className="text-[12px] text-gray-500">{item.reviews} Reviews</p>
+                                            <p className="text-[10px] lg:text-[13px] font-medium">{item.rating} Rating</p>
+                                            <p className="text-[10px] lg:text-[12px] text-gray-500">{item.reviews} Reviews</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                           
-                           {/* ABOUT MOBILE VERSION */}
+
+                            {/* ABOUT MOBILE VERSION */}
                             <div className="block md:hidden mt-4">
                                 <h4 className="text-[10px]  font-medium mb-3">
                                     About Service
@@ -180,21 +286,36 @@ export default function MostPopularProvider() {
 
 
                             {/* SERVICE DETAILS */}
-                            <div className="mt-4 grid grid-cols-2 gap-2  text-[10px] lg:text-[16px]">
+                            {/* <div className="mt-4 grid grid-cols-2 gap-2  text-[10px] lg:text-[16px]">
                                 <div className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg">
                                     <Clock className="w-4 h-4 text-blue-500" /> {item.time}
                                 </div>
                                 <div className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg">
                                     <img src="/image/OnDemandTools.png" className="w-4 h-4" />
-                                    {item.tools}
+                                     {item.tools} 
+                                    All Tools Included
                                 </div>
                                 <div className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg">
                                     <ShieldCheck className="w-4 h-4 text-blue-500" /> Trusted
                                 </div>
                                 <div className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg">
-                                    <Calendar className="w-4 h-4 text-blue-500" /> {item.day}
+                                    <Calendar className="w-4 h-4 text-blue-500" /> Monday
+                                     {item.day} 
                                 </div>
+                            </div> */}
+                            <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] lg:text-[16px]">
+                                {item.tags.slice(0, 4).map((tag: string, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg"
+                                    >
+                                        {getTagIcon(index)}
+                                        <span>{tag}</span>
+                                    </div>
+                                ))}
                             </div>
+
+
                         </div>
                     ))}
                 </div>

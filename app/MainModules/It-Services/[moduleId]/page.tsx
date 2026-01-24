@@ -359,20 +359,17 @@ import HighInDemand from '@/src/components/ITModules/HighInDemand';
 import MostlyUsed from '@/src/components/ITModules/MostlyUsed';
 import Recommendation from '@/src/components/ITModules/Recommendation';
 import WhyChooseUs from '@/src/components/ITModules/WhyChooseUs';
-import { ChevronLeft, Search } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useModule } from '@/src/context/CategoriesContext';
+import { useBannerCategorySelection } from "@/src/context/BannerContext"
 
 export default function ITModulesPage() {
     const router = useRouter();
-
-    const categories = [
-        { label: 'Cyber Security', path: '/image/cybersecurity.png' },
-        { label: 'IT Consulting', path: '/image/ItConsulting1.png' },
-        { label: 'Web Development', path: '/image/webdevelopment.png' },
-        { label: 'App Development', path: '/image/appdevelopment.png' },
-    ];
+    const { categories, loading, error, fetchCategoriesByModule } = useModule();
+    const { data, fetchBannerCategorySelections } = useBannerCategorySelection();
 
     const BannerData = [
         { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
@@ -386,6 +383,20 @@ export default function ITModulesPage() {
     const [selectedRange, setSelectedRange] = useState("all");
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
+
+
+    const params = useParams();
+  
+
+    const moduleId = params.moduleId as string;
+
+    useEffect(() => {
+        if (!moduleId) return;
+
+        fetchCategoriesByModule(moduleId);
+        fetchBannerCategorySelections(moduleId)
+    }, [moduleId]);
+
     /* ---------- screen check ---------- */
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -412,6 +423,10 @@ export default function ITModulesPage() {
     const toSlug = (text: string) =>
         text.toLowerCase().replace(/\s+/g, '-');
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
     return (
         <>
             <section className="relative w-full">
@@ -420,7 +435,7 @@ export default function ITModulesPage() {
                     <div className="bg-[#E2E9F1] flex items-center justify-between p-4 rounded-xl">
                         <div className="flex items-center gap-4">
                             <Link href="/">
-                            <img src="/image/ITServiceSubCategorieshome.png" className="w-[30px] cursor-pointer" />
+                                <img src="/image/ITServiceSubCategorieshome.png" className="w-[30px] cursor-pointer" />
                             </Link>
                             <h1 className="text-lg md:text-2xl font-semibold">IT Services</h1>
                         </div>
@@ -457,7 +472,7 @@ export default function ITModulesPage() {
 
                             {/* BOOKMARK / LOCATION ICON */}
                             <img
-                                 src="/image/ITServiceSubcategoriesbookmark.png"
+                                src="/image/ITServiceSubcategoriesbookmark.png"
                                 className="w-[20px] cursor-pointer"
                             />
                         </div>
@@ -539,7 +554,7 @@ export default function ITModulesPage() {
                                 <div className="relative h-[320px] md:h-[380px] rounded-2xl overflow-hidden">
                                     <img
                                         src={item.bgpath}
-                                         className="w-full h-[200px] md:h-[317px] object-cover rounded-2xl"
+                                        className="w-full h-[200px] md:h-[317px] object-cover rounded-2xl"
                                     />
 
                                     <div className="absolute inset-0 p-6 flex flex-col justify-between">
@@ -594,7 +609,7 @@ export default function ITModulesPage() {
                             <button
                                 key={index}
                                 onClick={() =>
-                                    router.push(`/MainModules/ITService/${toSlug(cat.label)}`)
+                                    router.push(`/MainModules/It-Services/${moduleId}/${cat._id}?categoryName=${encodeURIComponent(cat.name)}`)
                                 }
                                 className="
                             max-w-[120px]
@@ -609,13 +624,13 @@ export default function ITModulesPage() {
                         "
                             >
                                 <img
-                                    src={cat.path}
-                                    alt={cat.label}
+                                    src={cat.image}
+                                    alt={cat.name}
                                     className="w-[85px] h-[85px] bg-[#EEF3F8] p-2 rounded-xl object-contain"
                                 />
 
                                 <span className="text-sm font-medium text-center text-[#000]">
-                                    {cat.label}
+                                    {cat.name}
                                 </span>
                             </button>
                         ))}
@@ -626,10 +641,10 @@ export default function ITModulesPage() {
 
             {/* ===== LIST SECTIONS ===== */}
             <section className="w-full mt-6 md:mt-10">
-                <Recommendation selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <MostlyUsed selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <HighInDemand selectedRange={selectedRange} selectedCategory={selectedCategory} searchQuery={searchQuery} />
-                <WhyChooseUs />
+                <Recommendation moduleId={moduleId} />
+                <MostlyUsed moduleId={moduleId} />
+                <HighInDemand moduleId={moduleId} />
+                <WhyChooseUs moduleId={moduleId}/>
             </section>
         </>
     );

@@ -21,7 +21,7 @@ interface StoreInfo {
   storeEmail: string;
   module: ModuleInfo;
   zone: string;
-  aboutUs: string;
+  aboutUs?: string;
   logo?: string;
   cover?: string;
   address: string;
@@ -48,7 +48,7 @@ interface RecommendedProvidersContextType {
   providers: Provider[];
   loading: boolean;
   error: string | null;
-  fetchRecommendedProviders: (moduleId: string) => Promise<void>;
+  fetchRecommendedCategoryProviders: (categoryId: string) => Promise<void>;
 }
 
 // Context
@@ -56,11 +56,11 @@ interface RecommendedProvidersContextType {
 const RecommendedProvidersContext =
   createContext<RecommendedProvidersContextType | undefined>(undefined);
 
-export const useRecommendedProviders = () => {
+export const useRecommendedCategoryProviders = () => {
   const context = useContext(RecommendedProvidersContext);
   if (!context) {
     throw new Error(
-      "useRecommendedProviders must be used within RecommendedProvidersProvider"
+      "useRecommendedCategoryProviders must be used within RecommendedCategoryProvidersProvider"
     );
   }
   return context;
@@ -74,21 +74,21 @@ interface Props {
   children: ReactNode;
 }
 
-export const RecommendedProvidersProvider = ({ children }: Props) => {
+export const RecommendedCategoryProvidersProvider = ({ children }: Props) => {
   const [providers, setProviders] = useState<Provider[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchRecommendedProviders = async (moduleId: string) => {
+  const fetchRecommendedCategoryProviders = async (categoryId: string) => {
     try {
       setLoading(true);
       setError(null);
 
       const res = await axios.get(
-        `https://api.fetchtrue.com/api/provider/recommended?moduleId=${moduleId}`
+        `https://api.fetchtrue.com/api/provider/recommended?categoryId=${categoryId}`
       );
 
-      console.log("RAW API RESPONSE:", res.data);
+      console.log("RAW CATEGORY RECOMMENDED API RESPONSE:", res.data);
 
       //  API returns array directly
       if (Array.isArray(res.data)) {
@@ -115,7 +115,7 @@ export const RecommendedProvidersProvider = ({ children }: Props) => {
         providers,
         loading,
         error,
-        fetchRecommendedProviders,
+        fetchRecommendedCategoryProviders,
       }}
     >
       {children}

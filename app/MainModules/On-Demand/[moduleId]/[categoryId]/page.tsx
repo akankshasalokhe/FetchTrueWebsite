@@ -1,13 +1,11 @@
 'use client';
-
-
-
 import MostPopularProvider from '@/src/components/OnDemandSubCategories/MostPopularProvider';
 import RecommendedProvider from '@/src/components/OnDemandSubCategories/RecommendedProvider';
 import TopTrending from '@/src/components/OnDemandSubCategories/TopTrending';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useState, use } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 type BudgetOption =
     | 'All'
@@ -26,27 +24,22 @@ const budgets: BudgetOption[] = [
     '5k-6k',
 ];
 
-type Props = {
-    params: Promise<{
-        slug: string;
-    }>;
-};
 
-export default function BudgetFilter({ params }: Props) {
+export default function BudgetFilter() {
 
-    const { slug } = use(params);
     const [activeBudget, setActiveBudget] = useState<BudgetOption>('All');
     const [nearMe, setNearMe] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState("");
 
-    const formatSlugToTitle = (slug: string) => {
-        const decodedSlug = decodeURIComponent(slug);
-
-        return decodedSlug
-            .split("-")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    };
+   const params = useParams();
+       const searchParams = useSearchParams();
+   
+   
+       const moduleId = params.moduleId as string;
+       const categoryId = params.categoryId as string;
+   
+   
+     const categoryName = searchParams.get("categoryName");
 
     return (
         <>
@@ -60,7 +53,7 @@ export default function BudgetFilter({ params }: Props) {
                         {/* LEFT */}
                         <div className="flex  p-2 items-center gap-3 lg:gap-5">
 
-                            <Link href="/MainModules/OnDemand">
+                            <Link href={`/MainModules/On-Demand/${moduleId}`}>
                                 <img
                                     src="/image/educationback.png"
                                     className="hidden md:block w-[16px] h-[14px] lg:w-[38.6px] lg:h-[35.02px]"
@@ -75,7 +68,7 @@ export default function BudgetFilter({ params }: Props) {
 
 
                             <h1 className="text-[16px] lg:text-[24px] font-semibold text-[#000000] whitespace-nowrap">
-                                {formatSlugToTitle(slug)}
+                               {categoryName}
                             </h1>
                         </div>
 
@@ -104,12 +97,12 @@ export default function BudgetFilter({ params }: Props) {
                         <div className="flex items-center justify-between">
                             {/* LEFT */}
                             <div className="flex items-center gap-3 min-w-0">
-                                <Link href="/MainModules/OnDemand">
+                               <Link href={`/MainModules/On-Demand/${moduleId}`}>
                                     <ChevronLeft className="w-[28px] h-[28px] text-black cursor-pointer bg-white rounded-full p-1 shrink-0" />
                                 </Link>
 
                                 <h1 className="text-[16px] font-semibold truncate">
-                                    {formatSlugToTitle(slug)}
+                                    {categoryName}
                                 </h1>
                             </div>
 
@@ -218,9 +211,9 @@ export default function BudgetFilter({ params }: Props) {
             </div>
 
             <section className="w-full md:p-6 lg:p-0 mt-2 md:mt-2">
-                <RecommendedProvider />
+                <RecommendedProvider  categoryId={categoryId} moduleId={moduleId}/>
                 <MostPopularProvider />
-                <TopTrending />
+                <TopTrending categoryId={categoryId} moduleId={moduleId}/>
             </section>
         </>
     );

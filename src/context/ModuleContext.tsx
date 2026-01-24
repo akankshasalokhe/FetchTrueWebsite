@@ -82,7 +82,7 @@ export const ModuleProvider = ({ children }: { children: ReactNode }) => {
   //       `https://api.fetchtrue.com/api/category?moduleId=${moduleId}`
   //     );
 
-  //     console.log("Category API response:", res);
+
   //     setCategories(res.data?.categories || res.data?.data || []);
 
 

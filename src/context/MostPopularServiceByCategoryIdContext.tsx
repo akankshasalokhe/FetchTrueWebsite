@@ -19,6 +19,7 @@ interface KeyValue {
   key: string;
   value: string;
   icon?: string;
+  _id: string;
 }
 
 interface InvestmentRange {
@@ -53,7 +54,7 @@ interface FranchiseDetails {
 interface Package {
   name: string;
   price: number;
-  discount?: number;
+  discount: number;
   discountedPrice: number;
   whatYouGet: string[];
   _id: string;
@@ -67,6 +68,7 @@ export interface PopularService {
   serviceId: string;
   serviceName: string;
   thumbnailImage: string;
+  packages:Package[];
   price: number;
   category: Category;
   keyValues: KeyValue[];
@@ -128,9 +130,14 @@ export const MostPopularServiceByCategoryProvider = ({ children }: Props) => {
       } else {
         setError("Failed to fetch most popular services");
       }
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
-    } finally {
+    } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            }
+            else {
+                setError("Failed to fetch Most Popular Services");
+            }
+        } finally {
       setLoading(false);
     }
   };

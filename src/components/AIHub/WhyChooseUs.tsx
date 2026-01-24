@@ -1,32 +1,39 @@
-import { Bot } from "lucide-react";
+import { useWhyChooseService } from "@/src/context/WhyJustOurServiceContext";
+import { useEffect } from "react";
 
-export default function WhyChooseUs() {
-  const aiServices = [
-    {
-      id: 1,
-      title: "Expert AI Developers",
-      description:
-        "Professionals skilled in NLP, machine learning, automation, and multi-platform bot development.",
-    },
-    {
-      id: 2,
-      title: "Expert AI Developers",
-      description:
-        "Professionals skilled in NLP, machine learning, automation, and multi-platform bot development.",
-    },
-    {
-      id: 3,
-      title: "Expert AI Developers",
-      description:
-        "Professionals skilled in NLP, machine learning, automation, and multi-platform bot development.",
-    },
-    {
-      id: 4,
-      title: "Expert AI Developers",
-      description:
-        "Professionals skilled in NLP, machine learning, automation, and multi-platform bot development.",
-    },
-  ];
+type props = {
+  moduleId: string;
+} 
+
+export default function WhyChooseUs({ moduleId }: props) {
+
+  const {
+    services,
+    loading,
+    error,
+    fetchWhyServices,
+    clearServices,
+  } = useWhyChooseService();
+
+  useEffect(() => {
+    if (!moduleId) return;
+    clearServices();
+    fetchWhyServices(moduleId);
+  }, [moduleId]);
+
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  const mappedServices = services.map((service) => ({
+    id: service._id,
+    icon: service.items?.[0]?.icon,
+    title: service.items?.[0]?.title,
+    description: service.items?.[0]?.description,
+  }));
+
+
 
   return (
     <section className="py-4">
@@ -37,16 +44,18 @@ export default function WhyChooseUs() {
           Why Just Our AI Services
         </h2>
 
+
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {aiServices.map((service) => (
+          {mappedServices.map((service) => (
             <div
               key={service.id}
               className="flex items-start gap-4 bg-white rounded-xl p-4 md:p-4 lg:p-8 shadow-sm hover:shadow-md transition"
             >
               {/* Icon */}
               <div className="flex items-center justify-center w-8 h-8 lg:w-12 lg:h-12 rounded-full bg-[#0ea5b7] text-white shrink-0">
-                <Bot size={22} />
+                {/* <Bot size={22} /> */}
+                <img src={service.icon} alt="Icon" width={32.22} height={32.22} />
               </div>
 
               {/* Text */}

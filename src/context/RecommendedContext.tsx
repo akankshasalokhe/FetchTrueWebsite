@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import axios from "axios";
 
 interface KeyValue {
@@ -39,14 +39,7 @@ interface FranchiseDetails {
   franchiseModel: FranchiseModel[];
 }
 
-interface Package {
-  name: string;
-  price: number;
-  discount?: number;
-  discountedPrice: number;
-  whatYouGet: string[];
-  _id: string;
-}
+
 
 interface serviceDetails {
   packages:Package[];
@@ -56,6 +49,20 @@ interface Category {
   _id: string;
   name: string;
   image: string;
+}
+
+interface Package {
+  _id: string;
+  name: string;
+  price: number;
+  discount: number;
+  discountedPrice: number;
+  whatYouGet: string[];
+}
+
+
+interface ServiceDetails {
+  packages: Package[];
 }
 
 export interface Service {
@@ -106,8 +113,13 @@ export const RecommendedServicesProvider = ({ children }: Props) => {
       } else {
         setError("Failed to fetch recommended services");
       }
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+    } catch (err: unknown ) {
+      if(err instanceof Error){
+        setError(err.message);
+      }
+      else{
+        setError("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }

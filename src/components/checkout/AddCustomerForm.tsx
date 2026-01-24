@@ -20,7 +20,7 @@ export default function AddCustomerForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
+   
     // Add your save logic here
   };
 

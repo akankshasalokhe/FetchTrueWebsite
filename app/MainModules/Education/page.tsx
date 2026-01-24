@@ -92,7 +92,6 @@ export default function EducationModulePage() {
     const router = useRouter()
     const params = useParams();
     const moduleId = params.moduleId as string;
-    console.log("module id:", moduleId)
 
     const toSlug = (text: string) =>
         text.toLowerCase().trim().replace(/\s+/g, "-");
@@ -417,7 +416,7 @@ export default function EducationModulePage() {
                 <Recommendation moduleId={moduleId} />
                 <MostPopular  moduleId={moduleId}/>
                 <TopPicks moduleId={moduleId}/>
-                <WhyChooseUs />
+                <WhyChooseUs moduleId={moduleId}/>
             </section>
 
         </>

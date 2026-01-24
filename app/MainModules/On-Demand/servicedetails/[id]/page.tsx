@@ -15,9 +15,11 @@ import RatingsReviews from "@/src/components/OnDemand/Reviews";
 import SafetyandAssurance from "@/src/components/OnDemand/Safety&Assurance";
 import TermsAndConditions from "@/src/components/OnDemand/TermsandConditions";
 import WhyChooseUs from "@/src/components/OnDemand/WhyChooseUs";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { ChevronLeft, ClockIcon, ZapIcon } from "lucide-react";
 import Link from "next/link";
-
+import { useParams, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 type CourseInfo = {
     title: string;
@@ -48,6 +50,27 @@ const DATA: CourseInfo = {
 };
 
 export default function ServiceDetails() {
+
+
+    const { service, loading, error, fetchServiceDetails } = useServiceDetails();
+
+    const params = useParams();
+    const serviceId = params.id as string;
+
+    useEffect(() => {
+        if (!serviceId) return;
+
+        fetchServiceDetails(serviceId);
+    }, [serviceId]);
+
+    const searchParams = useSearchParams();
+
+    const serviceName = searchParams.get("service");
+
+
+    if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
+    if (error) return <p>{error}</p>;
+
     return (
         <>
             <section className="w-full bg-white">
@@ -83,7 +106,7 @@ export default function ServiceDetails() {
                     </div>
 
                     <div className="flex-1 space-y-4">
-                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{DATA.title}</h1>
+                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{serviceName}</h1>
                         <p className="text-gray-500 text-[24px]">{DATA.subtitle}</p>
 
                         <div className="flex items-center gap-2 text-[20px]">
@@ -203,7 +226,7 @@ export default function ServiceDetails() {
             </section>
 
             <section>
-                <Benefits />
+                <Benefits benefits={service.}/>
                 <AboutSection />
                 <WhyChooseUs />
                 <HowItWorksSteps />

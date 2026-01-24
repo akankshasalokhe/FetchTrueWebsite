@@ -1,97 +1,396 @@
+// 'use client';
+
+// import Image from "next/image";
+// import { Bookmark, Zap, Brain, Settings } from "lucide-react";
+// import { useRef, useState, useEffect } from "react";
+
+// export default function FreeTrialAvailable() {
+//     const properties = [
+//         {
+//             id: 1,
+//             bgColor: "linear-gradient(135deg, #e8a58a, #d47c6e)",
+//             image: "/image/AIHubcardbg.png",
+//             title: "AI Automation Residential Property",
+//             type: "AI Service",
+//             rating: 4,
+//             location: "Near Andheri West, Mumbai",
+//             earning: "5%",
+//             discount: "30%",
+//             monthlyEarning: "1-3 days",
+//             outlets: "Included",
+//             maintenance: "Auto managed",
+//             area: "1500 Sq - 1000 Sq",
+//             price: "45L",
+//         },
+//         {
+//             id: 2,
+//             bgColor: "linear-gradient(135deg, #b084f8, #9b63f4)",
+//             image: "/image/AIHubcardbg.png",
+//             title: "Luxury Apartment",
+//             type: "AI Service",
+//             rating: 5,
+//             location: "Banjara Hills, Hyderabad",
+//             earning: "7%",
+//             discount: "25%",
+//             monthlyEarning: "1-3 days",
+//             outlets: "Included",
+//             maintenance: "Auto managed",
+//             area: "1800 Sq - 1200 Sq",
+//             price: "72L",
+//         },
+//         {
+//             id: 3,
+//             bgColor: "linear-gradient(135deg, #4ccbb8, #2ea89c)",
+//             image: "/image/AIHubcardbg.png",
+//             title: "Commercial Space",
+//             type: "AI Service",
+//             rating: 4,
+//             location: "Koramangala, Bangalore",
+//             earning: "6%",
+//             discount: "20%",
+//             monthlyEarning: "1-3 days",
+//             outlets: "Included",
+//             maintenance: "Auto managed",
+//             area: "1300 Sq - 900 Sq",
+//             price: "89L",
+//         },
+//         {
+//             id: 4,
+//             bgColor: "linear-gradient(135deg, #ff9da7, #ff6b81)",
+//             image: "/image/AIHubcardbg.png",
+//             title: "Studio Apartment",
+//             type: "AI Service",
+//             rating: 3,
+//             location: "Powai, Mumbai",
+//             earning: "4%",
+//             discount: "15%",
+//             monthlyEarning: "1-3 days",
+//             outlets: "Included",
+//             maintenance: "Auto managed",
+//             area: "900 Sq - 700 Sq",
+//             price: "38L",
+//         },
+//         {
+//             id: 5,
+//             bgColor: "linear-gradient(135deg, #9df0ff, #59d9f3)",
+//             image: "/image/AIHubcardbg.png",
+//             title: "Retail Shop",
+//             type: "AI Service",
+//             rating: 4,
+//             location: "Gachibowli, Hyderabad",
+//             earning: "6%",
+//             discount: "20%",
+//             monthlyEarning: "1-3 days",
+//             outlets: "Included",
+//             maintenance: "Auto managed",
+//             area: "1100 Sq - 850 Sq",
+//             price: "55L",
+//         },
+//     ];
+
+//     const containerRef = useRef<HTMLDivElement | null>(null);
+//     const [isDragging, setIsDragging] = useState(false);
+//     const [startX, setStartX] = useState(0);
+//     const [scrollLeft, setScrollLeft] = useState(0);
+
+//     const getMaxScroll = () => {
+//         const container = containerRef.current;
+//         if (!container) return 0;
+//         return container.scrollWidth - container.clientWidth;
+//     };
+
+//     const handleMouseDown = (e: MouseEvent) => {
+//         const container = containerRef.current;
+//         if (!container) return;
+//         setIsDragging(true);
+//         setStartX(e.pageX - container.offsetLeft);
+//         setScrollLeft(container.scrollLeft);
+//         container.style.cursor = "grabbing";
+//     };
+
+//     const handleMouseMove = (e: MouseEvent) => {
+//         if (!isDragging) return;
+//         const container = containerRef.current;
+//         if (!container) return;
+//         const x = e.pageX - container.offsetLeft;
+//         const walk = (x - startX) * 1.5;
+//         container.scrollLeft = Math.max(
+//             0,
+//             Math.min(scrollLeft - walk, getMaxScroll())
+//         );
+//     };
+
+//     const stopDrag = () => {
+//         const container = containerRef.current;
+//         if (!container) return;
+//         setIsDragging(false);
+//         container.style.cursor = "grab";
+//     };
+
+//     useEffect(() => {
+//         const container = containerRef.current;
+//         if (!container) return;
+
+//         container.addEventListener("mousedown", handleMouseDown);
+//         container.addEventListener("mousemove", handleMouseMove);
+//         container.addEventListener("mouseup", stopDrag);
+//         container.addEventListener("mouseleave", stopDrag);
+
+//         return () => {
+//             container.removeEventListener("mousedown", handleMouseDown);
+//             container.removeEventListener("mousemove", handleMouseMove);
+//             container.removeEventListener("mouseup", stopDrag);
+//             container.removeEventListener("mouseleave", stopDrag);
+//         };
+//     }, [isDragging, startX, scrollLeft]);
+
+//     return (
+//         <div className="w-full">
+//             <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 ml-4">
+//                 Free Trial Available
+//             </h1>
+
+//             <div
+//                 ref={containerRef}
+//                 className="flex gap-6 w-full p-4 overflow-x-auto snap-x snap-mandatory no-scrollbar cursor-grab"
+//             >
+//                 {properties.map((p) => (
+//                     <div
+//                         key={p.id}
+//                         className="
+//                             snap-center
+//                             w-[270px] md:w-[308px] lg:w-[408px]
+//                             bg-[#F4F4F4] mx-auto
+//                             rounded-2xl
+//                             p-4
+//                             flex-shrink-0
+//                             overflow-hidden
+//                             relative
+//                         "
+//                     >
+//                         {/* IMAGE */}
+//                         <div className="relative w-full h-40 rounded-xl overflow-hidden">
+//                             <Image
+//                                 src={p.image}
+//                                 alt={p.title}
+//                                 fill
+//                                 className="object-cover rounded-xl pointer-events-none"
+//                             />
+//                             <button className="absolute top-2 right-2 bg-black/60 p-1.5 rounded-full">
+//                                 <Bookmark size={18} className="text-white" />
+//                             </button>
+
+
+//                         </div>
+
+
+
+//                         {/* CONTENT */}
+//                         <div className="mt-3 space-y-1">
+
+//                             {/* <h2 className="text-[14px] lg:text-[20px] -mt-6 lg:-mt-2 font-semibold text-black leading-snug whitespace-normal max-w-[65%] break-words">
+//                                 {p.title}
+//                             </h2> */}
+//                             <h2
+//                                 className="
+//                         text-[14px] lg:text-[20px]
+//                         font-semibold -mt-6 lg:-mt-2
+//                         text-black
+//                         leading-snug
+//                         line-clamp-2 max-w-[65%]
+//                         min-h-[40px] lg:min-h-[56px]
+//                     "
+//                             >
+//                                 {p.title}
+//                             </h2>
+
+
+//                             <span className="inline-block text-[10px] lg:text-[12px] bg-white px-2 py-1 rounded-lg">
+//                                 {p.type}
+//                             </span>
+
+
+//                             <div className="flex -mt-8 md:-mt-15">
+//                                 <div className=" items-end ml-auto gap-1 text-yellow-400 text-sm mb-4">
+//                                     {"⭐".repeat(p.rating)}
+//                                 </div>
+//                             </div>
+
+
+//                             <div className="flex justify-end gap-2">
+//                                 <span className="bg-[#548AFE] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
+//                                     Discount {p.earning}
+//                                 </span>
+//                                 <span className="bg-[#89FF9B] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
+//                                     Earn {p.discount}
+//                                 </span>
+//                             </div>
+
+//                             <div className="space-y-1 text-black">
+//                                 <p className="font-semibold text-[10px] lg:text-[14px]">
+//                                     Setup & Time
+//                                 </p>
+//                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
+//                                     <Zap size={14} className="text-yellow-500" />
+//                                     Set up: {p.monthlyEarning}
+//                                 </p>
+//                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
+//                                     <Brain size={14} className="text-red-500" />
+//                                     AI Training: {p.outlets}
+//                                 </p>
+//                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
+//                                     <Settings size={14} />
+//                                     Maintenance: {p.maintenance}
+//                                 </p>
+//                             </div>
+//                         </div>
+
+
+
+//                         {/* PRICE */}
+//                         <div className="absolute bottom-3 right-3 bg-white rounded-2xl px-3 lg:px-6 py-2 text-center">
+//                             <p className="text-[10px] lg:text-[14px]">
+//                                 Starting from
+//                             </p>
+//                             <p className="font-semibold text-[16px] lg:text-[24px]">
+//                                 ₹{p.price}
+//                             </p>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </div>
+//         </div>
+//     );
+// }
+
+
+
+
+
+
+
+
 'use client';
 
 import Image from "next/image";
-import { Bookmark, Zap, Brain, Settings } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { useMostPopular } from "@/src/context/MostPopularContext";
+import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
 
-export default function FreeTrialAvailable() {
-    const properties = [
-        {
-            id: 1,
-            bgColor: "linear-gradient(135deg, #e8a58a, #d47c6e)",
-            image: "/image/AIHubcardbg.png",
-            title: "AI Automation Residential Property",
-            type: "AI Service",
-            rating: 4,
-            location: "Near Andheri West, Mumbai",
-            earning: "5%",
-            discount: "30%",
-            monthlyEarning: "1-3 days",
-            outlets: "Included",
-            maintenance: "Auto managed",
-            area: "1500 Sq - 1000 Sq",
-            price: "45L",
-        },
-        {
-            id: 2,
-            bgColor: "linear-gradient(135deg, #b084f8, #9b63f4)",
-            image: "/image/AIHubcardbg.png",
-            title: "Luxury Apartment",
-            type: "AI Service",
-            rating: 5,
-            location: "Banjara Hills, Hyderabad",
-            earning: "7%",
-            discount: "25%",
-            monthlyEarning: "1-3 days",
-            outlets: "Included",
-            maintenance: "Auto managed",
-            area: "1800 Sq - 1200 Sq",
-            price: "72L",
-        },
-        {
-            id: 3,
-            bgColor: "linear-gradient(135deg, #4ccbb8, #2ea89c)",
-            image: "/image/AIHubcardbg.png",
-            title: "Commercial Space",
-            type: "AI Service",
-            rating: 4,
-            location: "Koramangala, Bangalore",
-            earning: "6%",
-            discount: "20%",
-            monthlyEarning: "1-3 days",
-            outlets: "Included",
-            maintenance: "Auto managed",
-            area: "1300 Sq - 900 Sq",
-            price: "89L",
-        },
-        {
-            id: 4,
-            bgColor: "linear-gradient(135deg, #ff9da7, #ff6b81)",
-            image: "/image/AIHubcardbg.png",
-            title: "Studio Apartment",
-            type: "AI Service",
-            rating: 3,
-            location: "Powai, Mumbai",
-            earning: "4%",
-            discount: "15%",
-            monthlyEarning: "1-3 days",
-            outlets: "Included",
-            maintenance: "Auto managed",
-            area: "900 Sq - 700 Sq",
-            price: "38L",
-        },
-        {
-            id: 5,
-            bgColor: "linear-gradient(135deg, #9df0ff, #59d9f3)",
-            image: "/image/AIHubcardbg.png",
-            title: "Retail Shop",
-            type: "AI Service",
-            rating: 4,
-            location: "Gachibowli, Hyderabad",
-            earning: "6%",
-            discount: "20%",
-            monthlyEarning: "1-3 days",
-            outlets: "Included",
-            maintenance: "Auto managed",
-            area: "1100 Sq - 850 Sq",
-            price: "55L",
-        },
-    ];
+type PopularProps = {
+    moduleId: string;
+    categoryId?: string;
+};
+
+interface Package {
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+}
+
+
+export default function FreeTrialAvailable({ moduleId, categoryId }: PopularProps) {
+    // const properties = [
+    //     {
+    //         id: 1,
+    //         bgColor: "linear-gradient(135deg, #e8a58a, #d47c6e)",
+    //         image: "/image/AIHubcardbg.png",
+    //         title: "AI Automation Residential Property",
+    //         type: "AI Service",
+    //         rating: 4,
+    //         location: "Near Andheri West, Mumbai",
+    //         earning: "5%",
+    //         discount: "30%",
+    //         monthlyEarning: "1-3 days",
+    //         outlets: "Included",
+    //         maintenance: "Auto managed",
+    //         area: "1500 Sq - 1000 Sq",
+    //         price: "45L",
+    //     },
+    //     {
+    //         id: 2,
+    //         bgColor: "linear-gradient(135deg, #b084f8, #9b63f4)",
+    //         image: "/image/AIHubcardbg.png",
+    //         title: "Luxury Apartment",
+    //         type: "AI Service",
+    //         rating: 5,
+    //         location: "Banjara Hills, Hyderabad",
+    //         earning: "7%",
+    //         discount: "25%",
+    //         monthlyEarning: "1-3 days",
+    //         outlets: "Included",
+    //         maintenance: "Auto managed",
+    //         area: "1800 Sq - 1200 Sq",
+    //         price: "72L",
+    //     },
+    //     {
+    //         id: 3,
+    //         bgColor: "linear-gradient(135deg, #4ccbb8, #2ea89c)",
+    //         image: "/image/AIHubcardbg.png",
+    //         title: "Commercial Space",
+    //         type: "AI Service",
+    //         rating: 4,
+    //         location: "Koramangala, Bangalore",
+    //         earning: "6%",
+    //         discount: "20%",
+    //         monthlyEarning: "1-3 days",
+    //         outlets: "Included",
+    //         maintenance: "Auto managed",
+    //         area: "1300 Sq - 900 Sq",
+    //         price: "89L",
+    //     },
+    //     {
+    //         id: 4,
+    //         bgColor: "linear-gradient(135deg, #ff9da7, #ff6b81)",
+    //         image: "/image/AIHubcardbg.png",
+    //         title: "Studio Apartment",
+    //         type: "AI Service",
+    //         rating: 3,
+    //         location: "Powai, Mumbai",
+    //         earning: "4%",
+    //         discount: "15%",
+    //         monthlyEarning: "1-3 days",
+    //         outlets: "Included",
+    //         maintenance: "Auto managed",
+    //         area: "900 Sq - 700 Sq",
+    //         price: "38L",
+    //     },
+    //     {
+    //         id: 5,
+    //         bgColor: "linear-gradient(135deg, #9df0ff, #59d9f3)",
+    //         image: "/image/AIHubcardbg.png",
+    //         title: "Retail Shop",
+    //         type: "AI Service",
+    //         rating: 4,
+    //         location: "Gachibowli, Hyderabad",
+    //         earning: "6%",
+    //         discount: "20%",
+    //         monthlyEarning: "1-3 days",
+    //         outlets: "Included",
+    //         maintenance: "Auto managed",
+    //         area: "1100 Sq - 850 Sq",
+    //         price: "55L",
+    //     },
+    // ];
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
+
+    const { services, loading, error, fetchMostPopularServiceByCategory } = useMostPopularServiceByCategory();
+    
+      useEffect(() => {
+        if (categoryId && moduleId) {
+            fetchMostPopularServiceByCategory(categoryId);
+        }
+    }, [moduleId, categoryId]);
+
+
 
     const getMaxScroll = () => {
         const container = containerRef.current;
@@ -144,22 +443,63 @@ export default function FreeTrialAvailable() {
         };
     }, [isDragging, startX, scrollLeft]);
 
+    const getStartingPackage = (packages: Package[] = []) => {
+        if (!packages.length) return null;
+
+        return packages.reduce((min, pkg) =>
+            pkg.discountedPrice < min.discountedPrice ? pkg : min
+        );
+    };
+
+
+    const mappedServices = services.map((service) => {
+        const packages = service.packages || [];
+        const startingPackage = getStartingPackage(packages);
+
+        return {
+            id: service.serviceId,
+            title: service.serviceName,
+            category: service.category?.name || "Unknown",
+            image: service.thumbnailImage || "/image/placeholder.png",
+
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews ?? 0,
+
+            price: startingPackage?.discountedPrice ?? 0,
+            originalPrice: startingPackage?.price ?? 0,
+            discount: startingPackage?.discount ?? 0,
+
+            keyValues:
+                service.keyValues?.map((item) => ({
+                    id: item._id,
+                    key: item.key,
+                    label: item.value,
+                })) || [],
+        };
+    });
+
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
     return (
-        <div className="w-full">
+        <div className="w-full mb-6">
             <h1 className="text-[16px] md:text-[24px] font-semibold mb-4 ml-4">
-                Free Trial Available
+                Most Popular
             </h1>
 
             <div
                 ref={containerRef}
                 className="flex gap-6 w-full p-4 overflow-x-auto snap-x snap-mandatory no-scrollbar cursor-grab"
             >
-                {properties.map((p) => (
+                {mappedServices.map((p) => (
                     <div
                         key={p.id}
                         className="
                             snap-center
-                            w-[270px] md:w-[308px] lg:w-[408px]
+                            w-[270px] md:w-[308px] lg:w-[408px] lg:h-[373.99px]
                             bg-[#F4F4F4] mx-auto
                             rounded-2xl
                             p-4
@@ -174,7 +514,7 @@ export default function FreeTrialAvailable() {
                                 src={p.image}
                                 alt={p.title}
                                 fill
-                                className="object-cover rounded-xl pointer-events-none"
+                                className="object-fit rounded-xl pointer-events-none w-[286px] h-[132px] lg:w-[398px] lg:h-[183px]"
                             />
                             <button className="absolute top-2 right-2 bg-black/60 p-1.5 rounded-full">
                                 <Bookmark size={18} className="text-white" />
@@ -194,8 +534,8 @@ export default function FreeTrialAvailable() {
                             <h2
                                 className="
                         text-[14px] lg:text-[20px]
-                        font-semibold -mt-6 lg:-mt-2
-                        text-black
+                        font-semibold
+                        text-black -mt-1 lg:-mt-2
                         leading-snug
                         line-clamp-2 max-w-[65%]
                         min-h-[40px] lg:min-h-[56px]
@@ -206,28 +546,29 @@ export default function FreeTrialAvailable() {
 
 
                             <span className="inline-block text-[10px] lg:text-[12px] bg-white px-2 py-1 rounded-lg">
-                                {p.type}
+                                {p.category}
                             </span>
 
 
-                            <div className="flex -mt-8 md:-mt-15">
-                                <div className=" items-end ml-auto gap-1 text-yellow-400 text-sm mb-4">
-                                    {"⭐".repeat(p.rating)}
+                            <div className="flex -mt-12 md:-mt-18">
+                                <div className=" items-end ml-auto gap-1 text-yellow-400 text-[22px] mb-4">
+                                    {/* {"⭐".repeat(p.rating)} */}
+                                    {"★".repeat(p.rating)}
                                 </div>
                             </div>
 
 
-                            <div className="flex justify-end gap-2">
-                                <span className="bg-[#548AFE] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
-                                    Discount {p.earning}
-                                </span>
-                                <span className="bg-[#89FF9B] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
-                                    Earn {p.discount}
+                            <div className="flex justify-end gap-2 -mt-4">
+                                {/* <span className="bg-[#548AFE] text-[10px] lg:text-[14px] px-2 py-1 rounded-lg font-semibold">
+                                    Discount {p.discount} %
+                                </span> */}
+                                <span className="bg-green-600 text-white  text-[8px] lg:text-[10px] px-1 py-1 rounded-lg font-semibold">
+                                    Earn Up to {p.discount} %
                                 </span>
                             </div>
 
-                            <div className="space-y-1 text-black">
-                                <p className="font-semibold text-[10px] lg:text-[14px]">
+                            <div className="space-y-1 text-black mt-8">
+                                {/* <p className="font-semibold text-[10px] lg:text-[14px]">
                                     Setup & Time
                                 </p>
                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
@@ -241,21 +582,49 @@ export default function FreeTrialAvailable() {
                                 <p className="flex gap-2 text-[10px] lg:text-[14px]">
                                     <Settings size={14} />
                                     Maintenance: {p.maintenance}
+                                </p> */}
+                                <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
+                                    Setup & Time
                                 </p>
+                                {p.keyValues.map((kv) => (
+                                    <div
+                                        key={kv.id}
+                                        className="flex flex-col text-[10px] lg:text-[14px] text-gray-700 leading-snug"
+                                    >
+                                        <div className="flex flex-row space-x-1">
+                                            <span className="font-medium">{kv.key}:</span>
+                                            <span className="text-gray-500">{kv.label}</span>
+                                        </div>
+                                    </div>
+                                ))}
+
                             </div>
                         </div>
 
 
 
                         {/* PRICE */}
-                        <div className="absolute bottom-3 right-3 bg-white rounded-2xl px-3 lg:px-6 py-2 text-center">
-                            <p className="text-[10px] lg:text-[14px]">
+                        <div className="absolute bottom-4 right-3 bg-white rounded-2xl px-3 lg:px-2 py-2 lg:py-1 text-center">
+                            <p className="text-[10px] lg:text-[10px]">
                                 Starting from
                             </p>
-                            <p className="font-semibold text-[16px] lg:text-[24px]">
-                                ₹{p.price}
-                            </p>
+
+                            <div className="font-semibold text-[16px] lg:text-[20px] flex flex-col items-center">
+                                <span>₹{p.price}</span>
+
+                                {p.discount > 0 && (
+                                    <div className="flex flex-row gap-2 text-center">
+                                        <span className="line-through text-gray-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                            ₹{p.originalPrice}
+                                        </span>
+                                        <span className="text-blue-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                            ({p.discount}% off)
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
+
                     </div>
                 ))}
             </div>

@@ -476,8 +476,8 @@
 import { Bookmark } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, User, PenIcon } from "lucide-react";
-import { useRecommendedServices } from "@/src/context/RecommendedContext";
+import { User } from "lucide-react";
+import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -490,179 +490,204 @@ const CATEGORY_TABS = [
     { label: "800 - 1000 Rs", value: "800-1000" },
 ];
 
-/* ---------------- SERVICES DATA ---------------- */
-const SERVICES = [
-    {
-        id: 1,
-        title: "Figma UI UX Design",
-        subtitle: "Develop your future website",
-        category: "Digital Marketing",
-        users: "2400+ users",
-        rating: 4,
-        price: 450,
-        discount: "30%",
-        trusted: true,
-        earn: "Earn Up to 5%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 2,
-        title: "IT Consulting",
-        subtitle: "Develop your future website",
-        category: "UI / UX",
-        users: "1800+ users",
-        rating: 5,
-        price: 380,
-        discount: "25%",
-        trusted: true,
-        earn: "Earn Up to 4%",
-        image: "/image/Educationcardbg.png",
+// /* ---------------- SERVICES DATA ---------------- */
+// const SERVICES = [
+//     {
+//         id: 1,
+//         title: "Figma UI UX Design",
+//         subtitle: "Develop your future website",
+//         category: "Digital Marketing",
+//         users: "2400+ users",
+//         rating: 4,
+//         price: 450,
+//         discount: "30%",
+//         trusted: true,
+//         earn: "Earn Up to 5%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 2,
+//         title: "IT Consulting",
+//         subtitle: "Develop your future website",
+//         category: "UI / UX",
+//         users: "1800+ users",
+//         rating: 5,
+//         price: 380,
+//         discount: "25%",
+//         trusted: true,
+//         earn: "Earn Up to 4%",
+//         image: "/image/Educationcardbg.png",
 
-    },
-    {
-        id: 3,
-        title: "App Development",
-        subtitle: "Develop your future website",
-        category: "Graphic Design",
-        users: "1200+ users",
-        rating: 4,
-        price: 280,
-        discount: "20%",
-        trusted: true,
-        earn: "Earn Up to 3%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 4,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Print Design",
-        users: "950+ users",
-        rating: 4,
-        price: 220,
-        discount: "15%",
-        trusted: true,
-        earn: "Earn Up to 2%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 5,
-        title: "IT Consulting",
-        subtitle: "Develop your future website",
-        category: "Digital Marketing",
-        users: "2100+ users",
-        rating: 5,
-        price: 320,
-        discount: "35%",
-        trusted: true,
-        earn: "Earn Up to 5%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 6,
-        title: "Web Development",
-        subtitle: "Develop your future website",
-        category: "UI / UX",
-        users: "1600+ users",
-        rating: 5,
-        price: 520,
-        discount: "20%",
-        trusted: true,
-        earn: "Earn Up to 6%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 7,
-        title: "Cyber Security",
-        subtitle: "Develop your future website",
-        category: "Print Design",
-        users: "1100+ users",
-        rating: 4,
-        price: 480,
-        discount: "18%",
-        trusted: true,
-        earn: "Earn Up to 3%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 8,
-        title: "Web Development",
-        subtitle: "Develop your future website",
-        category: "Graphic Design",
-        users: "1400+ users",
-        rating: 4,
-        price: 260,
-        discount: "22%",
-        trusted: true,
-        earn: "Earn Up to 3%",
-        image: "/image/Educationcardbg.png",
-    },
-    {
-        id: 9,
-        title: "App Development",
-        subtitle: "Develop your future website",
-        category: "Branding",
-        users: "900+ users",
-        rating: 5,
-        price: 750,
-        discount: "40%",
-        trusted: true,
-        earn: "Earn Up to 7%",
-        image: "/image/Educationcardbg.png",
-    },
-];
+//     },
+//     {
+//         id: 3,
+//         title: "App Development",
+//         subtitle: "Develop your future website",
+//         category: "Graphic Design",
+//         users: "1200+ users",
+//         rating: 4,
+//         price: 280,
+//         discount: "20%",
+//         trusted: true,
+//         earn: "Earn Up to 3%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 4,
+//         title: "Cyber Security",
+//         subtitle: "Develop your future website",
+//         category: "Print Design",
+//         users: "950+ users",
+//         rating: 4,
+//         price: 220,
+//         discount: "15%",
+//         trusted: true,
+//         earn: "Earn Up to 2%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 5,
+//         title: "IT Consulting",
+//         subtitle: "Develop your future website",
+//         category: "Digital Marketing",
+//         users: "2100+ users",
+//         rating: 5,
+//         price: 320,
+//         discount: "35%",
+//         trusted: true,
+//         earn: "Earn Up to 5%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 6,
+//         title: "Web Development",
+//         subtitle: "Develop your future website",
+//         category: "UI / UX",
+//         users: "1600+ users",
+//         rating: 5,
+//         price: 520,
+//         discount: "20%",
+//         trusted: true,
+//         earn: "Earn Up to 6%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 7,
+//         title: "Cyber Security",
+//         subtitle: "Develop your future website",
+//         category: "Print Design",
+//         users: "1100+ users",
+//         rating: 4,
+//         price: 480,
+//         discount: "18%",
+//         trusted: true,
+//         earn: "Earn Up to 3%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 8,
+//         title: "Web Development",
+//         subtitle: "Develop your future website",
+//         category: "Graphic Design",
+//         users: "1400+ users",
+//         rating: 4,
+//         price: 260,
+//         discount: "22%",
+//         trusted: true,
+//         earn: "Earn Up to 3%",
+//         image: "/image/Educationcardbg.png",
+//     },
+//     {
+//         id: 9,
+//         title: "App Development",
+//         subtitle: "Develop your future website",
+//         category: "Branding",
+//         users: "900+ users",
+//         rating: 5,
+//         price: 750,
+//         discount: "40%",
+//         trusted: true,
+//         earn: "Earn Up to 7%",
+//         image: "/image/Educationcardbg.png",
+//     },
+// ];
 
 /* ---------------- COMPONENT ---------------- */
 
-type SectionProps = {
-    moduleId: string,
-    selectedRange?: string;
-    selectedCategory?: string;
-    searchQuery?: string;
-    contextTitle?: string;
-};
+interface Props {
+    categoryId: string;
+    moduleId: string;
+}
+
+interface Package {
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+}
 
 
-
-
-export default function Recommendation({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
-
-
-
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const router = useRouter();
-    const toSlug = (text: string) =>
-        text.toLowerCase().replace(/\s+/g, "-");
-
-
+export default function Recommendation({ categoryId, moduleId }: Props) {
     const {
         services,
         loading,
-        error, fetchRecommendedServices
-    } = useRecommendedServices();
+        error,
+        fetchRecommendedServicesByCategoryId,
+    } = useRecommendedServiceByCategoryIdContext();
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const router = useRouter();
+
 
     useEffect(() => {
-        if (!moduleId) return;
-
-        fetchRecommendedServices(moduleId);
-    }, [moduleId]);
-
-
+        if (categoryId && moduleId) {
+            fetchRecommendedServicesByCategoryId(categoryId);
+        }
+    }, [moduleId, categoryId]);
 
 
-    const mappedServices = services.map((service) => ({
-        id: service._id,
-        title: service.serviceName,
-        category: service.category?.name || "Unknown",
-        image: service.thumbnailImage || "/image/placeholder.png",
-        rating: service.averageRating ?? 0,
-        reviews: service.totalReviews,
-        keyValues: service.keyValues?.map((item) => ({
-            id: item._id,
-            label: item.value,
-        })) || [],
 
-    }));
+
+    if (loading)
+        return <p className="text-center py-10">Loading recommended services...</p>;
+
+    if (error)
+        return <p className="text-center py-10 text-red-500">{error}</p>;
+
+    if (services.length === 0)
+        return <p className="text-center py-10">No recommended services found.</p>;
+
+    const toSlug = (text: string) =>
+        text.toLowerCase().replace(/\s+/g, "-");
+
+    const getStartingPackage = (packages: Package[] = []) => {
+        if (!packages.length) return null;
+
+        return packages.reduce((min, pkg) =>
+            pkg.discountedPrice < min.discountedPrice ? pkg : min
+        );
+    };
+
+   const mappedServices = services.map((service) => {
+        const packages = service.serviceDetails?.packages || [];
+        const startingPackage = getStartingPackage(packages);
+        return ({
+            id: service._id,
+            title: service.serviceName,
+            category: service.category?.name || "Unknown",
+            image: service.thumbnailImage || "/image/placeholder.png",
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews,
+            price: startingPackage?.discountedPrice ?? 0,
+            originalPrice: startingPackage?.price ?? 0,
+            discount: startingPackage?.discount ?? 0,
+            keyValues: service.keyValues?.map((item) => ({
+                id: item._id,
+                label: item.value,
+            })) || [],
+
+        })});
 
 
     if (loading) return <p>Loading...</p>;
@@ -738,7 +763,7 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
 
     return (
-        <div className="w-full p-4 md:ml-15 ">
+        <div className="w-full p-4 md:ml-15">
             {/* TITLE */}
             <h2 className="text-[18px] md:text-[24px] font-semibold mb-4">
                 Recommended
@@ -754,27 +779,25 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/Education/ServiceDetails`)
+                               router.push(`/MainModules/Education/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
                                 relative snap-center flex-shrink-0
-                                w-[290px] min-h-[271px]
+                                w-[285px] min-h-[271px]
                                 sm:w-[70vw] h-[330px]
-                                md:w-[331px] md:h-[382px] lg:h-[349px] lg:w-[352px]
-                                overflow-hidden 
+                                md:w-[331px] md:h-[392px] lg:h-[361px] lg:w-[352px]
+                                overflow-hidden cursor-pointer
                                 "
                         >
-                            {/* SVG BACKGROUND */}
-                            {/* <CardBg /> */}
 
                             {/* CONTENT */}
-                            <div className="relative z-10 lg:h-[349px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
+                            <div className="relative z-10 md:h-[362px] lg:h-[361px] bg-[#FFFFFF] border border-gray-300 rounded-xl flex flex-col">
                                 {/* IMAGE SECTION */}
-                                <div className="relative md:h-[170px] w-full p-4 h-[156px]">
+                                <div className="relative md:h-[170px] w-full p-3 h-[156px]">
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-[378px] h-[126px] object-cover
+                                        className="w-[378px] h-[126px] object-fit
                                     rounded-xl"
                                     />
                                     <div className="">
@@ -798,18 +821,18 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
                                 {/* CONTENT SECTION */}
                                 {/* <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex-1"> */}
-                                <div className="relative p-2 lg:-mt-4 -mt-2 text-black flex flex-col h-full">
+                                <div className="relative p-2 lg:-mt-4 md:-mt-8 -mt-4 text-black flex flex-col h-full">
 
 
                                     <div className="flex items-center justify-between mb-2 md:mb-6">
-                                        <span className="inline-block bg-[#FFFFFF] font-semibold text-[12px] md:text-[16px] px-3 py-1 rounded-full
+                                        <span className="inline-block font-semibold text-[12px] md:text-[16px] px-3 py-1 md:mt-4 lg:mt-0 mt-0
                                          leading-snug
-                        line-clamp-2 max-w-[65%]
-                        min-h-[40px] lg:min-h-[40px]">
+                                        line-clamp-2 max-w-[65%]
+                                        min-h-[40px] lg:min-h-[40px]">
                                             {item.title}
                                         </span>
 
-                                        <span className="text-[8px] md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
+                                        <span className="text-[8px] md:text-[10px] text-white lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
                                             {/* {item?.earn} */}
                                             Earn upto 5 %
                                         </span>
@@ -828,29 +851,29 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
 
                                     <div className="flex items-cente mb-2">
-                                        <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                            <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
-                                            Create & Practice
-                                            {/* {item.keyValues.map((kv) => (
+                                        <div className="inline-flex items-center gap-6 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                            {/* <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            Create & Practice */}
+                                            {item.keyValues.map((kv) => (
                                                 <span
                                                     key={kv.id}
-                                                    className="text-[11px] text-gray-700 leading-snug"
+                                                    className="text-[11px] text-gray-700 leading-snug -ml-1"
                                                 >
                                                     {kv.label}
                                                 </span>
-                                            ))} */}
+                                            ))}
                                         </div>
 
-                                        <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                        {/* <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
                                             <Eye className="inline-block w-[12px] h-[12px] flex-shrink-0" />
                                             Design with empathy
-                                        </span>
+                                        </span> */}
                                     </div>
 
 
                                     <div className="space-y-1">
                                         <div>
-                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-1 leading-none">
+                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 ml-2 md:ml-2 lg:ml-1 leading-none">
                                                 {/* {"★".repeat(item.rating)}
                                                 {"☆".repeat(5 - item.rating)} */}
                                                 {/* <div className="flex items-center gap-1 mt-4 md:ml-2 lg:ml-2"> */}
@@ -894,29 +917,49 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
 
                                             </div>
-                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 ml-2 lg:ml-2">
                                                 <User className="inline-block w-[12px] h-[12px] flex-shrink-0" />{item.reviews} reviews
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* PRICE */}
-                                    <div
+                                    {/* <div
                                         className="
                                             absolute lg:bottom-4 right-4 md:bottom-1 bottom-1
                                             bg-white text-black font-semibold
                                             text-[12.71px] md:text-[15px] lg:text-[20px] 
                                             lg:px-4 lg:py-1 md:px-4 md:py-2
                                             rounded-2xl shadow-md px-2 py-2
-                                            flex flex-col items-center
+                                            flex flex-col items-center 
                                             max-w-[85%]
                                             truncate 
                                             whitespace-nowrap
                                         "
                                     >
                                         <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
-                                        ₹ 999
-                                        {/* {item.price} */}
+                                        
+                                      ₹ {item?.price}
+                                    </div> */}
+                                     <div className="absolute bottom-0 right-3 bg-[#F7F7F7] rounded-2xl mb-1 px-3 lg:px-2 py-1 lg:py-1 text-center">
+                                        <p className="text-[10px] lg:text-[10px]">
+                                            Starting from
+                                        </p>
+
+                                        <div className="font-semibold text-[16px] lg:text-[20px] flex flex-col items-center">
+                                            <span>₹{item.price}</span>
+
+                                            {item.discount > 0 && (
+                                                <div className="flex flex-row gap-2 text-center">
+                                                    <span className="line-through text-gray-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                                        ₹{item.originalPrice}
+                                                    </span>
+                                                    <span className="text-blue-400 text-[8px] md:text-[10px] lg:text-[12px]">
+                                                        ({item.discount}% off)
+                                                    </span>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

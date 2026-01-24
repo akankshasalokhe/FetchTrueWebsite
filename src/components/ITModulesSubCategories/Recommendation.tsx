@@ -1,9 +1,10 @@
 'use client';
 
 import { Bookmark } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Zap, Clock, User } from "lucide-react";
+import { User } from "lucide-react";
+import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
 
 
 /* ---------------- CATEGORY TABS ---------------- */
@@ -145,22 +146,66 @@ const SERVICES = [
 //     searchQuery: string;
 // };
 
-type SectionProps = {
-    selectedRange?: string;
-    selectedCategory?: string;
-    searchQuery?: string;
-    contextTitle?: string; // ← from slug
-};
+interface Props {
+    categoryId: string;
+    moduleId: string;
+}
 
-
-
-export default function Recommendation({ selectedRange, selectedCategory, searchQuery = "", contextTitle }: SectionProps) {
-
+export default function Recommendation({ categoryId, moduleId }: Props) {
+    const {
+        services,
+        loading,
+        error,
+        fetchRecommendedServicesByCategoryId,
+    } = useRecommendedServiceByCategoryIdContext();
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
+
+
+    useEffect(() => {
+        if (categoryId && moduleId) {
+            fetchRecommendedServicesByCategoryId(categoryId);
+        }
+    }, [moduleId, categoryId]);
+
+
+
+
+    if (loading)
+        return <p className="text-center py-10">Loading recommended services...</p>;
+
+    if (error)
+        return <p className="text-center py-10 text-red-500">{error}</p>;
+
+    if (services.length === 0)
+        return <p className="text-center py-10">No recommended services found.</p>;
+
+
+
+
+
     const toSlug = (text: string) =>
         text.toLowerCase().replace(/\s+/g, "-");
 
+
+    const mappedServices = services.map((service) => ({
+        id: service._id,
+        title: service.serviceName,
+        category: service.category?.name || "Unknown",
+        image: service.thumbnailImage || "/image/placeholder.png",
+        rating: service.averageRating ?? 0,
+        reviews: service.totalReviews,
+        price: service.price || 0,
+        keyValues: service.keyValues?.map((item) => ({
+            id: item._id,
+            label: item.value,
+        })) || [],
+
+    }));
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
 
     const CARD_CLASSES = `
@@ -170,44 +215,36 @@ export default function Recommendation({ selectedRange, selectedCategory, search
     shadow-lg
     `;
 
+    // const filteredServices = SERVICES.filter((item) => {
+    //     // PRICE FILTER
+    //     const rangeMatch =
+    //         selectedRange === "all" ||
+    //         (selectedRange === "0-300" && item.price < 300) ||
+    //         (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
+    //         (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
+    //         (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
+    //         (selectedRange === "800-1000" && item.price > 800);
 
+    //     // CATEGORY FILTER
+    //     const categoryMatch =
+    //         selectedCategory === "all" ||
+    //         item.title === selectedCategory;
 
-    const filteredServices = SERVICES.filter((item) => {
-        // PRICE FILTER
-        const rangeMatch =
-            selectedRange === "all" ||
-            (selectedRange === "0-300" && item.price < 300) ||
-            (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
-            (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
-            (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
-            (selectedRange === "800-1000" && item.price > 800);
+    //     const normalizedTitle = item.title.toLowerCase();
+    //     const normalizedContext = contextTitle?.toLowerCase();
 
-        // CATEGORY FILTER
-        const categoryMatch =
-            selectedCategory === "all" ||
-            item.title === selectedCategory;
+    //     const contextMatch =
+    //         !contextTitle ||
+    //         normalizedTitle === normalizedContext;
 
-        // CONTEXT (from slug)
-        // const contextMatch =
-        //     !contextTitle ||
-        //     item.title.toLowerCase() === contextTitle.toLowerCase();
-        const normalizedTitle = item.title.toLowerCase();
-        const normalizedContext = contextTitle
-            ?.toLowerCase()
-            .replace(/-/g, " "); // 👈 FIX
+    //     // SEARCH
+    //     const searchMatch =
+    //         searchQuery === "" ||
+    //         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         item.category.toLowerCase().includes(searchQuery.toLowerCase());
 
-        const contextMatch =
-            !contextTitle ||
-            normalizedTitle === normalizedContext;
-
-        // SEARCH
-        const searchMatch =
-            searchQuery === "" ||
-            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-        return rangeMatch && categoryMatch && searchMatch && contextMatch;
-    });
+    //     return rangeMatch && categoryMatch && searchMatch && contextMatch;
+    // });
 
 
     type CardBgProps = {
@@ -242,28 +279,28 @@ export default function Recommendation({ selectedRange, selectedCategory, search
     return (
         <div className="w-full p-4 md:ml-6 md:p-6">
             {/* TITLE */}
-            <h2 className="text-xl md:text-3xl font-semibold mb-4">
+            <h2 className="text-[16px] md:text-[24px] font-semibold mb-4">
                 Recommended for You
             </h2>
 
             {/* SWIPEABLE CARDS */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-10 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
+                className="flex gap-4 md:gap-10 overflow-x-auto snap-x snap-mandatory no-scrollbar"
             >
-                {filteredServices.length > 0 ? (
-                    filteredServices.map((item) => (
+                {mappedServices.length > 0 ? (
+                    mappedServices.map((item) => (
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/ITService/ServiceDetails`)
+                                router.push(`/MainModules/It-Services/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
-                                relative snap-center flex-shrink-0
+                                 relative snap-center flex-shrink-0
                                 w-[290px] min-h-[271px]
-                                sm:w-[70vw] h-[300px]
-                                md:w-[331px] md:h-[372px] lg:h-[362.04px]
-                                overflow-hidden 
+                                sm:w-[70vw] h-[330px]
+                                md:w-[331px] md:h-[372px] lg:h-[372.04px] lg:w-[331px]
+                                overflow-hidden cursor-pointer
                                 "
                         >
                             {/* SVG BACKGROUND */}
@@ -285,7 +322,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
 
                                     {/* Discount */}
                                     <span className="absolute top-6 right-18 bg-green-400 text-black text-xs font-semibold px-2 py-1 rounded-lg">
-                                        Discount {item.discount}
+                                        Discount 25%
+                                        {/* {item.discount} */}
                                     </span>
 
                                     {/* Bookmark */}
@@ -295,8 +333,8 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                 </div>
 
                                 {/* CONTENT SECTION */}
-                                <div className="relative p-2 text-black flex-1">
-                                    <span className="text-[16px] md:ml-2 font-semibold leading-snug line-clamp-2 max-w-[65%]">
+                                <div className="relative p-2 text-black flex-1 md:-mt-4 -mt-2 lg:-mt-4">
+                                    <span className="text-[16px] ml-2 md:ml-2 font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
                                         {item.title}
                                     </span>
                                     <div className="flex items-center justify-between mb-2 md:mb-6">
@@ -304,33 +342,77 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                             {item.category}
                                         </span>
 
-                                        <span className="text-[8px] md:text-[10px] px-3 py-1 bg-[#548AFE] rounded-full whitespace-nowrap shrink-0">
-                                            {item.earn}
+                                        <span className="text-[8px] md:text-[10px] text-white px-1 py-1 bg-green-400 rounded-md whitespace-nowrap shrink-0">
+                                            Earn Upto 5%
+                                            {/* {item.earn} */}
                                         </span>
                                     </div>
 
                                     <div className="flex items-center lg:-mt-2 mb-2">
-                                        <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
-                                            <Zap className="inline-block w-[12px] h-[12px] flex-shrink-0" />
-                                            Faster project delivery
+                                        <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-1 py-1 whitespace-nowrap shrink-0">
+                                            {/* <Zap className="inline-block w-[12px] h-[12px] flex-shrink-0" />
+                                            Faster project delivery */}
+                                             {item.keyValues.map((kv) => (
+                                                <span
+                                                    key={kv.id}
+                                                    className="text-[11px] text-gray-700 leading-snug"
+                                                >
+                                                    {kv.label}
+                                                </span>
+                                            ))}
                                         </div>
 
-                                        <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
+                                        {/* <span className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
                                             <Clock className="inline-block w-[12px] h-[12px] flex-shrink-0" />
                                             24×7 technical support
-                                        </span>
+                                        </span> */}
                                     </div>
 
 
                                     <div className="space-y-1">
                                         <div>
                                             {/* <h4 className="text-xs leading-none">Reviews</h4> */}
-                                            <div className="flex items-center text-yellow-400 text-[20px] mt-4 md:text-[25px] gap-1 md:ml-2 lg:ml-2 leading-none">
-                                                {"★".repeat(item.rating)}
-                                                {"☆".repeat(5 - item.rating)}
+                                            <div className="flex items-center text-yellow-400 text-[20px] mt-8 md:text-[25px] gap-1 md:ml-2 lg:ml-2 leading-none">
+                                                {/* {"★".repeat(item.rating)}
+                                                {"☆".repeat(5 - item.rating)} */}
+                                                {(() => {
+                                                    const rating = Math.max(0, Math.min(5, item.rating));
+                                                    const rounded = Math.round(rating * 2) / 2;
+                                                    const fullStars = Math.floor(rounded);
+                                                    const hasHalfStar = rounded % 1 !== 0;
+                                                    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                                                    return (
+                                                        <div className="flex items-center gap-0 text-[20px] md:text-[25px] leading-none">
+                                                            {/* Full stars */}
+                                                            {[...Array(fullStars)].map((_, i) => (
+                                                                <span key={`full-${i}`} className="text-yellow-400">
+                                                                    ★
+                                                                </span>
+                                                            ))}
+
+                                                            {/* Half star */}
+                                                            {hasHalfStar && (
+                                                                <span className="relative inline-block w-[1em]">
+                                                                    <span className="absolute overflow-hidden w-1/2 text-yellow-400">
+                                                                        ★
+                                                                    </span>
+                                                                    <span className="text-gray-300">★</span>
+                                                                </span>
+                                                            )}
+
+                                                            {/* Empty stars */}
+                                                            {[...Array(emptyStars)].map((_, i) => (
+                                                                <span key={`empty-${i}`} className="text-gray-300">
+                                                                    ★
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    );
+                                                })()}
                                             </div>
                                             <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2">
-                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> 2,400+ reviews
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> {item.reviews} Reviews
                                             </div>
                                         </div>
                                     </div>
@@ -338,19 +420,22 @@ export default function Recommendation({ selectedRange, selectedCategory, search
                                     {/* PRICE */}
                                     <div
                                         className="
-                                            absolute lg:bottom-1 right-4 md:bottom-1 bottom-10
-                                            bg-white text-black font-semibold
-                                            text-[12.71px] md:text-[15px] lg:text-[20px] 
+                                            absolute lg:-bottom-2 right-4 md:-bottom-1 bottom-4
+                                             text-black font-semibold
+                                            text-[12.71px] md:text-[12px] lg:text-[14px] 
                                             lg:px-4 lg:py-1 md:px-4 md:py-2
-                                            rounded-2xl shadow-md px-2 py-2
+                                            rounded-2xl  px-2 py-2
                                             flex flex-col items-center
-                                            max-w-[85%]
+                                            max-w-[85%] -mr-4
                                             truncate 
-                                            whitespace-nowrap
-                                        "
+                                            whitespace-nowrap"
                                     >
-                                        <span className="lg:text-[10px] md:text-[10px] text-gray-500 ">Starting from</span>
-                                        ₹ {item.price}
+                                        <div className="text-[10px] md:text-[12px] lg:text-[12px] text-white bg-black rounded-md px-1 py-1 mb-2">12% OFF</div>
+                                        <span className="lg:text-[10px] md:text-[10px] lg:text-[12px] text-gray-500 ">Starting from</span>
+                                        {/* ₹ {item.price} */}
+                                        <div className="flex flex-row items-center gap-2">
+                                            <span className="text-gray-400 line-through">₹ 5,999</span>₹ 3,999
+                                        </div>
                                     </div>
                                 </div>
                             </div>
