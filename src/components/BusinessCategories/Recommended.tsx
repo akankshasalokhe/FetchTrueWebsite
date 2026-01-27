@@ -8,6 +8,7 @@ import Link from "next/link";
 import BusinessCard from "../ui/BusinessCard";
 import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
 import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   categoryId: string;
@@ -78,8 +79,9 @@ export default function AllServices({ categoryId, moduleId }: Props) {
       </div>
 
       {/* SCROLL */}
-      <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
+      <div className="lg:ms-10 lg:me-10 mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4">
+          <HorizontalScroll>
           {services.map((service) => {
             const investment =
               service.franchiseDetails?.investmentRange?.[0]?.range || "—";
@@ -117,6 +119,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
               </Link>
             );
           })}
+          </HorizontalScroll>
         </div>
       </div>
     </section>

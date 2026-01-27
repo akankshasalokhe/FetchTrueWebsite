@@ -129,6 +129,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import BusinessCard from "../ui/BusinessCard";
 import { useModulewiseServices } from "@/src/context/ModulewiseServiceContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   categoryId: string;
@@ -138,6 +139,9 @@ interface Props {
 export default function AllServices({ categoryId, moduleId }: Props) {
   const { services, fetchServicesByModule, loading, error } =
     useModulewiseServices();
+
+    const [viewAll, setViewAll] = useState(false);
+
 
     const [roiMap, setRoiMap ] = useState<Record<string,string>>({});
 
@@ -192,52 +196,110 @@ export default function AllServices({ categoryId, moduleId }: Props) {
   return (
     <section className="w-full mt-8 lg:mt-14">
       {/* HEADER */}
-      <div className="max-w-[1440px] mx-auto px-4 mb-6">
-        <h2 className="text-[22px] font-semibold">All Services</h2>
-      </div>
+      <div className="lg:ms-10 mx-auto px-4 mb-6 flex justify-between items-center">
+  <h2 className="text-[22px] font-semibold">All Services</h2>
 
-      {/* SCROLL */}
-      <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
-        <div className="flex gap-4">
-          {services.map((service) => {
-            const investment =
-              service.franchiseDetails?.investmentRange?.[0]?.range || "—";
+  {viewAll ? (
+    <button
+      onClick={() => setViewAll(false)}
+      className="text-sm text-gray-600 hover:underline"
+    >
+      Back
+    </button>
+  ) : (
+    <button
+      onClick={() => setViewAll(true)}
+      className="text-sm font-medium text-blue-600 hover:underline"
+    >
+      View All
+    </button>
+  )}
+</div>
 
-            const earnings =
-              service.franchiseDetails?.monthlyEarnPotential?.[0]?.range || "—";
+<div className="lg:ms-10 lg:me-10 mx-auto px-4">
+  <div
+    className={
+      viewAll
+        ? "grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+        : "flex gap-4"
+    }
+  >
+    {viewAll ? (
+      services.map((service) => {
+        const investment =
+          service.franchiseDetails?.investmentRange?.[0]?.range || "—";
+        const earnings =
+          service.franchiseDetails?.monthlyEarnPotential?.[0]?.range || "—";
+        const roi = roiMap[service._id] || "—";
+        const earnpercent =
+          service.franchiseDetails?.commission || "—";
 
-              const roi = roiMap[service._id || "-"]
+        return (
+          <Link
+            key={service._id}
+            href={`/MainModules/Business/${moduleId}/${categoryId}/${service._id}`}
+          >
+            <BusinessCard
+              image={
+                service.thumbnailImage ||
+                service.category?.image ||
+                "/image/placeholder.png"
+              }
+              title={service.serviceName}
+              category={service.category?.name || ""}
+              earnpercent={earnpercent}
+              investment={investment}
+              earnings={earnings}
+              roi={roi}
+              rating={service.averageRating}
+              trusted
+              slug={createSlug(service.category?.name)}
+              detailslug={createSlug(service.serviceName)}
+            />
+          </Link>
+        );
+      })
+    ) : (
+      <HorizontalScroll>
+        {services.map((service) => {
+          const investment =
+            service.franchiseDetails?.investmentRange?.[0]?.range || "—";
+          const earnings =
+            service.franchiseDetails?.monthlyEarnPotential?.[0]?.range || "—";
+          const roi = roiMap[service._id] || "—";
+          const earnpercent =
+            service.franchiseDetails?.commission || "—";
 
-            const earnpercent =
-              service.franchiseDetails?.commission || "—";
+          return (
+            <Link
+              key={service._id}
+              href={`/MainModules/Business/${moduleId}/${categoryId}/${service._id}`}
+            >
+              <BusinessCard
+                image={
+                  service.thumbnailImage ||
+                  service.category?.image ||
+                  "/image/placeholder.png"
+                }
+                title={service.serviceName}
+                category={service.category?.name || ""}
+                earnpercent={earnpercent}
+                investment={investment}
+                earnings={earnings}
+                roi={roi}
+                rating={service.averageRating}
+                trusted
+                slug={createSlug(service.category?.name)}
+                detailslug={createSlug(service.serviceName)}
+              />
+            </Link>
+          );
+        })}
+      </HorizontalScroll>
+    )}
+  </div>
+</div>
 
-            return (
-              <Link
-                key={service._id}
-                href={`/MainModules/Business/${moduleId}/${categoryId}/${service._id}`}
-              >
-                <BusinessCard
-                  image={
-                    service.thumbnailImage ||
-                    service.category?.image ||
-                    "/image/placeholder.png"
-                  }
-                  title={service.serviceName}
-                  category={service.category?.name || ""}
-                  earnpercent={earnpercent}
-                  investment={investment}
-                  earnings={earnings}
-                  roi={roi}
-                  rating={service.averageRating}
-                  trusted={true}
-                  slug={createSlug(service.category?.name)}
-                  detailslug={createSlug(service.serviceName)}
-                />
-              </Link>
-            );
-          })}
-        </div>
-      </div>
     </section>
   );
 }

@@ -6,6 +6,7 @@ import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   moduleId: string;
@@ -93,6 +94,7 @@ export default function Recommended({ moduleId }: Props) {
           "
         >
           <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+            <HorizontalScroll>
             {services.map((service) => {
               const investment =
                 service.franchiseDetails?.investmentRange?.[0]?.range || "—";
@@ -131,6 +133,7 @@ export default function Recommended({ moduleId }: Props) {
                 </Link>
               );
             })}
+            </HorizontalScroll>
           </div>
         </div>
       </div>

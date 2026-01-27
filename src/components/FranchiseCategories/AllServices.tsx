@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import Link from "next/link";
 import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 const bgColors = [
   "bg-[#E9B3A1]",
@@ -20,6 +21,7 @@ interface Props {
 export default function AllServices({ categoryId, moduleId }: Props) {
   const { services, fetchServicesByCategory, loading, error } = useCategorywiseServices();
 
+  const [viewAll, setViewAll] = useState(false);
 
 
 
@@ -42,44 +44,83 @@ export default function AllServices({ categoryId, moduleId }: Props) {
   return (
     <section className="w-full mt-8 lg:mt-14">
       {/* HEADER */}
-      <div className="max-w-[1440px] mx-auto px-4 mb-6">
+      <div className="max-w-[1440px] mx-auto px-4 pb-8 py-8 flex justify-between">
         <h2 className="text-[22px] font-semibold">All Services</h2>
+
+  {viewAll ? (
+          <button
+            onClick={() => setViewAll(false)}
+            className="text-sm text-gray-600 hover:underline"
+          >
+            Back
+          </button>
+        ) : (
+          <button
+            onClick={() => setViewAll(true)}
+            className="text-sm font-medium text-blue-600 hover:underline"
+          >
+            View All
+          </button>
+        )}
       </div>
 
- 
-
-
-      {/* SCROLL */}
-      <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
-        <div className="flex gap-4">
-          {services.map((service, index) => {
-            const investment =
-              service.franchiseDetails.investmentRange?.[0];
-            const monthly =
-              service.franchiseDetails.monthlyEarnPotential?.[0];
-            const discount =
-              service.franchiseDetails.franchiseModel?.[0]?.discount;
-
-            return (
-                          <Link key={service._id}
-              href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}>
-            
-              <FranchiseMostPopularCard
+      {/* CONTENT */}
+      <div className="max-w-[1440px] mx-auto px-4">
+        <div
+          className={
+            viewAll
+              ? "grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+              : "flex gap-4"
+          }
+        >
+          {viewAll ? (
+            services.map((service, index) => (
+              <Link
                 key={service._id}
-                image={service.thumbnailImage}
-                title={service.serviceName}
-                category={service.category.name}
-                rating={service.averageRating}
-                earning={service.franchiseDetails.commission}
-                discount={`${discount ?? 0}%`}
-                monthly={`${monthly?.range} ${monthly?.parameters}`}
-                investment={`${investment?.range} ${investment?.parameters}`}
-                area="500–1000 Sq"
-                bg={bgColors[index % bgColors.length]}
-              />
+                href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
+              >
+                <FranchiseMostPopularCard
+                  image={service.thumbnailImage}
+                  title={service.serviceName}
+                  category={service.category.name}
+                  rating={service.averageRating}
+                  earning={service.franchiseDetails?.commission}
+                  discount={`${
+                    service.franchiseDetails?.franchiseModel?.[0]?.discount ?? 0
+                  }%`}
+                  monthly={`${service.franchiseDetails?.monthlyEarnPotential?.[0]?.range ?? ""}`}
+                  investment={`${service.franchiseDetails?.investmentRange?.[0]?.range ?? ""}`}
+                  area="500–1000 Sq"
+                  bg={bgColors[index % bgColors.length]}
+                />
               </Link>
-            );
-          })}
+            ))
+          ) : (
+            <HorizontalScroll>
+              {services.map((service, index) => (
+                <Link
+                  key={service._id}
+                  href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
+                >
+                  <FranchiseMostPopularCard
+                    image={service.thumbnailImage}
+                    title={service.serviceName}
+                    category={service.category.name}
+                    rating={service.averageRating}
+                    earning={service.franchiseDetails?.commission}
+                    discount={`${
+                      service.franchiseDetails?.franchiseModel?.[0]?.discount ??
+                      0
+                    }%`}
+                    monthly={`${service.franchiseDetails?.monthlyEarnPotential?.[0]?.range ?? ""}`}
+                    investment={`${service.franchiseDetails?.investmentRange?.[0]?.range ?? ""}`}
+                    area="500–1000 Sq"
+                    bg={bgColors[index % bgColors.length]}
+                  />
+                </Link>
+              ))}
+            </HorizontalScroll>
+          )}
         </div>
       </div>
     </section>

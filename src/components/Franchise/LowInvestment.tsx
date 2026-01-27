@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 export default function LowInvestmentFranchises({moduleId}:{moduleId:string}) {
 
@@ -44,7 +45,7 @@ export default function LowInvestmentFranchises({moduleId}:{moduleId:string}) {
       {/* ---------- CARDS ---------- */}
       <div className=" mx-auto gap-8 px-4 ">
           <div className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth  px-1">
-
+<HorizontalScroll>
        {services.map((service) => {
 
   // ✅ keyValues se Profit Margin
@@ -230,6 +231,7 @@ export default function LowInvestmentFranchises({moduleId}:{moduleId:string}) {
           </Link>
           ) 
 })}
+</HorizontalScroll>
         </div>
       </div>
     </section>

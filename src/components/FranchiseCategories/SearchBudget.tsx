@@ -132,6 +132,7 @@ import { useEffect, useState } from "react";
 import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import Link from "next/link";
 import { useTopTrendingServiceByCategoryIdContext } from "@/src/context/TopTrendingServiceByCategoryIdContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 const bgColors = [
   "bg-[#E9B3A1]",
@@ -178,6 +179,7 @@ export default function SearchBudget({ categoryId, moduleId }: Props) {
       {/* SCROLL */}
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4">
+          <HorizontalScroll>
           {services.map((service, index) => {
             const investment =
               service.franchiseDetails.investmentRange?.[0];
@@ -206,6 +208,7 @@ export default function SearchBudget({ categoryId, moduleId }: Props) {
               </Link>
             );
           })}
+          </HorizontalScroll>
         </div>
       </div>
     </section>

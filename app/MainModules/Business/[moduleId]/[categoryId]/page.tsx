@@ -11,12 +11,12 @@ import { useModule } from "@/src/context/CategoriesContext";
 import Link from "next/link";
 import Recommended from "@/src/components/BusinessCategories/Recommended";
 import MostPopular from "@/src/components/BusinessCategories/MostPopular";
+import TopTrending from "@/src/components/BusinessCategories/TopTrending";
 
 
 
 
 
-const tabs = ["All", "Low to High", "High to Low", "Top Rated"];
 
 export default function BusinessCategoryDetailPage() {
 
@@ -260,6 +260,7 @@ const mappedServices = useMemo(() => {
 <AllServices moduleId={moduleId} categoryId={categoryId} />
 <Recommended moduleId={moduleId} categoryId={categoryId} />
 <MostPopular moduleId={moduleId} categoryId={categoryId} />
+<TopTrending moduleId={moduleId} categoryId={categoryId} />
 
 
         </>

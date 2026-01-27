@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { useTopTrending } from "@/src/context/TopTrendingContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   moduleId: string;
@@ -114,6 +115,7 @@ export default function TopRated({ moduleId }: Props) {
 
       {/* CARDS */}
       <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+        <HorizontalScroll>
             {services.map((service) => {
               const investment =
                 service.franchiseDetails?.investmentRange?.[0]?.range || "—";
@@ -153,6 +155,7 @@ export default function TopRated({ moduleId }: Props) {
                 </Link>
               );
             })}
+            </HorizontalScroll>
           </div>
     </div>
 

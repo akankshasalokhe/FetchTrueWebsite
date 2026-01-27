@@ -6,7 +6,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import BusinessCard from "../ui/BusinessCard";
-import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
+import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
+import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
+import { useTopTrendingServiceByCategoryIdContext } from "@/src/context/TopTrendingServiceByCategoryIdContext";
 import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
@@ -14,9 +16,9 @@ interface Props {
   moduleId: string;
 }
 
-export default function MostPopular({ categoryId, moduleId }: Props) {
-  const { services, fetchMostPopularServiceByCategory, loading, error } =
-    useMostPopularServiceByCategory();
+export default function TopTrending({ categoryId, moduleId }: Props) {
+  const { services, fetchTopTrendingServicesByCategoryId, loading, error } =
+    useTopTrendingServiceByCategoryIdContext();
 
     const [roiMap, setRoiMap ] = useState<Record<string,string>>({});
 
@@ -24,12 +26,11 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
 
   useEffect(() => {
     if (categoryId) {
-      fetchMostPopularServiceByCategory(categoryId);
+      fetchTopTrendingServicesByCategoryId(categoryId);
     }
   }, [categoryId]);
 
-  console.log("Recommended API categoryId:", categoryId);
-
+  console.log("Top Trending API categoryId:", categoryId);
    useEffect(() => {
     const fetchAllROIs = async () => {
       const map: Record<string, string> = {};
@@ -37,14 +38,14 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
       for (const s of services) {
         try {
           const res = await fetch(
-            `https://api.fetchtrue.com/api/service/${s.serviceId}`
+            `https://api.fetchtrue.com/api/service/${s._id}`
           );
           const json = await res.json();
 
-          map[s.serviceId] =
+          map[s._id] =
             json?.data?.serviceDetails?.roi?.[0] || "—";
         } catch {
-          map[s.serviceId] = "—";
+          map[s._id] = "—";
         }
       }
 
@@ -62,7 +63,7 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
   /* ================= STATES ================= */
 
   if (loading)
-    return <p className="text-center py-10">Loading Popular services...</p>;
+    return <p className="text-center py-10">Loading Top Trending services...</p>;
 
   if (error)
     return <p className="text-center py-10 text-red-500">{error}</p>;
@@ -71,16 +72,15 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
     return <p className="text-center py-10">No services found.</p>;
 
   return (
-    <section className="w-full mt-8 lg:mt-14">
+    <section className="w-full mt-8 lg:mt-14 mb-8">
       {/* HEADER */}
       <div className="max-w-[1440px] mx-auto px-4 mb-6">
-        <h2 className="text-[22px] font-semibold">Most Popular</h2>
+        <h2 className="text-[22px] font-semibold">Top Trending</h2>
       </div>
 
       {/* SCROLL */}
       <div className="lg:ms-10 lg:me-10 mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4">
-          <HorizontalScroll>
           {services.map((service) => {
             const investment =
               service.franchiseDetails?.investmentRange?.[0]?.range || "—";
@@ -88,20 +88,21 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
             const earnings =
               service.franchiseDetails?.monthlyEarnPotential?.[0]?.range || "—";
 
-              const roi = roiMap[service.serviceId || "-"]
+              const roi = roiMap[service._id || "-"]
 
             const earnpercent =
               service.franchiseDetails?.commission || "—";
 
             return (
               <Link
-                key={service.serviceId}
-                href={`/MainModules/Business/${moduleId}/${categoryId}/${service.serviceId}`}
+                key={service._id}
+                href={`/MainModules/Business/${moduleId}/${categoryId}/${service._id}`}
               >
+                <HorizontalScroll>
                 <BusinessCard
                   image={
                     service.thumbnailImage ||
-                    
+                    service.category?.image ||
                     "/image/placeholder.png"
                   }
                   title={service.serviceName}
@@ -115,10 +116,10 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
                   slug={createSlug(service.category?.name)}
                   detailslug={createSlug(service.serviceName)}
                 />
+                </HorizontalScroll>
               </Link>
             );
           })}
-          </HorizontalScroll>
         </div>
       </div>
     </section>
