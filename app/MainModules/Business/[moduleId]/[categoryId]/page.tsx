@@ -3,9 +3,12 @@ import BusinessCard from "@/src/components/ui/BusinessCard";
 import { useEffect, useMemo, useState } from "react";
 import SubCategoryStrip from "@/src/components/Business/Subcategory";
 import { useParams } from "next/navigation";
-import { SubCategoryProvider } from "@/src/context/SubCategoriesContext";
+import { SubCategoryProvider, useSubCategory } from "@/src/context/SubCategoriesContext";
 import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import AllServices from "@/src/components/BusinessCategories/AllServices";
+import { useModule } from "@/src/context/CategoriesContext";
+import Link from "next/link";
 
 
 
@@ -26,15 +29,29 @@ export default function BusinessCategoryDetailPage() {
 const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
 
     const { fetchServiceDetails,service } = useServiceDetails();
+    const [currentCategory, setCurrentCategory] = useState<any>(null);
+
+    const {
+      subCategories,
+      error,
+      fetchSubCategories,
+    } = useSubCategory();
 
 
 
   console.log("Category ID IN CLIENT in business:", categoryId);
       const [roiMap, setRoiMap ] = useState<Record<string,string>>({});
 
+    const { categories,fetchCategoriesByModule } = useModule();
 
     // const { moduleId} = useParams();
       console.log(moduleId, categoryId);
+
+      useEffect(() => {
+  if (categoryId) {
+    fetchSubCategories(categoryId);
+  }
+}, [categoryId]);
 
       useEffect(()=>{
         if (categoryId){
@@ -67,6 +84,21 @@ const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
       fetchAllROIs();
     }
   }, [services]);
+
+   useEffect(() => {
+  if (moduleId) {
+    fetchCategoriesByModule(moduleId);
+  }
+}, [moduleId]);
+
+  useEffect(() => {
+  if (categories?.length && categoryId) {
+    const cat = categories.find(
+      (c: any) => c._id === categoryId
+    );
+    setCurrentCategory(cat);
+  }
+}, [categories, categoryId]);
 
 
 const mappedServices = useMemo(() => {
@@ -125,15 +157,17 @@ const mappedServices = useMemo(() => {
     <div className="flex items-center gap-3 relative">
       
       {/* HOME ICON */}
+      <Link href={`/MainModules/Business/${moduleId}`}>
       <img
         src="/image/Group 2.png"
         alt="home"
         className="w-[25px] h-[25px]"
       />
+      </Link>
 
       {/* TITLE */}
       <h2 className="text-[18px] font-medium text-[#6A6A6A]">
-        Agricultural Business
+          {currentCategory?.name}
       </h2>
 
     </div>
@@ -154,7 +188,7 @@ const mappedServices = useMemo(() => {
 </SubCategoryProvider>
 
 
-<section className="w-full bg-white py-8 lg:py-12">
+{/* <section className="w-full bg-white py-8 lg:py-12">
   <div className="w-full">
       <div className="max-w-[1440px] mx-auto px-4 mb-6 lg:mb-12">
         <div className="flex gap-3">
@@ -184,7 +218,6 @@ const mappedServices = useMemo(() => {
     </div>
   <div className="max-w-[1440px] mx-auto bg-[#F7F7F7] rounded-[24px] p-6 lg:p-12">
 
-    {/* SCROLL CONTAINER */}
     <div
       className="
         grid
@@ -210,14 +243,7 @@ const mappedServices = useMemo(() => {
       "
     >
     
-      {/* {filteredData.map((item, index) => (
-        <div
-          key={index}
-          className="min-w-[330px] lg:min-w-full"
-        >
-          <BusinessCard {...item} />
-        </div>
-      ))} */}
+      
 
       {!loading && filteredData.length === 0 && (
               <p className="text-center text-gray-500 col-span-full">
@@ -227,7 +253,9 @@ const mappedServices = useMemo(() => {
     </div>
 
   </div>
-</section>
+</section> */}
+
+<AllServices moduleId={moduleId} categoryId={categoryId} />
 
 
         </>
