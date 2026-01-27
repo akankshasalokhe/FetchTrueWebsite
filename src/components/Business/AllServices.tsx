@@ -125,7 +125,7 @@
 
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import BusinessCard from "../ui/BusinessCard";
 import { useModulewiseServices } from "@/src/context/ModulewiseServiceContext";
@@ -139,6 +139,8 @@ export default function AllServices({ categoryId, moduleId }: Props) {
   const { services, fetchServicesByModule, loading, error } =
     useModulewiseServices();
 
+    const [roiMap, setRoiMap ] = useState<Record<string,string>>({});
+
   /* ================= FETCH MODULE SERVICES ================= */
 
   useEffect(() => {
@@ -146,6 +148,32 @@ export default function AllServices({ categoryId, moduleId }: Props) {
       fetchServicesByModule(moduleId);
     }
   }, [moduleId, fetchServicesByModule]);
+
+   useEffect(() => {
+    const fetchAllROIs = async () => {
+      const map: Record<string, string> = {};
+
+      for (const s of services) {
+        try {
+          const res = await fetch(
+            `https://api.fetchtrue.com/api/service/${s._id}`
+          );
+          const json = await res.json();
+
+          map[s._id] =
+            json?.data?.serviceDetails?.roi?.[0] || "—";
+        } catch {
+          map[s._id] = "—";
+        }
+      }
+
+      setRoiMap(map);
+    };
+
+    if (services.length) {
+      fetchAllROIs();
+    }
+  }, [services]);
 
   const createSlug = (text: string) =>
     text?.toLowerCase().replace(/\s+/g, "-");
@@ -178,8 +206,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
             const earnings =
               service.franchiseDetails?.monthlyEarnPotential?.[0]?.range || "—";
 
-            const roi =
-              service.serviceDetails?.roi?.[0] || "—";
+              const roi = roiMap[service._id || "-"]
 
             const earnpercent =
               service.franchiseDetails?.commission || "—";
