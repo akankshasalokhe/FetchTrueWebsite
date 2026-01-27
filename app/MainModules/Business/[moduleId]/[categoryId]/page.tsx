@@ -9,6 +9,8 @@ import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import AllServices from "@/src/components/BusinessCategories/AllServices";
 import { useModule } from "@/src/context/CategoriesContext";
 import Link from "next/link";
+import Recommended from "@/src/components/BusinessCategories/Recommended";
+import MostPopular from "@/src/components/BusinessCategories/MostPopular";
 
 
 
@@ -256,6 +258,8 @@ const mappedServices = useMemo(() => {
 </section> */}
 
 <AllServices moduleId={moduleId} categoryId={categoryId} />
+<Recommended moduleId={moduleId} categoryId={categoryId} />
+<MostPopular moduleId={moduleId} categoryId={categoryId} />
 
 
         </>
