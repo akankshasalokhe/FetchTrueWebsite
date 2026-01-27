@@ -6,6 +6,7 @@ import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useTopTrendingServiceByCategoryIdContext } from "@/src/context/TopTrendingServiceByCategoryIdContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   categoryId: string;
@@ -55,6 +56,7 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
               snap-x snap-mandatory
             "
           >
+            <HorizontalScroll>
             {services.map((service) => (
 
               <Link key={service._id} 
@@ -84,6 +86,7 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                                               />
               </Link>
             ))}
+            </HorizontalScroll>
           </div>
         </section>
   );

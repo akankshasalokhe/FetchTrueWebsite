@@ -6,6 +6,7 @@ import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   categoryId: string;
@@ -53,6 +54,7 @@ export default function MostlyPopularService({ categoryId, moduleId }: Props) {
               snap-x snap-mandatory
             "
           >
+            <HorizontalScroll>
             {services.map((service) => (
               <Link key={service.serviceId} 
                             href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service.serviceId}`}
@@ -79,6 +81,7 @@ export default function MostlyPopularService({ categoryId, moduleId }: Props) {
             />
               </Link>
             ))}
+            </HorizontalScroll>
           </div>
         </section>
   );

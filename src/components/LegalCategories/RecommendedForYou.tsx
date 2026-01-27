@@ -6,6 +6,7 @@ import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
 import { useRecommendedServiceByCategoryIdContext } from "@/src/context/RecommendedServiceByCategoryIdContext";
 import Link from "next/link";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   categoryId: string;
@@ -55,6 +56,7 @@ export default function RecommendedForYou({ categoryId, moduleId }: Props) {
               snap-x snap-mandatory
             "
           >
+            <HorizontalScroll>
             {services.map((service) => (
 
               <Link key={service._id} 
@@ -82,6 +84,7 @@ export default function RecommendedForYou({ categoryId, moduleId }: Props) {
                 />
               </Link>
             ))}
+            </HorizontalScroll>
           </div>
         </section>
   );

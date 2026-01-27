@@ -164,6 +164,7 @@ import Image from "next/image";
 import { MapPin, Briefcase } from "lucide-react";
 import { useEffect } from "react";
 import { usePopularProviders } from "@/src/context/PopularProviderContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 export default function LegalExpertsSection() {
   const { providers, loading, fetchPopularProviders } =
@@ -199,6 +200,7 @@ export default function LegalExpertsSection() {
               scrollbar-hide
             "
           >
+            <HorizontalScroll>
             {providers.map((expert) => (
               <div
                 key={expert._id}
@@ -286,6 +288,7 @@ export default function LegalExpertsSection() {
                 </button>
               </div>
             ))}
+            </HorizontalScroll>
           </div>
         </div>
       </div>
