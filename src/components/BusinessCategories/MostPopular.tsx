@@ -99,7 +99,7 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
                 <BusinessCard
                   image={
                     service.thumbnailImage ||
-                    service.category?.image ||
+                    
                     "/image/placeholder.png"
                   }
                   title={service.serviceName}
