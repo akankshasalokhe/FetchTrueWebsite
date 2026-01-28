@@ -54,7 +54,7 @@ export interface FranchiseDetails {
   investmentRange: InvestmentRange[];
   monthlyEarnPotential: MonthlyEarnPotential[];
   franchiseModel: FranchiseModel[];
-  extraSections?: [];
+  extraSections?: any[];
   extraImages?: string[];
 }
 
@@ -84,14 +84,14 @@ export interface ServiceDetails {
     answer: string;
     _id: string;
   }[];
-  extraSections?: [];
+  extraSections?: any[];
   whyChooseUs?: {
     title: string;
     icon: string;
     description: string;
     _id: string;
   }[];
-  packages?: [];
+  packages?: any[];
   weRequired?: {
     title: string;
     description: string;
@@ -119,9 +119,9 @@ export interface ServiceDetails {
   operatingCities?: string[];
   brochureImage?: string[];
   emiAvailable?: string[];
-  counter?: [];
-  franchiseOperatingModel?: [];
-  keyAdvantages?: [];
+  counter?: any[];
+  franchiseOperatingModel?: any[];
+  keyAdvantages?: any[];
   completeSupportSystem?: {
     icon: string;
     title: string;
@@ -129,22 +129,22 @@ export interface ServiceDetails {
     _id: string;
   }[];
   trainingDetails?: string[];
-  agreementDetails?: [];
-  goodThings?: [];
-  compareAndChoose?: [];
-  companyDetails?: [];
+  agreementDetails?: any[];
+  goodThings?: any[];
+  compareAndChoose?: any[];
+  companyDetails?: any[];
   roi?: string[];
   level?: string;
   lessonCount?: number | null;
-  whatYouWillLearn?: [];
-  eligibleFor?: [];
-  courseCurriculum?: [];
-  courseIncludes?: [];
+  whatYouWillLearn?: any[];
+  eligibleFor?: any[];
+  courseCurriculum?: any[];
+  courseIncludes?: any[];
   certificateImage?: string[];
-  whomToSell?: [];
-  include?: [];
-  notInclude?: [];
-  safetyAndAssurance?: [];
+  whomToSell?: any[];
+  include?: any[];
+  notInclude?: any[];
+  safetyAndAssurance?: any[];
 }
 
 export interface Service {
