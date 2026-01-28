@@ -1,42 +1,61 @@
 "use client";
 
+import { useModule } from "@/src/context/CategoriesContext";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
-const categories = [
-  {
-    title: "Design Studio",
-    slug: "design-studio",
-    icon: "/image/DesignStudio.png",
-  },
-  {
-    title: "Digital Marketing",
-    slug: "digital-marketing",
-    icon: "/image/DigitalMarketing.png",
-  },
-  {
-    title: "Brand Marketing",
-    slug: "brand-marketing",
-    icon: "/image/BrandMarketing.png",
-  },
-  {
-    title: "Creative Design",
-    slug: "creative-design",
-    icon: "/image/Design Studio (5).png",
-  },
-  {
-    title: "Event Marketing",
-    slug: "event-marketing",
-    icon: "/image/EventMarketing.png",
-  },
-  {
-    title: "Presentation",
-    slug: "presentation",
-    icon: "/image/Presentation.png",
-  },
-];
+// const categories = [
+//   {
+//     title: "Design Studio",
+//     slug: "design-studio",
+//     icon: "/image/DesignStudio.png",
+//   },
+//   {
+//     title: "Digital Marketing",
+//     slug: "digital-marketing",
+//     icon: "/image/DigitalMarketing.png",
+//   },
+//   {
+//     title: "Brand Marketing",
+//     slug: "brand-marketing",
+//     icon: "/image/BrandMarketing.png",
+//   },
+//   {
+//     title: "Creative Design",
+//     slug: "creative-design",
+//     icon: "/image/Design Studio (5).png",
+//   },
+//   {
+//     title: "Event Marketing",
+//     slug: "event-marketing",
+//     icon: "/image/EventMarketing.png",
+//   },
+//   {
+//     title: "Presentation",
+//     slug: "presentation",
+//     icon: "/image/Presentation.png",
+//   },
+// ];
 
 export default function CategoryModule() {
+
+   const { categories, fetchCategoriesByModule, loading, error } = useModule();
+  const { moduleId } = useParams<{ moduleId: string }>();
+  
+  
+  
+   useEffect(() => {
+    if (!moduleId) return;
+    fetchCategoriesByModule(moduleId);
+  }, [moduleId]);
+  
+  
+  
+  
+    if (loading) return <p>Loading categories...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
   return (
     <div className="">
       {/* Background Layer */}
@@ -54,8 +73,8 @@ export default function CategoryModule() {
           <div className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-2">
             {categories.map((item) => (
               <Link
-                key={item.slug}
-                href={`/MainModules/Marketing/${item.slug}`}
+                key={item._id}
+                href={`/MainModules/Marketing/${moduleId}/${item._id}`}
                 className="shrink-0"
               >
                 <div
@@ -71,30 +90,36 @@ export default function CategoryModule() {
                   "
                 >
                   {/* BACKGROUND IMAGE */}
-                  <Image
+                  {/* <Image
                     src="/image/bg-card.jpeg"
                     alt="Card Background"
                     fill
                     className="object-cover"
-                  />
+                  /> */}
+                  <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                      />
 
                   {/* CONTENT */}
                   <div className="relative z-10 w-full h-full">
 
                     {/* TITLE */}
-                    <p className="font-inter font-semibold text-[14px] sm:text-[16px] leading-[20px] sm:leading-[22px] text-black mt-9 ml-4">
-                      {item.title}
+                    <p className="font-inter font-semibold text-[14px] sm:text-[16px] leading-[20px] sm:leading-[22px] text-black mt-5 ml-5">
+                      {item.name}
                     </p>
 
                     {/* ICON */}
-                    <div className="relative w-[120px] sm:w-[140px] lg:w-[130px] h-[90px] sm:h-[105px] lg:h-[111.95px] mt-12 ml-6">
+                    {/* <div className="relative w-[120px] sm:w-[140px] lg:w-[130px] h-[90px] sm:h-[105px] lg:h-[111.95px] mt-12 ml-6">
                       <Image
-                        src={item.icon}
-                        alt={item.title}
+                        src={item.image}
+                        alt={item.name}
                         fill
                         className="object-contain"
                       />
-                    </div>
+                    </div> */}
 
                   </div>
                 </div>

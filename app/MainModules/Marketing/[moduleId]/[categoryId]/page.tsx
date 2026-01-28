@@ -1,19 +1,59 @@
 'use client';
 
-import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
-import TopTrending from "@/src/components/Marketing/TopTrending";
-import RecommendedForYou from '@/src/components/Marketing/Recommend';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import Recommended from "@/src/components/MarketingCategories/Recommended";
+import MostlyPopular from "@/src/components/MarketingCategories/MostPopular";
+import TopTrending from '@/src/components/MarketingCategories/TopTrending';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useSubCategory } from '@/src/context/SubCategoriesContext';
 
-const navItems = [
-    { label: 'Logo\nDesign', icon: '/image/logodesign.png' },
-    { label: 'Web\nDesign', icon: '/image/webdesign.png' },
-    { label: 'Graphic\nDesign', icon: '/image/graphicdesign.png' },
-    { label: 'Print\nDesign', icon: '/image/printdesign.png' },
-];
+// const navItems = [
+//     { label: 'Logo\nDesign', icon: '/image/logodesign.png' },
+//     { label: 'Web\nDesign', icon: '/image/webdesign.png' },
+//     { label: 'Graphic\nDesign', icon: '/image/graphicdesign.png' },
+//     { label: 'Print\nDesign', icon: '/image/printdesign.png' },
+// ];
 
 export default function DesignStudioPage() {
+
+     const { moduleId,categoryId } = useParams<{
+        moduleId:string;
+        categoryId:string;
+      }>();
+
+            const {
+              subCategories,
+              loading,
+              error,
+              fetchSubCategories,
+            } = useSubCategory();
+            
+            const [currentCategory, setCurrentCategory] = useState<any>(null);
+      
+            useEffect(() => {
+        if (subCategories.length) {
+        //   setActive(subCategories[0]._id);
+      
+          const subCat = subCategories.find(sc => sc._id === categoryId);
+          if (subCat) {
+            setCurrentCategory(subCat.category);
+          } else {
+            setCurrentCategory(subCategories[0].category);
+          }
+        }
+      }, [subCategories]);
+      
+            
+            
+             useEffect(() => {
+              if (categoryId) {
+                fetchSubCategories(categoryId);
+              }
+            }, []);
+      
     return (
         <>
             {/* ---------------- NAVBAR / HERO SECTION ---------------- */}
@@ -35,7 +75,7 @@ export default function DesignStudioPage() {
                     <div className="border-b-2 border-white">
                     <div className="flex items-center gap-6 px-4 md:px-6 py-4 md:ml-8">
                         <div className="flex items-center gap-3 mt-5">
-                            <Link href="/MainModules/Marketing">
+                            <Link href={`/MainModules/Marketing/${moduleId}`}>
                             <img
                                 src="/image/designvector.png"
                                 className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
@@ -43,7 +83,7 @@ export default function DesignStudioPage() {
                             />
                             </Link>
                             <h1 className="text-white font-semibold text-base md:text-lg leading-none">
-                                Design Studio
+                                {currentCategory?.name}
                             </h1>
                         </div>
                     </div>
@@ -58,16 +98,17 @@ export default function DesignStudioPage() {
               md:ml-8
             "
                     >
-                        {navItems.map((item) => (
+                        {subCategories.map((item) => (
+                            
                             <div
-                                key={item.label}
+                                key={item._id}
                                 className="flex flex-col items-center text-white cursor-pointer"
                             >
                                 <div className="w-[42px] h-[42px] md:w-[89.52px] md:h-[89.52px] rounded-full bg-white flex items-center justify-center shadow-md">
                                     <div className="relative w-[18px] h-[18px] md:w-[34px] md:h-[34px]">
                                         <Image
-                                            src={item.icon}
-                                            alt={item.label}
+                                            src={item.image}
+                                            alt={item.name}
                                             fill
                                             className="object-contain"
                                         />
@@ -75,7 +116,7 @@ export default function DesignStudioPage() {
                                 </div>
 
                                 <p className="mt-2 text-[11px] md:text-sm font-medium text-center whitespace-pre-line leading-tight">
-                                    {item.label}
+                                    {item.name}
                                 </p>
                             </div>
                         ))}
@@ -85,13 +126,11 @@ export default function DesignStudioPage() {
 
             {/* ---------------- REMAINING SECTIONS ---------------- */}
              <section className="w-full mt-6 md:mb-10">
-                {/* // <Recommendation />
-                // <MostlyUsed />
-                // <ExploreServices /> */}
+              
           
-            <RecommendedForYou />
-            <MostlyUsed />
-            <TopTrending />
+           <Recommended categoryId={categoryId} moduleId={moduleId} />
+           <MostlyPopular categoryId={categoryId} moduleId={moduleId} />
+           <TopTrending categoryId={categoryId} moduleId={moduleId} />
               </section> 
         </>
     );
