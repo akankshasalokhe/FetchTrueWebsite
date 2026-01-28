@@ -1,17 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import Link from "next/link";
 import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
 import HorizontalScroll from "../ui/HorizontalScroll";
 import ServiceCard from "../ui/ServiceCard";
 
-const bgColors = [
-  "bg-[#E9B3A1]",
-  "bg-[#B78CFF]",
-  "bg-[#8EBEFF]",
-];
+
 
 interface Props {
   categoryId: string;
@@ -33,14 +28,14 @@ export default function AllServices({ categoryId, moduleId }: Props) {
     }
   }, [categoryId]);
 
-    console.log("Top Trending API categoryId:", categoryId);
+    console.log("Top Legal API categoryId:", categoryId);
 
 
   if (loading)
-    return <p className="text-center py-10">Loading top trending services...</p>;
+    return <p className="text-center py-10">Loading All Legal services...</p>;
   if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
   if (services.length === 0)
-    return <p className="text-center py-10">No top trending services found.</p>;
+    return <p className="text-center py-10">No  All Legal services found.</p>;
 
   return (
     <section className="w-full mt-8 lg:mt-14">
@@ -75,7 +70,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
           }
         >
           {viewAll ? (
-            services.map((service, index) => (
+            services.map((service) => (
               <Link
                 key={service._id}
                 href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
@@ -106,7 +101,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
             ))
           ) : (
             <HorizontalScroll>
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <Link
                   key={service._id}
                   href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}

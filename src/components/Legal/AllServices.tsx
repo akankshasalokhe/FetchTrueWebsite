@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useModulewiseServices } from "@/src/context/ModulewiseServiceContext";
 import HorizontalScroll from "../ui/HorizontalScroll";
 import ServiceCard from "../ui/ServiceCard";
 
-const bgColors = ["bg-[#E9B3A1]", "bg-[#B78CFF]", "bg-[#8EBEFF]"];
 
 interface Props {
   moduleId: string;
@@ -68,7 +66,7 @@ export default function AllServices({ moduleId }: Props) {
           }
         >
           {viewAll ? (
-            services.map((service, index) => (
+            services.map((service) => (
               <Link
                 key={service._id}
                 href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
@@ -99,7 +97,7 @@ export default function AllServices({ moduleId }: Props) {
             ))
           ) : (
             <HorizontalScroll>
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <Link
                   key={service._id}
                   href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
