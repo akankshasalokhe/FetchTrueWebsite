@@ -11,6 +11,7 @@ import { useParams } from "next/navigation";
 import { useSubCategory } from "@/src/context/SubCategoriesContext";
 import MostPopular from "@/src/components/FinanceCategories/MostPopular";
 import TopTrending from "@/src/components/FinanceCategories/TopTrending";
+import AllServices from "@/src/components/FinanceCategories/AllServices";
 
 // const tabs = [
 //   { id: "saving", label: "Saving", icon: "💰" },
@@ -117,6 +118,7 @@ export default function FinanceCategoryDetailPage() {
 
      {active && (
   <>
+    <AllServices moduleId={moduleId} categoryId={categoryId} />
     <Recommended moduleId={moduleId} categoryId={categoryId} />
     <MostPopular moduleId={moduleId} categoryId={categoryId} />
     <TopTrending moduleId={moduleId} categoryId={categoryId} />

@@ -1,5 +1,6 @@
 "use client";
 
+import AllServices from "@/src/components/Finance/AllServices";
 import BestSellingSection from "@/src/components/Finance/BestSelling";
 import CategorySection from "@/src/components/Finance/Category";
 import CostEfficientSection from "@/src/components/Finance/CostEfficient";
@@ -120,6 +121,7 @@ export default function FinancePageClient() {
 
 
            <CategorySection />
+           <AllServices moduleId={moduleId} />
            <RecommendedSection moduleId={moduleId} />
            <BestSellingSection moduleId={moduleId}/>
            <RecentlyAddedSection  moduleId={moduleId}/>
