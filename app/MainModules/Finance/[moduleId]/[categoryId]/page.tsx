@@ -12,6 +12,7 @@ import { useSubCategory } from "@/src/context/SubCategoriesContext";
 import MostPopular from "@/src/components/FinanceCategories/MostPopular";
 import TopTrending from "@/src/components/FinanceCategories/TopTrending";
 import AllServices from "@/src/components/FinanceCategories/AllServices";
+import Link from "next/link";
 
 // const tabs = [
 //   { id: "saving", label: "Saving", icon: "💰" },
@@ -76,7 +77,9 @@ export default function FinanceCategoryDetailPage() {
         <div className="max-w-[1440px] mx-auto px-4">
           <div className="flex items-center justify-between h-[60px] bg-[#EEF2F1] rounded-[14px] px-5">
             <div className="flex items-center gap-3">
+              <Link href={`/MainModules/Finance/${moduleId}`}>
               <img src="/image/vector (29).png" className="w-[25px] h-[25px]" />
+              </Link>
               <h2 className="text-[24px] font-semibold text-[#1A1A1A]">
                    {currentCategory?.name}
               </h2>
