@@ -12,6 +12,7 @@ import MostlyUsedService from "@/src/components/Legal/MostlyUsedService";
 import TopTrending from "@/src/components/Legal/TopTrending";
 import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
 import { useParams } from "next/navigation";
+import AllServices from "@/src/components/Legal/AllServices";
 
 // const services = [
 //   {
@@ -257,6 +258,7 @@ const { moduleId } = useParams<{ moduleId: string }>();
 
       
 <CategorySection />
+<AllServices moduleId={moduleId}/>
 <RecommendedForYou moduleId={moduleId}/>
 <MostlyUsedService moduleId={moduleId}/>
 <TopTrending moduleId={moduleId}/>

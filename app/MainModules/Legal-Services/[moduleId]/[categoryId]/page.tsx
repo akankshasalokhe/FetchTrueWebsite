@@ -11,6 +11,7 @@ import { useParams } from "next/navigation";
 import { useModule } from "@/src/context/CategoriesContext";
 import MostlyPopularService from "@/src/components/LegalCategories/MostPopular";
 import TopTrending from "@/src/components/LegalCategories/TopTrending";
+import AllServices from "@/src/components/LegalCategories/AllServices";
 
 
 export default function LegalSubCategoryServiceDetailPage() {
@@ -131,7 +132,7 @@ useEffect(() => {
 
       
 
-      
+      <AllServices categoryId={categoryId} moduleId={moduleId}/>
       <RecommendedForYou categoryId={categoryId} moduleId={moduleId}/>
       <MostlyPopularService categoryId={categoryId} moduleId={moduleId}/>
       <TopTrending categoryId={categoryId} moduleId={moduleId}/>
