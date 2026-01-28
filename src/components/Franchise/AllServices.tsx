@@ -37,7 +37,23 @@ export default function AllServices({ moduleId }: Props) {
       {/* HEADER */}
       <div className="max-w-[1440px] mx-auto px-4 mb-6 flex justify-between">
         <h2 className="text-[22px] font-semibold">All Services</h2>
-
+        
+        
+  {viewAll ? (
+          <button
+            onClick={() => setViewAll(false)}
+            className="text-sm text-gray-600 hover:underline"
+          >
+            Back
+          </button>
+        ) : (
+          <button
+            onClick={() => setViewAll(true)}
+            className="text-sm font-medium text-blue-600 hover:underline"
+          >
+            View All
+          </button>
+        )}
         
       </div>
 

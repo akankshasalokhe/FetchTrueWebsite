@@ -30,7 +30,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
 
     <div
       className="
-        w-[340px] h-[340px] lg:w-[370px] lg:h-[360px]
+        w-[340px] h-[340px] lg:w-[340px] lg:h-[360px]
         bg-white gap-10
         rounded-[16px]
         border border-[#E6E6E6]
