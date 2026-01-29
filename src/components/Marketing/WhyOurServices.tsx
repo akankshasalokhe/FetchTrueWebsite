@@ -128,10 +128,137 @@
 
 
 
+// "use client";
+
+// import Image from "next/image";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { useState, useEffect } from "react";
+// import { useParams } from "next/navigation";
+// import { useWhyChooseService } from "@/src/context/WhyJustOurServiceContext";
+
+// export default function WhyJustOurServices() {
+//   const { moduleId } = useParams();
+//   const { services, fetchWhyServices } = useWhyChooseService();
+
+//   const [features, setFeatures] = useState<any[]>([]);
+
+//   useEffect(() => {
+//     if (moduleId) {
+//       fetchWhyServices(moduleId as string);
+//     }
+//   }, [moduleId]);
+
+//   useEffect(() => {
+//     if (!services.length || !moduleId) return;
+
+//     const moduleServices = services.filter(
+//       (service) => service.module?._id === moduleId
+//     );
+
+//     const items = moduleServices.flatMap(
+//       (service) => service.items || []
+//     );
+
+//     setFeatures(items);
+//   }, [services, moduleId]);
+
+//   /* 🔁 AUTO ROTATE */
+//   useEffect(() => {
+//     if (features.length <= 1) return;
+
+//     const interval = setInterval(() => {
+//       setFeatures((prev) => {
+//         const copy = [...prev];
+//         const first = copy.shift();
+//         if (first) copy.push(first);
+//         return copy;
+//       });
+//     }, 3500);
+
+//     return () => clearInterval(interval);
+//   }, [features.length]);
+
+//   return (
+//     <section className="relative w-full py-16 bg-[#2A67F4] mt-24 mb-10 overflow-hidden">
+//       {/* BACKGROUND */}
+//       <Image
+//         src="/image/marketingbgdesign.png"
+//         alt="Background"
+//         fill
+//         className="object-cover"
+//         priority
+//       />
+
+//       {/* CONTENT */}
+//       <div className="relative z-10 max-w-[1100px] mx-auto px-4 flex flex-col items-center gap-12">
+//         {/* TITLE */}
+//         <h2 className="text-white text-center font-inter font-medium text-[28px] sm:text-[32px] lg:text-[36px]">
+//           Why Just Our Services
+//         </h2>
+
+//         {/* CARDS */}
+//         <div className="flex flex-col gap-6 w-full">
+//           <AnimatePresence mode="popLayout">
+//             {features.map((item, i) => {
+//               const isActive = i === 0;
+
+//               return (
+//                 <motion.div
+//                   key={`${item._id || item.title}-${i}`}
+//                   layout
+//                   initial={{ opacity: 0, y: -40 }}   // 👈 upar se aata hai
+//                   animate={{ opacity: 1, y: 0 }}     // normal position
+//                   exit={{ opacity: 0, y: 40 }}       // 👈 niche jaata hai
+//                   transition={{ duration: 0.45, ease: "easeInOut" }}
+//                   className={`flex items-center gap-6 px-6 sm:px-8 py-6 rounded-[22px]
+//                     ${
+//                       isActive
+//                         ? "bg-white shadow-2xl z-20"
+//                         : "bg-white/35 backdrop-blur-sm"
+//                     }`}
+//                 >
+//                   {/* ICON */}
+//                   <div
+//                     className={`flex items-center justify-center shrink-0
+//                     w-[56px] h-[56px] sm:w-[64px] sm:h-[64px] lg:w-[70px] lg:h-[70px]
+//                     rounded-full
+//                     ${
+//                       isActive
+//                         ? "bg-[#2164F4] text-white"
+//                         : "bg-white/60 text-[#2164F4]"
+//                     }`}
+//                   >
+//                     <img
+//                       src={item.icon}
+//                       alt={item.title}
+//                       className="w-8 h-8 object-contain"
+//                     />
+//                   </div>
+
+//                   {/* CONTENT */}
+//                   <div>
+//                     <h3 className="font-inter font-semibold text-[18px] sm:text-[26px] lg:text-[32px] text-[#2164F4]">
+//                       {item.title}
+//                     </h3>
+//                     <p className="font-inter text-[14px] sm:text-[18px] lg:text-[22px] text-[#1E3A8A]">
+//                       {item.description}
+//                     </p>
+//                   </div>
+//                 </motion.div>
+//               );
+//             })}
+//           </AnimatePresence>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
 "use client";
 
 import Image from "next/image";
-import { CheckCircle, Eye, Zap, Smartphone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
@@ -140,23 +267,18 @@ import { useWhyChooseService } from "@/src/context/WhyJustOurServiceContext";
 
 
 export default function WhyJustOurServices() {
-  
+ const { moduleId } = useParams();
+  const { services, fetchWhyServices } = useWhyChooseService();
 
-    const {moduleId} = useParams();
-    const { services, loading, fetchWhyServices } = useWhyChooseService();
+  const [features, setFeatures] = useState<any[]>([]);
 
-      const [features, setFeatures] = useState<any[]>([]);
-
-  
-useEffect(()=>{
-    if(moduleId){
-      fetchWhyServices(moduleId as string)
+    useEffect(() => {
+    if (moduleId) {
+      fetchWhyServices(moduleId as string);
     }
-  },[moduleId]);
+  }, [moduleId]);
 
-  console.log("whyjust moduleid:",moduleId)
-
-useEffect(() => {
+   useEffect(() => {
     if (!services.length || !moduleId) return;
 
     const moduleServices = services.filter(
@@ -170,40 +292,20 @@ useEffect(() => {
     setFeatures(items);
   }, [services, moduleId]);
 
-
-  
-
   // 🔁 Auto rotate active card
   useEffect(() => {
+
     const interval = setInterval(() => {
       setFeatures((prev) => {
         const updated = [...prev];
-        const activeItem = updated.splice(0, 1)[0]; // remove first
-        updated.push(activeItem); // move to last
+        const activeItem = updated.splice(0, 1)[0]; 
+        updated.push(activeItem); 
         return updated;
       });
     }, 3500);
 
     return () => clearInterval(interval);
-  }, []);
-
-//  useEffect(() => {
-//     if (features.length <= 1) return;
-
-//     const interval = setInterval(() => {
-//       setFeatures((prev = []) => {
-//         if (prev.length <= 1) return prev;
-
-//         const copy = [...prev];
-//         const first = copy.shift();
-//         if (first) copy.push(first);
-//         return copy;
-//       });
-//     }, 3500);
-
-//     return () => clearInterval(interval);
-//   }, []); 
-
+  }, [features.length]);
 
   return (
     <section className="relative w-full py-15 bg-[#2A67F4] mt-24 mb-10 overflow-hidden">
@@ -227,6 +329,7 @@ useEffect(() => {
         <div className="flex flex-col gap-6 w-full">
           <AnimatePresence>
             {features.map((item, i) => {
+              // const Icon = item.icon;
               const isActive = i === 0;
 
               return (
@@ -262,12 +365,12 @@ useEffect(() => {
                         : "bg-white/60 text-[#2164F4]"
                     }`}
                   >
-                    <img
+                     <img
                       src={item.icon}
                       alt={item.title}
                       className="w-8 h-8 object-contain"
-                    />                  
-                    </div>
+                    />
+                  </div>
 
                   {/* CONTENT */}
                   <div>
@@ -287,3 +390,11 @@ useEffect(() => {
     </section>
   );
 }
+
+
+
+
+
+
+
+
