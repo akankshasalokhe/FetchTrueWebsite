@@ -132,6 +132,7 @@ import { useEffect } from "react";
 import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
 import Link from "next/link";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 const bgColors = [
   "bg-[#E9B3A1]",
@@ -166,8 +167,9 @@ export default function MostPopular({ categoryId }: Props) {
       </div>
 
       {/* SCROLL */}
-      <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
+      <div className="max-w-[1440px] mx-auto px-4 pb-8 overflow-x-auto no-scrollbar">
         <div className="flex gap-4">
+          <HorizontalScroll>
           {services.map((service, index) => {
             const investment =
               service.franchiseDetails.investmentRange?.[0];
@@ -195,6 +197,7 @@ export default function MostPopular({ categoryId }: Props) {
               </Link>
             );
           })}
+          </HorizontalScroll>
         </div>
       </div>
     </section>

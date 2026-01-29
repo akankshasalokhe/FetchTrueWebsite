@@ -7,6 +7,7 @@ import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 
 
@@ -56,6 +57,7 @@ export default function MostlyUsedService({moduleId}:{moduleId:string}) {
               snap-x snap-mandatory
             "
           >
+            <HorizontalScroll>
             {services.map((service) => (
               <Link  href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service.serviceId}`}
               key={service.serviceId} className="snap-start shrink-0">
@@ -79,6 +81,7 @@ export default function MostlyUsedService({moduleId}:{moduleId:string}) {
                            />
               </Link>
             ))}
+            </HorizontalScroll>
           </div>
         </section>
   );

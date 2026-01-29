@@ -7,45 +7,9 @@ import ServiceCard from "../ui/ServiceCard";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
-// const services = [
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "GST Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-// ];
+
 
 export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
 
@@ -94,6 +58,7 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
               snap-x snap-mandatory
             "
           >
+            <HorizontalScroll>
             {services.map((service) => (
 
               <Link  href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
@@ -122,6 +87,7 @@ export default function RecommendedForYou({ moduleId }:{ moduleId:string}) {
                 />
               </Link>
             ))}
+            </HorizontalScroll>
           </div>
         </section>
   );

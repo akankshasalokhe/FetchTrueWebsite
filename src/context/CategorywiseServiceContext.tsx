@@ -151,7 +151,7 @@ export interface Service {
   _id: string;
   serviceName: string;
   category: Category;
-  subcategory: any;
+  subcategory: [];
   price: number;
   discount: number;
   gst: number;
@@ -159,7 +159,7 @@ export interface Service {
   gstInRupees?: number;
   totalWithGst: number;
   discountedPrice: number;
-  providerPrices?: any[];
+  providerPrices?:[];
   thumbnailImage: string;
   bannerImages: string[];
   tags: string[];

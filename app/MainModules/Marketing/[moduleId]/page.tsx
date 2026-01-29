@@ -10,9 +10,15 @@ import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
 import TopTrending from "@/src/components/Marketing/TopTrending";
 import WhyJustOurServices from "@/src/components/Marketing/WhyOurServices";
 import SuggestedProviders from "@/src/components/Marketing/Providers";
+import { useParams } from "next/navigation";
 
 export default function MarketingHero() {
   const sliderRef = useRef<HTMLDivElement | null>(null);
+
+   const { moduleId } = useParams<{ moduleId: string }>();
+   
+   
+     console.log("MODULE ID IN CLIENT:", moduleId);
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -137,12 +143,12 @@ export default function MarketingHero() {
           </div>
         </section>
       </section>
-      <CategoryModule />
-      <RecommendedForYou />
-      <MostlyUsed />
-      <TopTrending />
-      <WhyJustOurServices />
-      <SuggestedProviders />
+          <CategoryModule/>
+      <RecommendedForYou moduleId={moduleId}/>
+      <MostlyUsed moduleId={moduleId}/>
+    <TopTrending moduleId={moduleId}/>
+    <WhyJustOurServices />
+    <SuggestedProviders moduleId={moduleId}/>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { useMostPopular } from "@/src/context/MostPopularContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   moduleId: string;
@@ -107,6 +108,7 @@ export default function HighDemand({ moduleId }: Props) {
           <div className="pointer-events-none absolute inset-0 rounded-tl-[36px]" />
 
           <div className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
+            <HorizontalScroll>
             {services.map((service) => {
               const investment =
                 service.franchiseDetails?.investmentRange?.[0]?.range || "—";
@@ -137,6 +139,7 @@ export default function HighDemand({ moduleId }: Props) {
                 </Link>
               );
             })}
+            </HorizontalScroll>
           </div>
         </div>
 

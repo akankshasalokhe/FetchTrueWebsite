@@ -174,11 +174,11 @@ export default function FinanceCard({
   keyvalues = [],
 }:any) {
   return (
-    <div className="w-[340px] lg:w-[430px] h-[440px] bg-white rounded-[14px] border border-[#E7E7E7] shadow-[0px_4px_14px_rgba(0,0,0,0.06)] overflow-hidden">
+    <div className="w-[340px] lg:w-[350px] h-[420px] bg-white rounded-[14px] border border-[#E7E7E7] shadow-[0px_4px_14px_rgba(0,0,0,0.06)] overflow-hidden">
       
       {/* IMAGE */}
       <div className="relative w-full aspect-[16/9]">
-        <div className="h-[220px] p-2 overflow-hidden flex items-center justify-center">
+        <div className="h-[185px] p-2 overflow-hidden flex items-center justify-center">
           <img
             src={image}
             alt={title}

@@ -123,7 +123,7 @@ const WhatYouWillAchieve = ({ moduleId }: Props) => {
 
         {/* TITLE */}
         <h2 className="text-[24px] font-medium text-[#1A1A1A] mb-6">
-          What you’ll Achieve
+          What you’ll Archive
         </h2>
 
         {/* CARD */}

@@ -1029,6 +1029,7 @@
 
 
 "use client";
+import AllServices from "@/src/components/Business/AllServices";
 import Category from "@/src/components/Business/Category";
 import HighDemand from "@/src/components/Business/HighDemand";
 import Recommended from "@/src/components/Business/Recommended";
@@ -1137,7 +1138,7 @@ import { useParams } from "next/navigation";
 
 export default function BusinessPageClient() {
 
-    const { moduleId } = useParams<{ moduleId: string }>();
+    const { moduleId,categoryId } = useParams<{ categoryId:string ,moduleId: string }>();
     
     
       console.log("MODULE ID IN CLIENT:", moduleId);
@@ -1268,6 +1269,8 @@ export default function BusinessPageClient() {
 
 {/* category */}
 <Category />
+
+<AllServices moduleId={moduleId} categoryId={categoryId}/>
 
 <Recommended moduleId={moduleId}/>
 

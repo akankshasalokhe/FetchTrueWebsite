@@ -5,6 +5,7 @@ import FranchiseCard from "../ui/FranchiseCard";
 import { useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import { useParams } from "next/navigation";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 
 
@@ -44,6 +45,7 @@ export default function RecommendedSection({moduleId}:Props) {
       {/* SCROLL */}
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4 pb-4">
+          <HorizontalScroll>
           {services.map((service) => (
             <Link key={service._id}   href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
 >
@@ -79,6 +81,7 @@ export default function RecommendedSection({moduleId}:Props) {
               />
             </Link>
           ))}
+          </HorizontalScroll>
         </div>
       </div>
     </section>

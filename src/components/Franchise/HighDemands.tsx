@@ -133,6 +133,7 @@ import FranchiseMostPopularCard from "../ui/FranchiseMostPopularCard";
 import { useMostPopular } from "@/src/context/MostPopularContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 const bgColors = [
   "bg-[#E9B3A1]",
@@ -174,6 +175,7 @@ export default function MostPopular({ moduleId }: Props) {
       {/* SCROLL */}
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4">
+          <HorizontalScroll>
           {services.map((service, index) => {
             const investment =
               service.franchiseDetails.investmentRange?.[0];
@@ -201,6 +203,7 @@ export default function MostPopular({ moduleId }: Props) {
               </Link>
             );
           })}
+          </HorizontalScroll>
         </div>
       </div>
     </section>

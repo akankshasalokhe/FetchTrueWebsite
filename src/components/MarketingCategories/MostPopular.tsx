@@ -65,24 +65,26 @@
 import { useEffect } from "react";
 import MarketingCard from "../ui/MarketingCard";
 import { useMostPopular } from "@/src/context/MostPopularContext";
+import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServiceByCategoryIdContext";
 
 interface Props {
+     categoryId: string;
   moduleId: string;
 }
 
-export default function MostlyUsed({ moduleId }: Props) {
+export default function MostlyPopular({ moduleId,categoryId }: Props) {
   const {
     services,
     loading,
     error,
-    fetchMostPopular,
-  } = useMostPopular();
+    fetchMostPopularServiceByCategory,
+  } = useMostPopularServiceByCategory();
 
   useEffect(() => {
-    if (moduleId) {
-      fetchMostPopular(moduleId);
+    if (categoryId) {
+      fetchMostPopularServiceByCategory(categoryId);
     }
-  }, [moduleId]);
+  }, [categoryId]);
 
   if (loading) {
     return (

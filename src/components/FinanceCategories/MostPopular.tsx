@@ -39,7 +39,7 @@ const MostPopular = ({ categoryId,moduleId }:Props) => {
        if (error) return null;
 
   return (
-    <section className="w-full py-14 bg-[#F6FBF7]">
+    <section className="w-full bg-[#F6FBF7]">
       <div className="max-w-[1440px] mx-auto px-4">
 
         {/* TITLE */}
