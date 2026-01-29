@@ -149,8 +149,8 @@ export default function Benefits({ benefits }: BenefitsProps) {
     return (
         <section className="bg-[#F6F6F6] py-8">
             {/* ===== Title ===== */}
-            <div className="flex items-start lg:items-center lg:justify-center ml-4 mb-4">
-                <h2 className="text-[#2164F4] font-semibold text-[16px] lg:text-[36px]">
+            <div className="flex items-start md:justify-center lg:items-center lg:justify-center ml-4 mb-4">
+                <h2 className="text-[#2164F4] font-semibold text-[16px] md:text-[24px] lg:text-[36px]">
                     Benefits
                 </h2>
             </div>

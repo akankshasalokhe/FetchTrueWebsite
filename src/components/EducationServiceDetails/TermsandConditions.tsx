@@ -1,38 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
-// "use client";
-
-// type TermsAndConditionsProps = {
-//   termsAndConditions?: string[];
-// };
-
-// export default function TermsAndConditions({
-//   termsAndConditions,
-// }: TermsAndConditionsProps) {
-//   return (
-//     <section className="bg-gray-100 -mt-12 py-10 px-4">
-// {/* TITLE */}
-// <div className="flex items-start ml-2 md:ml-12 mb-8">
-//   <h2 className="more-info-title">Terms and Conditions</h2>
-// </div>
-
-//       <div className="md:w-[700px] lg:w-[1321px] mx-auto">
-//         <div className="p-6 md:p-8 shadow-sm bg-white space-y-6">
-//           {termsAndConditions?.map((html, index) => (
-//             <div
-//               key={index}
-//               className="terms-content text-[14px] md:text-[18px] lg:text-[24px] text-gray-700"
-//               dangerouslySetInnerHTML={{ __html: html }}
-//             />
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -44,10 +9,10 @@ type TermsAndConditionsProps = {
 type ParsedTerm = {
   title: string;
   points: string[];
-  rawPoints: string[]; // keeps original HTML for colors
+  rawPoints: string[]; 
 };
 
-// Determine if text is a heading/title
+
 function isLikelyTitle(text: string) {
   return (
     text.endsWith(":") ||
@@ -55,7 +20,7 @@ function isLikelyTitle(text: string) {
   );
 }
 
-// Parse HTML into structured terms while keeping <span> styles
+
 function parseTermsHtml(html: string): ParsedTerm[] {
   if (typeof window === "undefined" || !html) return [];
 
@@ -69,7 +34,7 @@ function parseTermsHtml(html: string): ParsedTerm[] {
 
   spans.forEach(span => {
     const text = span.textContent?.trim();
-    const htmlContent = span.outerHTML; // keep colors/styles
+    const htmlContent = span.outerHTML; 
 
     if (!text) return;
 

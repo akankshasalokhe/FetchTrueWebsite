@@ -190,13 +190,13 @@ function PackageCard({ pkg }: Props) {
     <div className="bg-white border border-lb-xl border-gray-200 rounded-xl overflow-hidden flex flex-col h-full">
       {/* CONTENT */}
       <div className="p-6 flex-1">
-        <h3 className="text-[12px] lg:text-[24px] font-semibold mb-3">
+        <h3 className="text-[12px] md:text-[18px] lg:text-[24px] font-semibold mb-3">
           {pkg.title}
         </h3>
 
         <div className="h-px bg-gray-200 mb-4" />
 
-        <p className="text-[10px] lg:text-[16px] font-medium mb-2">
+        <p className="text-[10px] md:text-[16px] lg:text-[16px] font-medium mb-2">
           Includes
         </p>
 
@@ -204,24 +204,24 @@ function PackageCard({ pkg }: Props) {
           {pkg.items.map((item: string, i: number) => (
             <li key={i} className="flex items-start gap-2">
               <span className="mt-2 w-1.5 h-1.5 bg-gray-500 rounded-full flex-shrink-0"></span>
-              <span className="text-[10px] lg:text-[16px]">{item}</span>
+              <span className="text-[10px] md:text-[16px] lg:text-[16px]">{item}</span>
             </li>
           ))}
         </ul>
 
         {/* PRICE */}
         <div className="mt-6">
-          <p className="text-[#e56b2f] text-[14px] lg:text-[36px] font-semibold">
+          <p className="text-[#e56b2f] text-[14px] md:text-[16px] lg:text-[36px] font-semibold">
             {pkg.price}
           </p>
-          <p className="text-[10px] lg:text-[20px] font-medium mt-1">
+          <p className="text-[10px] md:text-[14px] lg:text-[20px] font-medium mt-1">
             {pkg.time} <span className="text-gray-500">Time</span>
           </p>
         </div>
       </div>
 
       {/* BUTTON */}
-      <button className="w-full bg-[#d86b38] text-white text-[12px] lg:text-[18px] font-medium py-5 rounded-b-[40px] hover:bg-[#c85f2f] transition">
+      <button className="w-full bg-[#d86b38] text-white text-[12px] md:text-[15px] lg:text-[18px] font-medium py-5 rounded-b-[40px] hover:bg-[#c85f2f] transition">
         Select Package
       </button>
     </div>

@@ -56,8 +56,8 @@
 
 "use client";
 
-import { Phone, Mail, Share2, ShoppingCart } from "lucide-react";
-import Link from "next/link";
+import { Phone, Mail } from "lucide-react";
+
 
 type ConnectWithItem = {
   _id: string;
@@ -77,71 +77,35 @@ export default function ConnectWith({ connectWith }: ConnectWithProps) {
 
   return (
     <section className="bg-gray-100 p-4">
-      <div className="md:w-[700px] lg:w-[1320px] mx-auto md:flex-none lg:flex lg:items-center lg:justify-between bg-white rounded-xl px-4 py-5 md:px-10 md:py-10  gap-4">
+      <div className="md:w-[500px] lg:w-[700px] md:ml-auto lg:mr-[100px] md:flex-none lg:flex lg:items-center lg:justify-between bg-white rounded-xl px-4 py-5 md:px-10 md:py-10  gap-4">
 
         {/* LEFT */}
-        <div className="flex flex-row items-center gap-6">
-          <p className="text-teal-600 text-[10px] md:text-[24px] mb-1">
-            Connect With
-          </p>
-          <h2 className="text-[14px] md:text-[28px] lg:text-[36px] font-semibold text-[#5A3A2E]">
-            {manager.name}
-          </h2>
+        <div className="flex  items-center justify-between w-full">
+          <div className="flex flex-col">
+            <p className="text-teal-600 text-[10px] md:text-[18px] lg:text-[24px] mb-1 whitespace-nowrap">
+              Connect With
+            </p>
+            <h2 className="text-[14px] md:text-[28px] lg:text-[36px] font-semibold text-[#5A3A2E] whitespace-nowrap">
+              {manager.name}
+            </h2>
+          </div>
 
           <div className="flex items-center gap-4">
-          <a
-            href={`tel:${manager.mobileNo}`}
-            className="p-2 rounded-full hover:bg-gray-100"
-          >
-            <Phone className="text-green-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
-          </a>
+            <a
+              href={`tel:${manager.mobileNo}`}
+              className="p-2 rounded-full hover:bg-gray-100"
+            >
+              <Phone className="text-green-500 w-[24px] h-[24px] md:w-[32px] md:h-[32px] lg:w-[45px] lg:h-[45px]" />
+            </a>
 
-          <a
-            href={`mailto:${manager.email}`}
-            className="p-2 rounded-full hover:bg-gray-100"
-          >
-            <Mail className="text-blue-500 w-[24px] h-[24px] md:w-[45px] md:h-[45px]" />
-          </a>
-        </div>
-
-        </div>
-
-       
-        
-        {/* RIGHT BUTTONS */}
-
-        {/* DESKTOP VERSION */}
-        <div className="hidden md:hidden lg:block items-center gap-3 w-full md:w-auto">
-          <div className="flex flex-row gap-4">
-            <Link href="/MainModules/Checkout">
-              <button className="flex items-center w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md font-medium justify-center">
-                <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px]" />
-                Check out
-              </button>
-            </Link>
-
-            <button className="flex items-center w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[32px] px-5 py-3 rounded-md font-medium justify-center">
-              <Share2 className="w-5 h-5 md:w-[48px] md:h-[48px]" />
-              Share
-            </button>
+            <a
+              href={`mailto:${manager.email}`}
+              className="p-2 rounded-full hover:bg-gray-100"
+            >
+              <Mail className="text-blue-500 w-[24px] h-[24px] md:w-[32px] md:h-[32px] lg:w-[45px] lg:h-[45px]" />
+            </a>
           </div>
-        </div>
 
-        {/* MOBILE VERSION */}
-        <div className="block md:block lg:hidden flex flex-row items-center gap-3 w-full md:w-auto">
-          <div className="flex flex-row md:flex-row gap-4 mt-4">
-            <Link href="/MainModules/Checkout">
-              <button className="flex items-center w-[100px] md:w-[298px] gap-2 bg-green-500 hover:bg-green-600 text-white text-[14px] md:text-[24px] lg:text-[32px] px-5 py-3 rounded-md font-medium justify-center whitespace-nowrap">
-                <ShoppingCart className="w-5 h-5 md:w-[48px] md:h-[48px] flex shrink-0" />
-                Check out
-              </button>
-            </Link>
-
-            <button className="flex items-center w-[100px] md:w-[298px] gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] md:text-[24px] lg:text-[32px] px-2 py-3 rounded-md font-medium justify-center">
-              <Share2 className="w-5 h-5 md:w-[48px] md:h-[48px]" />
-              Share
-            </button>
-          </div>
         </div>
 
       </div>

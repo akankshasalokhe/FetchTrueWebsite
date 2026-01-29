@@ -27,7 +27,7 @@ export default function Documents({
       {/* TITLE */}
       <div className="flex items-start md:justify-center mb-4">
         <h2
-          className="text-white bg-black px-6 md:px-12 py-2 text-[12px] md:text-[32px] font-semibold"
+          className="text-white bg-black px-6 md:px-12 py-2 text-[12px] md:text-[18px] lg:text-[32px] font-semibold"
           style={{
             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
           }}
@@ -92,7 +92,7 @@ function DocumentCard({
   return (
     <div className="bg-white rounded-xl mt-4 shadow-md p-4 md:p-0">
       {/* Header */}
-      <div className="bg-[#A7C2E3] hidden md:block md:text-[24px] text-white w-full text-center py-2 rounded-md font-semibold mb-4">
+      <div className="bg-[#A3C0E1] hidden md:block md:text-[24px] text-white w-full text-center py-2 rounded-md font-semibold mb-4">
         {title}
       </div>
 

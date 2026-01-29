@@ -45,7 +45,7 @@ export default function FAQs ({ faq }:  faqProps ) {
                                     onClick={() => toggleFAQ(faq._id)}
                                     className="w-full flex justify-between items-center px-5 py-4 text-left"
                                 >
-                                    <span className="text-[14px] md:text-[24px] font-medium text-gray-800">
+                                    <span className="text-[14px] md:text-[18px] lg:text-[24px] font-medium text-gray-800">
                                          {faq.question}
                                     </span>
 
@@ -63,7 +63,7 @@ export default function FAQs ({ faq }:  faqProps ) {
                                     className={`px-5 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40 pb-4" : "max-h-0"
                                         }`}
                                 >
-                                    <p className="text-[12px] md:text-[20px] text-gray-600 leading-relaxed">
+                                    <p className="text-[12px] md:text-[18px] lg:text-[20px] text-gray-600 leading-relaxed">
                                         {faq.answer}
                                     </p>
                                 </div>

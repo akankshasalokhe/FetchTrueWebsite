@@ -61,7 +61,7 @@ export default function MoreInformation({ moreInfo }: MoreInformationProps) {
             {/* TITLE */}
             <div className="flex items-center md:justify-center mb-12">
                 <h2
-                    className="text-white bg-black px-8 py-2 text-[12px] md:text-[32px] font-semibold"
+                    className="text-white bg-black px-8 py-2 text-[12px] md:text-[18px] lg:text-[32px] font-semibold"
                     style={{
                         clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
                     }}

@@ -5,14 +5,14 @@ import CategoryModule from "@/src/components/Marketing/Category";
 import { Home, Bookmark, Search } from "lucide-react";
 import Link from "next/link";
 import RecommendedForYou from "@/src/components/Marketing/Recommend";
-import { useEffect,useRef} from "react";
+import { useEffect, useRef } from "react";
 import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
 import TopTrending from "@/src/components/Marketing/TopTrending";
 import WhyJustOurServices from "@/src/components/Marketing/WhyOurServices";
 import SuggestedProviders from "@/src/components/Marketing/Providers";
 
 export default function MarketingHero() {
-   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -109,10 +109,10 @@ export default function MarketingHero() {
             One Service That you need to stand out in market
           </h1>
         </div>
-      
 
-      {/* ================= OVERLAPPING CARD CAROUSEL ================= */}
-      <section className="relative z-50 w-full -mt-[140px] pb-30">
+
+        {/* ================= OVERLAPPING CARD CAROUSEL ================= */}
+        <section className="relative z-50 w-full -mt-[140px] pb-30">
           <div className="overflow-hidden">
             <div
               ref={sliderRef}
@@ -137,12 +137,12 @@ export default function MarketingHero() {
           </div>
         </section>
       </section>
-          <CategoryModule/>
+      <CategoryModule />
       <RecommendedForYou />
       <MostlyUsed />
-    <TopTrending />
-    <WhyJustOurServices />
-    <SuggestedProviders />
+      <TopTrending />
+      <WhyJustOurServices />
+      <SuggestedProviders />
     </div>
   );
 }

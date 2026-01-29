@@ -56,10 +56,10 @@ export default function MoreInformation({ moreInfo }: moreInfoProps) {
 
                             {isActive && (
                                 <div className="absolute inset-0 p-8 text-white">
-                                    <h3 className="text-[36px] font-semibold mb-3">
+                                    <h3 className="md:text-[24px] lg:text-[36px] font-semibold mb-3">
                                         {item.title}
                                     </h3>
-                                    <p className="text-[24px] max-w-md">
+                                    <p className="md:text-[18px] lg:text-[24px] max-w-md">
                                         {item.description}
                                     </p>
                                 </div>

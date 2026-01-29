@@ -23,8 +23,8 @@ import { RecommendedCategoryProvidersProvider } from "@/src/context/RecommendedC
 import { TrendingCategoryProvider } from "@/src/context/TrendingCategoryProviderContext";
 import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext";
 import { CategorywiseServiceProvider } from "@/src/context/CategorywiseServiceContext";
-
-
+import { ReviewProvider } from "@/src/context/ReviewContext"
+import { CheckoutProvider } from "@/src/context/CheckoutContext"
 
 
 export const metadata = {
@@ -57,12 +57,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                             <WhyChooseServiceProvider>
                                               <CategorywiseServiceProvider>
 
-                                          <ModulewiseServiceProvider>
-                                          <OfferProvider>
-                                                {/* <Navbar /> */}
-                                                <main>{children}</main>
-                                  </OfferProvider>
-                                  </ModulewiseServiceProvider>
+                                                <ModulewiseServiceProvider>
+                                                  <OfferProvider>
+                                                    <ReviewProvider>
+                                                      <CheckoutProvider>
+                                                        {/* <Navbar /> */}
+                                                        <main>{children}</main>
+
+                                                      </CheckoutProvider>
+
+                                                    </ReviewProvider>
+                                                  </OfferProvider>
+                                                </ModulewiseServiceProvider>
                                                 <Footer />
                                               </CategorywiseServiceProvider>
                                             </WhyChooseServiceProvider>

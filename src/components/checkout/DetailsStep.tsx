@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import CustomerList from "./CustomerList";
 import CouponsDialog from "./CouponsDialog";
+import { useCheckout } from "@/src/context/CheckoutContext";
 
 /* ================= MOCK DATA ================= */
 
@@ -56,6 +57,13 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
     const [selected, setSelected] = useState("me");
     const [openSidebar, setOpenSidebar] = useState(false);
     const [openCoupons, setOpenCoupons] = useState(false);
+    const { selectedPackage } = useCheckout();
+
+
+    if (!selectedPackage) {
+  return <p className="text-center">No package selected</p>;
+}
+
 
     const paymentData = {
         listingPrice: 1000,
@@ -92,7 +100,7 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
     return (
         <>
             {/* ======================================================
-                DESKTOP VIEW (UNCHANGED)
+                DESKTOP VIEW 
             ====================================================== */}
             <section className="max-w-[1400px] hidden md:block lg:block mx-auto">
                 {/* ===== MAIN GRID ===== */}

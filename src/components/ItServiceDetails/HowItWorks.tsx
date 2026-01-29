@@ -190,7 +190,7 @@ export default function HowItWorks({ howItWorks = [] }: HowItWorksProps) {
       </div>
 
       {/* ================= DESKTOP ================= */}
-      <div className="hidden lg:block relative w-[1200px] mx-auto">
+      <div className="hidden md:block lg:block relative md:w-[700px] lg:w-[1200px] mx-auto">
         {steps[0] && steps[1] && (
           <div className="flex justify-between">
             <Card step={steps[0]} index={0} />
@@ -199,12 +199,12 @@ export default function HowItWorks({ howItWorks = [] }: HowItWorksProps) {
         )}
 
         {steps.length > 2 && (
-          <Arrow className="absolute top-[135px] left-1/2 -translate-x-1/2" />
+          <Arrow className="absolute md:top-[90px] lg:top-[135px] left-1/2 -translate-x-1/2" />
         )}
 
         {steps.length > 3 && (
           <Arrow
-            className="absolute top-[330px] right-[240px]"
+            className="absolute md:top-[230px] lg:top-[330px] md:right-[130px] lg:right-[240px]"
             rotate={90}
           />
         )}
@@ -220,11 +220,11 @@ export default function HowItWorks({ howItWorks = [] }: HowItWorksProps) {
         {steps.length > 4 && (
           <>
             <Arrow
-              className="absolute top-[555px] left-1/2 -translate-x-1/2"
+              className="absolute md:top-[390px] lg:top-[555px] left-1/2 -translate-x-1/2"
               rotate={180}
             />
             <Arrow
-              className="absolute top-[750px] left-[230px]"
+              className="absolute md:top-[550px] lg:top-[750px] md:left-[120px] lg:left-[230px]"
               rotate={90}
             />
 
@@ -250,40 +250,40 @@ export default function HowItWorks({ howItWorks = [] }: HowItWorksProps) {
       </div>
 
       {/* ================= MOBILE ================= */}
-      <div className="lg:hidden px-2 relative">
+      <div className="md:hidden lg:hidden px-2 relative">
         <div className="grid grid-cols-2 gap-8 items-center">
           {steps[0] && <MobileCard step={steps[0]} index={0} />}
           {steps[1] && <MobileCard step={steps[1]} index={1} />}
         </div>
 
         {steps.length > 2 && (
-          <div className="flex justify-center my-10">
+          <div className="flex justify-center my-[-80]">
             <Arrow mobile />
           </div>
         )}
 
         {steps.length > 2 && (
-          <div className="flex justify-end pr-12 my-6">
+          <div className="flex justify-end pr-12 my-35">
             <Arrow rotate={90} mobile />
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-2 -mt-[130px] gap-8 items-center">
           {steps[2] && <MobileCard step={steps[2]} index={2} />}
           {steps[3] && <MobileCard step={steps[3]} index={3} />}
         </div>
 
         {steps.length > 4 && (
           <>
-            <div className="flex justify-center my-10">
+            <div className="flex justify-center my-[-80]">
               <Arrow rotate={180} mobile />
             </div>
 
-            <div className="flex justify-start pl-6 my-4">
+            <div className="flex justify-start pl-14 my-34">
               <Arrow rotate={90} mobile />
             </div>
 
-            <div className="flex justify-start w-[150px] md:w-[360px]">
+            <div className="flex justify-start -mt-[130px] w-[150px] md:w-[360px]">
               <MobileCard step={steps[4]} index={4} />
             </div>
           </>
@@ -299,12 +299,12 @@ function Card({ step, index }: { step: Step; index: number }) {
   if (!step) return null;
 
   return (
-    <div className="bg-white w-[510px] h-[297px] rounded-2xl shadow-lg flex flex-col items-center justify-center text-center px-10">
-      <div className="text-[#8C8CFF] text-[40px] font-semibold mb-4">
+    <div className="bg-white md:w-[300px] md:h-[200px] lg:w-[510px] lg:h-[297px] rounded-2xl shadow-lg flex flex-col items-center justify-center text-center px-10">
+      <div className="text-[#8C8CFF] md:text-[25px] lg:text-[40px] font-semibold mb-4">
         {String(index + 1).padStart(2, "0")}.
       </div>
-      <h3 className="text-[32px] font-semibold mb-3">{step.title}</h3>
-      <p className="text-gray-600 text-[24px] leading-relaxed">
+      <h3 className="md:text-[20px] lg:text-[32px] font-semibold mb-3">{step.title}</h3>
+      <p className="text-gray-600 md:text-[15px] lg:text-[24px] leading-relaxed">
         {step.description}
       </p>
     </div>

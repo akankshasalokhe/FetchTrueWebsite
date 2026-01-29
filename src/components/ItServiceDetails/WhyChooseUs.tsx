@@ -44,7 +44,7 @@ export default function WhyChooseUs({ whyChooseUs }: { whyChooseUs: { title: str
                 {whyChooseUs.map((item,index) => (
                     <div
                         key={index}
-                        className="bg-white md:w-[330px] lg:w-[542px] md:h-[200px] lg:h-[277px] rounded-2xl md:p-8 p-2 shadow-md flex flex-col items-center text-center"
+                        className="bg-white md:w-[330px] lg:w-[542px] md:h-[200px] lg:h-[227px] rounded-2xl md:p-4 p-2 shadow-md flex flex-col items-center text-center"
                     >
                         {/* ICON */}
                         <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-4">

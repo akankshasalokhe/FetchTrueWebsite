@@ -1,35 +1,6 @@
 "use client";
 
 
-type Item = {
-    title: string;
-    description: string;
-    path: string
-};
-
-const ITEMS: Item[] = [
-    {
-        title: "Expert Lawyers",
-        description: "Qualified legal professionals with 10+ years experience",
-        path: "/image/ondemandwcu1.png"
-    },
-    {
-        title: "Affordable Fees",
-        description: "Transparent pricing with no hidden charges",
-        path: "/image/ondemandwcu2.png"
-    },
-    {
-        title: "Quick Turnaround",
-        description: "Fast processing with 7-day company registration",
-        path: "/image/ondemandwcu3.png"
-    },
-    {
-        title: "PAN-India Services",
-        description: "Legal services available across all Indian states",
-        path: "/image/ondemandwcu4.png"
-    },
-];
-
 type WhyChooseUsProps = {
     whyChooseUs: { title: string; description: string; icon?: string }[];
 };
@@ -49,7 +20,7 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
             {/* CONTAINER */}
             <div className="bg-white mx-4 md:w-[700px] lg:w-[1320px] md:mx-auto rounded-lg shadow-sm  relative">
                 {/* CONTENT */}
-                {/* <div className="pt-16 pb-10 px-4 md:px-8"> */}
+                
                 <div className="pt-8 md:pt-8 mt-10 pb-8 px-4 md:px-8">
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

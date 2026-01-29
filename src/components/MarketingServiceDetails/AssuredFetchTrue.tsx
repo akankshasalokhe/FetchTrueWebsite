@@ -38,57 +38,30 @@ const DATA = [
     }
 ];
 
-export default function AssuredByFetchTrue() {
+
+type assuredByFetchTrueItem = {
+    _id: string;
+    title: string;
+    description: string;
+    icon: string;
+}
+
+type assuredByFetchTrueProps = {
+    assuredByFetchTrue: assuredByFetchTrueItem[]
+} 
+
+
+export default function AssuredByFetchTrue({assuredByFetchTrue}: assuredByFetchTrueProps) {
     return (
-        <section className="bg-[#F5F6F8] py-16">
-            <h2 className="text-start lg:text-center text-blue-500 ml-4 md:ml-0 lg:text-[36px] font-medium mb-8">
+        <section className="bg-[#F5F6F8] py-8">
+            <h2 className="text-start md:text-center lg:text-center text-[#2164F4] ml-4 md:ml-4 text-[16px] md:text-[24px] lg:text-[36px] font-semibold mb-8">
                 Assured By Fetch True
             </h2>
 
-            {/* <div className="max-w-[1200px] mx-auto">
-        {DATA.map((item, index) => {
-          const isLeft = index % 2 === 0;
-
-          return (
-            <div
-              key={index}
-              className={`flex ${isLeft ? "justify-start" : "justify-end"}`}
-            >
-              
-              <div
-                className={`relative w-[550px] bg-[#FFFDFC] border-t-4 border-blue-500
-                rounded-xl shadow-md py-6
-                ${isLeft ? "pl-6 pr-28" : "pl-28 pr-6"}`}
-              >
-                
-                <div
-                  className={`absolute top-1/2 -translate-y-1/2
-                  ${isLeft ? "right-[-58px]" : "left-[-50px]"}
-                  w-[120px] h-[120px]
-                  bg-gradient-to-br from-[#EAF0FF] to-[#DDE6FF]
-                  rotate-45 rounded-lg shadow-md
-                  flex items-center justify-center`}
-                >
-                  <div className="-rotate-45 text-xs text-gray-400">
-                    ICON
-                  </div>
-                </div>
-
-                <h3 className="font-semibold text-gray-700 text-[18px] lg:text-[28px] mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-500 text-[14px] lg:text-[18px] leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div> */}
-
+         
             {/* ================= DESKTOP ================= */}
             <div className="hidden lg:block max-w-[1200px] mx-auto">
-                {DATA.map((item, index) => {
+                {assuredByFetchTrue.map((item, index) => {
                     const isLeft = index % 2 === 0;
 
                     return (
@@ -111,14 +84,14 @@ export default function AssuredByFetchTrue() {
             flex items-center justify-center`}
                                 >
                                     {/* <div className="-rotate-45 text-xs text-gray-400">ICON</div> */}
-                                    <img src={item.path} alt="icon" className="w-[88px] h-[88px] object-contain -rotate-45"/>
+                                    <img src={item.icon} alt="icon" className="w-[88px] h-[88px] object-contain -rotate-45"/>
                                 </div>
 
                                 <h3 className="font-semibold text-gray-700 text-[28px] mb-2">
                                     {item.title}
                                 </h3>
                                 <p className="text-gray-500 text-[18px] leading-relaxed">
-                                    {item.desc}
+                                    {item.description}
                                 </p>
                             </div>
                         </div>
@@ -128,8 +101,8 @@ export default function AssuredByFetchTrue() {
 
 
             {/* ================= TABLET ================= */}
-            <div className="hidden md:block lg:hidden max-w-3xl mx-auto space-y-10">
-                {DATA.map((item, index) => {
+            <div className="hidden md:block lg:hidden max-w-[600px] mx-auto space-y-10">
+                {assuredByFetchTrue.map((item, index) => {
                     const isLeft = index % 2 === 0; // odd/even logic
 
                     return (
@@ -147,14 +120,14 @@ export default function AssuredByFetchTrue() {
           rotate-45 rounded-lg shadow-md
           flex items-center justify-center`}
                             >
-                                 <img src={item.path} alt="icon" className="w-[46px] h-[46px] object-contain -rotate-45"/>
+                                 <img src={item.icon} alt="icon" className="w-[46px] h-[46px] object-contain -rotate-45"/>
                             </div>
 
                             <h3 className="font-semibold text-gray-700 text-[22px] mb-2">
                                 {item.title}
                             </h3>
                             <p className="text-gray-500 text-[16px] leading-relaxed">
-                                {item.desc}
+                                {item.description}
                             </p>
                         </div>
                     );
@@ -171,7 +144,7 @@ export default function AssuredByFetchTrue() {
                     backgroundPosition: "center",
                     filter: "brightness(1)",
                 }}>
-                {DATA.map((item, index) => {
+                {assuredByFetchTrue.map((item, index) => {
                     const isLeft = index % 2 === 0;
 
                     return (
@@ -191,14 +164,14 @@ export default function AssuredByFetchTrue() {
           rotate-45 rounded-md shadow-md
           flex items-center justify-center`}
                             >
-                                <img src={item.path} alt="icon" className="w-[46px] h-[46px] object-contain -rotate-45"/>
+                                <img src={item.icon} alt="icon" className="w-[46px] h-[46px] object-contain -rotate-45"/>
                             </div>
 
                             <h3 className="font-semibold text-gray-700 text-[12px] mb-1">
                                 {item.title}
                             </h3>
                             <p className="text-gray-500 text-[12px] leading-snug">
-                                {item.desc}
+                                {item.description}
                             </p>
                         </div>
                     );

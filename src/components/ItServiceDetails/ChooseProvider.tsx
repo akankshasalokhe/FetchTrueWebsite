@@ -65,11 +65,11 @@ const ChooseProvider: React.FC = () => {
 
     return (
         <section className=" bg-gray-100 mb-12">
-            <div className="py-10 px-2 md:px-4  w-[320px] md:w-[1320px] mx-auto ">
+            <div className="py-10 px-2 md:px-4  w-[320px] md:w-[770px] lg:w-[1320px] mx-auto">
                 {/* TITLE */}
                 <div className="flex items-start md:justify-center mb-4">
                     <h2
-                        className="bg-black text-white px-6 md:px-10 py-2 text-[12px] md:text-[32px] font-semibold"
+                        className="bg-black text-white px-6 md:px-10 py-2 text-[12px] md:text-[18px] lg:text-[32px] font-semibold"
                         style={{
                             clipPath: "polygon(0 0, 85% 0, 100% 100%, 0 100%)",
                         }}
@@ -83,7 +83,7 @@ const ChooseProvider: React.FC = () => {
                 </p>
 
                 {/* PROVIDER LIST */}
-                <div className="md:w-[1190px]  w-[300px] mx-auto">
+                <div className="md:w-[700px] lg:w-[1190px] w-[300px] mx-auto">
                     <div
                         className={`
                         space-y-4 transition-all duration-300 -mt-2
@@ -95,7 +95,7 @@ const ChooseProvider: React.FC = () => {
                         {visibleProviders.map((provider) => (
                             <div
                                 key={provider.id}
-                                className="bg-gray-100 rounded-lg border p-2 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3"
+                                className="bg-gray-100 rounded-lg border p-2 md:p-2 lg:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3"
                             >
                                 {/* ===== TOP ROW (MOBILE) + LEFT (DESKTOP) ===== */}
                                 <div className="flex items-center justify-between md:justify-start md:gap-4">
@@ -104,24 +104,24 @@ const ChooseProvider: React.FC = () => {
                                         <img
                                             src={provider.logo}
                                             alt={provider.name}
-                                            className="w-[44px] h-[44px] md:w-[67px] md:h-[67px] rounded-full object-cover"
+                                            className="w-[44px] h-[44px] md:w-[55px] md:h-[55px] lg:w-[67px] lg:h-[67px] rounded-full object-cover"
                                         />
 
-                                        <p className="bg-green-500 rounded-2xl md:px-2 px-2 text-white text-[6px] md:text-[12px]">Promoted</p>
+                                        <p className="bg-green-500 rounded-2xl md:px-2 px-2 text-white text-[6px] md:text-[8px] lg:text-[12px]">Promoted</p>
                                         </div>
 
                                         <div>
-                                            <div className="flex items-center -mt-4 md:-mt-8 gap-1 md:gap-4">
-                                                <h3 className="font-semibold text-[14px] md:text-[32px] whitespace-nowrap">
+                                            <div className="flex items-center justify-center -mt-4 md:-mt-2 lg:-mt-8 gap-1 md:gap-4">
+                                                <h3 className="font-semibold text-[14px] md:text-[24px] lg:text-[32px] whitespace-nowrap">
                                                     {provider.name}
                                                 </h3>
                                                 {provider.verified && (                           
-                                                    <img src="/image/providerverified.png" alt="verified" className="object-cover w-[19px] h-[19px] md:w-[41px] md:h-[41px] " />
+                                                    <img src="/image/providerverified.png" alt="verified" className="object-cover w-[19px] h-[19px] md:w-[28px] md:h-[28px] lg:w-[41px] lg:h-[41px] " />
                                                 )}
-                                                <span className="md:text-[14px] text-[8px]">Available</span>
+                                                <span className=" md:text-[10px] lg:text-[14px] text-[8px]">Available</span>
                                             </div>
 
-                                            <p className="text-[10px] md:text-[16px] text-gray-500">
+                                            <p className="text-[10px] md:text-[12px] lg:text-[16px] text-gray-500">
                                                 {provider.rating} ★ ({provider.reviews} reviews)
                                             </p>
                                         </div>
@@ -166,13 +166,13 @@ const ChooseProvider: React.FC = () => {
                                 </div>
 
                                 {/* ===== DESKTOP CENTER (UNCHANGED) ===== */}
-                                <div className="hidden md:block text-right whitespace-nowrap ml-10">
-                                    <p className="font-medium text-[24px] md:-mt-10 flex items-center gap-2 justify-end">
-                                        <span className="text-[24px]">₹{provider.price}</span>
-                                        <span className="line-through text-gray-400 text-[24px]">
+                                <div className="hidden md:block text-right whitespace-nowrap md:ml-6 lg:ml-10">
+                                    <p className="font-medium md:text-[15px] lg:text-[24px] md:-mt-1 lg:-mt-10 flex items-center gap-2 justify-end">
+                                        <span className="md:text-[15px] lg:text-[24px]">₹{provider.price}</span>
+                                        <span className="line-through text-gray-400 md:text-[18px] lg:text-[24px]">
                                             ₹{provider.originalPrice}
                                         </span>
-                                        <span className="text-gray-400 text-xs">
+                                        <span className="text-gray-400 md:text-[12px] lg:text-[16px]">
                                             ({provider.discount})
                                         </span>
                                     </p>
@@ -181,10 +181,10 @@ const ChooseProvider: React.FC = () => {
                                 {/* ===== DESKTOP RIGHT (UNCHANGED) ===== */}
                                 <div className="hidden md:flex flex-col gap-2">
                                    
-                                    <p className="text-[14px] text-black -mt-8  font-medium">
+                                    <p className="md:text-[10px] lg:text-[14px] text-black md:-mt-2 lg:-mt-8  font-medium whitespace-nowrap">
                                         Earn up to 
                                     </p>
-                                    <p className="text-[24px] text-green-600">{provider.cashback}</p>
+                                    <p className="md:text-[18px] lg:text-[24px] text-green-600">{provider.cashback}</p>
                                 </div>
                                  <input
                                         type="checkbox"
@@ -194,7 +194,7 @@ const ChooseProvider: React.FC = () => {
                                                 selectedId === provider.id ? null : provider.id
                                             )
                                         }
-                                        className="w-4 h-4 hidden -mt-14 md:block accent-green-600 cursor-pointer"
+                                        className="w-4 h-4 hidden md:-mt-10 lg:-mt-14 md:block accent-green-600 cursor-pointer"
                                     />
                             </div>
 
@@ -205,7 +205,7 @@ const ChooseProvider: React.FC = () => {
                     <div className="flex justify-center mt-2 py-0 md:py-4">
                         <button
                             onClick={() => setShowAll(!showAll)}
-                            className="bg-black text-white text-[12px] md:text-[20px] mb-2 px-4 py-1 rounded"
+                            className="bg-black text-white text-[12px] md:text-[15px] lg:text-[20px] mb-2 px-4 py-1 rounded"
                         >
                             {showAll ? "Show Less" : "See all Providers"}
                         </button>

@@ -5,7 +5,7 @@ import Benefits from "@/src/components/MarketingServiceDetails/Benefits";
 import MoreInformation from "@/src/components/MarketingServiceDetails/MoreInformation";
 import TermsAndConditions from "@/src/components/MarketingServiceDetails/TermsandConditions";
 import WhyChooseUs from "@/src/components/MarketingServiceDetails/WhyChooseUs";
-import { ChevronLeft, ClockIcon, ZapIcon } from "lucide-react";
+import { ChevronLeft, ClockIcon, Share2, ShoppingCart, ZapIcon } from "lucide-react";
 import Link from "next/link";
 import HowItWorks from "@/src/components/MarketingServiceDetails/HowItWorks";
 import ChooseProvider from "@/src/components/MarketingServiceDetails/ChooseProvider";
@@ -18,6 +18,8 @@ import AssuredByFetchTrue from "@/src/components/MarketingServiceDetails/Assured
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import { useReview } from "@/src/context/ReviewContext";
+import { SERVICES } from "@/src/components/ITModulesSubCategories/ExploreAllServices";
 
 type CourseInfo = {
     title: string;
@@ -49,7 +51,7 @@ const DATA: CourseInfo = {
 
 export default function ServiceDetails() {
     const { service, loading, error, fetchServiceDetails } = useServiceDetails();
-
+    const { services, fetchReviews } = useReview();
     const params = useParams();
     const serviceId = params.id as string;
 
@@ -57,6 +59,7 @@ export default function ServiceDetails() {
         if (!serviceId) return;
 
         fetchServiceDetails(serviceId);
+        fetchReviews(serviceId)
     }, [serviceId]);
 
 
@@ -66,178 +69,236 @@ export default function ServiceDetails() {
     return (
         <>
             <section className="w-full bg-white">
-                {/* ================= DESKTOP (UNCHANGED) ================= */}
-                <div className="hidden mt-8 lg:flex gap-8 p-8 max-w-[1400px] mx-auto">
-                    {/* <div className="w-[652px] h-[503px] rounded-xl overflow-hidden">
-          
-          <img
-            src="/image/eduserbg.png"
-            alt="course"
-            className="w-full h-full object-cover"
-          />
-        </div> */}
+                {/* ================= DESKTOP ================= */}
+                <div className="hidden lg:flex gap-8 p-8 max-w-[1400px] mx-auto">
                     <div className="flex flex-col gap-3">
 
-                        {/* HEADER (ABOVE IMAGE) */}
-                        <div className="flex items-center -mt-10 gap-3 ">
-                            <Link href="/MainModules/ITService">
-                                <ChevronLeft size={28} className="cursor-pointer" />
-                            </Link>
-                            <h1 className="text-lg font-semibold">Service Details</h1>
+
+                        {/* ===== HEADER BAR ===== */}
+                        <div className="hidden lg:block">
+                            <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-4">
+
+                                {/* LEFT */}
+                                <div className="flex items-center gap-3">
+                                    <Link href="/MainModules/ITService">
+                                        <ChevronLeft size={24} className="cursor-pointer" />
+                                    </Link>
+                                    <h1 className="md:text-[18px] lg:text-[24px] font-semibold">Service Details</h1>
+                                </div>
+
+                                {/* RIGHT */}
+                                <div className="flex items-center gap-3">
+                                    <Link href="/MainModules/Checkout">
+                                        <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
+                                            <ShoppingCart className="w-[29px] h-[29px]" />
+                                            Check out
+                                        </button>
+                                    </Link>
+
+                                    <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
+                                        <Share2 className="w-[29px] h-[29px]" />
+                                        Share
+                                    </button>
+                                </div>
+
+                            </div>
                         </div>
 
-                        {/* IMAGE */}
-                        <div className="md:w-[652px] md:h-[503px] rounded-lg overflow-hidden">
-                            <img
-                                // src="/image/marnavbg.png"
-                                 src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
-                                alt="Marketing"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
+                        <section className="w-full bg-white">
+                            <div className="hidden lg:flex gap-8 p-8 max-w-[1400px] mx-auto">
+
+                                {/* LEFT IMAGE */}
+                                <div className="md:w-[652px] md:h-[503px] rounded-xl overflow-hidden">
+                                    <img
+                                        src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
+                                        alt="Marketing"
+                                        className="w-full h-full object-fit"
+                                    />
+                                </div>
+
+                                {/* RIGHT CONTENT */}
+                                <div className="flex-1 space-y-4">
+                                    <div className="flex-1 space-y-4">
+                                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{DATA.title}</h1>
+                                        <p className="text-gray-500 text-[24px]">Digital Marketing</p>
+
+                                        <div className="flex items-center gap-2 text-[20px]">
+                                            <span className="text-yellow-500">★</span>
+                                            <span className="font-semibold">{DATA.rating}</span>
+                                            <span className="text-gray-500">({DATA.reviews})</span>
+                                        </div>
+
+                                        {/* <div className="gap-4 p-2 flex items-center">
+                                            <p className="md:text-[24px]">Starting -</p>
+                                            <span className="md:text-[36px] font-semibold">₹{DATA.price}</span>
+                                            <p className="text-[24px] text-[#2164F4]">View Packages</p>
+                                        </div> */}
+                                        <div className="p-4 mt-2 w-full">
+                                            <div className="flex items-center gap-4">
+                                                <span className="text-gray-500 text-[24px]">Starting</span>
+                                                <span className="text-[36px] font-semibold">₹10,000</span>
+                                                <span className="line-through text-[20px] text-gray-400">
+                                                    ₹14,000
+                                                </span>
+                                                <span className="text-[16px] text-blue-600 font-semibold px-3 py-1 rounded">
+                                                    25% OFF
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-row gap-4">
+                                            <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
+                                                <ZapIcon size={24} className="cursor-pointer text-gray-600" />
+                                                <span className="text-[20px]">Quick Recognize</span>
+                                            </div>
+
+                                            <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
+                                                <ClockIcon size={24} className="cursor-pointer text-gray-600" />
+                                                <span className="text-[20px]">On Time Guaranty</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div className="rounded-xl p-5 border-t-4 border-blue-500 bg-gray-200 flex justify-between items-center">
+                                            <div className="space-y-4">
+                                                <p className="font-semibold text-[24px]">Franchise Commission</p>
+                                                <p className="text-green-600 text-[32px] font-semibold">
+                                                    {DATA.commission}
+                                                </p>
+                                            </div>
+                                            <button className="text-[#281A83] text-[24px] mt-10 flex items-center gap-1">
+                                                T&amp;C <span className="text-[24px]">›</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
 
                     </div>
 
-                    <div className="flex-1 space-y-4">
-                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{DATA.title}</h1>
-                        <p className="text-gray-500 text-[24px]">Digital Marketing</p>
-
-                        <div className="flex items-center gap-2 text-[20px]">
-                            <span className="text-yellow-500">★</span>
-                            <span className="font-semibold">{DATA.rating}</span>
-                            <span className="text-gray-500">({DATA.reviews})</span>
-                        </div>
-
-                        <div className="gap-4 p-2 flex items-center">
-                            <p className="md:text-[24px]">Starting -</p>
-                            <span className="md:text-[36px] font-semibold">₹{DATA.price}</span>
-                            <p className="text-[24px] text-[#2164F4]">View Packages</p>
-                        </div>
-
-                        <div className="flex flex-row gap-4">
-                            <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                                <ZapIcon size={24} className="cursor-pointer text-gray-600" />
-                                <span className="text-[20px]">Quick Recognize</span>
-                            </div>
-
-                            <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                                <ClockIcon size={24} className="cursor-pointer text-gray-600" />
-                                <span className="text-[20px]">On Time Guaranty</span>
-                            </div>
-
-                        </div>
-
-                        <div className="rounded-xl p-5 border-t-4 border-blue-500 bg-gray-200 flex justify-between items-center">
-                            <div className="space-y-4">
-                                <p className="font-semibold text-[24px]">Franchise Commission</p>
-                                <p className="text-green-600 text-[32px] font-semibold">
-                                    {DATA.commission}
-                                </p>
-                            </div>
-                            <button className="text-[#281A83] text-[24px] mt-10 flex items-center gap-1">
-                                T&amp;C <span className="text-[24px]">›</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
                 {/* ================= MOBILE ================= */}
                 <div className="lg:hidden">
-                    {/* IMAGE */}
+                    <div className="mt-4 px-4 py-3 flex items-center justify-between">
 
-                    <div className="relative flex flex-col mx-4 mt-12 rounded-xl overflow-hidden">
-                        {/* Header ABOVE image */}
-                        <div className="flex items-center gap-3 mb-3">
+                        {/* LEFT */}
+                        <div className="flex items-center gap-2">
                             <Link href="/MainModules/Education">
-                                <ChevronLeft size={28} className="cursor-pointer" />
+                                <ChevronLeft size={22} className="cursor-pointer" />
                             </Link>
-                            <h1 className="text-lg font-semibold">Service Details</h1>
+                            <h1 className="text-[16px] font-semibold">Service Details</h1>
                         </div>
 
-                        {/* Image */}
+                        {/* RIGHT */}
+                        <div className="flex items-center gap-2">
+                            <Link href="/MainModules/Checkout">
+                                <button className="flex items-center gap-1 bg-green-500 text-white px-3 py-1.5 rounded-md text-xs font-medium">
+                                    <ShoppingCart className="w-4 h-4" />
+                                    Checkout
+                                </button>
+                            </Link>
+
+                            <button className="flex items-center gap-1 bg-blue-600 text-white px-3 py-1.5 rounded-md text-xs font-medium">
+                                <Share2 className="w-4 h-4" />
+                                Share
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* ===== IMAGE ===== */}
+                    <div className="mx-4 mt-4 rounded-xl overflow-hidden">
                         <img
-                            // src="/image/marnavbg.png"
-                             src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
-                            alt="course"
-                            className="w-full h-[220px] object-cover"
+                            src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
+                            alt="service"
+                            className="w-full h-[220px] object-fit"
                         />
                     </div>
 
-
-                    {/* CONTENT */}
+                    {/* ===== CONTENT ===== */}
                     <div className="px-4 mt-4 space-y-3">
 
+                        {/* TITLE + RATING */}
                         <div className="flex justify-between items-start">
-                            <h2 className="text-lg font-semibold">{DATA.title}</h2>
-                            <div className="flex flex-col items-center gap-1 text-sm">
-                                <div>
+                            <h2 className="text-[16px] font-semibold leading-tight">
+                                {DATA.title}
+                            </h2>
+
+                            <div className="flex flex-col items-end text-xs">
+                                <div className="flex items-center gap-1">
                                     <span className="text-yellow-500">★</span>
                                     <span>{DATA.rating}</span>
                                 </div>
-                                <p className="text-xs text-gray-400 whitespace-nowrap">({DATA.reviews})</p>
+                                <span className="text-gray-400 whitespace-nowrap">
+                                    ({DATA.reviews})
+                                </span>
                             </div>
                         </div>
 
-
-                        <p className="text-sm text-gray-500">{DATA.subtitle}</p>
-
+                        <p className="text-[13px] text-gray-500">{DATA.subtitle}</p>
 
                         {/* PRICE */}
-                        <div className="flex items-center gap-2 text-sm mt-2">
-                            <p className="text-[12px]">Starting</p>
-                            <span className="font-semibold text-[16px]">₹{DATA.price}</span>
-                            {/* <span className="line-through text-gray-400">
-                                ₹{DATA.originalPrice}
-                            </span> */}
-                            {/* <span className="text-orange-500">{DATA.discount}</span> */}
+                        <div className="p-4 -mt-6 w-full">
+                            <div className="flex items-center gap-4">
+                                <span className="text-gray-500 text-[12px]">Starting</span>
+                                <span className="text-[20px] font-semibold">₹10,000</span>
+                                <span className="line-through text-[12px] text-gray-400">
+                                    ₹14,000
+                                </span>
+                                <span className="text-[10px] text-blue-600 font-semibold px-3 py-1 rounded whitespace-nowrap">
+                                    (25% OFF)
+                                </span>
+                            </div>
                         </div>
 
-
-
-                        <div className="flex flex-row gap-2">
-                            <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                                <ZapIcon size={17} className="cursor-pointer text-gray-600" />
-                                <span className="text-[12px] whitespace-nowrap">Quick Recognize</span>
+                        {/* TAGS */}
+                        <div className="flex gap-2 flex-wrap">
+                            <div className="flex items-center gap-1 bg-gray-200 px-3 py-1 rounded-full text-[11px]">
+                                <ZapIcon size={14} className="text-gray-600" />
+                                Quick Recognize
                             </div>
 
-                            <div className="flex items-center border bg-gray-200 p-2 border-gray-200 rounded-3xl gap-2">
-                                <ClockIcon size={17} className="cursor-pointer text-gray-600" />
-                                <span className="text-[12px] whitespace-nowrap">On Time Guaranty</span>
+                            <div className="flex items-center gap-1 bg-gray-200 px-3 py-1 rounded-full text-[11px]">
+                                <ClockIcon size={14} className="text-gray-600" />
+                                On Time Guaranty
                             </div>
-
                         </div>
 
-                        {/* COMMISSION */}
+                        {/* COMMISSION CARD */}
                         <div className="mt-4 bg-white rounded-xl p-4 shadow border-t-4 border-blue-500 flex justify-between items-center">
                             <div>
-                                <p className="text-sm font-medium">Franchise Commission</p>
+                                <p className="text-[13px] font-medium">Franchise Commission</p>
                                 <p className="text-green-600 font-semibold">
                                     {DATA.commission}
                                 </p>
                             </div>
-                            <button className="flex items-center gap-1 text-sm">
+
+                            <button className="flex items-center gap-1 text-[13px] text-[#281A83]">
                                 T&amp;C <span className="text-lg">›</span>
                             </button>
                         </div>
 
                     </div>
                 </div>
+
             </section>
 
             <section>
-                <Benefits benefits={service?.serviceDetails?.benefits || []}/>
-                <AboutUs />
-                <WhyChooseUs />
-                <HowItWorks />
-                <AssuredByFetchTrue />
-                <Packages />
-                <Documents />
-                <MoreInformation />
+                <Benefits benefits={service?.serviceDetails?.benefits || []} />
+                <AboutUs aboutUs={service?.serviceDetails.aboutUs || []} highlight={service?.serviceDetails.highlight || []} />
+                <WhyChooseUs whyChooseUs={service?.serviceDetails.whyChooseUs || []} />
+                <HowItWorks howItWorks={service?.serviceDetails.howItWorks || []} />
+                <AssuredByFetchTrue assuredByFetchTrue={service?.serviceDetails.assuredByFetchTrue || []} />
+                <Packages packages={service?.serviceDetails.packages || []} />
+                <Documents weRequired={service?.serviceDetails.weRequired || []} weDeliver={service?.serviceDetails.weDeliver || []} />
+                <MoreInformation moreInfo={service?.serviceDetails.moreInfo || []} />
                 <ChooseProvider />
-                <TermsAndConditions />
-                <FAQs />
-                <RatingsReviews />
-                <ConnectWith />
+                <TermsAndConditions termsAndConditions={service?.serviceDetails.termsAndConditions || []} />
+                <FAQs faq={service?.serviceDetails?.faq || []} />
+                <RatingsReviews reviews={services} />
+                <ConnectWith connectWith={service?.serviceDetails?.connectWith || []} />
             </section>
         </>
 
