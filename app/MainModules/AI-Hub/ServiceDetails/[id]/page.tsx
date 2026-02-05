@@ -777,7 +777,7 @@ export default function AIHubServiceDetailPage() {
   ]}
 />
 
-<div className="max-w-[1400px] bg-[#FFFFFF80] mx-4 lg:mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10  border border-[#EAEAEA] rounded-[12px] mt-8">
+{/* <div className="max-w-[1400px] bg-[#FFFFFF80] mx-4 lg:mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10  border border-[#EAEAEA] rounded-[12px] mt-8">
 <TermsConditions
   terms={[
     {
@@ -816,7 +816,7 @@ export default function AIHubServiceDetailPage() {
     },
   ]}
 />
-</div>
+</div> */}
 
 <div className="max-w-[1400px] bg-[#FFFFFF80] mx-4 lg:mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10  border border-[#EAEAEA] rounded-[12px] mt-8">
 <FAQs
