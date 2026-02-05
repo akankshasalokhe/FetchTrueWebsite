@@ -2236,42 +2236,38 @@ if (!service) {
           {/* Progress Bars */}
            <div className="flex-1 space-y-2">
         {[
-          { star: 5, color: "bg-[#25A249]" },
-          { star: 4, color: "bg-[#8BC34A]" },
-          { star: 3, color: "bg-[#FDC700]" },
-          { star: 2, color: "bg-[#FF9800]" },
-          { star: 1, color: "bg-[#F44336]" },
-        ].map(({ star, color }) => {
- const count =
-  services?.ratingDistribution?.[
-    star.toString() as keyof RatingDistribution
-  ] ?? 0;
+  { star: "5", color: "bg-[#25A249]" },
+  { star: "4", color: "bg-[#8BC34A]" },
+  { star: "3", color: "bg-[#FDC700]" },
+  { star: "2", color: "bg-[#FF9800]" },
+  { star: "1", color: "bg-[#F44336]" },
+].map(({ star, color }) => {
+  const count = services?.ratingDistribution?.[star] ?? 0;
 
+  const percentage = service?.totalReviews
+    ? Math.round((count / service.totalReviews) * 100)
+    : 0;
 
+  return (
+    <div key={star} className="flex items-center gap-3">
+      <p className="w-[70px] text-[13px] text-[#6B6B6B]">
+        {star} Star
+      </p>
 
-          const percentage = service?.totalReviews
-            ? Math.round((count / service.totalReviews) * 100)
-            : 0;
+      <div className="flex-1 h-2 bg-[#E5E7EB] rounded-full overflow-hidden">
+        <div
+          className={`h-full ${color}`}
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
 
-          return (
-            <div key={star} className="flex items-center gap-3">
-              <p className="w-[70px] text-[13px] text-[#6B6B6B]">
-                {star} Star
-              </p>
+      <span className="text-[13px] text-[#6B6B6B] w-[40px]">
+        {percentage}%
+      </span>
+    </div>
+  );
+})}
 
-              <div className="flex-1 h-2 bg-[#E5E7EB] rounded-full overflow-hidden">
-                <div
-                  className={`h-full ${color}`}
-                  style={{ width: `${percentage}%` }}
-                />
-              </div>
-
-              <span className="text-[13px] text-[#6B6B6B] w-[40px]">
-                {percentage}%
-              </span>
-            </div>
-          );
-        })}
       </div>
         </div>
 
