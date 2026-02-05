@@ -2242,8 +2242,12 @@ if (!service) {
           { star: 2, color: "bg-[#FF9800]" },
           { star: 1, color: "bg-[#F44336]" },
         ].map(({ star, color }) => {
-          const count =
-            services?.ratingDistribution?.[String(star)] || 0;
+ const count =
+  services?.ratingDistribution?.[
+    star.toString() as keyof RatingDistribution
+  ] ?? 0;
+
+
 
           const percentage = service?.totalReviews
             ? Math.round((count / service.totalReviews) * 100)
@@ -2356,41 +2360,6 @@ if (!service) {
             </div>
           </div>
         ))}
-    
-
-      {/* Right Column */}
-      {/* <div className="space-y-8 md:space-y-10">
-        {[
-          {
-            title: "Transparent Workflow:",
-            desc: "Complete process visibility, transparent communication, and real-time tracking.",
-          },
-          {
-            title: "On-Time Delivery Result:",
-            desc: "We provide guaranteed on-time completion of every project, ensuring your campaigns and services are delivered exactly as scheduled.",
-          },
-          {
-            title: "Trusted Platform:",
-            desc: "Fetch True ensures secure connections between clients and genuine professionals.",
-          },
-        ].map((item, index) => (
-          <div key={index} className="flex items-start gap-4">
-            <img
-              src="/image/Group.png"
-              className="w-[36px] h-[38px] sm:w-[42px] sm:h-[45px] md:w-[47px] md:h-[50px]"
-              alt=""
-            />
-            <div>
-              <h4 className="font-semibold text-[18px] sm:text-[20px] md:text-[24px]">
-                {item.title}
-              </h4>
-              <p className="text-[15px] sm:text-[16px] md:text-[20px] text-[#BEBEBE]">
-                {item.desc}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div> */}
 
     </div>
   </div>
