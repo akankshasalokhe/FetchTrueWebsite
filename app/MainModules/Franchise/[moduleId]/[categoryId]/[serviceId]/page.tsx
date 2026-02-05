@@ -1311,19 +1311,23 @@ import { useFranchiseModel } from "@/src/context/FranchiseContext";
 import { useReview } from "@/src/context/ReviewContext";
 import Link from "next/link";
 
-const extractBenefits = (html: string): string[] => {
-  if (!html) return [];
+const extractBenefits = (benefits: string[]): string[] => {
+  if (!benefits?.length) return [];
 
-  // Client-side only
+  // SSR safety
   if (typeof window === "undefined") return [];
 
   const temp = document.createElement("div");
-  temp.innerHTML = html;
 
-  return Array.from(temp.querySelectorAll("p, li"))
-    .map((el) => el.textContent?.trim())
-    .filter(Boolean) as string[];
+  return benefits.flatMap((html) => {
+    temp.innerHTML = html;
+
+    return Array.from(temp.querySelectorAll("p, li"))
+      .map((el) => el.textContent?.trim())
+      .filter(Boolean);
+  });
 };
+
 
 
 export default function DetailsAllPage() {
@@ -1572,20 +1576,17 @@ if (!service) {
 
     {/* Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6">
-      {service?.serviceDetails?.benefits &&
-        extractBenefits(service?.serviceDetails?.benefits).map(
-          (text, index) => (
-            <div key={index} className="flex items-center gap-3 lg:ms-15">
-              
+  {extractBenefits(service?.serviceDetails?.benefits || []).map(
+    (text, index) => (
+      <div key={index} className="flex items-center gap-3 lg:ms-15">
+        <p className="text-[18px] lg:text-[24px] text-[#4B5563]">
+          {text}
+        </p>
+      </div>
+    )
+  )}
+</div>
 
-              {/* Text */}
-              <p className="text-[18px] lg:text-[24px] text-[#4B5563]">
-                {text}
-              </p>
-            </div>
-          )
-        )}
-    </div>
   </div>
 </section>
 
