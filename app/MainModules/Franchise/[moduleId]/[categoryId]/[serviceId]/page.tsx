@@ -1338,7 +1338,7 @@ const { moduleId, serviceId } = useParams<{
 //     : params.serviceId?.[0];
   
 const { service, loading, error, fetchServiceDetails } = useServiceDetails();
-  const { models, fetchFranchiseModels, franchiseLoading } = useFranchiseModel();
+  const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
   const { services, fetchReviews } = useReview();
 
 
@@ -1381,7 +1381,7 @@ const { service, loading, error, fetchServiceDetails } = useServiceDetails();
   };
 
 
-if (loading || franchiseLoading) {
+if (loading || franchiseloading) {
   return <p>Loading...</p>;
 }
 

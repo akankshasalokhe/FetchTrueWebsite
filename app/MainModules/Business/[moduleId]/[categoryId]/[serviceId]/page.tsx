@@ -1093,7 +1093,7 @@ export default function DetailsAllPage() {
 
     
   const { service, loading, error, fetchServiceDetails } = useServiceDetails();
-    const { models, fetchFranchiseModels, franchiseLoading } = useFranchiseModel();
+    const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
     const { services, fetchReviews } = useReview();
   
   
@@ -1136,7 +1136,7 @@ export default function DetailsAllPage() {
     };
   
   
-  if (loading || franchiseLoading) {
+  if (loading || franchiseloading) {
     return <p>Loading...</p>;
   }
   
