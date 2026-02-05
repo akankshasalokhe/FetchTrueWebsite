@@ -796,7 +796,7 @@ export default function LegalDetailsPage() {
 />
 
 
-                  <TermsConditions
+                  {/* <TermsConditions
                     terms={[
                       {
                         title: "Platform Compliance",
@@ -833,7 +833,7 @@ export default function LegalDetailsPage() {
                           "Refunds will only be initiated when service conditions meet refund eligibility. All refunds will be processed within the specified time frame.",
                       },
                     ]}
-                  />
+                  /> */}
 
 
                   <FAQs
