@@ -1339,7 +1339,24 @@ const ratingBars: {
   { star: "1", color: "bg-[#F44336]" },
 ];
 
+type RatingItem = {
+  label: string;
+  rating: number; // 1–5
+};
 
+const ratingFeatures: RatingItem[] = [
+  { label: "Monthly Business", rating: 4 },
+  { label: "ROI", rating: 5 },
+  { label: "Marketing", rating: 4 },
+  { label: "Franchise Service", rating: 4 },
+];
+
+const getColor = (rating: number): string => {
+  if (rating >= 5) return "#16A34A";
+  if (rating >= 4) return "#22C55E";
+  if (rating >= 3) return "#FACC15";
+  return "#EF4444";
+};
 
 export default function DetailsAllPage() {
 
@@ -1347,10 +1364,7 @@ const { moduleId, serviceId } = useParams<{
   moduleId: string;
   serviceId: string;
 }>();
-// const serviceId =
-//   typeof params.serviceId === "string"
-//     ? params.serviceId
-//     : params.serviceId?.[0];
+
   
 const [activeImage, setActiveImage] = useState<string>("");
 
@@ -1641,41 +1655,7 @@ if (!service) {
   </div>
   ))}
 
-  {/* <div className="flex flex-col gap-1">
-    <div className="flex items-center gap-2">
-      <FaRegCalendarAlt size={24} color="#008B8B" />
-      <p className="text-[24px] text-[#232323]">
-        First franchise outlet
-      </p>
-    </div>
-    <p className="text-[#BEBEBE] text-[24px]">
-      12 August 2024
-    </p>
-  </div>
 
-  <div className="flex flex-col gap-1">
-    <div className="flex items-center gap-2">
-      <FaRegCalendarAlt size={24} color="#008B8B" />
-      <p className="text-[24px] text-[#232323]">
-        Profit margin
-      </p>
-    </div>
-    <p className="text-[#BEBEBE] text-[24px]">
-      30%
-    </p>
-  </div>
-
-  <div className="flex flex-col gap-1">
-    <div className="flex items-center gap-2">
-      <FaRegCalendarAlt size={24} color="#008B8B" />
-      <p className="text-[24px] text-[#232323]">
-        Total outlet in India
-      </p>
-    </div>
-    <p className="text-[#BEBEBE] text-[24px]">
-      50+
-    </p>
-  </div> */}
             </div>
 
           </section>
@@ -2277,28 +2257,19 @@ if (!service) {
         </div>
 
         {/* Ratings by Features */}
+
+
 <h3 className="text-[16px] sm:text-[18px] font-semibold text-[#34716C] mb-4">
   Ratings by features
 </h3>
 
 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-  {[
-    { label: "Monthly Business", rating: 4 },
-    { label: "ROI", rating: 5 },
-    { label: "Marketing", rating: 4 },
-    { label: "Franchise Service", rating: 4 },
-  ].map((item, index) => {
-    const percentage = (item.rating / 5) * 100; // convert to %
-    const getColor = (rating) => {
-      if (rating >= 5) return "#16A34A"; // dark green
-      if (rating >= 4) return "#22C55E"; // green
-      if (rating >= 3) return "#FACC15"; // yellow
-      return "#EF4444"; // red
-    };
+  {ratingFeatures.map((item, index) => {
+    const percentage = (item.rating / 5) * 100;
 
     return (
       <div key={index} className="flex flex-col items-center gap-2">
-        {/* Circle with fill */}
+        {/* Circle */}
         <div
           className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-medium text-[13px] sm:text-[14px]"
           style={{
@@ -2308,7 +2279,7 @@ if (!service) {
             )`,
           }}
         >
-          {/* Inner white circle */}
+          {/* Inner circle */}
           <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center">
             {item.rating}/5
           </div>
@@ -2322,6 +2293,7 @@ if (!service) {
     );
   })}
 </div>
+
 
       </div>
 
