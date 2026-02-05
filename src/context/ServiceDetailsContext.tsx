@@ -12,7 +12,7 @@ interface ImageTitleDescription {
   title: string;
   description: string;
   icon?: string;
-}[]
+}
 
 interface Counter {
   _id: string;
@@ -27,6 +27,66 @@ interface CourseCurriculum {
   model: string[];
 }
 
+interface KeyValue {
+  key: string;
+  value: string;
+  icon?: string;
+  _id: string;
+}
+
+interface RangeWithParam {
+  _id: string;
+  range: string;
+  parameters: string;
+}
+
+interface FranchiseModel {
+  _id: string;
+  title: string;
+  agreement: string;
+  price: number;
+  discount: number;
+  gst: number;
+  fees: number;
+}
+
+interface FranchiseDetails {
+  commission: string;
+  termsAndConditions: string; 
+  investmentRange: RangeWithParam[];
+  monthlyEarnPotential: RangeWithParam[];
+  franchiseModel: FranchiseModel[];
+  areaRequired: string;
+}
+
+interface FranchiseFeature {
+  _id: string;
+  icon: string;
+  subtitle: string;
+  subDescription: string;
+}
+
+interface FranchiseOperatingModel {
+  _id: string;
+  info: string;
+  title: string;
+  description: string;
+  features: FranchiseFeature[];
+  tags: string[];
+  example: string;
+}
+interface BusinessFundamentalPoint {
+  _id: string;
+  subtitle: string;
+  subDescription: string;
+}
+
+interface BusinessFundamental {
+  description: string;
+  points: BusinessFundamentalPoint[];
+}
+
+
 
 interface ServiceDetails {
   benefits: string[];
@@ -39,6 +99,13 @@ interface ServiceDetails {
   courseCurriculum: CourseCurriculum[];
   courseIncludes: string[];
   certificateImage: string[];
+  franchiseOperatingModel: FranchiseOperatingModel[];
+    keyAdvantages: {
+    _id: string;
+    icon: string;
+    title: string;
+    description: string;
+  }[];
   packages:{
     _id: string;
     name: string;
@@ -67,6 +134,25 @@ interface ServiceDetails {
     description: string;
     icon: string;
   }[];
+   completeSupportSystem: {
+    _id: string;
+    icon: string;
+    title: string;
+    lists: string[];
+  }[];
+    trainingDetails: string[];
+  agreementDetails: string[];
+    companyDetails: {
+    _id: string;
+    name: string;
+    location: string;
+    profile: string;
+    details: {
+      _id: string;
+      title: string;
+      description: string;
+    }[];
+  }[];
   connectWith: {
     _id: string;
     name: string;
@@ -84,6 +170,10 @@ interface ServiceDetails {
    description: string;
    icon?: string;
   }[];
+  goodThings: string[];
+
+  compareAndChoose: string[];
+    businessFundamental: BusinessFundamental;
   notInclude: string[];
   include: string[];
   safetyAndAssurance: string[];
@@ -111,11 +201,14 @@ export interface ServiceData {
   discountedPrice: number;
   thumbnailImage: string;
   bannerImages: string[];
+  keyValues: KeyValue[];
   tags: string[];
   serviceDetails: ServiceDetails;
   averageRating: number;
   totalReviews: number;
   isTrending: boolean;
+  franchiseDetails: FranchiseDetails;
+
 }
 
 /* =====================================================

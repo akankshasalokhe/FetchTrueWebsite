@@ -86,3 +86,36 @@ html, body {
 }
 
 
+
+/* ===============================
+   Compare & Choose Table
+================================ */
+
+.compare-table table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.compare-table td {
+  padding: 14px 16px;
+  font-size: 18px;
+  color: #868686;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+/* Header Row (First Row) */
+.compare-table tr:first-child td {
+  font-weight: 500;
+  font-size: 20px;
+  color: #606060;
+}
+
+/* First Column */
+.compare-table tr td:first-child {
+  font-weight: 500;
+  color: #606060;
+}
+

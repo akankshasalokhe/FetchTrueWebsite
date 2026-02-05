@@ -25,7 +25,7 @@ import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext
 import { CategorywiseServiceProvider } from "@/src/context/CategorywiseServiceContext";
 import { ReviewProvider } from "@/src/context/ReviewContext"
 import { CheckoutProvider } from "@/src/context/CheckoutContext"
-
+import { FranchiseModelProvider, FranchiseProvider } from "@/src/context/FranchiseContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -61,9 +61,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                   <OfferProvider>
                                                     <ReviewProvider>
                                                       <CheckoutProvider>
+                                                        <FranchiseModelProvider>
                                                         {/* <Navbar /> */}
                                                         <main>{children}</main>
 
+                                                        </FranchiseModelProvider>
                                                       </CheckoutProvider>
 
                                                     </ReviewProvider>
