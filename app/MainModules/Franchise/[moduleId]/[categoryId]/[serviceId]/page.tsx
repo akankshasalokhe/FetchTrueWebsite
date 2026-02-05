@@ -1337,12 +1337,13 @@ const { moduleId, serviceId } = useParams<{
 //     ? params.serviceId
 //     : params.serviceId?.[0];
   
+const [activeImage, setActiveImage] = useState<string>("");
+
 const { service, loading, error, fetchServiceDetails } = useServiceDetails();
   const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
   const { services, fetchReviews } = useReview();
 
 
-  const [activeImage, setActiveImage] = useState<string>("");
 
     useEffect(() => {
   if (!serviceId) return;
@@ -1356,10 +1357,11 @@ const { service, loading, error, fetchServiceDetails } = useServiceDetails();
   console.log("service Id:",serviceId)
 
    useEffect(() => {
-    if (service?.bannerImages?.length) {
-      setActiveImage(service.bannerImages[0]);
-    }
-  }, [service]);
+  if (service?.bannerImages?.length) {
+    setActiveImage(service.bannerImages[0]);
+  }
+}, [service]);
+
 
   const franchiseCards =
   service?.franchiseDetails?.franchiseModel?.map((serviceModel) => {
@@ -1418,12 +1420,11 @@ if (!service) {
 
               <div className="relative w-full h-[260px] sm:h-[420px] lg:h-[710px] rounded overflow-hidden shadow">
                 <img
-                  src={service.bannerImages}
+                  src={activeImage}
                   alt={service.serviceName}
-                  
-                  className="object-cover"
-                  
+                  className="w-full h-full object-cover"
                 />
+
               </div>
 
               {/* THUMBNAILS */}

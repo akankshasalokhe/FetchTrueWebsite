@@ -1091,13 +1091,13 @@ export default function DetailsAllPage() {
     serviceId: string;
   }>();
 
-    
+    const [activeImage, setActiveImage] = useState<string>("");
+
   const { service, loading, error, fetchServiceDetails } = useServiceDetails();
     const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
     const { services, fetchReviews } = useReview();
   
   
-    const [activeImage, setActiveImage] = useState<string>("");
   
       useEffect(() => {
     if (!serviceId) return;
@@ -1111,10 +1111,11 @@ export default function DetailsAllPage() {
     console.log("service Id:",serviceId)
   
      useEffect(() => {
-      if (service?.bannerImages?.length) {
-        setActiveImage(service.bannerImages[0]);
-      }
-    }, [service]);
+  if (service?.bannerImages?.length) {
+    setActiveImage(service.bannerImages[0]);
+  }
+}, [service]);
+
   
     const franchiseCards =
     service?.franchiseDetails?.franchiseModel?.map((serviceModel) => {
@@ -1172,12 +1173,12 @@ export default function DetailsAllPage() {
 
               <div className="relative w-full h-[260px] sm:h-[420px] lg:h-[710px] rounded overflow-hidden shadow">
                  <img
-                  src={service.bannerImages}
-                  alt={service.serviceName}
-                  
-                  className="object-cover"
-                  
-                />
+                    src={activeImage}
+                    alt={service.serviceName}
+                    className="w-full h-full object-cover"
+                  />
+
+
               </div>
 
               {/* THUMBNAILS */}
