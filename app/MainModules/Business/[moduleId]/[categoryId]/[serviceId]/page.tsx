@@ -1088,7 +1088,7 @@ const extractBenefits = (html: string): string[] => {
 export default function DetailsAllPage() {
   const { moduleId, serviceId } = useParams<{
     moduleId: string;
-    serviceId: string | string[];
+    serviceId: string;
   }>();
 
     

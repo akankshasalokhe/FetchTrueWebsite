@@ -1330,7 +1330,7 @@ export default function DetailsAllPage() {
 
 const { moduleId, serviceId } = useParams<{
   moduleId: string;
-  serviceId: string | string[];
+  serviceId: string;
 }>();
 // const serviceId =
 //   typeof params.serviceId === "string"
