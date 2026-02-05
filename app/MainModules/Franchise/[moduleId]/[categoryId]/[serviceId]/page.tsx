@@ -1308,7 +1308,7 @@ import FAQs from "@/src/components/Section/FAQ";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { useParams } from "next/navigation";
 import { useFranchiseModel } from "@/src/context/FranchiseContext";
-import { useReview } from "@/src/context/ReviewContext";
+import { RatingDistribution, useReview } from "@/src/context/ReviewContext";
 import Link from "next/link";
 
 const extractBenefits = (benefits: string[]): string[] => {
@@ -1327,6 +1327,17 @@ const extractBenefits = (benefits: string[]): string[] => {
       .filter(Boolean);
   });
 };
+
+const ratingBars: {
+  star: keyof RatingDistribution;
+  color: string;
+}[] = [
+  { star: "5", color: "bg-[#25A249]" },
+  { star: "4", color: "bg-[#8BC34A]" },
+  { star: "3", color: "bg-[#FDC700]" },
+  { star: "2", color: "bg-[#FF9800]" },
+  { star: "1", color: "bg-[#F44336]" },
+];
 
 
 
@@ -2234,41 +2245,35 @@ if (!service) {
           </div>
 
           {/* Progress Bars */}
-           <div className="flex-1 space-y-2">
-        {[
-  { star: "5", color: "bg-[#25A249]" },
-  { star: "4", color: "bg-[#8BC34A]" },
-  { star: "3", color: "bg-[#FDC700]" },
-  { star: "2", color: "bg-[#FF9800]" },
-  { star: "1", color: "bg-[#F44336]" },
-].map(({ star, color }) => {
-  const count = services?.ratingDistribution?.[star] ?? 0;
+      <div className="flex-1 space-y-2">
+  {ratingBars.map(({ star, color }) => {
+    const count = services?.ratingDistribution?.[star] ?? 0;
 
-  const percentage = service?.totalReviews
-    ? Math.round((count / service.totalReviews) * 100)
-    : 0;
+    const percentage = service?.totalReviews
+      ? Math.round((count / service.totalReviews) * 100)
+      : 0;
 
-  return (
-    <div key={star} className="flex items-center gap-3">
-      <p className="w-[70px] text-[13px] text-[#6B6B6B]">
-        {star} Star
-      </p>
+    return (
+      <div key={star} className="flex items-center gap-3">
+        <p className="w-[70px] text-[13px] text-[#6B6B6B]">
+          {star} Star
+        </p>
 
-      <div className="flex-1 h-2 bg-[#E5E7EB] rounded-full overflow-hidden">
-        <div
-          className={`h-full ${color}`}
-          style={{ width: `${percentage}%` }}
-        />
+        <div className="flex-1 h-2 bg-[#E5E7EB] rounded-full overflow-hidden">
+          <div
+            className={`h-full ${color}`}
+            style={{ width: `${percentage}%` }}
+          />
+        </div>
+
+        <span className="text-[13px] text-[#6B6B6B] w-[40px]">
+          {percentage}%
+        </span>
       </div>
+    );
+  })}
+</div>
 
-      <span className="text-[13px] text-[#6B6B6B] w-[40px]">
-        {percentage}%
-      </span>
-    </div>
-  );
-})}
-
-      </div>
         </div>
 
         {/* Ratings by Features */}
