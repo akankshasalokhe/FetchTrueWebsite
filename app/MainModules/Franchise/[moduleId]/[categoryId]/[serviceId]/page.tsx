@@ -2404,9 +2404,9 @@ if (!service) {
   }))}
 />
 
- <TermsConditions
+<TermsConditions
   heading="Terms & Conditions"
-  html={service?.serviceDetails?.termsAndConditions}
+  html={service?.serviceDetails?.termsAndConditions?.join("") || ""}
 />
 
 

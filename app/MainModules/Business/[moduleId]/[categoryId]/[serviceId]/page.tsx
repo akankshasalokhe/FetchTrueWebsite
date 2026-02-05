@@ -1750,7 +1750,7 @@ export default function DetailsAllPage() {
 
 <TermsConditions
   heading="Terms & Conditions"
-  html={service?.serviceDetails?.termsAndConditions}
+  html={service?.serviceDetails?.termsAndConditions?.join("") || ""}
 />
 
 <FAQs
