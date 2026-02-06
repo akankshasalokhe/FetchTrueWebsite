@@ -1176,11 +1176,14 @@ const images = service.bannerImages;
 
   {/* Image */}
   <div className="w-full max-w-[900px] h-auto mx-auto my-12">
+    {service?.serviceDetails?.highlight?.[0] && (
     <img
-      src={service.serviceDetails.highlight}
-      alt="legalAboutImage"
-      className="w-full h-auto rounded-[12px] object-cover"
+      src={service.serviceDetails.highlight[0]}
+      alt="highlight"
+      className="w-full rounded-[12px] object-cover"
     />
+  )}
+
   </div>
 </section>
 
@@ -1325,11 +1328,11 @@ const images = service.bannerImages;
           
           <div key={pkg._id} className="bg-white rounded-[12px] shadow-md p-6 sm:p-8  flex flex-col justify-between">
             {isPopular && (
-                  <span className="absolute top-10 left-1/2 -translate-x-1/2 z-10  w-[90px] bg-[#C9A36A] text-white text-[12px] px-2  py-[2px] rounded-full">
+                  <span className="absolute -mt-10 left-1/2 -translate-x-1/2 z-10  w-[90px] bg-[#C9A36A] text-white text-[12px] px-2  py-[2px] rounded-full">
                     Most Popular
                   </span>
                 )}
-        <div className="text-[#C9A36A] flex justify-items-start gap-2 text-[20px] font-semibold mb-1">
+        <div className="relative text-[#C9A36A] flex justify-items-start gap-2 text-[20px] font-semibold mb-1">
           <span className="">₹{Math.floor(pkg.discountedPrice)} /</span>
           <span className="text-[#868686] text-[16px]"><s>₹{pkg.price}</s></span>
           <p className="bg-[#BC9958] text-[#FFFFFF] text-[14px]  font-normal p-[2px] rounded-[3px]">{pkg.discount}% OFF</p>
