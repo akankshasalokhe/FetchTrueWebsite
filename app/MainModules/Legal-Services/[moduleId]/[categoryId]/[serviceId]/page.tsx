@@ -1177,7 +1177,7 @@ const images = service.bannerImages;
   {/* Image */}
   <div className="w-full max-w-[900px] h-auto mx-auto my-12">
     <img
-      src={service?.serviceDetails?.highlight}
+      src={service.serviceDetails.highlight}
       alt="legalAboutImage"
       className="w-full h-auto rounded-[12px] object-cover"
     />
