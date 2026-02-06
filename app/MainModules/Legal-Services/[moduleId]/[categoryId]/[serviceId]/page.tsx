@@ -1124,7 +1124,7 @@ const images = service.bannerImages;
                 Franchise Commission
               </p>
               <p className="text-[26px] lg:text-[32px] font-medium text-[#2CB140] mt-1">
-                Earn Up to 7%
+                Earn Up to {service?.franchiseDetails?.commission}
               </p>
             </div>
 
