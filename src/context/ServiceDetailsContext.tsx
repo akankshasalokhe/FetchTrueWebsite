@@ -117,10 +117,12 @@ interface ServiceDetails {
   weRequired: {
     _id: string;
     title: string;
+    description?: string;
   }[];
   weDeliver: {
     _id: string;
     title: string;
+    description?: string;
   }[];
   moreInfo: {
   _id: string;
@@ -138,6 +140,11 @@ interface ServiceDetails {
     _id: string;
     icon: string;
     title: string;
+    lists: string[];
+  }[];
+  whomToSell:{
+    _id: string;
+    icon: string;
     lists: string[];
   }[];
     trainingDetails: string[];

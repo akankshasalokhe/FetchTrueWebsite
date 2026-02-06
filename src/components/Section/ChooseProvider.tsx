@@ -1,12 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 export default function ChooseProvider({
   title,
   buttonColor = "bg-[#5B3527]",
   providers,
 }: any) {
+  const [showAll, setShowAll] = useState(false);
+const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const visibleProviders = showAll
+    ? providers
+    : providers.slice(0, 1);
   return (
     <section className="w-full py-16">
       <div className="max-w-[1200px] mx-auto px-4">
@@ -22,7 +29,7 @@ export default function ChooseProvider({
 
         {/* Providers */}
         <div className="space-y-6">
-          {providers.map((provider: any, index: number) => (
+          {visibleProviders.map((provider: any, index: number) => (
             <div
               key={index}
               className="bg-white border border-[#E2E2E2] rounded-[10px] p-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
@@ -35,10 +42,10 @@ export default function ChooseProvider({
                     alt={provider.name}
                     width={56}
                     height={56}
-                    className="rounded-full"
+                    className="rounded-full mb-3"
                   />
                   {provider.promoted && (
-                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[10px] bg-green-500 text-white px-2 py-[1px] rounded">
+                    <span className="absolute -bottom-2 left-1/2  -translate-x-1/2 text-[10px] bg-green-500 text-white px-2 py-[1px] rounded">
                       Promoted
                     </span>
                   )}
@@ -67,7 +74,7 @@ export default function ChooseProvider({
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 w-full lg:w-auto">
 
                 {/* Price */}
-                <div className="text-left sm:text-right">
+                {/* <div className="text-left sm:text-right">
                   <p className="text-[16px] md:text-[18px] font-semibold">
                     ₹ {provider.price}
                     {provider.originalPrice && (
@@ -83,20 +90,32 @@ export default function ChooseProvider({
                       </>
                     )}
                   </p>
-                </div>
+                </div> */}
 
                 {/* Commission */}
-                <div className="text-left sm:text-right">
+                {/* <div className="text-left sm:text-right">
                   <p className="text-[13px] text-[#777]">Earn up to</p>
                   <p className="text-[16px] font-semibold text-green-600">
                     {provider.commissionText}
                   </p>
-                </div>
+                </div> */}
 
                 {/* Select */}
-                <div className="border border-green-500 text-green-500 rounded w-6 h-6 flex items-center justify-center shrink-0">
-                  ✓
-                </div>
+<div
+  onClick={() =>
+    setSelectedIndex(selectedIndex === index ? null : index)
+  }
+  className={`cursor-pointer rounded w-6 h-6 flex items-center justify-center shrink-0 border
+    ${
+      selectedIndex === index
+        ? "bg-green-500 border-green-500 text-white"
+        : "border-gray-400 text-transparent"
+    }
+  `}
+>
+  ✓
+</div>
+
 
               </div>
             </div>
@@ -106,10 +125,12 @@ export default function ChooseProvider({
         {/* CTA */}
         <div className="text-center mt-10">
           <button
-            className={`${buttonColor} text-white px-6 py-3 rounded-[8px] text-[15px] md:text-[16px] font-medium w-full sm:w-auto`}
-          >
-            See all Providers
-          </button>
+  onClick={() => setShowAll((prev) => !prev)}
+  className={`${buttonColor} text-white px-6 py-3 rounded-[8px] text-[15px] md:text-[16px] font-medium w-full sm:w-auto`}
+>
+  {showAll ? "Show Less" : "See all Providers"}
+</button>
+
         </div>
 
       </div>
