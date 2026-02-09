@@ -147,6 +147,11 @@ interface ServiceDetails {
     icon: string;
     lists: string[];
   }[];
+  timeRequired:{
+    _id: string;
+    range: string;
+    parameters: string;
+  }[];
     trainingDetails: string[];
   agreementDetails: string[];
     companyDetails: {

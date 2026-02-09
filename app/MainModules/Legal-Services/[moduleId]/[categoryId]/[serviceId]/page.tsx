@@ -906,7 +906,7 @@ import {
   FiSmartphone,
   FiLayers,
 } from "react-icons/fi";
-import { Scale, Timer, Wallet, MapPin } from "lucide-react";
+import { Scale, Timer, Wallet, MapPin, Share2 } from "lucide-react";
 import FAQs from "@/src/components/Section/FAQ";
 import TermsConditions from "@/src/components/Section/TermsandCondition";
 import MoreInformation from "@/src/components/Section/MoreInformationSection";
@@ -919,6 +919,7 @@ import { useFranchiseModel } from "@/src/context/FranchiseContext";
 import { useReview } from "@/src/context/ReviewContext";
 import { useEffect } from "react";
 import { useServiceProviders } from "@/src/context/ServicewiseProviderContext";
+import Link from "next/link";
 
  const extractBenefits = (benefits: string[]): string[] => {
    if (!benefits?.length) return [];
@@ -1042,7 +1043,44 @@ const images = service.bannerImages;
 
   return (
     <div className="bg-[#F4F4F4] w-full ">
-        <section className="py-6 sm:py-8 lg:py-12 lg:px-10">
+     <section className="">
+       <div className="ms-12 pt-5">
+    <Link
+      href={`/MainModules/Legal-Services/${moduleId}`}
+      
+    >
+      {/* <FiLayers size={20} /> */}
+      <span className="flex items-center gap-2 text-[#5B3527] font-medium text-[18px] hover:underline ">Service Details</span>
+    </Link>
+    </div>
+  <div className="w-full fixed flex justify-end gap-4 mx-auto px-12 mb-5 ">
+    
+
+    {/* RIGHT : Actions */}
+    <div className="flex items-center gap-3 mb-5 ">
+      <Link
+        href={`/MainModules/Checkout`}>
+       <button className="bg-green-500 hover:bg-green-600 text-white
+                   px-4 sm:px-5 py-2 rounded
+                   flex items-center gap-2 text-[14px]"
+      >
+        Check out</button>
+      </Link>
+
+      <button
+        className="bg-blue-600 hover:bg-blue-700 text-white
+                   px-4 sm:px-5 py-2 rounded
+                   flex items-center gap-2 text-[14px]"
+      >
+        <Share2 size={16} />
+        Share
+      </button>
+    </div>
+
+  </div>
+</section>
+
+        <section className="py-6 sm:py-8 lg:py-10 lg:px-10">
       <div className=" w-full  mx-auto bg-white rounded-[4px] p-4  lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
         
         {/* LEFT IMAGE */}
@@ -1088,15 +1126,15 @@ const images = service.bannerImages;
               </p>
 
               <p className="text-[22px] lg:text-[26px] font-semibold text-[#1E1E1E]">
-                ₹14,000
+                ₹{service?.serviceDetails?.packages?.[0]?.discountedPrice}
               </p>
 
               <div className="flex items-center gap-2 mt-1">
                 <span className="line-through text-[#9E9E9E] text-[16px] lg:text-[18px]">
-                  ₹10,000
+                  ₹{service?.serviceDetails?.packages?.[0]?.price}
                 </span>
                 <span className="text-[12px] lg:text-[14px] text-white bg-[#BC9958] px-2 py-[2px] rounded">
-                  25% OFF
+                  {service?.serviceDetails?.packages?.[0]?.discount}% OFF
                 </span>
               </div>
             </div>
@@ -1108,11 +1146,11 @@ const images = service.bannerImages;
               </p>
 
               <p className="text-[22px] lg:text-[26px] font-semibold text-[#1E1E1E]">
-                7-10
+                {service?.serviceDetails?.timeRequired?.[0]?.range}
               </p>
 
               <p className="text-[14px] lg:text-[16px] text-[#7A7A7A]">
-                Working days
+                {service?.serviceDetails?.timeRequired?.[0]?.parameters}
               </p>
             </div>
           </div>
@@ -1175,7 +1213,7 @@ const images = service.bannerImages;
             )}
 
   {/* Image */}
-  <div className="w-full max-w-[900px] h-auto mx-auto my-12">
+  <div className="w-full max-w-[1440px] h-auto mx-auto my-12">
     {service?.serviceDetails?.highlight?.[0] && (
     <img
       src={service.serviceDetails.highlight[0]}

@@ -19,7 +19,7 @@ export default function ConnectBar({
   shareLink,
 }: ConnectBarProps) {
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 py-6 md:py-10">
+    <div className="w-full max-w-[500px] mx-auto px-4 md:px-8 py-6 md:py-10">
 
       <div className="bg-white rounded-[6px] shadow-sm px-4 sm:px-6 py-4
                       flex flex-col sm:flex-row
@@ -52,17 +52,17 @@ export default function ConnectBar({
           )}
 
           {/* Checkout */}
-          <Link
+          {/* <Link
             href={checkoutLink}
             className="bg-green-500 hover:bg-green-600 text-white
                        px-4 sm:px-5 py-2 rounded
                        flex items-center gap-2 text-[14px]"
           >
             Check out
-          </Link>
+          </Link> */}
 
           {/* Share */}
-          <Link
+          {/* <Link
             href={shareLink}
             className="bg-blue-600 hover:bg-blue-700 text-white
                        px-4 sm:px-5 py-2 rounded
@@ -70,7 +70,7 @@ export default function ConnectBar({
           >
             <Share2 size={16} />
             Share
-          </Link>
+          </Link> */}
 
         </div>
       </div>
