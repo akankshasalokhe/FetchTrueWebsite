@@ -45,7 +45,7 @@ export default function FAQs({
                   className="w-full flex items-center justify-between px-5 py-4 text-left"
                 >
                   <span className="text-[15px] lg:text-[22px] font-medium text-[#606060]">
-                    {index + 1}. {faq.question}
+                     {faq.question}
                   </span>
 
                   <ChevronDown

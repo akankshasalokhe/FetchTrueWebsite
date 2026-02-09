@@ -29,6 +29,8 @@ import { CouponProvider } from "@/src/context/CouponsContext"
 import { CommissionProvider } from "@/src/context/PlatformFeeContext"
 import { HomeTopTrendingProvider } from "@/src/context/HomeTopTrendingContext"
 import { TopRatedProviders } from "@/src/context/HomeTopRatedProvider"
+import { FranchiseModelProvider } from "@/src/context/FranchiseContext";
+import { ServicewiseProviderProvider } from "@/src/context/ServicewiseProviderContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -68,8 +70,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                           <CommissionProvider>
                                                             <HomeTopTrendingProvider>
                                                               <TopRatedProviders>
-                                                                {/* <Navbar /> */}
-                                                                <main>{children}</main>
+                                                                <FranchiseModelProvider>
+                                                                  <ServicewiseProviderProvider>
+
+
+                                                                    <main>{children}</main>
+
+                                                                  </ServicewiseProviderProvider>
+                                                                </FranchiseModelProvider>
 
                                                               </TopRatedProviders>
 
@@ -78,6 +86,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                           </CommissionProvider>
 
                                                         </CouponProvider>
+
+
 
                                                       </CheckoutProvider>
 

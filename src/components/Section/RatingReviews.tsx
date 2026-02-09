@@ -62,17 +62,33 @@ export default function RatingsReviews({
             ))}
           </div>
 
-          {/* RIGHT */}
+  {/* RIGHT */}
           <div className="w-full md:w-[360px] flex justify-center">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               {features.map((feature: any, index: number) => (
                 <div key={index} className="text-center">
+
                   <div
-                    className="w-[70px] h-[70px] rounded-full border-[4px] flex items-center justify-center text-[16px] font-semibold mx-auto"
+                    className="w-[70px] h-[70px] rounded-full  mx-auto relative flex items-center justify-center"
                     style={{ borderColor: primaryColor }}
                   >
-                    {feature.score}/5
+                    {/* Fill ring */}
+                    <div
+                      className="absolute inset-[4px] rounded-full"
+                      style={{
+                        background: `conic-gradient(
+                          ${primaryColor} ${feature.score * 20}%,
+                          #E5E5E5 0
+                        )`,
+                      }}
+                    />
+
+                    {/* Inner circle */}
+                    <div className="w-[52px] h-[52px] rounded-full bg-white flex items-center justify-center relative z-10 text-[16px] font-semibold">
+                      {feature.score}/5
+                    </div>
                   </div>
+
                   <p className="text-[14px] text-[#555] mt-2">
                     {feature.label}
                   </p>

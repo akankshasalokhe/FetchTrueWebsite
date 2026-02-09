@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 
 type RecommendedProps = {
@@ -123,6 +123,10 @@ export default function Recommended({ moduleId }: RecommendedProps) {
         fetchRecommendedServices(moduleId);
     }, [moduleId]);
 
+     const { categoryId } = useParams<{
+                moduleId: string;
+                categoryId: string;
+              }>();
 
     const getMaxScroll = () => {
         const container = containerRef.current;
@@ -239,7 +243,7 @@ export default function Recommended({ moduleId }: RecommendedProps) {
                             overflow-hidden
                             relative"
                         onClick={() => {
-                              router.push(`/MainModules/AI-Hub/ServiceDetails/${p.id}?service=${encodeURIComponent(p.title)}`)
+                              router.push(`/MainModules/AI-Hub/${moduleId}/${categoryId}/${p.id}`);
                         }}
                     >
                         {/* IMAGE */}
