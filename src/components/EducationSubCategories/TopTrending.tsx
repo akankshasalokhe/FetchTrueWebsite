@@ -396,143 +396,14 @@ import { User } from "lucide-react";
 import { useTopTrendingServiceByCategoryIdContext } from "@/src/context/TopTrendingServiceByCategoryIdContext";
 
 
-/* ---------------- CATEGORY TABS ---------------- */
-const CATEGORY_TABS = [
-    { label: "All", value: "all" },
-    { label: "300", value: "0-300" },
-    { label: "300 - 400 Rs", value: "300-400" },
-    { label: "400 - 600 Rs", value: "400-600" },
-    { label: "600 - 800 Rs", value: "600-800" },
-    { label: "800 - 1000 Rs", value: "800-1000" },
-];
 
-// /* ---------------- SERVICES DATA ---------------- */
-// const SERVICES = [
-//     {
-//         id: 1,
-//         title: "Figma UI UX Design",
-//         subtitle: "Develop your future website",
-//         category: "Digital Marketing",
-//         users: "2400+ users",
-//         rating: 4,
-//         price: 450,
-//         discount: "30%",
-//         trusted: true,
-//         earn: "Earn Up to 5%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 2,
-//         title: "IT Consulting",
-//         subtitle: "Develop your future website",
-//         category: "UI / UX",
-//         users: "1800+ users",
-//         rating: 5,
-//         price: 380,
-//         discount: "25%",
-//         trusted: true,
-//         earn: "Earn Up to 4%",
-//         image: "/image/Educationcardbg.png",
-
-//     },
-//     {
-//         id: 3,
-//         title: "App Development",
-//         subtitle: "Develop your future website",
-//         category: "Graphic Design",
-//         users: "1200+ users",
-//         rating: 4,
-//         price: 280,
-//         discount: "20%",
-//         trusted: true,
-//         earn: "Earn Up to 3%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 4,
-//         title: "Cyber Security",
-//         subtitle: "Develop your future website",
-//         category: "Print Design",
-//         users: "950+ users",
-//         rating: 4,
-//         price: 220,
-//         discount: "15%",
-//         trusted: true,
-//         earn: "Earn Up to 2%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 5,
-//         title: "IT Consulting",
-//         subtitle: "Develop your future website",
-//         category: "Digital Marketing",
-//         users: "2100+ users",
-//         rating: 5,
-//         price: 320,
-//         discount: "35%",
-//         trusted: true,
-//         earn: "Earn Up to 5%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 6,
-//         title: "Web Development",
-//         subtitle: "Develop your future website",
-//         category: "UI / UX",
-//         users: "1600+ users",
-//         rating: 5,
-//         price: 520,
-//         discount: "20%",
-//         trusted: true,
-//         earn: "Earn Up to 6%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 7,
-//         title: "Cyber Security",
-//         subtitle: "Develop your future website",
-//         category: "Print Design",
-//         users: "1100+ users",
-//         rating: 4,
-//         price: 480,
-//         discount: "18%",
-//         trusted: true,
-//         earn: "Earn Up to 3%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 8,
-//         title: "Web Development",
-//         subtitle: "Develop your future website",
-//         category: "Graphic Design",
-//         users: "1400+ users",
-//         rating: 4,
-//         price: 260,
-//         discount: "22%",
-//         trusted: true,
-//         earn: "Earn Up to 3%",
-//         image: "/image/Educationcardbg.png",
-//     },
-//     {
-//         id: 9,
-//         title: "App Development",
-//         subtitle: "Develop your future website",
-//         category: "Branding",
-//         users: "900+ users",
-//         rating: 5,
-//         price: 750,
-//         discount: "40%",
-//         trusted: true,
-//         earn: "Earn Up to 7%",
-//         image: "/image/Educationcardbg.png",
-//     },
-// ];
 
 /* ---------------- COMPONENT ---------------- */
 
 interface Props {
     categoryId: string;
     moduleId: string;
+    sortBy: string;
 }
 
 interface Package {
@@ -545,7 +416,7 @@ interface Package {
 }
 
 
-export default function TopTrending({ categoryId, moduleId }: Props) {
+export default function TopTrending({ categoryId, moduleId, sortBy }: Props) {
     const {
         services, loading, error, fetchTopTrendingServicesByCategoryId 
     } = useTopTrendingServiceByCategoryIdContext();
@@ -559,6 +430,13 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
         }
     }, [moduleId, categoryId]);
 
+    useEffect(() => {
+        containerRef.current?.scrollTo({
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [sortBy]);
+
 
     if (loading)
         return <p className="text-center py-10">Loading Top Trending services...</p>;
@@ -570,11 +448,6 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
         return <p className="text-center py-10">No Top Trending services found.</p>;
 
 
-
-
-
-    const toSlug = (text: string) =>
-        text.toLowerCase().replace(/\s+/g, "-");
 
 
    const getStartingPackage = (packages: Package[] = []) => {
@@ -606,75 +479,33 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
 
         })});
 
+
+            const sortedServices = [...mappedServices].sort((a, b) => {
+        switch (sortBy) {
+            case "high-to-low":
+                return b.price - a.price;
+
+            case "low-to-high":
+                return a.price - b.price;
+
+            case "recommended":
+                return b.rating - a.rating;
+
+            case "most-popular":
+                return b.reviews - a.reviews;
+
+            case "top-trending":
+                return b.discount - a.discount;
+
+            default:
+                return 0;
+        }
+    });
+
     if (loading) return <p className="text-[12px] md;text-[24px] text-center">Loading...</p>;
     if (error) return <p>{error}</p>;
 
 
-    const CARD_CLASSES = `
-    snap-center flex-shrink-0
-    w-[88vw] sm:w-[70vw] md:w-[390px] md:h-[362.04px]
-    rounded-3xl p-3
-    shadow-lg
-    `;
-
-    // const filteredServices = SERVICES.filter((item) => {
-    //     // PRICE FILTER
-    //     const rangeMatch =
-    //         selectedRange === "all" ||
-    //         (selectedRange === "0-300" && item.price < 300) ||
-    //         (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
-    //         (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
-    //         (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
-    //         (selectedRange === "800-1000" && item.price > 800);
-
-    //     // CATEGORY FILTER
-    //     const categoryMatch =
-    //         selectedCategory === "all" ||
-    //         item.title === selectedCategory;
-
-    //     const normalizedTitle = item.title.toLowerCase();
-    //     const normalizedContext = contextTitle?.toLowerCase();
-
-    //     const contextMatch =
-    //         !contextTitle ||
-    //         normalizedTitle === normalizedContext;
-
-    //     // SEARCH
-    //     const searchMatch =
-    //         searchQuery === "" ||
-    //         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //         item.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-    //     return rangeMatch && categoryMatch && searchMatch && contextMatch;
-    // });
-
-
-    type CardBgProps = {
-        active?: boolean;
-    };
-
-    const CardBg: React.FC<CardBgProps> = ({ active = false }) => (
-        <svg
-            viewBox="0 0 300 200"
-            preserveAspectRatio="none"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-        >
-            <path
-                d="
-        M 20 0
-        H 280
-        L 300 0
-        V 70
-        Q 350 230 220 200
-        H 0
-        V 30
-        Q 0 0 20 0
-        Z
-      "
-                fill="#E2E9F1"
-            />
-        </svg>
-    );
 
 
 
@@ -682,16 +513,16 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
         <div className="w-full p-4 md:ml-15">
             {/* TITLE */}
             <h2 className="text-[18px] md:text-[24px] font-semibold mb-4">
-                Top Trending
+                {/* Top Trending */}
             </h2>
 
             {/* SWIPEABLE CARDS */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-6 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
+                className="flex gap-4 md:gap-6 "
             >
-                {mappedServices.length > 0 ? (
-                    mappedServices.map((item) => (
+                {sortedServices.length > 0 ? (
+                    sortedServices.map((item) => (
                         <div
                             key={item.id}
                             onClick={() =>
@@ -766,7 +597,7 @@ export default function TopTrending({ categoryId, moduleId }: Props) {
                                     </div>
 
 
-                                    <div className="flex items-cente mb-2">
+                                    <div className="flex items-center mb-2">
                                         <div className="inline-flex items-center gap-6 text-[9px] md:text-[12px] px-3 py-1 whitespace-nowrap shrink-0">
                                             {/* <PenIcon className="inline-block w-[12px] h-[12px] flex-shrink-0" />
                                             Create & Practice */}

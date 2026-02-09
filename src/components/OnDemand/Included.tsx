@@ -93,6 +93,8 @@ type IncludedProps = {
 };
 
 function parseHtmlList(html: string): string[] {
+  if (typeof window === "undefined") return [];
+
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
 

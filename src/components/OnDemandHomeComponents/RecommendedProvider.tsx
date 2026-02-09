@@ -19,7 +19,7 @@ type SectionProps = {
 
 
 
-export default function RecommendedProvider({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
+export default function RecommendedProvider({ moduleId }: SectionProps) {
 
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [isDown, setIsDown] = useState(false);
@@ -27,44 +27,6 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
     const [scrollLeft, setScrollLeft] = useState(0);
     const router = useRouter();
 
-    // const services = [
-    //     {
-    //         id: 1,
-    //         name: "G-Kitchen Costar",
-    //         description: "We provide you the best kitchen service",
-    //         phone: "5684562680",
-    //         email: "company@gmail.com",
-    //         address: "Plot 3, High Sky Building, Pune 415005",
-    //         categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
-    //         experience: "6+ Years",
-    //         rating: 4,
-    //         reviews: 300,
-    //         time: "9-11 PM",
-    //         tools: "All Tools Included",
-    //         trusted: true,
-    //         day: "Sunday",
-    //         status: "Available",
-    //         image: "/image/OnDemandRecommended.png",
-    //     },
-    //     ...Array.from({ length: 6 }).map((_, i) => ({
-    //         id: i + 2,
-    //         name: "Home Chef Pro",
-    //         description: "Premium home cooking services",
-    //         phone: "9876543210",
-    //         email: "chef@gmail.com",
-    //         address: "Baner Road, Pune",
-    //         categories: ["Cooking", "Meal Prep"],
-    //         experience: "4+ Years",
-    //         rating: 5,
-    //         reviews: 180,
-    //         time: "10-8 PM",
-    //         tools: "All Tools Included",
-    //         trusted: true,
-    //         day: "Monday",
-    //         status: "Available",
-    //         image: "/image/OnDemandRecommended.png",
-    //     })),
-    // ];
 
     const {
         providers,
@@ -175,7 +137,8 @@ export default function RecommendedProvider({ selectedRange, selectedCategory, s
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                             onClick={() => {
-                               router.push(`/MainModules/On-Demand/servicedetails/${item.id}?service=${encodeURIComponent(item.name)}`)
+                            //    router.push(`/MainModules/On-Demand/servicedetails/${item.id}?service=${encodeURIComponent(item.name)}`)
+                            router.push(`/MainModules/On-Demand/[moduleId]/providerId`)
                             }}
                         >
                             {/* HEADER */}

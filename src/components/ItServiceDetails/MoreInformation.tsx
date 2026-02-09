@@ -70,7 +70,7 @@ export default function MoreInformation({ moreInfo }: MoreInformationProps) {
                 </h2>
             </div>
 
-            {/* ================= DESKTOP (UNCHANGED) ================= */}
+            {/*  DESKTOP  */}
             <div className="hidden md:flex max-w-6xl mx-auto h-auto gap-4">
                 {moreInfo.map((item,index) => {
                     const isActive = activeId === index + 1;
@@ -79,7 +79,7 @@ export default function MoreInformation({ moreInfo }: MoreInformationProps) {
                         <div
                             key={index}
                             onClick={() => setActiveId(index + 1)}
-                            className={`relative cursor-pointer w-[600px] md:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden transition-all duration-500
+                            className={`relative cursor-pointer w-[600px] md:h-[400px] lg:h-[470px] rounded-2xl overflow-hidden transition-all duration-500
                 ${isActive ? "flex-[3]" : "flex-[1]"}
               `}
                         >

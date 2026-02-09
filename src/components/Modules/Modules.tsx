@@ -169,12 +169,12 @@ export default function ServiceCategory() {
                 <img
                   src={module.image}
                   alt={module.name}
-                  className="w-[140px] h-[130px] object-cover rounded-[15px]"
+                  className="w-[140px] h-[130px] object-fit rounded-[15px]"
                   
                 />
               </div>
 
-              <p className="absolute text-[13px] lg:text-[16px] font-medium mt-2 mr-5">
+              <p className="text-[13px] lg:text-[16px] flex  justify-center font-medium mt-2">
                 {module.name}
               </p>
             </Link>

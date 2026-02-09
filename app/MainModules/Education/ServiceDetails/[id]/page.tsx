@@ -21,6 +21,7 @@ import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { useEffect } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useReview } from "@/src/context/ReviewContext";
+import { useCheckout } from "@/src/context/CheckoutContext";
 
 
 type CourseInfo = {
@@ -53,22 +54,23 @@ const DATA: CourseInfo = {
 
 export default function ServiceDetails() {
 
-  const { service, loading, error, fetchServiceDetails } = useServiceDetails();
-     const { services, fetchReviews } = useReview();
-     const params = useParams();
-     const serviceId = params.id as string;
- 
-     useEffect(() => {
-         if (!serviceId) return;
- 
-         fetchServiceDetails(serviceId);
-         fetchReviews(serviceId)
-     }, [serviceId]);
- 
-     const searchParams = useSearchParams();
- 
-     const serviceName = searchParams.get("service");
- 
+    const { service, loading, error, fetchServiceDetails } = useServiceDetails();
+    const { reviewServices, fetchReviews } = useReview();
+    const params = useParams();
+    const serviceId = params.id as string;
+
+
+    useEffect(() => {
+        if (!serviceId) return;
+
+        fetchServiceDetails(serviceId);
+        fetchReviews(serviceId)
+    }, [serviceId]);
+
+    const searchParams = useSearchParams();
+
+    const serviceName = searchParams.get("service");
+
 
 
     if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
@@ -81,9 +83,9 @@ export default function ServiceDetails() {
                 <div className="hidden lg:block w-full bg-white pt-8">
 
                     {/* ===== HEADER BAR ===== */}
-                    <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-4">
+                    <div className="w-screen fixed top-0 z-50 bg-white mx-auto flex items-center justify-between px-8 py-4">
                         {/* LEFT */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 ml-20">
                             <Link href="/MainModules/ITService">
                                 <ChevronLeft size={24} className="cursor-pointer" />
                             </Link>
@@ -91,7 +93,7 @@ export default function ServiceDetails() {
                         </div>
 
                         {/* RIGHT */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 mr-15 mt-2">
                             <Link href="/MainModules/Checkout">
                                 <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-[20px] font-medium">
                                     <ShoppingCart className="w-[29px] h-[29px]" />
@@ -107,7 +109,7 @@ export default function ServiceDetails() {
                     </div>
 
                     {/* ===== CONTENT BELOW HEADER ===== */}
-                    <div className="flex gap-8 p-8 max-w-[1400px] mx-auto">
+                    <div className="flex gap-8 p-8 max-w-[1400px] mx-auto mt-4">
 
                         {/* ===== LEFT IMAGE ===== */}
                         <div className="flex flex-col gap-3">
@@ -115,7 +117,7 @@ export default function ServiceDetails() {
                                 <img
                                     src={service?.bannerImages?.[0] || "/image/eduserbg.png"}
                                     alt="Education Service"
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-fit rounded-lg mt-4"
                                 />
 
                                 {/* BADGES */}
@@ -215,27 +217,27 @@ export default function ServiceDetails() {
                 <div className="lg:hidden">
                     <div className="relative flex flex-col mx-4 mt-12 rounded-xl overflow-hidden">
 
-                        {/* ===== HEADER ABOVE IMAGE ===== */}
-                        <div className="flex items-center justify-between gap-3 mb-3">
+                        {/* ===== HEADER ===== */}
+                        <div className="flex w-screen -ml-4 items-center justify-between fixed top-0 z-50 bg-white gap-3  mb-3">
 
                             {/* LEFT */}
-                            <div className="flex items-center gap-1">
+                            <div className="flex items-center gap-1 md:ml-8 mt-4">
                                 <Link href="/MainModules/Education">
                                     <ChevronLeft size={24} className="cursor-pointer" />
                                 </Link>
-                                <h1 className="text-lg font-semibold">Service Details</h1>
+                                <h1 className="text-[14px] md:text-[18px] font-semibold">Service Details</h1>
                             </div>
 
                             {/* RIGHT (Checkout + Share) */}
-                            <div className="flex items-center gap-2 mr-2">
+                            <div className="flex items-center gap-2 mr-5 mt-2 md:mr-8 md:mt-6 md:mb-2">
                                 <Link href="/MainModules/Checkout">
-                                    <button className="flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md text-xs font-medium">
+                                    <button className="flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white px-2 py-2 md:px-3 md:py-2 rounded-md text-xs font-medium">
                                         <ShoppingCart className="w-4 h-4" />
                                         Checkout
                                     </button>
                                 </Link>
 
-                                <button className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-xs font-medium">
+                                <button className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-2 md:px-3 md:py-2 rounded-md text-xs font-medium">
                                     <Share2 className="w-4 h-4" />
                                     Share
                                 </button>
@@ -246,7 +248,7 @@ export default function ServiceDetails() {
                         <img
                             src={service?.bannerImages?.[0] || "/image/eduserbg.png"}
                             alt="course"
-                            className="w-full h-[220px] object-cover"
+                            className="w-full h-[220px] object-fit rounded-lg mt-8"
                         />
 
                         {/* ===== DURATION BADGES ===== */}
@@ -348,7 +350,7 @@ export default function ServiceDetails() {
                 <MoreInformation moreInfo={service?.serviceDetails?.moreInfo || []} />
                 <TermsAndConditions termsAndConditions={service?.serviceDetails?.termsAndConditions || []} />
                 <FAQs faq={service?.serviceDetails?.faq || []} />
-                <RatingsReviews reviews={services} />
+                <RatingsReviews reviews={reviewServices} />
                 <ConnectWith connectWith={service?.serviceDetails?.connectWith || []} />
             </section>
         </>

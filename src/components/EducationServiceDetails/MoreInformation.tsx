@@ -38,7 +38,7 @@ export default function MoreInformation({ moreInfo }: moreInfoProps) {
                         <div
                             key={item._id} // still keep _id as key
                             onClick={() => setActiveIndex(index)}
-                            className={`relative cursor-pointer md:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden transition-all duration-500
+                            className={`relative cursor-pointer md:h-[400px] lg:h-[470px] rounded-2xl overflow-hidden transition-all duration-500
         ${isActive ? "flex-[3]" : "flex-[1]"}
       `}
                         >

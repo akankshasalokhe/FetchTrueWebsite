@@ -9,51 +9,208 @@ import TopTrending from '@/src/components/MarketingCategories/TopTrending';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSubCategory } from '@/src/context/SubCategoriesContext';
+import { useRecommendedServiceByCategoryIdContext } from '@/src/context/RecommendedServiceByCategoryIdContext';
+import { useMostPopularServiceByCategory } from '@/src/context/MostPopularServiceByCategoryIdContext';
+import { useTopTrendingServiceByCategoryIdContext } from '@/src/context/TopTrendingServiceByCategoryIdContext';
+import ServiceCard from '@/src/components/MarketingCategories/ServiceCard';
 
-// const navItems = [
-//     { label: 'Logo\nDesign', icon: '/image/logodesign.png' },
-//     { label: 'Web\nDesign', icon: '/image/webdesign.png' },
-//     { label: 'Graphic\nDesign', icon: '/image/graphicdesign.png' },
-//     { label: 'Print\nDesign', icon: '/image/printdesign.png' },
-// ];
+
+type keyValuesItem = {
+    value: string,
+    icon?: string,
+    _id: string
+}[]
+
+export type UnifiedService = {
+    id: string;
+    title: string;
+    category: string;
+    image: string;
+    rating: number;
+    reviews: number;
+    price: number;
+    keyValues: keyValuesItem;
+    originalPrice: number;
+    discount: number;
+    source: "recommended" | "popular" | "trending";
+};
+
+type BackendService = {
+    _id: string;
+    serviceName: string;
+    thumbnailImage?: string;
+    averageRating?: number;
+    totalReviews?: number;
+    category?: {
+        _id: string;
+        name: string;
+    };
+    keyValues?: keyValuesItem;
+    serviceDetails?: {
+        packages?: {
+            price: number;
+            discountedPrice: number;
+            discount: number;
+        }[];
+    };
+};
+
 
 export default function DesignStudioPage() {
 
-     const { moduleId,categoryId } = useParams<{
-        moduleId:string;
-        categoryId:string;
-      }>();
+    const { moduleId, categoryId } = useParams<{
+        moduleId: string;
+        categoryId: string;
+    }>();
 
-            const {
-              subCategories,
-              loading,
-              error,
-              fetchSubCategories,
-            } = useSubCategory();
-            
-            const [currentCategory, setCurrentCategory] = useState<any>(null);
-      
-            useEffect(() => {
+    const {
+        subCategories,
+        loading,
+        error,
+        fetchSubCategories,
+    } = useSubCategory();
+
+    const [currentCategory, setCurrentCategory] = useState<any>(null);
+    const [selectedRange, setSelectedRange] = useState("all");
+
+    useEffect(() => {
         if (subCategories.length) {
-        //   setActive(subCategories[0]._id);
-      
-          const subCat = subCategories.find(sc => sc._id === categoryId);
-          if (subCat) {
-            setCurrentCategory(subCat.category);
-          } else {
-            setCurrentCategory(subCategories[0].category);
-          }
+            //   setActive(subCategories[0]._id);
+
+            const subCat = subCategories.find(sc => sc._id === categoryId);
+            setTimeout(() => {
+                if (subCat) {
+                    setCurrentCategory(subCat.category);
+                } else {
+                    setCurrentCategory(subCategories[0].category);
+                }
+            }, 0);
         }
-      }, [subCategories]);
-      
-            
-            
-             useEffect(() => {
-              if (categoryId) {
-                fetchSubCategories(categoryId);
-              }
-            }, []);
-      
+    }, [subCategories]);
+
+
+
+    useEffect(() => {
+        if (categoryId) {
+            fetchSubCategories(categoryId);
+        }
+    }, []);
+
+    /* ---------- DERIVED CATEGORY ---------- */
+    const {
+        services: recommendedServices,
+        loading: recommendedLoading,
+        fetchRecommendedServicesByCategoryId,
+    } = useRecommendedServiceByCategoryIdContext();
+
+    const {
+        services: popularServices,
+        loading: popularLoading,
+        fetchMostPopularServiceByCategory
+    } = useMostPopularServiceByCategory();
+
+    const {
+        services: trendingServices,
+        loading: trendingLoading,
+        fetchTopTrendingServicesByCategoryId
+    } = useTopTrendingServiceByCategoryIdContext();
+
+    useEffect(() => {
+        if (categoryId) {
+            fetchSubCategories(categoryId);
+            fetchRecommendedServicesByCategoryId(categoryId);
+            fetchMostPopularServiceByCategory(categoryId);
+            fetchTopTrendingServicesByCategoryId(categoryId);
+        }
+    }, [categoryId]);
+
+
+
+
+    /* ---------- FILTER STATE ---------- */
+    const FILTERS = [
+        { label: "All", value: "all" },
+        { label: "High to Low", value: "high-to-low" },
+        { label: "Low to High", value: "low-to-high" },
+        { label: "Recommended", value: "recommended" },
+        { label: "Most Popular", value: "most-popular" },
+        { label: "Top Trending", value: "top-trending" },
+    ];
+
+    const mapService = (
+        service: BackendService,
+        source: UnifiedService["source"]
+    ): UnifiedService => {
+        const packages = service.serviceDetails?.packages ?? [];
+
+        const cheapest =
+            packages.length > 0
+                ? packages.reduce((min, p) =>
+                    p.discountedPrice < min.discountedPrice ? p : min
+                )
+                : null;
+
+        return {
+            id: service._id,
+            title: service.serviceName,
+            category: service.category?.name ?? "Unknown",
+            image: service.thumbnailImage ?? "",
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews ?? 0,
+            price: cheapest?.discountedPrice ?? 0,
+            originalPrice: cheapest?.price ?? 0,
+            discount: cheapest?.discount ?? 0,
+            keyValues: service?.keyValues ?? [],
+            source,
+        };
+    };
+
+
+
+
+    const allServices: UnifiedService[] = [
+        ...recommendedServices.map(s => mapService(s, "recommended")),
+        ...popularServices.map(s => mapService(s, "popular")),
+        ...trendingServices.map(s => mapService(s, "trending")),
+    ];
+
+
+
+
+    const filteredServices = allServices.filter(service => {
+        switch (selectedRange) {
+            case "recommended":
+                return service.source === "recommended";
+
+            case "most-popular":
+                return service.source === "popular";
+
+            case "top-trending":
+                return service.source === "trending";
+
+            default:
+                return true;
+        }
+    });
+
+    const filteredAndSorted = [...filteredServices].sort((a, b) => {
+        switch (selectedRange) {
+            case "high-to-low":
+                return b.price - a.price;
+
+            case "low-to-high":
+                return a.price - b.price;
+
+            default:
+                return 0;
+        }
+    });
+
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
     return (
         <>
             {/* ---------------- NAVBAR / HERO SECTION ---------------- */}
@@ -73,21 +230,21 @@ export default function DesignStudioPage() {
                 <div className="relative z-10 min-h-[260px] md:min-h-[336px]">
                     {/* Header */}
                     <div className="border-b-2 border-white">
-                    <div className="flex items-center gap-6 px-4 md:px-6 py-4 md:ml-8">
-                        <div className="flex items-center gap-3 mt-5">
-                            <Link href={`/MainModules/Marketing/${moduleId}`}>
-                            <img
-                                src="/image/designvector.png"
-                                className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
-                                alt="Back"
-                            />
-                            </Link>
-                            <h1 className="text-white font-semibold text-base md:text-lg leading-none">
-                                {currentCategory?.name}
-                            </h1>
+                        <div className="flex items-center gap-6 px-4 md:px-6 py-4 md:ml-8">
+                            <div className="flex items-center gap-3 mt-5">
+                                <Link href={`/MainModules/Marketing/${moduleId}`}>
+                                    <img
+                                        src="/image/designvector.png"
+                                        className="w-[16px] h-[14px] lg:w-[22px] lg:h-[20px]"
+                                        alt="Back"
+                                    />
+                                </Link>
+                                <h1 className="text-white font-semibold text-base md:text-lg leading-none">
+                                    {currentCategory?.name}
+                                </h1>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     {/* Nav Icons */}
                     <div
@@ -99,7 +256,7 @@ export default function DesignStudioPage() {
             "
                     >
                         {subCategories.map((item) => (
-                            
+
                             <div
                                 key={item._id}
                                 className="flex flex-col items-center text-white cursor-pointer"
@@ -122,16 +279,57 @@ export default function DesignStudioPage() {
                         ))}
                     </div>
                 </div>
+
             </section>
 
-            {/* ---------------- REMAINING SECTIONS ---------------- */}
-             <section className="w-full mt-6 md:mb-10">
-              
-          
-           <Recommended categoryId={categoryId} moduleId={moduleId} />
-           <MostlyPopular categoryId={categoryId} moduleId={moduleId} />
-           <TopTrending categoryId={categoryId} moduleId={moduleId} />
-              </section> 
+
+            {/* FILTER PILLS */}
+            <div className="w-full px-4 md:px-8 mt-15 lg:ml-12">
+                <div className="mt-6 flex gap-3 overflow-x-auto no-scrollbar">
+                    {FILTERS.map((item) => (
+                        <button
+                            key={item.value}
+                            onClick={() => setSelectedRange(item.value)}
+                            className={`rounded-full px-5 py-2 text-sm border whitespace-nowrap ${selectedRange === item.value
+                                ? "bg-black text-white border-black"
+                                : "bg-white text-black border"
+                                }`}
+                        >
+                            {item.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+
+            {/* <section className="w-full mt-6 md:mb-10">
+
+
+                <Recommended categoryId={categoryId} moduleId={moduleId} />
+                <MostlyPopular categoryId={categoryId} moduleId={moduleId} />
+                <TopTrending categoryId={categoryId} moduleId={moduleId} />
+            </section> */}
+
+            <section className="px-6 mt-10">
+                <div
+                    className="
+                              grid
+                              grid-cols-1
+                              sm:grid-cols-2
+                              md:grid-cols-2
+                              lg:grid-cols-4
+                              gap-2
+                            "
+                >
+                    {filteredAndSorted.map(service => (
+                        <ServiceCard
+                            key={`${service.source}-${service.id}`}
+                            service={service}
+                        />
+
+                    ))}
+                </div>
+            </section>
         </>
     );
 }

@@ -25,7 +25,10 @@ import { WhyChooseServiceProvider } from "@/src/context/WhyJustOurServiceContext
 import { CategorywiseServiceProvider } from "@/src/context/CategorywiseServiceContext";
 import { ReviewProvider } from "@/src/context/ReviewContext"
 import { CheckoutProvider } from "@/src/context/CheckoutContext"
-
+import { CouponProvider } from "@/src/context/CouponsContext"
+import { CommissionProvider } from "@/src/context/PlatformFeeContext"
+import { HomeTopTrendingProvider } from "@/src/context/HomeTopTrendingContext"
+import { TopRatedProviders } from "@/src/context/HomeTopRatedProvider"
 
 export const metadata = {
   title: "Fetch True",
@@ -61,8 +64,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                   <OfferProvider>
                                                     <ReviewProvider>
                                                       <CheckoutProvider>
-                                                        {/* <Navbar /> */}
-                                                        <main>{children}</main>
+                                                        <CouponProvider>
+                                                          <CommissionProvider>
+                                                            <HomeTopTrendingProvider>
+                                                              <TopRatedProviders>
+                                                                {/* <Navbar /> */}
+                                                                <main>{children}</main>
+
+                                                              </TopRatedProviders>
+
+                                                            </HomeTopTrendingProvider>
+
+                                                          </CommissionProvider>
+
+                                                        </CouponProvider>
 
                                                       </CheckoutProvider>
 

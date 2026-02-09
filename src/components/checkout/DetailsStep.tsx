@@ -1,12 +1,17 @@
 'use client';
 
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, PlusCircle } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import CustomerList from "./CustomerList";
 import CouponsDialog from "./CouponsDialog";
 import { useCheckout } from "@/src/context/CheckoutContext";
+import { useParams, useSearchParams } from "next/navigation";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import AddCustomerDialog from "./AddCustomerForm";
+import { useCommission } from "@/src/context/PlatformFeeContext";
+import { useReview } from "@/src/context/ReviewContext";
 
 /* ================= MOCK DATA ================= */
 
@@ -32,37 +37,70 @@ const userData = {
 };
 
 type PaymentData = {
-  listingPrice: number;
-  serviceDiscount: number;
-  couponDiscount: number;
-  gst: number;
-  platformFee: number;
-  assuranceFee: number;
-  grandTotal: number;
+    listingPrice: number;
+    serviceDiscount: number;
+    couponDiscount: number;
+    gst: number;
+    platformFee: number;
+    assuranceFee: number;
+    grandTotal: number;
 };
 
 type CheckoutData = {
-  selectedUser: string;
-  paymentData: PaymentData;
+    selectedUser: string;
+    paymentData: PaymentData;
 };
 
 
 type DetailsStepProps = {
     data: CheckoutData | null;
-   onNext: (data: CheckoutData) => void;
+    onNext: (data: CheckoutData) => void;
 };
 
-export default function DetailsStep({ data, onNext }: DetailsStepProps) {
+export default function DetailsStep({ onNext }: DetailsStepProps) {
+
+    const { service, loading, error, fetchServiceDetails } = useServiceDetails();
+    const { reviewServices, fetchReviews } = useReview();
+    const params = useParams();
+    const serviceId = params.id as string;
 
     const [selected, setSelected] = useState("me");
     const [openSidebar, setOpenSidebar] = useState(false);
     const [openCoupons, setOpenCoupons] = useState(false);
+    const [openAddCustomers, setOpenAddCustomers] = useState(false);
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+    const [showError, setShowError] = useState(false);
+
     const { selectedPackage } = useCheckout();
+    const { services, fetchCommission } = useCommission()
+    const basicPackage = service?.serviceDetails.packages?.[0];
+
+    const packageToUse = selectedPackage ?? basicPackage;
+
+    const searchParams = useSearchParams();
+    const servicesId = searchParams.get('id'); // Get from query params
+
+    useEffect(() => {
+        if (!servicesId) return;
+        fetchServiceDetails(servicesId);
+        fetchReviews(serviceId)
+    }, [servicesId]);
 
 
-    if (!selectedPackage) {
-  return <p className="text-center">No package selected</p>;
-}
+
+    useEffect(() => {
+        if (!serviceId) return;
+
+        fetchServiceDetails(serviceId);
+    }, [serviceId]);
+
+    useEffect(() => {
+        fetchCommission()
+    }, [])
+
+    const commission = services?.[0];
+
+
 
 
     const paymentData = {
@@ -75,43 +113,69 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
         grandTotal: 974
     };
 
-    const coupons = [
-        {
-            id: 1,
-            title: "Extra ₹100 off",
-            description: "You save an extra ₹100 with this coupon.",
-            code: "ABCDE",
-        },
-        {
-            id: 2,
-            title: "Extra ₹200 off",
-            description: "You save an extra ₹200 with this coupon.",
-            code: "Asfdcsd",
-        },
-    ];
+
 
     const handleProceed = () => {
+        if (!isTermsAccepted) {
+            setShowError(true);
+            return;
+        }
         onNext({
             selectedUser: selected,
             paymentData,
         });
     };
 
+    if (!packageToUse) return null;
+
+    if (loading) return <p className="text-[12px] md:text-[24px] text-center mt-15">Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+
+    // ===== PAYMENT CALCULATION =====
+    const listingPrice = packageToUse.price;
+
+    const serviceDiscount = packageToUse.discount;
+    const priceAfterServiceDiscount = listingPrice - serviceDiscount;
+
+    const couponDiscount = paymentData.couponDiscount;
+
+    const priceAfterCoupon =
+        priceAfterServiceDiscount - couponDiscount;
+
+    // GST (18%)
+    const gstPercent = service?.gst ?? 18;
+    const gstAmount = (priceAfterCoupon * gstPercent) / 100;
+
+    // Platform fee (API)
+    const platformFee = commission?.platformFee ?? 0;
+
+    // Assurity fee (10%)
+    const ASSURITY_PERCENT = 10;
+    // const assuranceFee = (priceAfterCoupon * ASSURITY_PERCENT) / 100;
+
+
+    const assuranceFee = commission?.assurityfee ?? 0;
+
+
+    // ✅ FINAL GRAND TOTAL
+    const grandTotal =
+        priceAfterCoupon + gstAmount + platformFee + assuranceFee;
+
+
     return (
         <>
-            {/* ======================================================
-                DESKTOP VIEW 
-            ====================================================== */}
+            {/* DESKTOP VIEW */}
             <section className="max-w-[1400px] hidden md:block lg:block mx-auto">
-                {/* ===== MAIN GRID ===== */}
+                {/*  MAIN GRID  */}
                 <div className="grid grid-cols-12 gap-12 mb-15">
 
-                    {/* ===== LEFT CARD ===== */}
+                    {/*  LEFT CARD  */}
                     <div className="col-span-4">
-                        <div className="border border-gray-200 rounded-xl overflow-hidden  shadow-sm md:w-[300px] md:h-[320px] lg:w-[479px] lg:h-[456px] p-2 lg:ml-0 md:ml-10">
+                        <div className="border border-gray-200 rounded-xl overflow-hidden  shadow-sm md:w-[300px] md:h-[350px] lg:w-[479px] lg:h-[456px] p-2 lg:ml-0 md:ml-10">
 
                             <div className="relative">
-                                <img src={serviceCardData.image} className="md:w-[300px] md:h-[200px] lg:w-[455px] lg:h-[295px] object-contain" />
+                                <img src={serviceCardData.image} className="md:w-[300px] md:h-[200px] lg:w-[455px] lg:h-[295px] object-fit" />
 
                                 {serviceCardData.trusted && (
                                     <span className="absolute -top-0 left-0 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-md">
@@ -120,7 +184,7 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                                 )}
 
                                 <div className="absolute md:-right-1 md:bottom-2 lg:bottom-1 lg:right-2 flex md:flex-row  md:items-center lg:items-center lg:justify-center bg-blue-600 md:w-[47px] md:h-[31px] lg:w-[67px] lg:h-[43px] text-white md:text-[10px] lg:text-[14px] px-2 py-1 rounded-md">
-                                    ⭐ {serviceCardData.rating}
+                                    ⭐ {reviewServices?.averageRating}
                                 </div>
                             </div>
 
@@ -128,7 +192,7 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <h3 className="font-semibold md:text-[15px] lg:text-[20px]">
-                                            {serviceCardData.title}
+                                            {service?.serviceName}
                                         </h3>
 
                                         <p className="lg:text-[16px] md:text-[12px] text-gray-500">
@@ -223,51 +287,33 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                                 This Service is for my Customer
                             </label>
 
-                            {/* <div className="flex gap-4 lg:pl-6">
-                                <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg"
-                                    onClick={() => setOpenSidebar(true)}>
-                                    My Customer
-                                </button>
-                                <Link href="/MainModules/Checkout/AddNewCustomer">
-                                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer">
-                                        <span className="border border-white rounded-full px-2 py-1">+</span> Add New Customer
-                                    </button>
-                                </Link>
-                            </div> */}
+                          
                             <div className="flex gap-4 lg:pl-6">
                                 <button
                                     className="
-      border border-blue-600 text-blue-600
-      px-4 py-2 rounded-lg
-      md:text-[12px] whitespace-nowrap
-      lg:text-[14px]
-    "
+                                    border border-blue-600 text-blue-600
+                                    px-4 py-2 rounded-lg
+                                    md:text-[12px] whitespace-nowrap
+                                    lg:text-[14px]
+                                    "
                                     onClick={() => setOpenSidebar(true)}
                                 >
                                     My Customer
                                 </button>
 
-                                <Link href="/MainModules/Checkout/AddNewCustomer">
-                                    <button
-                                        className="
-        bg-blue-600 text-white
-        px-4 py-2 rounded-lg cursor-pointer
-        md:text-[12px]
-        lg:text-[14px]
-      "
-                                    >
-                                        <span
-                                            className="
-          border border-white rounded-full
-          lg:px-2 lg:py-1 md:px-1 md:py-1
-          md:text-[10px] text-start 
-          lg:text-[12px]"
-                                        >
-                                            +
-                                        </span>
-                                        Add New Customer
-                                    </button>
-                                </Link>
+
+                                <button
+                                    className="
+                                            bg-blue-600 text-white
+                                            px-4 py-2 rounded-lg cursor-pointer
+                                            md:text-[12px] flex flex-row items-center
+                                            lg:text-[14px] gap-2
+                                        "
+                                    onClick={() => setOpenAddCustomers(true)}
+                                >
+                                    <PlusCircle className="w-4 h-4 flex shrink-0" />Add New Customer
+                                </button>
+
                             </div>
 
                         </div>
@@ -314,11 +360,16 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
 
             {openCoupons && (
                 <CouponsDialog
-                    coupons={coupons}
+
                     onClose={() => setOpenCoupons(false)}
                 />
             )}
 
+            {openAddCustomers && (
+                <AddCustomerDialog
+                    onClose={() => setOpenAddCustomers(false)}
+                />
+            )}
 
             {openSidebar && (
                 <div
@@ -347,15 +398,15 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                     </h3>
 
                     <div className="space-y-3 md:text-[12px] lg:text-[16px]">
-                        <Row label="Listing Price" value={`₹ ${paymentData.listingPrice.toFixed(2)}`} />
+                        <Row label="Listing Price" value={`₹ ${packageToUse.price.toFixed(2)}`} />
 
                         <Row
                             label="Service Discount (0%)"
-                            value={`- ₹ ${paymentData.serviceDiscount.toFixed(2)}`}
+                            value={`- ₹ ${packageToUse.discount.toFixed(2)}`}
                             valueClass="text-red-500"
                         />
 
-                        <Row label="Price After Discount" value="₹ 0.00" />
+                        <Row label="Price After Discount" value={`- ₹ ${packageToUse.discountedPrice.toFixed(2)}`} />
 
                         <Row
                             label="Coupon Discount (50%)"
@@ -365,19 +416,19 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
 
                         <Row
                             label="Service GST (18%)"
-                            value={`+ ₹ ${paymentData.gst.toFixed(2)}`}
+                            value={`+ ₹ ${service?.gst}`}
                             valueClass="text-green-600"
                         />
 
                         <Row
                             label="Platform Fee (20)"
-                            value={`+ ₹ ${paymentData.platformFee.toFixed(2)}`}
+                            value={`+ ₹ ${platformFee.toFixed(2)}`}
                             valueClass="text-green-600"
                         />
 
                         <Row
                             label="Fetch True Assurity Charges (10%)"
-                            value={`+ ₹ ${paymentData.assuranceFee.toFixed(2)}`}
+                            value={`+ ₹ ${assuranceFee.toFixed(2)}`}
                             valueClass="text-green-600"
                         />
                     </div>
@@ -396,22 +447,45 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                 {/* ===== TERMS & PAY ===== */}
                 <div className="flex items-center justify-between pt-4">
                     <label className="flex items-center gap-3 md:text-[15px] lg:text-[20px] text-gray-700">
-                        <input
-                            type="checkbox"
+                        <input type="checkbox"
                             className="w-5 h-5 border-gray-400 rounded"
+                            checked={isTermsAccepted}
+                            onChange={(e) => {
+                                setIsTermsAccepted(e.target.checked);
+                                setShowError(false);
+                            }}
                         />
                         I Agree with the terms & Condition.
                     </label>
 
-                    <button className="bg-blue-600 text-white px-10 py-3 rounded-lg md:text-[15px] lg:text-[20px] font-medium cursor-pointer"
-                        onClick={() => handleProceed()}>
+                    {/* <button className="bg-blue-600 text-white px-10 py-3 rounded-lg md:text-[15px] lg:text-[20px] font-medium cursor-pointer"
+                        onClick={handleProceed}>
+                        Proceed To Pay
+                    </button> */}
+                    <button
+                        disabled={!isTermsAccepted}
+                        className={`px-10 py-3 rounded-lg md:text-[15px] lg:text-[20px] font-medium
+                  ${isTermsAccepted
+                                ? "bg-blue-600 text-white cursor-pointer"
+                                : "bg-gray-400 text-white cursor-not-allowed"}
+                  `}
+                        onClick={handleProceed}
+                    >
                         Proceed To Pay
                     </button>
+
                 </div>
+
+
+                {showError && (
+                    <p className="text-red-500 text-sm md:text-[13px] lg:text-[15px]">
+                        Please accept the Terms & Conditions to proceed.
+                    </p>
+                )}
             </section>
 
             {/* ======================================================
-                MOBILE VIEW (NEW)
+                MOBILE VIEW 
             ====================================================== */}
             <section className="block md:hidden lg:hidden px-4 pb-28 space-y-6">
 
@@ -512,8 +586,9 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                             </button>
 
                             <Link href="/MainModules/Checkout/AddNewCustomer">
-                                <button className="bg-blue-600 text-white py-2 rounded-lg w-full">
-                                    + Add New Customer
+                                <button className="bg-blue-600 text-white py-2 flex flex-row items-center gap-4 rounded-lg w-full">
+                                    {/* + Add New Customer */}
+                                    <PlusCircle className="w-4 h-4 ml-6" />  Add New Customer
                                 </button>
                             </Link>
                         </div>
@@ -576,7 +651,8 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                             valueClass="text-red-500"
                         />
 
-                        <Row label="Price After Discount" value="₹ 0.00" />
+                        {/* <Row label="Price After Discount" value="₹ 0.00" /> */}
+                        <Row label="Price After Discount" value={`- ₹ ${packageToUse.discountedPrice.toFixed(2)}`} />
 
                         <Row
                             label="Coupon Discount (50%)"
@@ -586,19 +662,20 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
 
                         <Row
                             label="Service GST (18%)"
+                            // value={`+ ₹ ${paymentData.gst.toFixed(2)}`}
                             value={`+ ₹ ${paymentData.gst.toFixed(2)}`}
                             valueClass="text-green-600"
                         />
 
                         <Row
                             label="Platform Fee (20)"
-                            value={`+ ₹ ${paymentData.platformFee.toFixed(2)}`}
+                            value={`+ ₹ ${platformFee.toFixed(2)}`}
                             valueClass="text-green-600"
                         />
 
                         <Row
                             label="Fetch True Assurity Charges (10%)"
-                            value={`+ ₹ ${paymentData.assuranceFee.toFixed(2)}`}
+                            value={`+ ₹ ${assuranceFee.toFixed(2)}`}
                             valueClass="text-green-600"
                         />
                     </div>
@@ -606,7 +683,7 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
 
                 {/* ===== GRAND TOTAL ===== */}
                 <div className="flex items-center justify-between bg-blue-50 px-4 py-3 rounded-lg">
-                    <p className="text-blue-600 font-semibold md;text-[15px] lg:text-[20px]">
+                    <p className="text-blue-600 font-semibold md:text-[15px] lg:text-[20px]">
                         Grand Total
                     </p>
                     <p className="text-blue-600 font-semibold md;text-[15px] lg:text-[20px]">
@@ -620,12 +697,29 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
                         <input
                             type="checkbox"
                             className="w-5 h-5 border-gray-400 rounded"
+                            checked={isTermsAccepted}
+                            onChange={(e) => {
+                                setIsTermsAccepted(e.target.checked);
+                                setShowError(false);
+                            }}
                         />
+
                         I Agree with the terms & Condition.
                     </label>
 
-                    <button className="bg-blue-600 text-white md:px-10 px-6 py-3 rounded-lg md:text-[15px] text-[12px] font-medium cursor-pointer whitespace-nowrap"
+                    {/* <button className="bg-blue-600 text-white md:px-10 px-6 py-3 rounded-lg md:text-[15px] text-[12px] font-medium cursor-pointer whitespace-nowrap"
                         onClick={() => handleProceed()}>
+                        Proceed To Pay
+                    </button> */}
+                    <button
+                        disabled={!isTermsAccepted}
+                        className={`px-10 py-3 rounded-lg md:text-[15px] lg:text-[20px] font-medium
+                  ${isTermsAccepted
+                                ? "bg-blue-600 text-white cursor-pointer"
+                                : "bg-gray-400 text-white cursor-not-allowed"}
+                  `}
+                        onClick={handleProceed}
+                    >
                         Proceed To Pay
                     </button>
                 </div>
@@ -636,7 +730,6 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
             ====================================================== */}
             {openCoupons && (
                 <CouponsDialog
-                    coupons={coupons}
                     onClose={() => setOpenCoupons(false)}
                 />
             )}
@@ -662,9 +755,6 @@ export default function DetailsStep({ data, onNext }: DetailsStepProps) {
         </>
     );
 }
-
-
-
 
 
 

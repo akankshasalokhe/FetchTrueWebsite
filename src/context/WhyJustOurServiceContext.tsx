@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import axios from "axios";
 
-/* ================= TYPES ================= */
+/*  TYPES  */
 
 interface ServiceItem {
   title: string;
@@ -30,7 +30,7 @@ interface WhyChooseService {
   updatedAt: string;
 }
 
-/* ================= CONTEXT TYPE ================= */
+/*  CONTEXT TYPE  */
 
 interface WhyChooseServiceContextType {
   services: WhyChooseService[];
@@ -40,12 +40,12 @@ interface WhyChooseServiceContextType {
   clearServices: () => void;
 }
 
-/* ================= CONTEXT ================= */
+/*  CONTEXT  */
 
 const WhyChooseServiceContext =
   createContext<WhyChooseServiceContextType | undefined>(undefined);
 
-/* ================= PROVIDER ================= */
+/*  PROVIDER  */
 
 export const WhyChooseServiceProvider = ({
   children,
@@ -80,7 +80,7 @@ export const WhyChooseServiceProvider = ({
     }
   };
 
-  /* ---------- CLEAR ---------- */
+  /*  CLEAR  */
   const clearServices = () => {
     setServices([]);
     setError(null);
@@ -101,7 +101,7 @@ export const WhyChooseServiceProvider = ({
   );
 };
 
-/* ================= HOOK ================= */
+/*  HOOK  */
 
 export const useWhyChooseService = () => {
   const context = useContext(WhyChooseServiceContext);

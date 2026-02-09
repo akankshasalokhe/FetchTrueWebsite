@@ -49,15 +49,11 @@ interface OfferContextType {
   refreshOffers: () => Promise<void>;
 }
 
-/* =======================
-   CONTEXT
-======================= */
+/*   CONTEXT */
 
 const OfferContext = createContext<OfferContextType | undefined>(undefined);
 
-/* =======================
-   PROVIDER
-======================= */
+/*  PROVIDER */
 
 export const OfferProvider = ({ children }: { children: ReactNode }) => {
   const [offers, setOffers] = useState<Offer[]>([]);
@@ -77,8 +73,14 @@ export const OfferProvider = ({ children }: { children: ReactNode }) => {
       }
 
       setOffers(result.data);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+    } catch (err: unknown) {
+      if(err instanceof Error){
+          setError(err.message);
+      }
+      else{
+         setError("Something went wrong");
+      }
+     
     } finally {
       setLoading(false);
     }

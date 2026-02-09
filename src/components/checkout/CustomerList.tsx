@@ -53,7 +53,7 @@ const customers = [
         description: "Customer description",
         phone: "7897578909",
         address: "Flat no.3, Sky Building, Pune",
-        email: "customermew1243@gmail.com",
+        email: "customermew124443@gmail.com",
         avatar: "/image/user.png",
     },
     {
@@ -70,19 +70,20 @@ const customers = [
 
 export default function CustomerList({ onClose }: Props) {
     const [searchQuery, setSearchQuery] = useState("");
-    const [copied, setCopied] = useState(false);
+    const [copiedId, setCopiedId] = useState<number | null>(null);
 
-    const handleCopy = (text: string) => {
+    const handleCopy = (id: number, text: string) => {
         navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1000);
+        setCopiedId(id);
+
+        setTimeout(() => setCopiedId(null), 1000);
     };
 
 
     return (
         <section className="h-full bg-[#E2E9F1] flex flex-col">
 
-            {/* ===== HEADER ===== */}
+            {/*  HEADER  */}
             <div className="px-4 py-6 bg-[#E2E9F1]">
                 <div className="flex items-center gap-3">
                     <button onClick={onClose}>
@@ -112,7 +113,7 @@ export default function CustomerList({ onClose }: Props) {
                 </div>
             </div>
 
-            {/* ===== LIST ===== */}
+            {/*  LIST  */}
             <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-4 scrollbar-hide">
 
                 {customers.map((customer) => (
@@ -139,10 +140,14 @@ export default function CustomerList({ onClose }: Props) {
 
                             <div className="flex gap-2">
                                 <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center">
-                                    <Phone className="w-4 h-4 text-white" />
+                                    <a href={`tel:${customer.phone}`}>
+                                        <Phone className="w-4 h-4 text-white" />
+                                    </a>
                                 </div>
                                 <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center">
-                                    <Mail className="w-4 h-4 text-white" />
+                                    <a href={`mailto:${customer.email}`}>
+                                        <Mail className="w-4 h-4 text-white" />
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -151,8 +156,11 @@ export default function CustomerList({ onClose }: Props) {
                         <div className="mt-3 space-y-2 text-xs text-gray-600">
                             <div className="flex flex-row gap-4">
                                 <div className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-blue-500" />
-                                    {customer.phone}
+                                    <a href={`tel:${customer.phone}`}
+                                    >
+                                        <Phone className="w-4 h-4 text-blue-500" />
+
+                                    </a>
                                 </div>
 
                                 <div className="flex items-center gap-2">
@@ -160,17 +168,26 @@ export default function CustomerList({ onClose }: Props) {
                                     {customer.address}
                                 </div>
 
+
                             </div>
 
                             <div className="flex items-center justify-between bg-[#F2F2F2] rounded-xl p-2">
-                                <div className="flex items-center gap-2">
-                                    <Mail className="w-4 h-4 text-blue-500" />
-                                    {customer.email}
+                                <div className="flex justify-center  gap-2">
+                                    <a href={`mailto:${customer.email}`}
+                                        className="flex items-center gap-2"
+                                    >
+                                        <Mail className="w-4 h-4 text-blue-500" />{customer.email}
+
+                                    </a>
                                 </div>
 
-                                <button onClick={() => handleCopy(customer.email)}>
-                                    <Copy className={`w-4 h-4 ${copied ? "text-green-600" : "text-blue-600"}`} />
+                                <button onClick={() => handleCopy(customer.id, customer.email)}>
+                                    <Copy
+                                        className={`w-4 h-4 ${copiedId === customer.id ? "text-green-600" : "text-blue-600"
+                                            }`}
+                                    />
                                 </button>
+
 
 
 

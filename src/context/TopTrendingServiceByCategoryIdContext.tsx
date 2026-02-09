@@ -2,7 +2,7 @@
 
 
 "use client";
-import  { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import axios from "axios";
 
 interface KeyValue {
@@ -53,7 +53,7 @@ export interface Service {
   category: Category;
   thumbnailImage?: string;
   keyValues: KeyValue[];
-  serviceDetails: serviceDetails; 
+  serviceDetails: serviceDetails;
   franchiseDetails: FranchiseDetails;
   averageRating: number;
   totalReviews: number;
@@ -70,7 +70,7 @@ interface Package {
 }
 
 interface serviceDetails {
-  packages:Package[];
+  packages: Package[];
 }
 
 interface TopTrendingServiceByCategoryIdContextType {
@@ -108,8 +108,14 @@ export const TopTrendingServiceByCategoryIdProvider = ({ children }: Props) => {
       } else {
         setError("Failed to fetch TopTrending services");
       }
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+      else {
+        setError("Something went wrong. Failed to fetch the data");
+      }
+
     } finally {
       setLoading(false);
     }

@@ -65,6 +65,7 @@ interface serviceDetails {
 }
 
 export interface PopularService {
+  _id: string,
   serviceId: string;
   serviceName: string;
   thumbnailImage: string;

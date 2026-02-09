@@ -1,26 +1,26 @@
 'use client';
 
-import Recommended from '@/src/components/AIHubSubCategories/RecommendedService';
+// import Recommended from '@/src/components/AIHubSubCategories/RecommendedService';
 import { useState, useEffect } from "react";
 import Link from 'next/link';
-import TopTrending from '@/src/components/AIHubSubCategories/TopTrending';
-import FreeTrialAvailable from '@/src/components/AIHubSubCategories/FreeTrialAvailable';
-import CategorySection from '@/src/components/AIHubSubCategories/CategorySection';
-import CostSavingAI from '@/src/components/AIHubSubCategories/CostSavingAI';
+// import TopTrending from '@/src/components/AIHubSubCategories/TopTrending';
+// import FreeTrialAvailable from '@/src/components/AIHubSubCategories/FreeTrialAvailable';
+// import CategorySection from '@/src/components/AIHubSubCategories/CategorySection';
+// import CostSavingAI from '@/src/components/AIHubSubCategories/CostSavingAI';
 import { ChevronLeft, SearchCheckIcon } from 'lucide-react';
 import { useParams, useSearchParams } from 'next/navigation';
-import { Category, useSubCategory } from '@/src/context/SubCategoriesContext';
+import { useSubCategory } from '@/src/context/SubCategoriesContext';
+import { useRecommendedServiceByCategoryIdContext } from '@/src/context/RecommendedServiceByCategoryIdContext';
+import { useMostPopularServiceByCategory } from '@/src/context/MostPopularServiceByCategoryIdContext';
+import { useTopTrendingServiceByCategoryIdContext } from '@/src/context/TopTrendingServiceByCategoryIdContext';
+import ServiceCard from "@/src/components/AIHubSubCategories/ServiceCard";
 
 
-
-
-const categories = [
-    { label: "Leadership", path: "/image/Business.png" },
-    { label: "Happiness", path: "/image/Marketing.png" },
-    { label: "Creativity", path: "/image/Music.png" },
-    { label: "Design", path: "/image/Design.png" },
-    { label: "Motivation", path: "/image/Lifestyle.png" },
-]
+/* ---------- TYPES ---------- */
+type Category = {
+    _id: string;
+    name: string;
+};
 
 type SubCategory = {
     _id: string;
@@ -28,6 +28,48 @@ type SubCategory = {
     image: string;
     category: Category;
 };
+
+type keyValuesItem = {
+    value: string,
+    icon?: string,
+    key: string,
+    _id: string
+};
+
+export type UnifiedService = {
+    id: string;
+    title: string;
+    category: string;
+    image: string;
+    rating: number;
+    reviews: number;
+    price: number;
+    keyValues: keyValuesItem[];
+    originalPrice: number;
+    discount: number;
+    source: "recommended" | "popular" | "trending";
+};
+
+type BackendService = {
+    _id: string;
+    serviceName: string;
+    thumbnailImage?: string;
+    averageRating?: number;
+    totalReviews?: number;
+    category?: {
+        _id: string;
+        name: string;
+    };
+    keyValues: keyValuesItem[];
+    serviceDetails?: {
+        packages?: {
+            price: number;
+            discountedPrice: number;
+            discount: number;
+        }[];
+    };
+};
+
 
 
 export default function SubCategoryPage() {
@@ -56,29 +98,121 @@ export default function SubCategoryPage() {
     }, [categoryId, fetchSubCategories]);
 
 
-    const valueRange = [
-        { label: "All", value: "all" },
-        { label: "300", value: "0-300" },
-        { label: "300-400 Rs", value: "300-400" },
-        { label: "400-600 Rs", value: "400-600" },
-        { label: "600-800 Rs", value: "600-800" },
-        { label: "800-1000 Rs", value: "800-1000" },
-    ];
-
 
     const [selectedRange, setSelectedRange] = useState("all");
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
 
+    /* ---------- DERIVED CATEGORY ---------- */
+    const {
+        services: recommendedServices,
+        loading: recommendedLoading,
+        fetchRecommendedServicesByCategoryId,
+    } = useRecommendedServiceByCategoryIdContext();
 
-    // const formatSlugToTitle = (slug: string) => {
-    //     const decodedSlug = decodeURIComponent(slug);
+    const {
+        services: popularServices,
+        loading: popularLoading,
+        fetchMostPopularServiceByCategory
+    } = useMostPopularServiceByCategory();
 
-    //     return decodedSlug
-    //         .split("-")
-    //         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    //         .join(" ");
-    // };
+    const {
+        services: trendingServices,
+        loading: trendingLoading,
+        fetchTopTrendingServicesByCategoryId
+    } = useTopTrendingServiceByCategoryIdContext();
+
+
+    /* ---------- FILTER STATE ---------- */
+    const FILTERS = [
+        { label: "All", value: "all" },
+        { label: "High to Low", value: "high-to-low" },
+        { label: "Low to High", value: "low-to-high" },
+        { label: "Recommended", value: "recommended" },
+        { label: "Most Popular", value: "most-popular" },
+        { label: "Top Trending", value: "top-trending" },
+    ];
+
+
+    useEffect(() => {
+        if (categoryId) {
+            fetchSubCategories(categoryId);
+            fetchRecommendedServicesByCategoryId(categoryId);
+            fetchMostPopularServiceByCategory(categoryId);
+            fetchTopTrendingServicesByCategoryId(categoryId);
+        }
+    }, [categoryId]);
+
+
+    const mapService = (
+        service: BackendService,
+        source: UnifiedService["source"]
+    ): UnifiedService => {
+        const packages = service.serviceDetails?.packages ?? [];
+
+        const cheapest =
+            packages.length > 0
+                ? packages.reduce((min, p) =>
+                    p.discountedPrice < min.discountedPrice ? p : min
+                )
+                : null;
+
+        return {
+            id: service._id,
+            title: service.serviceName,
+            category: service.category?.name ?? "Unknown",
+            image: service.thumbnailImage ?? "",
+            rating: service.averageRating ?? 0,
+            reviews: service.totalReviews ?? 0,
+            price: cheapest?.discountedPrice ?? 0,
+            originalPrice: cheapest?.price ?? 0,
+            discount: cheapest?.discount ?? 0,
+            keyValues: service?.keyValues ?? [],
+            source,
+        };
+    };
+
+
+
+
+    const allServices: UnifiedService[] = [
+        ...recommendedServices.map(s => mapService(s, "recommended")),
+        ...popularServices.map(s => mapService(s, "popular")),
+        ...trendingServices.map(s => mapService(s, "trending")),
+    ];
+
+
+
+
+    const filteredServices = allServices.filter(service => {
+        switch (selectedRange) {
+            case "recommended":
+                return service.source === "recommended";
+
+            case "most-popular":
+                return service.source === "popular";
+
+            case "top-trending":
+                return service.source === "trending";
+
+            default:
+                return true;
+        }
+    });
+
+    const filteredAndSorted = [...filteredServices].sort((a, b) => {
+        switch (selectedRange) {
+            case "high-to-low":
+                return b.price - a.price;
+
+            case "low-to-high":
+                return a.price - b.price;
+
+            default:
+                return 0;
+        }
+    });
+
 
 
     return (
@@ -148,61 +282,56 @@ export default function SubCategoryPage() {
 
                 </div>
 
+                {/* FILTER PILLS */}
+                <div className="w-full px-4 md:px-8 mt-15 lg:ml-12">
+                    <div className="mt-6 flex gap-3 overflow-x-auto no-scrollbar">
+                        {FILTERS.map((item) => (
+                            <button
+                                key={item.value}
+                                onClick={() => setSelectedRange(item.value)}
+                                className={`rounded-full px-5 py-2 text-sm border whitespace-nowrap ${selectedRange === item.value
+                                    ? "bg-black text-white border-black"
+                                    : "bg-white text-black border"
+                                    }`}
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
             </section>
 
 
-
+            {/* 
             <section className="w-full p-6 mt-6 md:mt-10">
                 <Recommended categoryId={categoryId} moduleId={moduleId} />
                 <FreeTrialAvailable categoryId={categoryId} moduleId={moduleId}/>
                 <TopTrending categoryId={categoryId} moduleId={moduleId} />
+            </section> */}
+
+
+            <section className="px-6 mt-10">
+                <div
+                    className="
+                grid
+                grid-cols-1
+                sm:grid-cols-2
+                md:grid-cols-2
+                lg:grid-cols-3
+                gap-4
+              "
+                >
+                    {filteredAndSorted.map(service => (
+                        <ServiceCard
+                            key={`${service.source}-${service.id}`}
+                            service={service}
+                        />
+
+                    ))}
+                </div>
             </section>
 
-            {/* <section className="relative w-full mt-4 mb-2 p-6 lg:p-12">
-                <div className="flex flex-col items-center text-center">
-                    <h1 className="lg:text-[32px] font-semibold">Sort By Your Business Goal </h1>
-                    <p className="lg:text-[20px]">get the service that matches your business goal </p>
-                </div>
-                <h1 className="text-[16px] md:text-[24px] font-semibold mb-5">Category</h1>
-
-                <div className="grid grid-cols-2 gap-2 md:flex md:flex-row md:flex-wrap">
-                    {(subCategories as SubCategory[]).map((item,index) => {
-                        const isActive = item.name === selectedCategory; // check if active
-
-                        return (
-                            <div
-                                key={index}
-                                className={`
-                                    cursor-pointer
-                                    flex items-center gap-2
-                                    p-2 rounded-lg border border-gray-500
-                                    flex-shrink-0 px-4 py-2
-                                    w-full md:w-[220px]
-                                    ${isActive ? "bg-[#009ABF] text-white" : "bg-white text-black"}
-                                    `}
-                                onClick={() => setSelectedCategory(item.name)}
-                            >
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="w-[26px] h-[26px] object-contain"
-                                />
-
-                                <span className="text-[12px] md:text-[16px] font-medium leading-tight">
-                                    {item.name}
-                                </span>
-                            </div>
-                        );
-                    })}
-                </div>
-
-
-
-            </section> */}
-            {/* <section className="w-full p-6 mt-2 md:mt-2">
-                <CategorySection />
-                <CostSavingAI />
-            </section> */}
 
 
 

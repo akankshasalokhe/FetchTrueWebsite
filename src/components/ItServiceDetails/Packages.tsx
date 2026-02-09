@@ -72,7 +72,12 @@ export default function Packages({ packages = [] }: PackagesProps) {
 /* ================= CARD ================= */
 function PackageCard({ pkg }: { pkg: PackageItem }) {
 
-   const { setSelectedPackage } = useCheckout();
+
+  const { selectedPackage, setSelectedPackage } = useCheckout();
+
+  const isSelected = selectedPackage?._id === pkg._id;
+
+
 
   const handleSelect = () => {
     setSelectedPackage({
@@ -126,11 +131,14 @@ function PackageCard({ pkg }: { pkg: PackageItem }) {
 
       <button
         onClick={handleSelect}
-        className="mt-auto bg-blue-600 text-white py-2 rounded-lg text-sm"
+        className={`mt-auto py-2 rounded-lg text-sm text-white
+          ${isSelected ? "bg-green-600" : "bg-blue-600"}`}
       >
-        Select Package
+        {isSelected ? "Selected" : "Select Package"}
       </button>
-      
+
     </div>
   );
 }
+
+

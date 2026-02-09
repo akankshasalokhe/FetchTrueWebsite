@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useCheckout } from "@/src/context/CheckoutContext";
+import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type PaymentData = {
   listingPrice: number;
@@ -31,6 +34,20 @@ export default function PaymentStep({ data, onNext, onBack }: PaymentStepProps) 
   const [useWallet, setUseWallet] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cashfree");
   const [cashfreeOption, setCashfreeOption] = useState("full");
+  const { service, fetchServiceDetails } = useServiceDetails();
+  const params = useParams();
+  const serviceId = params.id as string;
+
+  useEffect(() => {
+    if (!serviceId) return;
+
+    fetchServiceDetails(serviceId);
+  }, [serviceId]);
+  const { selectedPackage } = useCheckout();
+
+  const basicPackage = service?.serviceDetails.packages?.[0];
+
+  const packageToUse = selectedPackage ?? basicPackage;
 
   const totalPrice = 974;
   const walletBalance = 1200;
@@ -43,13 +60,14 @@ export default function PaymentStep({ data, onNext, onBack }: PaymentStepProps) 
         <div className="w-full md:w-[320px] border rounded-xl p-5 md:p-6 space-y-4">
           <div className="lg:text-[20px] text-gray-500">Total Price</div>
 
-          <div className="text-lg md:text-xl font-semibold">
-            ₹ {totalPrice}
+          <div className="text-lg md:text-[20px] font-semibold">
+             {/* {totalPrice} */}
+            ₹ {packageToUse?.price}
           </div>
 
           <div className="flex items-center justify-between border rounded-lg px-4 py-3">
             <div>
-              <div className="text-blue-600 font-semibold">
+              <div className="text-blue-600 text-[12px] md:text-[16px] font-semibold">
                 ₹ {walletBalance}.00
               </div>
               <div className="text-xs text-gray-400">Wallet Balance</div>
@@ -88,10 +106,9 @@ export default function PaymentStep({ data, onNext, onBack }: PaymentStepProps) 
                   key={option.id}
                   className={`
                     flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer
-                    ${
-                      cashfreeOption === option.id
-                        ? "border-blue-600 bg-blue-50"
-                        : ""
+                    ${cashfreeOption === option.id
+                      ? "border-blue-600 bg-blue-50"
+                      : ""
                     }
                   `}
                 >

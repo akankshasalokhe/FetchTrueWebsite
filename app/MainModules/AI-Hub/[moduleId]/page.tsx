@@ -890,7 +890,6 @@
 'use client';
 
 import AISolutions from '@/src/components/AIHub/AISolutions';
-import LiveSection from '@/src/components/AIHub/LiveSection';
 import MostPopular from '@/src/components/AIHub/MostPopular';
 import Recommendation from '@/src/components/AIHub/Recommended';
 import TopTrending from '@/src/components/AIHub/TopTrending';
@@ -903,16 +902,6 @@ import { useModule } from '@/src/context/CategoriesContext';
 export default function AIHubModulesPage() {
 
     const { categories, loading, error, fetchCategoriesByModule } = useModule();
-
-    // const categories = [
-    //     { label: "Finance & Accounting AI", path: "/image/personaldevelopment.png" },
-    //     { label: "Employee Onboarding ", path: "/image/Development.png" },
-    //     { label: "Customer Onboarding", path: "/image/it.png" },
-    //     { label: "Business Intelligence", path: "/image/Finance.png" },
-    //     { label: "Sales & Marketing  ", path: "/image/Teaching&Software.png" },
-    //     { label: "Customer Supporting AI", path: "/image/Business.png" },
-    // ]
-
     const params = useParams();
     const moduleId = params.moduleId as string;
 
@@ -1020,8 +1009,7 @@ export default function AIHubModulesPage() {
     );
 
     const router = useRouter();
-    const toSlug = (text: string) =>
-        text.toLowerCase().replace(/\s+/g, "-");
+  
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -1032,13 +1020,13 @@ export default function AIHubModulesPage() {
         <>
             <section className="relative bg-[#E2E9F1] overflow-hidden">
                 <div className='hidden md:block'>
-                    {/* ===== NAVBAR ===== */}
+                    {/*  NAVBAR  */}
                     <div className="w-full mx-auto px-4 md:px-8 mt-4 md:mt-0">
                         <div className=" flex items-center justify-between  md:p-8 p-4 lg:p-12 rounded-xl w-full">
                             {/* LEFT */}
                             <div className="flex items-center gap-3 lg:gap-5">
                                 <div className="bg-white rounded-full p-1">
-                                    <Link href="/MainModules">
+                                    <Link href="/">
                                         <img
                                             src="/image/AIHome.png"
                                             className="w-[26px] h-[30px] lg:w-[34.36px] lg:h-[42.95px] cursor-pointer lg:p-1 object-cover"

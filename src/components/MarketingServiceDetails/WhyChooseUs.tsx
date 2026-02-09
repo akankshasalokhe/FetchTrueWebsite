@@ -152,7 +152,7 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
       </h2>
 
       {/* Cards Wrapper */}
-      <div className="max-w-[1320px] mx-auto px-4 md:px-4">
+      <div className="max-w-[1420px] mx-auto px-4 md:px-4">
         {/* First Row – Grid (3 cards) */}
         <div className="grid grid-cols-3 md:grid-cols-3 gap-4 md:gap-6">
           {firstRow.map((item) => (
@@ -167,7 +167,7 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
         </div>
 
         {/* Second Row – Centered (2 cards) */}
-        <div className="mt-6 flex flex-row md:flex-row justify-center gap-6">
+        <div className="mt-6 flex flex-row md:flex-row justify-center gap-14">
           {secondRow.map((item) => (
             <Card
               key={item._id}

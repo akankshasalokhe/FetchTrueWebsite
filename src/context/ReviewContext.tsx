@@ -46,7 +46,7 @@ export interface ReviewsService {
 /* ---------- CONTEXT TYPE ---------- */
 
 interface ReviewServiceContextType {
-    services: ReviewsService | null;
+    reviewServices: ReviewsService | null;
     loading: boolean;
     error: string | null;
     fetchReviews: (moduleId: string) => Promise<void>;
@@ -77,7 +77,7 @@ interface Props {
 }
 
 export const ReviewProvider = ({ children }: Props) => {
-    const [services, setServices] = useState<ReviewsService | null>(null);
+    const [reviewServices, setReviewServices] = useState<ReviewsService | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -91,7 +91,7 @@ export const ReviewProvider = ({ children }: Props) => {
             );
 
             if (res.data?.success) {
-                setServices(res.data);
+                setReviewServices(res.data);
             } else {
                 setError("Failed to fetch review services");
             }
@@ -108,7 +108,7 @@ export const ReviewProvider = ({ children }: Props) => {
 
     return (
         <ReviewServiceContext.Provider
-            value={{ services, loading, error, fetchReviews }}
+            value={{ reviewServices, loading, error, fetchReviews }}
         >
             {children}
         </ReviewServiceContext.Provider>

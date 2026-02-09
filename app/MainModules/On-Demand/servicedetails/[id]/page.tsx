@@ -15,6 +15,8 @@ import RatingsReviews from "@/src/components/OnDemand/Reviews";
 import SafetyandAssurance from "@/src/components/OnDemand/Safety&Assurance";
 import TermsAndConditions from "@/src/components/OnDemand/TermsandConditions";
 import WhyChooseUs from "@/src/components/OnDemand/WhyChooseUs";
+import { useCheckout } from "@/src/context/CheckoutContext";
+import { useReview } from "@/src/context/ReviewContext";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { ChevronLeft, ClockIcon, Share2, ShoppingCart, ZapIcon } from "lucide-react";
 import Link from "next/link";
@@ -53,14 +55,21 @@ export default function ServiceDetails() {
 
 
     const { service, loading, error, fetchServiceDetails } = useServiceDetails();
+    const { reviewServices, fetchReviews } = useReview();
 
     const params = useParams();
     const serviceId = params.id as string;
+    const { selectedPackage } = useCheckout();
+
+    const basicPackage = service?.serviceDetails?.packages?.[0];
+
+    const displayPackage = selectedPackage ?? basicPackage;
 
     useEffect(() => {
         if (!serviceId) return;
 
         fetchServiceDetails(serviceId);
+        fetchReviews(serviceId)
     }, [serviceId]);
 
     const searchParams = useSearchParams();
@@ -78,32 +87,49 @@ export default function ServiceDetails() {
                 <div className="hidden lg:block w-full bg-white">
 
                     {/* ===== HEADER BAR ===== */}
-                    <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-4">
+                    <div className="w-screen fixed top-0 z-50 -ml-2 bg-white mx-auto flex items-center justify-between px-8 py-4">
 
                         {/* LEFT */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 mt-4 ml-28">
                             <Link href="/MainModules/ITService">
                                 <ChevronLeft size={24} className="cursor-pointer" />
                             </Link>
-                            <h1 className="text-[24px] font-semibold">
-                                Service Details
-                            </h1>
+                            <h1 className="md:text-[18px] lg:text-[24px] font-semibold">Service Details</h1>
                         </div>
 
                         {/* RIGHT */}
-                        <div className="flex items-center gap-3">
-                            <Link href="/MainModules/Checkout">
-                                <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-[20px] font-medium">
+                        <div className="flex items-center gap-3 mt-4">
+
+                            {/* Package Selected Price */}
+                            <div>
+                                {displayPackage && (
+                                    <div className="text-right flex flex-row gap-4 items-center mr-6 rounded-lg px-4 py-3 bg-gray-300">
+                                        <p className="text-md text-gray-500 font-medium">
+                                            {selectedPackage ? "Selected Package" : "Starting From"}
+                                        </p>
+                                        <p className="text-md font-semibold text-black">
+                                            ₹{displayPackage.discountedPrice.toLocaleString()}
+                                        </p>
+                                    </div>
+                                )}
+
+                            </div>
+
+
+                          
+                            <Link href={`/MainModules/Checkout?id=${serviceId}`}>
+                                <button className="flex items-center gap-2 bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
                                     <ShoppingCart className="w-[29px] h-[29px]" />
                                     Check out
                                 </button>
                             </Link>
 
-                            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-[20px] font-medium">
+                            <button className="flex items-center gap-2 bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
                                 <Share2 className="w-[29px] h-[29px]" />
                                 Share
                             </button>
                         </div>
+
                     </div>
 
                     {/* ===== MAIN CONTENT ===== */}
@@ -112,9 +138,9 @@ export default function ServiceDetails() {
                         {/* LEFT IMAGE */}
                         <div className="w-[652px] h-[503px] rounded-xl overflow-hidden">
                             <img
-                                src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
+                                src={service?.bannerImages?.[0]}
                                 alt="Marketing"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-fit"
                             />
                         </div>
 
@@ -125,27 +151,27 @@ export default function ServiceDetails() {
                             </h1>
 
                             <p className="text-gray-500 text-[24px]">
-                                Digital Marketing
+                               {service?.serviceName}
                             </p>
 
                             <div className="flex items-center gap-2 text-[20px]">
                                 <span className="text-yellow-500">★</span>
-                                <span className="font-semibold">{DATA.rating}</span>
-                                <span className="text-gray-500">({DATA.reviews})</span>
+                                <span className="font-semibold">{reviewServices?.averageRating}</span>
+                                <span className="text-gray-500">({reviewServices?.totalReviews})</span>
                             </div>
 
-                          <div className="p-4 -mt-6 w-full">
-                            <div className="flex items-center gap-4">
-                                <span className="text-gray-500 text-[24px]">Starting</span>
-                                <span className="text-[36px] font-semibold">₹10,000</span>
-                                <span className="line-through text-[20px] text-gray-400">
-                                    ₹14,000
-                                </span>
-                                <span className="text-[16px] text-white bg-black font-semibold px-3 py-1 rounded whitespace-nowrap">
-                                    25% OFF
-                                </span>
+                            <div className="p-4 -mt-6 w-full">
+                                <div className="flex items-center gap-4">
+                                    <span className="text-gray-500 text-[24px]">Starting</span>
+                                    <span className="text-[36px] font-semibold">{service?.discountedPrice}</span>
+                                    <span className="line-through text-[20px] text-gray-400">
+                                     {service?.price}
+                                    </span>
+                                    <span className="text-[16px] text-white bg-black font-semibold px-3 py-1 rounded whitespace-nowrap">
+                                        {service?.discount} OFF
+                                    </span>
+                                </div>
                             </div>
-                        </div>
 
                             {/* COMMISSION */}
                             <div className="rounded-xl p-5 border flex justify-between items-center">
@@ -171,7 +197,7 @@ export default function ServiceDetails() {
                 <div className="lg:hidden">
 
                     {/* ===== MOBILE HEADER BAR ===== */}
-                    <div className="mt-4 px-4 py-3 flex items-center justify-between">
+                    <div className="w-screen fixed top-0 z-50 bg-white px-4 py-3 flex items-center justify-between">
 
                         {/* LEFT */}
                         <div className="flex items-center gap-2">
@@ -183,7 +209,7 @@ export default function ServiceDetails() {
 
                         {/* RIGHT */}
                         <div className="flex items-center gap-2">
-                            <Link href="/MainModules/Checkout">
+                            <Link href={`/MainModules/Checkout?id=${serviceId}`}>
                                 <button className="flex items-center gap-1 bg-green-500 text-white px-3 py-1.5 rounded-md text-xs font-medium">
                                     <ShoppingCart className="w-4 h-4" />
                                     Checkout
@@ -198,11 +224,11 @@ export default function ServiceDetails() {
                     </div>
 
                     {/* ===== IMAGE ===== */}
-                    <div className="mx-4 mt-4 rounded-xl overflow-hidden">
+                    <div className="mx-4 mt-22 rounded-xl overflow-hidden">
                         <img
-                            src="/image/marnavbg.png"
-                            alt="service"
-                            className="w-full h-[220px] object-cover"
+                            src={service?.bannerImages?.[0]}
+                            alt="Marketing Service"
+                            className="w-full h-[220px] object-fit"
                         />
                     </div>
 
@@ -212,16 +238,16 @@ export default function ServiceDetails() {
                         {/* TITLE + RATING */}
                         <div className="flex justify-between items-start">
                             <h2 className="text-[16px] font-semibold leading-tight">
-                                {DATA.title}
+                                 {service?.serviceName}
                             </h2>
 
                             <div className="flex flex-col items-end text-xs">
                                 <div className="flex items-center gap-1">
                                     <span className="text-yellow-500">★</span>
-                                    <span>{DATA.rating}</span>
+                                    <span>{reviewServices?.averageRating}</span>
                                 </div>
                                 <span className="text-gray-400 whitespace-nowrap">
-                                    ({DATA.reviews})
+                                    ({reviewServices?.totalReviews})
                                 </span>
                             </div>
                         </div>
@@ -235,13 +261,13 @@ export default function ServiceDetails() {
                         <div className="flex items-center gap-2">
                             <span className="text-[12px] text-gray-500">Starting</span>
                             <span className="font-semibold text-[16px]">
-                                ₹{DATA.price}
+                                ₹ {service?.discountedPrice}
                             </span>
                             <span className="line-through text-gray-400 text-[12px]">
-                                ₹{DATA.originalPrice}
+                                ₹ {service?.price}
                             </span>
                             <span className="text-[#D56839] text-[12px] font-medium">
-                                {DATA.discount}
+                                 {service?.discount}
                             </span>
                         </div>
 
@@ -259,7 +285,7 @@ export default function ServiceDetails() {
                         </div>
 
                         {/* COMMISSION CARD */}
-                        <div className="mt-4 bg-white rounded-xl p-4 shadow border-t-4 border-blue-500 flex justify-between items-center">
+                        <div className="mt-4 bg-white rounded-xl p-4 shadow border flex justify-between items-center">
                             <div>
                                 <p className="text-[13px] font-medium">
                                     Franchise Commission
@@ -286,13 +312,13 @@ export default function ServiceDetails() {
                 <HowItWorksSteps howItWorks={service?.serviceDetails?.howItWorks || []} />
                 <SafetyandAssurance safetyAndAssurance={service?.serviceDetails?.safetyAndAssurance || []} />
                 <Documents weRequired={service?.serviceDetails?.weRequired || []} weDeliver={service?.serviceDetails?.weDeliver || []} />
-                <SelectPackage />
+                <SelectPackage packages={service?.serviceDetails?.packages || []} />
                 <Included notInclude={service?.serviceDetails?.notInclude || []} include={service?.serviceDetails?.include || []} highlight={service?.serviceDetails?.highlight || []} />
                 <AssuredByFetchTrue assuredByFetchTrue={service?.serviceDetails?.assuredByFetchTrue || []} />
                 <MoreInformation moreInfo={service?.serviceDetails?.moreInfo || []} />
                 <TermsAndConditions termsAndConditions={service?.serviceDetails?.termsAndConditions || []} />
                 <FAQs faq={service?.serviceDetails?.faq || []} />
-                <RatingsReviews />
+                <RatingsReviews reviews={reviewServices} />
                 <ConnectWith connectWith={service?.serviceDetails?.connectWith || []} />
             </section>
         </>

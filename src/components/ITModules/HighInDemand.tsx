@@ -353,144 +353,7 @@ import { User } from "lucide-react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 
 
-/* ---------------- CATEGORY TABS ---------------- */
-const CATEGORY_TABS = [
-    { label: "All", value: "all" },
-    { label: "300", value: "0-300" },
-    { label: "300 - 400 Rs", value: "300-400" },
-    { label: "400 - 600 Rs", value: "400-600" },
-    { label: "600 - 800 Rs", value: "600-800" },
-    { label: "800 - 1000 Rs", value: "800-1000" },
-];
 
-/* ---------------- SERVICES DATA ---------------- */
-// const SERVICES = [
-//     {
-//         id: 1,
-//         title: "Cyber Security",
-//         subtitle: "Develop your future website",
-//         category: "Digital Marketing",
-//         users: "2400+ users",
-//         rating: 4,
-//         price: 450,
-//         discount: "30%",
-//         trusted: true,
-//         earn: "Earn Up to 5%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 2,
-//         title: "IT Consulting",
-//         subtitle: "Develop your future website",
-//         category: "UI / UX",
-//         users: "1800+ users",
-//         rating: 5,
-//         price: 380,
-//         discount: "25%",
-//         trusted: true,
-//         earn: "Earn Up to 4%",
-//         image: "/image/ItServicecardbg1.png",
-
-//     },
-//     {
-//         id: 3,
-//         title: "App Development",
-//         subtitle: "Develop your future website",
-//         category: "Graphic Design",
-//         users: "1200+ users",
-//         rating: 4,
-//         price: 280,
-//         discount: "20%",
-//         trusted: true,
-//         earn: "Earn Up to 3%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 4,
-//         title: "Cyber Security",
-//         subtitle: "Develop your future website",
-//         category: "Print Design",
-//         users: "950+ users",
-//         rating: 4,
-//         price: 220,
-//         discount: "15%",
-//         trusted: true,
-//         earn: "Earn Up to 2%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 5,
-//         title: "IT Consulting",
-//         subtitle: "Develop your future website",
-//         category: "Digital Marketing",
-//         users: "2100+ users",
-//         rating: 5,
-//         price: 320,
-//         discount: "35%",
-//         trusted: true,
-//         earn: "Earn Up to 5%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 6,
-//         title: "Web Development",
-//         subtitle: "Develop your future website",
-//         category: "UI / UX",
-//         users: "1600+ users",
-//         rating: 5,
-//         price: 520,
-//         discount: "20%",
-//         trusted: true,
-//         earn: "Earn Up to 6%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 7,
-//         title: "Cyber Security",
-//         subtitle: "Develop your future website",
-//         category: "Print Design",
-//         users: "1100+ users",
-//         rating: 4,
-//         price: 480,
-//         discount: "18%",
-//         trusted: true,
-//         earn: "Earn Up to 3%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 8,
-//         title: "Web Development",
-//         subtitle: "Develop your future website",
-//         category: "Graphic Design",
-//         users: "1400+ users",
-//         rating: 4,
-//         price: 260,
-//         discount: "22%",
-//         trusted: true,
-//         earn: "Earn Up to 3%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-//     {
-//         id: 9,
-//         title: "App Development",
-//         subtitle: "Develop your future website",
-//         category: "Branding",
-//         users: "900+ users",
-//         rating: 5,
-//         price: 750,
-//         discount: "40%",
-//         trusted: true,
-//         earn: "Earn Up to 7%",
-//         image: "/image/ItServicecardbg1.png",
-//     },
-// ];
-
-/* ---------------- COMPONENT ---------------- */
-// type RecommendationProps = {
-//     selectedRange: string;
-//     selectedCategory: string;
-//     searchQuery: string;
-// };
 
 type SectionProps = {
     moduleId?: string;
@@ -506,8 +369,6 @@ export default function HighInDemand({ moduleId }: SectionProps) {
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
-    const toSlug = (text: string) =>
-        text.toLowerCase().replace(/\s+/g, "-");
 
     const {
         services,
@@ -530,42 +391,6 @@ export default function HighInDemand({ moduleId }: SectionProps) {
     shadow-lg
     `;
 
-
-
-    // const filteredServices = SERVICES.filter((item) => {
-    //     // PRICE FILTER
-    //     const rangeMatch =
-    //         selectedRange === "all" ||
-    //         (selectedRange === "0-300" && item.price < 300) ||
-    //         (selectedRange === "300-400" && item.price >= 300 && item.price < 400) ||
-    //         (selectedRange === "400-600" && item.price >= 400 && item.price <= 600) ||
-    //         (selectedRange === "600-800" && item.price >= 600 && item.price <= 800) ||
-    //         (selectedRange === "800-1000" && item.price > 800);
-
-    //     // CATEGORY FILTER
-    //     const categoryMatch =
-    //         selectedCategory === "all" ||
-    //         item.title === selectedCategory;
-
-    //     // CONTEXT (from slug)
-    //     // const contextMatch =
-    //     //     !contextTitle ||
-    //     //     item.title.toLowerCase() === contextTitle.toLowerCase();
-    //     const normalizedTitle = item.title.toLowerCase();
-    //     const normalizedContext = contextTitle?.toLowerCase();
-
-    //     const contextMatch =
-    //         !contextTitle ||
-    //         normalizedTitle === normalizedContext;
-
-    //     // SEARCH
-    //     const searchMatch =
-    //         searchQuery === "" ||
-    //         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //         item.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-    //     return rangeMatch && categoryMatch && searchMatch && contextMatch;
-    // });
 
 
     type CardBgProps = {
@@ -595,6 +420,7 @@ export default function HighInDemand({ moduleId }: SectionProps) {
         </svg>
     );
 
+   
 
     const mappedServices = services.map((service) => ({
         id: service._id,
@@ -621,7 +447,7 @@ export default function HighInDemand({ moduleId }: SectionProps) {
         <div className="w-full p-4 md:ml-6 md:p-6">
             {/* TITLE */}
             <h2 className="text-xl md:text-3xl font-semibold mb-4">
-               Top Trending
+            Top Trending
             </h2>
 
             {/* SWIPEABLE CARDS */}
@@ -634,14 +460,14 @@ export default function HighInDemand({ moduleId }: SectionProps) {
                         <div
                             key={item.id}
                             onClick={() =>
-                                router.push(`/MainModules/ITService/ServiceDetails`)
+                                 router.push(`/MainModules/It-Services/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
                                 relative snap-center flex-shrink-0
                                 w-[290px] min-h-[271px]
                                 sm:w-[70vw] h-[350px]
                                 md:w-[331px] md:h-[372px] lg:h-[372.04px] lg:w-[331px]
-                                overflow-hidden 
+                                overflow-hidden cursor-pointer
                                 "
                         >
                             {/* SVG BACKGROUND */}

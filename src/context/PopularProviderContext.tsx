@@ -85,8 +85,13 @@ export const PopularProvidersProvider = ({
         );
 
         setProviders(res.data?.data || []);
-      } catch (err: any) {
-        setError(err?.response?.data?.message || "Failed to load providers");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        }
+        else {
+          setError("Failed to load providers");
+        }
       } finally {
         setLoading(false);
       }

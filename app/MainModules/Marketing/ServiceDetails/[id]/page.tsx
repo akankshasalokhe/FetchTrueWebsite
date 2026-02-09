@@ -16,10 +16,10 @@ import Documents from "@/src/components/MarketingServiceDetails/Documents";
 import Packages from "@/src/components/MarketingServiceDetails/Packages";
 import AssuredByFetchTrue from "@/src/components/MarketingServiceDetails/AssuredFetchTrue";
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { useReview } from "@/src/context/ReviewContext";
-import { SERVICES } from "@/src/components/ITModulesSubCategories/ExploreAllServices";
+import { useCheckout } from "@/src/context/CheckoutContext";
 
 type CourseInfo = {
     title: string;
@@ -51,10 +51,20 @@ const DATA: CourseInfo = {
 
 export default function ServiceDetails() {
     const { service, loading, error, fetchServiceDetails } = useServiceDetails();
-    const { services, fetchReviews } = useReview();
+    const { reviewServices, fetchReviews } = useReview();
     const params = useParams();
     const serviceId = params.id as string;
 
+    const { selectedPackage } = useCheckout();
+
+    const basicPackage = service?.serviceDetails?.packages?.[0];
+
+    const displayPackage = selectedPackage ?? basicPackage;
+    
+    const searchParams = useSearchParams();
+    
+        const serviceName = searchParams.get("service");
+    
     useEffect(() => {
         if (!serviceId) return;
 
@@ -69,17 +79,17 @@ export default function ServiceDetails() {
     return (
         <>
             <section className="w-full bg-white">
-                {/* ================= DESKTOP ================= */}
+                {/*  DESKTOP  */}
                 <div className="hidden lg:flex gap-8 p-8 max-w-[1400px] mx-auto">
                     <div className="flex flex-col gap-3">
 
 
-                        {/* ===== HEADER BAR ===== */}
+                        {/*  HEADER BAR  */}
                         <div className="hidden lg:block">
-                            <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-4">
+                            <div className="w-screen fixed top-0 z-50 -ml-32 bg-white mx-auto flex items-center justify-between px-8 py-4">
 
                                 {/* LEFT */}
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-3 mt-4 ml-28">
                                     <Link href="/MainModules/ITService">
                                         <ChevronLeft size={24} className="cursor-pointer" />
                                     </Link>
@@ -87,15 +97,32 @@ export default function ServiceDetails() {
                                 </div>
 
                                 {/* RIGHT */}
-                                <div className="flex items-center gap-3">
-                                    <Link href="/MainModules/Checkout">
-                                        <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
+                                <div className="flex items-center gap-3 mt-4">
+
+                                    {/* Package Selected Price */}
+                                    <div>
+                                        {displayPackage && (
+                                            <div className="text-right flex flex-row gap-4 items-center mr-6 rounded-lg px-4 py-3 bg-gray-300">
+                                                <p className="text-md text-gray-500 font-medium">
+                                                    {selectedPackage ? "Selected Package" : "Starting From"}
+                                                </p>
+                                                <p className="text-md font-semibold text-black">
+                                                    ₹{displayPackage.discountedPrice.toLocaleString()}
+                                                </p>
+                                            </div>
+                                        )}
+
+                                    </div>
+
+
+                                   <Link href={`/MainModules/Checkout?id=${serviceId}`}>
+                                        <button className="flex items-center gap-2 bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
                                             <ShoppingCart className="w-[29px] h-[29px]" />
                                             Check out
                                         </button>
                                     </Link>
 
-                                    <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
+                                    <button className="flex items-center gap-2 bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
                                         <Share2 className="w-[29px] h-[29px]" />
                                         Share
                                     </button>
@@ -104,28 +131,28 @@ export default function ServiceDetails() {
                             </div>
                         </div>
 
-                        <section className="w-full bg-white">
-                            <div className="hidden lg:flex gap-8 p-8 max-w-[1400px] mx-auto">
+                        <section className="bg-white">
+                            <div className="hidden lg:flex gap-8 p-8 max-w-[1400px] mx-auto mt-6">
 
                                 {/* LEFT IMAGE */}
-                                <div className="md:w-[652px] md:h-[503px] rounded-xl overflow-hidden">
+                                <div className="md:w-[652px] md:h-[555px] rounded-xl overflow-hidden">
                                     <img
-                                        src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
+                                        src={service?.bannerImages?.[0]}
                                         alt="Marketing"
                                         className="w-full h-full object-fit"
                                     />
                                 </div>
 
                                 {/* RIGHT CONTENT */}
-                                <div className="flex-1 space-y-4">
+                                <div className="flex-1 space-y-4 my-auto">
                                     <div className="flex-1 space-y-4">
-                                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{DATA.title}</h1>
+                                        <h1 className="text-[40px] font-semibold whitespace-nowrap">{serviceName}</h1>
                                         <p className="text-gray-500 text-[24px]">Digital Marketing</p>
 
                                         <div className="flex items-center gap-2 text-[20px]">
                                             <span className="text-yellow-500">★</span>
-                                            <span className="font-semibold">{DATA.rating}</span>
-                                            <span className="text-gray-500">({DATA.reviews})</span>
+                                            <span className="font-semibold">{reviewServices?.averageRating}</span>
+                                            <span className="text-gray-500">({reviewServices?.totalReviews})</span>
                                         </div>
 
                                         {/* <div className="gap-4 p-2 flex items-center">
@@ -136,12 +163,12 @@ export default function ServiceDetails() {
                                         <div className="p-4 mt-2 w-full">
                                             <div className="flex items-center gap-4">
                                                 <span className="text-gray-500 text-[24px]">Starting</span>
-                                                <span className="text-[36px] font-semibold">₹10,000</span>
+                                                <span className="text-[36px] font-semibold">{service?.discountedPrice}</span>
                                                 <span className="line-through text-[20px] text-gray-400">
-                                                    ₹14,000
+                                                    {service?.price}
                                                 </span>
                                                 <span className="text-[16px] text-blue-600 font-semibold px-3 py-1 rounded">
-                                                    25% OFF
+                                                {service?.discount} OFF
                                                 </span>
                                             </div>
                                         </div>
@@ -180,7 +207,7 @@ export default function ServiceDetails() {
 
                 </div>
 
-                {/* ================= MOBILE ================= */}
+                {/*  MOBILE  */}
                 <div className="lg:hidden">
                     <div className="mt-4 px-4 py-3 flex items-center justify-between">
 
@@ -194,7 +221,7 @@ export default function ServiceDetails() {
 
                         {/* RIGHT */}
                         <div className="flex items-center gap-2">
-                            <Link href="/MainModules/Checkout">
+                           <Link href={`/MainModules/Checkout?id=${serviceId}`}>
                                 <button className="flex items-center gap-1 bg-green-500 text-white px-3 py-1.5 rounded-md text-xs font-medium">
                                     <ShoppingCart className="w-4 h-4" />
                                     Checkout
@@ -208,31 +235,31 @@ export default function ServiceDetails() {
                         </div>
                     </div>
 
-                    {/* ===== IMAGE ===== */}
+                    {/* IMAGE */}
                     <div className="mx-4 mt-4 rounded-xl overflow-hidden">
                         <img
-                            src={service?.bannerImages?.[0] || "/image/marnavbg.png"}
+                            src={service?.bannerImages?.[0]}
                             alt="service"
                             className="w-full h-[220px] object-fit"
                         />
                     </div>
 
-                    {/* ===== CONTENT ===== */}
+                    {/*  CONTENT = */}
                     <div className="px-4 mt-4 space-y-3">
 
                         {/* TITLE + RATING */}
                         <div className="flex justify-between items-start">
                             <h2 className="text-[16px] font-semibold leading-tight">
-                                {DATA.title}
+                             {service?.serviceName}
                             </h2>
 
                             <div className="flex flex-col items-end text-xs">
                                 <div className="flex items-center gap-1">
                                     <span className="text-yellow-500">★</span>
-                                    <span>{DATA.rating}</span>
+                                    <span>{reviewServices?.averageRating}</span>
                                 </div>
                                 <span className="text-gray-400 whitespace-nowrap">
-                                    ({DATA.reviews})
+                                     ({reviewServices?.totalReviews})
                                 </span>
                             </div>
                         </div>
@@ -241,14 +268,15 @@ export default function ServiceDetails() {
 
                         {/* PRICE */}
                         <div className="p-4 -mt-6 w-full">
+                             <span className="text-gray-500 text-[12px] ">Starting from</span>
                             <div className="flex items-center gap-4">
-                                <span className="text-gray-500 text-[12px]">Starting</span>
-                                <span className="text-[20px] font-semibold">₹10,000</span>
+                               
+                                <span className="text-[20px] font-semibold">₹ {service?.discountedPrice}</span>
                                 <span className="line-through text-[12px] text-gray-400">
-                                    ₹14,000
+                                    ₹ {service?.price}
                                 </span>
                                 <span className="text-[10px] text-blue-600 font-semibold px-3 py-1 rounded whitespace-nowrap">
-                                    (25% OFF)
+                                    {service?.discount} OFF
                                 </span>
                             </div>
                         </div>
@@ -297,7 +325,7 @@ export default function ServiceDetails() {
                 <ChooseProvider />
                 <TermsAndConditions termsAndConditions={service?.serviceDetails.termsAndConditions || []} />
                 <FAQs faq={service?.serviceDetails?.faq || []} />
-                <RatingsReviews reviews={services} />
+                <RatingsReviews reviews={reviewServices} />
                 <ConnectWith connectWith={service?.serviceDetails?.connectWith || []} />
             </section>
         </>

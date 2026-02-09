@@ -479,6 +479,7 @@ import { useMostPopularServiceByCategory } from "@/src/context/MostPopularServic
 interface Props {
     categoryId: string;
     moduleId: string;
+    sortBy: string;
 }
 
 interface Package {
@@ -491,7 +492,7 @@ interface Package {
 }
 
 
-export default function MostPopular({ categoryId, moduleId }: Props) {
+export default function MostPopular({ categoryId, moduleId, sortBy }: Props) {
     const {
         services,
         loading,
@@ -508,6 +509,13 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
             fetchMostPopularServiceByCategory(categoryId);
         }
     }, [moduleId, categoryId]);
+
+    useEffect(() => {
+        containerRef.current?.scrollTo({
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [sortBy]);
 
 
 
@@ -584,6 +592,28 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
 
         })});
 
+            const sortedServices = [...mappedServices].sort((a, b) => {
+        switch (sortBy) {
+            case "high-to-low":
+                return b.price - a.price;
+
+            case "low-to-high":
+                return a.price - b.price;
+
+            case "recommended":
+                return b.rating - a.rating;
+
+            case "most-popular":
+                return b.reviews - a.reviews;
+
+            case "top-trending":
+                return b.discount - a.discount;
+
+            default:
+                return 0;
+        }
+    });
+
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -617,16 +647,16 @@ export default function MostPopular({ categoryId, moduleId }: Props) {
         <div className="w-full p-4 md:ml-15">
             {/* TITLE */}
             <h2 className="text-[18px] md:text-[24px] font-semibold mb-4">
-                Most Popular
+                {/* Most Popular */}
             </h2>
 
             {/* SWIPEABLE CARDS */}
             <div
                 ref={containerRef}
-                className="flex gap-4 md:gap-6 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
+                className="flex gap-4 md:gap-6 "
             >
-                {mappedServices.length > 0 ? (
-                    mappedServices.map((item) => (
+                {sortedServices.length > 0 ? (
+                    sortedServices.map((item) => (
                         <div
                             key={item.id}
                             onClick={() =>

@@ -352,7 +352,7 @@ export default function Recommendation({ categoryId, moduleId }: Props) {
                                         <div className="inline-flex items-center gap-2 text-[9px] md:text-[12px] px-1 py-1 whitespace-nowrap shrink-0">
                                             {/* <Zap className="inline-block w-[12px] h-[12px] flex-shrink-0" />
                                             Faster project delivery */}
-                                             {item.keyValues.map((kv) => (
+                                            {item.keyValues.map((kv) => (
                                                 <span
                                                     key={kv.id}
                                                     className="text-[11px] text-gray-700 leading-snug"
@@ -429,7 +429,7 @@ export default function Recommendation({ categoryId, moduleId }: Props) {
                                             max-w-[85%] -mr-4
                                             truncate 
                                             whitespace-nowrap"
-                                    >
+                                     >
                                         <div className="text-[10px] md:text-[12px] lg:text-[12px] text-white bg-black rounded-md px-1 py-1 mb-2">12% OFF</div>
                                         <span className="lg:text-[10px] md:text-[10px] lg:text-[12px] text-gray-500 ">Starting from</span>
                                         {/* ₹ {item.price} */}
