@@ -132,7 +132,7 @@ useEffect(() => {
 
       
 
-      <AllServices categoryId={categoryId} moduleId={moduleId}/>
+      {/* <AllServices categoryId={categoryId} moduleId={moduleId}/> */}
       <RecommendedForYou categoryId={categoryId} moduleId={moduleId}/>
       <MostlyPopularService categoryId={categoryId} moduleId={moduleId}/>
       <TopTrending categoryId={categoryId} moduleId={moduleId}/>

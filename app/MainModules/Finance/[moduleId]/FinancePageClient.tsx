@@ -121,7 +121,7 @@ export default function FinancePageClient() {
 
 
            <CategorySection />
-           <AllServices moduleId={moduleId} />
+           {/* <AllServices moduleId={moduleId} /> */}
            <RecommendedSection moduleId={moduleId} />
            <BestSellingSection moduleId={moduleId}/>
            <RecentlyAddedSection  moduleId={moduleId}/>

@@ -121,7 +121,7 @@ export default function FinanceCategoryDetailPage() {
 
      {active && (
   <>
-    <AllServices moduleId={moduleId} categoryId={categoryId} />
+    {/* <AllServices moduleId={moduleId} categoryId={categoryId} /> */}
     <Recommended moduleId={moduleId} categoryId={categoryId} />
     <MostPopular moduleId={moduleId} categoryId={categoryId} />
     <TopTrending moduleId={moduleId} categoryId={categoryId} />

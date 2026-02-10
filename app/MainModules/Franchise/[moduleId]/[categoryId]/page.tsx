@@ -2222,7 +2222,7 @@ useEffect(() => {
             {/* ================= REST SECTIONS (UNCHANGED) ================= */}
             <div className="bg-white rounded-xl">
               
-                <AllServices categoryId={categoryId} moduleId={moduleId}/> 
+                {/* <AllServices categoryId={categoryId} moduleId={moduleId}/>  */}
                 <SearchBudget categoryId={categoryId} moduleId={moduleId}/>
                 <Recommended categoryId={categoryId} moduleId={moduleId} />
 

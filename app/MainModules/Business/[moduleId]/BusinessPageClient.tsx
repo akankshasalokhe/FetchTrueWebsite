@@ -1270,7 +1270,7 @@ export default function BusinessPageClient() {
 {/* category */}
 <Category />
 
-<AllServices moduleId={moduleId} categoryId={categoryId}/>
+{/* <AllServices moduleId={moduleId} categoryId={categoryId}/> */}
 
 <Recommended moduleId={moduleId}/>
 
