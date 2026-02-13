@@ -258,7 +258,7 @@ const { moduleId } = useParams<{ moduleId: string }>();
 
       
 <CategorySection />
-<AllServices moduleId={moduleId}/>
+{/* <AllServices moduleId={moduleId}/> */}
 <RecommendedForYou moduleId={moduleId}/>
 <MostlyUsedService moduleId={moduleId}/>
 <TopTrending moduleId={moduleId}/>

@@ -1371,7 +1371,7 @@ const [activeImage, setActiveImage] = useState<string>("");
 
 const { service, loading, error, fetchServiceDetails } = useServiceDetails();
   const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
-  const { services, fetchReviews } = useReview();
+  const { reviewServices, fetchReviews } = useReview();
 
 
 
@@ -2265,10 +2265,10 @@ if (!service) {
           {/* Progress Bars */}
       <div className="flex-1 space-y-2">
   {ratingBars.map(({ star, color }) => {
-    const count = services?.ratingDistribution?.[star] ?? 0;
+    const count = reviewServices?.ratingDistribution?.[star] ?? 0;
 
-    const percentage = service?.totalReviews
-      ? Math.round((count / service.totalReviews) * 100)
+    const percentage = reviewServices?.totalReviews
+      ? Math.round((count / reviewServices.totalReviews) * 100)
       : 0;
 
     return (

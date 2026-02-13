@@ -199,7 +199,7 @@ export default function FranchisePageClient()  {
 
 
 <Categories/>
-<AllServices moduleId={moduleId}/>
+{/* <AllServices moduleId={moduleId}/> */}
 <Recommended  moduleId={moduleId}/>
 <HighDemands moduleId={moduleId}/>
 {/* <TopGrowingFranchises /> */}

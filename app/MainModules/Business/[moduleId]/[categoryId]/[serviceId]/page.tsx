@@ -1099,7 +1099,7 @@ export default function DetailsAllPage() {
 
   const { service, loading, error, fetchServiceDetails } = useServiceDetails();
     const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
-    const { services, fetchReviews } = useReview();
+    const { reviewServices, fetchReviews } = useReview();
   
   
   

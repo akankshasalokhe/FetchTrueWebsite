@@ -125,9 +125,9 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "Leads", href: "/leads" },
-  { label: "Offers", href: "/offers" },
-  { label: "Academy", href: "/academy" },
+  // { label: "Leads", href: "/leads" },
+  { label: "Offers", href: "/Offers" },
+  { label: "Academy", href: "/Academy" },
   { label: "Account", href: "/account" },
   { label: "Packages", href: "/packages" },
 ];
@@ -200,7 +200,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Login */}
           <Link
-            href="/login"
+            href="/Login"
             className="hidden sm:flex items-center justify-center px-6 w-[108px] h-[36px] bg-[#262627] text-white rounded-full text-sm"
           >
             Login

@@ -974,7 +974,7 @@ export default function AIHubServiceDetailPage() {
 
       const { service, loading, error, fetchServiceDetails } = useServiceDetails();
         const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
-        const { services, fetchReviews } = useReview();  
+        const { reviewServices, fetchReviews } = useReview();  
         
         
                    useEffect(() => {
@@ -1546,17 +1546,17 @@ const images = service.bannerImages;
 </div>
 
 <div className="max-w-[1400px] bg-[#FFFFFF80] mx-4 lg:mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10  border border-[#EAEAEA] rounded-[12px] mt-8">
-{services && (
+{reviewServices && (
   <div className="max-w-[1400px]  mx-4 lg:mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10  rounded-[12px] mt-8">
     <RatingsReviews
       title="Ratings & Reviews"
       subtitle="Complete overview of service experience."
-      averageRating={services.averageRating}
-      // totalRatings={services.totalReviews}
+      averageRating={reviewServices.averageRating}
+      // totalRatings={reviewServices.totalReviews}
       primaryColor="#BC9958"
       breakdown={buildRatingBreakdown(
-        services.ratingDistribution,
-        services.totalReviews
+        reviewServices.ratingDistribution,
+        reviewServices.totalReviews
       )}
       features={[
         { label: "Monthly Business", score: 4 },
