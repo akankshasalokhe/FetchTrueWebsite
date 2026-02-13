@@ -1,7 +1,10 @@
 import { User } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { CiBookmark } from "react-icons/ci";
 
+
 type Props = {
+    id: string,
     title: string;
     image: string;
     type: string;
@@ -33,6 +36,7 @@ type Props = {
 };
 
 export default function MostPopularHomeCard({
+    id,
     title,
     image,
     type,
@@ -49,6 +53,7 @@ export default function MostPopularHomeCard({
     franchiseDetails
 }: Props) {
 
+    const router = useRouter();
     const isFranchiseOrFinanceOrBusiness =
         moduleName.toLowerCase().includes("franchise") ||
         moduleName.toLowerCase().includes("finance") ||
@@ -116,11 +121,18 @@ export default function MostPopularHomeCard({
         : undefined;
 
 
+    const toFolderName = (name: string) =>
+        name.trim().replace(/\s+/g, "-");
+
 
     return (
         <div className="w-[345px] h-[360px] md:w-[400px] md:h-[380px] lg:w-[424px] lg:h-[400px] flex-shrink-0 bg-gradient-to-b 
         from-white to-[#D8E0F099] rounded-[14px] border border-[#E7E7E7] 
-            shadow p-4 flex flex-col gap-4">
+            shadow p-4 flex flex-col gap-4"
+            onClick={() =>
+                router.push(`/MainModules/${toFolderName(moduleName)}/ServiceDetails/${id}?service=${encodeURIComponent(title)}`)
+            }
+        >
 
 
             {/* IMAGE */}

@@ -458,7 +458,7 @@ interface Package {
 
 
 
-export default function MostPopular({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
+export default function MostPopular({ moduleId }: SectionProps) {
 
 
 
@@ -708,8 +708,8 @@ export default function MostPopular({ selectedRange, selectedCategory, searchQue
 
 
                                             </div>
-                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 lg:ml-2 ml-2">
-                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" />{item.reviews} reviews
+                                            <div className="lg:text-[10px] md:text-[10px] text-[9px] flex items-center gap-1  text-gray-700 md:ml-2 lg:ml-2 ml-2">
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" />{item.reviews} {item.reviews <=  1 ? 'review' : 'reviews'}
                                             </div>
                                         </div>
                                     </div>

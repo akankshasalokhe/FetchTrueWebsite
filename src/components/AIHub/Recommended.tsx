@@ -290,7 +290,6 @@ export default function Recommended({ moduleId }: RecommendedProps) {
 
                             <div className="flex -mt-12 md:-mt-18">
                                 <div className=" items-end ml-auto gap-1 text-yellow-400 text-[22px] mb-4">
-                                    {/* {"⭐".repeat(p.rating)} */}
                                     {"★".repeat(p.rating)}
                                 </div>
                             </div>

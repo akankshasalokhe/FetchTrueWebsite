@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
-import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-react";
+import { Bookmark, Clock, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRecommendedProviders } from "@/src/context/RecommendedProviderContext"
-import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 
@@ -35,8 +34,6 @@ export default function RecommendedProvider({ moduleId }: SectionProps) {
         fetchRecommendedProviders,
     } = useRecommendedProviders();
 
-
-    const params = useParams();
   
 
     useEffect(() => {
@@ -45,13 +42,6 @@ export default function RecommendedProvider({ moduleId }: SectionProps) {
         }
     }, [moduleId]);
    
-
-
-
-    useEffect(() => {
-       
-    }, [providers]);
-
 
     const mappedServices = providers.map((service) => ({
         id: service._id,
@@ -92,16 +82,16 @@ export default function RecommendedProvider({ moduleId }: SectionProps) {
     }));
 
 
-    const tagIcons = [
-        <Clock key="clock" className="w-4 h-4 text-blue-500" />,
-        <img key="tools" src="/image/OnDemandTools.png" className="w-4 h-4" />,
-        <ShieldCheck key="shield" className="w-4 h-4 text-blue-500" />,
-        <Calendar key="calendar" className="w-4 h-4 text-blue-500" />,
-    ];
+    // const tagIcons = [
+    //     <Clock key="clock" className="w-4 h-4 text-blue-500" />,
+    //     <img key="tools" src="/image/OnDemandTools.png" className="w-4 h-4" />,
+    //     <ShieldCheck key="shield" className="w-4 h-4 text-blue-500" />,
+    //     <Calendar key="calendar" className="w-4 h-4 text-blue-500" />,
+    // ];
 
-    const getTagIcon = (index: number) => {
-        return tagIcons[index] || <Clock className="w-4 h-4 text-blue-500" />;
-    };
+    // const getTagIcon = (index: number) => {
+    //     return tagIcons[index] || <Clock className="w-4 h-4 text-blue-500" />;
+    // };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -137,8 +127,7 @@ export default function RecommendedProvider({ moduleId }: SectionProps) {
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                             onClick={() => {
-                            //    router.push(`/MainModules/On-Demand/servicedetails/${item.id}?service=${encodeURIComponent(item.name)}`)
-                            router.push(`/MainModules/On-Demand/[moduleId]/providerId`)
+                            router.push(`/MainModules/On-Demand/${moduleId}/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
                             }}
                         >
                             {/* HEADER */}
@@ -276,7 +265,7 @@ export default function RecommendedProvider({ moduleId }: SectionProps) {
                                         key={index}
                                         className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg"
                                     >
-                                        {getTagIcon(index)}
+                                        {/* {getTagIcon(index)} */}
                                         <span>{tag}</span>
                                     </div>
                                 ))}
