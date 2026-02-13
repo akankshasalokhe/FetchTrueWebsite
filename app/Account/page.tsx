@@ -1,0 +1,147 @@
+// "use client";
+
+// import { useState } from "react";
+// import FavouritePage from "@/app/Account/favorite/page";
+// import AccountSidebar from "@/src/components/Account/Sidebar";
+// import ProfilePage from "./profile/page";
+// import NotificationSettings from "./notification/page";
+// import CustomerList from "./customer/page";
+// import AddCustomerForm from "./customer/add/page";
+
+// export default function MyAccountPage() {
+//   const [selectedSection, setSelectedSection] = useState("Profile");
+//   const [showSidebar, setShowSidebar] = useState(false);
+// const [customerView, setCustomerView] = useState<"list" | "add">("list");
+
+
+//   const renderContent = () => {
+//     switch (selectedSection) {
+//       case "Favorite":
+//         return <FavouritePage />;
+//       case "Wallet":
+//         return <div className="p-6">Wallet Page</div>;
+//       case "Notification":
+//         return <NotificationSettings />;
+//       case "Customer":
+//       return customerView === "list" ? (
+//         <CustomerList onAdd={() => setCustomerView("add")} />
+//       ) : (
+//         <AddCustomerForm onBack={() => setCustomerView("list")} />
+//       ); 
+     
+        
+//       case "Delete Account":
+//         return <div className="p-6 text-red-500">Delete Account Page</div>;
+//       default:
+//         return <ProfilePage />;
+//     }
+//   };
+
+//   return (
+//     <div className="flex min-h-screen w-full bg-white">
+//       {/* Sidebar */}
+//       <AccountSidebar
+//         selectedSection={selectedSection}
+//         setSelectedSection={setSelectedSection}
+//         showSidebar={showSidebar}
+//         setShowSidebar={setShowSidebar}
+//       />
+
+//       {/* Main content */}
+//       <main className="flex-1  p-6">{renderContent()}</main>
+
+//       {/* Mobile hamburger */}
+//       <div className="md:hidden fixed top-4 left-4 z-50">
+//         <button
+//           className="bg-blue-600 text-white px-3 py-2 rounded-md"
+//           onClick={() => setShowSidebar(!showSidebar)}
+//         >
+//           ☰
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+"use client";
+
+import { useState } from "react";
+import FavouritePage from "@/app/Account/favorite/page";
+import AccountSidebar from "@/src/components/Account/Sidebar";
+import ProfilePage from "./profile/page";
+import NotificationSettings from "./notification/page";
+import CustomerList from "./customer/page";
+import AddCustomerForm from "./customer/add/page";
+import FiveXReturnPage from "./5xReturn/page";
+import DeleteAccountSection from "./delete/page";
+import EarningsPage from "./wallet/page";
+
+export default function MyAccountPage() {
+  const [selectedSection, setSelectedSection] = useState("Profile");
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  // ✅ Nested state for customer module
+  const [customerView, setCustomerView] = useState<"list" | "add">("list");
+
+  const renderContent = () => {
+    switch (selectedSection) {
+      case "Favorite":
+        return <FavouritePage />;
+
+      case "Notification":
+        return <NotificationSettings />;
+
+      case "Customer":
+        return customerView === "list" ? (
+          <CustomerList onAdd={() => setCustomerView("add")} />
+        ) : (
+          <AddCustomerForm onBack={() => setCustomerView("list")} />
+        );
+      case "5X Guarantee":
+        return <FiveXReturnPage />;  
+
+      case "Delete Account":
+        return <DeleteAccountSection />
+      case "Wallet":
+        return <EarningsPage />;  
+
+      default:
+        return <ProfilePage />;
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen w-full bg-white">
+      {/* Sidebar */}
+      <AccountSidebar
+        selectedSection={selectedSection}
+        setSelectedSection={(section) => {
+          setSelectedSection(section);
+
+          // ✅ Reset customer sub-view when re-opening
+          if (section === "Customer") {
+            setCustomerView("list");
+          }
+        }}
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}
+      />
+
+      {/* Main content */}
+      <main className="flex-1 p-6">
+        {renderContent()}
+      </main>
+
+      {/* Mobile hamburger */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button
+          className="bg-blue-600 text-white px-3 py-2 rounded-md"
+          onClick={() => setShowSidebar(!showSidebar)}
+        >
+          ☰
+        </button>
+      </div>
+    </div>
+  );
+}

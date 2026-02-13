@@ -49,3 +49,57 @@ export default function NewPasswordPage() {
     </div>
   );
 }
+
+
+// "use client";
+
+// import { useState } from "react";
+// import { useRouter } from "next/navigation";
+// import { useResetPass } from "@/src/context/ResetPassContext";
+
+// export default function NewPasswordPage() {
+//   const [password, setPassword] = useState("");
+//   const [confirm, setConfirm] = useState("");
+//   const { forgotPassword, loading } = useResetPass();
+//   const router = useRouter();
+
+//   const resetPassword = async () => {
+//     if (password !== confirm) {
+//       alert("Passwords do not match");
+//       return;
+//     }
+
+//     const mobileNumber = localStorage.getItem("resetMobile");
+
+//     try {
+//       await forgotPassword({
+//         mobileNumber,
+//         newPassword: password,
+//       });
+
+//       alert("Password reset successfully ✅");
+//       router.push("/Login");
+//     } catch (err: any) {
+//       alert(err.message);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <input
+//         type="password"
+//         placeholder="New Password"
+//         onChange={(e) => setPassword(e.target.value)}
+//       />
+//       <input
+//         type="password"
+//         placeholder="Confirm Password"
+//         onChange={(e) => setConfirm(e.target.value)}
+//       />
+
+//       <button onClick={resetPassword} disabled={loading}>
+//         {loading ? "Please wait..." : "Reset Password"}
+//       </button>
+//     </>
+//   );
+// }

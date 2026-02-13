@@ -31,6 +31,13 @@ import { HomeTopTrendingProvider } from "@/src/context/HomeTopTrendingContext"
 import { TopRatedProviders } from "@/src/context/HomeTopRatedProvider"
 import { FranchiseModelProvider } from "@/src/context/FranchiseContext";
 import { ServicewiseProviderProvider } from "@/src/context/ServicewiseProviderContext";
+import { AuthProvider } from "@/src/context/AuthContext";
+import { ResetPassProvider } from "@/src/context/ResetPassContext";
+import { UserProvider } from "@/src/context/UserContext";
+import { FavouriteProvider } from "@/src/context/FavouriteContext";
+import { WalletProvider } from "@/src/context/WalletContext";
+import { LeadsProvider } from "@/src/context/LeadsContext";
+import { FiveXProvider } from "@/src/context/FiveXContext";
 
 export const metadata = {
   title: "Fetch True",
@@ -41,6 +48,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <AuthProvider>
+          <UserProvider>
+            <WalletProvider>
+              <LeadsProvider>
+            <FavouriteProvider>
+          <ResetPassProvider>
+            <FiveXProvider>
         <ModuleProvider>
           <CategoriesProvider>
             <HomeRecommendedProvider>
@@ -115,6 +129,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </HomeRecommendedProvider>
           </CategoriesProvider>
         </ModuleProvider>
+        </FiveXProvider>
+        </ResetPassProvider>
+        </FavouriteProvider>
+        </LeadsProvider>
+        </WalletProvider>
+        </UserProvider>
+        </AuthProvider>
       </body>
     </html>
   );
