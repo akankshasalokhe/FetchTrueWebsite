@@ -1,3 +1,5 @@
+'use client'
+
 import "./globals.css";
 import { ReactNode } from "react";
 import Footer from "@/src/components/Footer/Footer";
@@ -38,13 +40,22 @@ import { FavouriteProvider } from "@/src/context/FavouriteContext";
 import { WalletProvider } from "@/src/context/WalletContext";
 import { LeadsProvider } from "@/src/context/LeadsContext";
 import { FiveXProvider } from "@/src/context/FiveXContext";
+import { SubscribedServicesProvider } from "@/src/context/OnDemandSubscriberContext"
+import { SubscribedCategoryServicesProvider } from "@/src/context/OnDemandSubscriberCategoryContext"
+import { usePathname } from "next/navigation";
 
-export const metadata = {
-  title: "Fetch True",
-  description: "Your App Description",
-};
+// export const metadata = {
+//   title: "Fetch True",
+//   description: "Your App Description",
+// };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+
+  const isDashboardPage = pathname?.includes('/On-Demand/') &&
+    pathname?.includes('/providers/');
+
   return (
     <html lang="en">
       <body>
@@ -86,9 +97,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                               <TopRatedProviders>
                                                                 <FranchiseModelProvider>
                                                                   <ServicewiseProviderProvider>
+                                                                    <SubscribedServicesProvider>
+                                                                      <SubscribedCategoryServicesProvider>
 
 
-                                                                    <main>{children}</main>
+                                                                        <main>{children}</main>
+
+                                                                      </SubscribedCategoryServicesProvider>
+
+                                                                    </SubscribedServicesProvider>
 
                                                                   </ServicewiseProviderProvider>
                                                                 </FranchiseModelProvider>
@@ -108,7 +125,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                     </ReviewProvider>
                                                   </OfferProvider>
                                                 </ModulewiseServiceProvider>
-                                                <Footer />
+                                                {!isDashboardPage && <Footer />}
                                               </CategorywiseServiceProvider>
                                             </WhyChooseServiceProvider>
                                           </TrendingCategoryProvider>

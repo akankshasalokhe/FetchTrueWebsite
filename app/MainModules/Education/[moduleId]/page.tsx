@@ -33,13 +33,6 @@ type BannerCategorySelection = {
 
 export default function EducationModulePage() {
 
-    // const BannerData = [
-    //     { label: "Image 1", path: "https://ik.imagekit.io/hzyuadmua/banner_5df0d4de-7eb4-4670-ad82-25f3dcea54bb_ZZHxuFnByG" },
-    //     { label: "Image 2", path: "/image/Educationbanner.png" },
-    //     { label: "Image 3", path: "/image/Educationbanner.png" },
-    //     { label: "Image 4", path: "/image/Educationbanner.png" },
-    // ]
-  
 
     const sliderRef = useRef<HTMLDivElement>(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -139,7 +132,37 @@ export default function EducationModulePage() {
         : 665;
 
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+  return (
+    <div className="lg:w-[1400px] mx-auto p-6 animate-pulse">
+      
+      {/* Title Skeleton */}
+      <div className="h-8 w-64 bg-gray-200 rounded-md mb-6" />
+
+      {/* Tabs Skeleton */}
+      <div className="flex gap-3 mb-8">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div
+            key={i}
+            className="h-10 w-28 bg-gray-200 rounded-full"
+          />
+        ))}
+      </div>
+
+      {/* Content Cards Skeleton */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div
+            key={i}
+            className="h-48 bg-gray-200 rounded-xl"
+          />
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
     if (error) return <p>{error}</p>;
 
     return (
@@ -335,7 +358,7 @@ export default function EducationModulePage() {
                                 className="w-[170px] h-[150px] object-contain"
                             />
 
-                            <span className="-mt-10 text-[12px] font-semibold text-center leading-tight break-words">
+                            <span className="-mt-8 text-[12px] font-semibold text-center leading-tight break-words">
                                 {item.name}
                             </span>
                         </div>

@@ -66,9 +66,9 @@ export const useRecommendedProviders = () => {
   return context;
 };
 
-/* =======================
+/* 
    PROVIDER
-======================= */
+ */
 
 interface Props {
   children: ReactNode;

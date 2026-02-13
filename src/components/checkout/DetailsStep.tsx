@@ -77,8 +77,10 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
 
     const packageToUse = selectedPackage ?? basicPackage;
 
-    const searchParams = useSearchParams();
-    const servicesId = searchParams.get('id'); // Get from query params
+    // const searchParams = useSearchParams();
+    // const servicesId = searchParams.get('id'); 
+    const param = useParams();
+    const servicesId = param.id as string;
 
     useEffect(() => {
         if (!servicesId) return;
@@ -287,7 +289,7 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                                 This Service is for my Customer
                             </label>
 
-                          
+
                             <div className="flex gap-4 lg:pl-6">
                                 <button
                                     className="

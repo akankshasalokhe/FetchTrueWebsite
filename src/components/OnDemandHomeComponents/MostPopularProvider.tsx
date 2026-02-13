@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
-import { Bookmark, Clock, ShieldCheck, Calendar, Phone, MailIcon } from "lucide-react";
+import { Bookmark, Clock, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { usePopularProviders } from "@/src/context/PopularProviderContext";
-import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 type SectionProps = {
@@ -18,7 +17,7 @@ type SectionProps = {
 
 
 
-export default function MostPopularProvider({ selectedRange, selectedCategory, searchQuery = "", contextTitle, moduleId }: SectionProps) {
+export default function MostPopularProvider({ moduleId }: SectionProps) {
 
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [isDown, setIsDown] = useState(false);
@@ -26,44 +25,6 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
     const [scrollLeft, setScrollLeft] = useState(0);
     const router = useRouter()
 
-    const services = [
-        {
-            id: 1,
-            name: "G-Kitchen Costar",
-            description: "We provide you the best kitchen service",
-            phone: "5684562680",
-            email: "company@gmail.com",
-            address: "Plot 3, High Sky Building, Pune 415005",
-            categories: ["Cooking", "Kitchen Cleaning", "Meal Prep"],
-            experience: "6+ Years",
-            rating: 4,
-            reviews: 300,
-            time: "9-11 PM",
-            tools: "All Tools Included",
-            trusted: true,
-            day: "Sunday",
-            status: "Available",
-            image: "/image/OnDemandRecommended.png",
-        },
-        ...Array.from({ length: 6 }).map((_, i) => ({
-            id: i + 2,
-            name: "Home Chef Pro",
-            description: "Premium home cooking services",
-            phone: "9876543210",
-            email: "chef@gmail.com",
-            address: "Baner Road, Pune",
-            categories: ["Cooking", "Meal Prep"],
-            experience: "4+ Years",
-            rating: 5,
-            reviews: 180,
-            time: "10-8 PM",
-            tools: "All Tools Included",
-            trusted: true,
-            day: "Monday",
-            status: "Available",
-            image: "/image/OnDemandRecommended.png",
-        })),
-    ];
 
     const {
         providers,
@@ -71,10 +32,6 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
         error,
         fetchPopularProviders,
     } = usePopularProviders();
-
-
-    const params = useParams();
-    
 
 
 
@@ -103,7 +60,7 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
         providerName: service.fullName,
         storeName: service.storeInfo?.storeName || "Unknown Store",
 
-        // Image priority: logo → cover → placeholder
+        
         image:
             service.storeInfo?.logo ||
             service.storeInfo?.cover ||
@@ -130,16 +87,16 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
     }));
 
 
-    const tagIcons = [
-        <Clock key="clock" className="w-4 h-4 text-blue-500" />,
-        <img key="tools" src="/image/OnDemandTools.png" className="w-4 h-4" />,
-        <ShieldCheck key="shield" className="w-4 h-4 text-blue-500" />,
-        <Calendar key="calendar" className="w-4 h-4 text-blue-500" />,
-    ];
+    // const tagIcons = [
+    //     <Clock key="clock" className="w-4 h-4 text-blue-500" />,
+    //     <img key="tools" src="/image/OnDemandTools.png" className="w-4 h-4" />,
+    //     <ShieldCheck key="shield" className="w-4 h-4 text-blue-500" />,
+    //     <Calendar key="calendar" className="w-4 h-4 text-blue-500" />,
+    // ];
 
-    const getTagIcon = (index: number) => {
-        return tagIcons[index] || <Clock className="w-4 h-4 text-blue-500" />;
-    };
+    // const getTagIcon = (index: number) => {
+    //     return tagIcons[index] || <Clock className="w-4 h-4 text-blue-500" />;
+    // };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -175,7 +132,7 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                               onClick={() => {
-                               router.push(`/MainModules/On-Demand/servicedetails/${item.id}?service=${encodeURIComponent(item.name)}`)
+                              router.push(`/MainModules/On-Demand/${moduleId}/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
                             }}
                         >
                             {/* HEADER */}
@@ -313,7 +270,7 @@ export default function MostPopularProvider({ selectedRange, selectedCategory, s
                                         key={index}
                                         className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg"
                                     >
-                                        {getTagIcon(index)}
+                                        {/* {getTagIcon(index)} */}
                                         <span>{tag}</span>
                                     </div>
                                 ))}

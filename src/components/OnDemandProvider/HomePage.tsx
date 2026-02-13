@@ -1,44 +1,75 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-    User,
-    Heart,
-    Wallet,
-    ShieldCheck,
-    Ticket,
-    Briefcase,
-    Users,
-    Info,
-    Bell,
-    HelpCircle,
-    FileText,
-    LogOut,
-    Menu,
-    X,
+    User, Heart, Wallet, ShieldCheck, Ticket, Briefcase,
+    Users, Info, Bell, HelpCircle, FileText, LogOut, Menu, X,
 } from "lucide-react";
+import ServiceCard from "./ServiceCards";
+import { useParams, useSearchParams } from "next/navigation";
+import { useSubscribedServices } from "@/src/context/OnDemandSubscriberContext";
+import Footer from "../Footer/Footer";
+import axios from "axios";
+import { useSubscribedCategoryServices } from "@/src/context/OnDemandSubscriberCategoryContext";
+import type { SubscribedService } from "@/src/context/OnDemandSubscriberContext";
+import GallerySection from "./GallerySection";
+import AboutSection from "./AboutSection";
+import ReviewSection from "./ReviewSection";
 
-/* ================= TYPES ================= */
-
+/*  TYPES  */
 type SidebarItemProps = {
     icon: React.ReactNode;
     label: string;
     active?: boolean;
 };
 
-type TagProps = {
-    label: string;
-    active?: boolean;
+
+type Module = {
+    _id: string;
+    name: string;
 };
 
-/* ================= COMPONENT ================= */
+type StoreInfo = {
+    storeName: string;
+    storePhone: string;
+    storeEmail: string;
+    module: Module;
+    zone: string;
+    logo: string;
+    cover: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    aboutUs: string;
+    tags: string[];
+    totalProjects: number;
+    totalExperience: string;
+};
 
+type Provider = {
+    _id: string;
+    fullName: string;
+    phoneNo: string;
+    email: string;
+    averageRating: number;
+    totalReviews: number;
+    isStoreOpen: boolean;
+    category_list: string[];
+    storeInfo: StoreInfo;
+};
+
+
+/*  MAIN LAYOUT  */
 export default function ProviderDashboardLayout() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const searchParams = useSearchParams();
+
+    const providerName = searchParams.get("providerName")
 
     return (
-        <div className="min-h-screen flex bg-gray-100 relative overflow-hidden">
-            {/* ===== OVERLAY (MOBILE/TABLET) ===== */}
+        <div className="min-h-screen flex bg-gray-100">
+            {/* Overlay for mobile */}
             {sidebarOpen && (
                 <div
                     className="fixed inset-0 bg-black/40 z-40 lg:hidden"
@@ -46,31 +77,28 @@ export default function ProviderDashboardLayout() {
                 />
             )}
 
-            {/* ================= LEFT SIDEBAR ================= */}
+            {/* Sidebar */}
             <aside
                 className={`
-          fixed z-50 top-0 left-0 h-screen
-          w-[260px] bg-white border-r
-          transform transition-transform duration-300
+          fixed top-0 left-0 z-50
+          h-screen w-[260px] bg-white
+          transition-transform duration-300
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
           flex flex-col
         `}
             >
-                {/* ===== HEADER ===== */}
-                <div className="p-4 font-semibold text-lg border-b flex items-center justify-between shrink-0">
-                    <span>G-Kitchen Coster</span>
-                    <button
-                        onClick={() => setSidebarOpen(false)}
-                        className="lg:hidden"
-                    >
+                {/* HEADER */}
+                <div className="p-4 font-semibold text-lg bg-gray-200 flex items-center justify-between shrink-0">
+                    <span>{providerName}</span>
+                    <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
                         <X size={20} />
                     </button>
                 </div>
 
-                {/* ===== BODY (SCROLLABLE) ===== */}
-                <div className="flex-1 overflow-y-auto">
-                    <nav className="p-3 space-y-1 text-sm">
+                {/* BODY */}
+                <div className="flex-1 overflow-y-auto bg-gray-100">
+                    <nav className="p-3 space-y-4 text-[13px] lg:text-[15px]">
                         <SidebarItem icon={<User size={16} />} label="Profile" />
                         <SidebarItem icon={<Heart size={16} />} label="Favorite" />
                         <SidebarItem icon={<Wallet size={16} />} label="Wallet" />
@@ -88,138 +116,299 @@ export default function ProviderDashboardLayout() {
                         <SidebarItem icon={<FileText size={16} />} label="Privacy & Policy" />
                         <SidebarItem icon={<FileText size={16} />} label="Terms & Conditions" />
                         <SidebarItem icon={<FileText size={16} />} label="Refund Policy" />
+                        <SidebarItem icon={<LogOut size={16} />} label="Delete Account" />
                     </nav>
                 </div>
-
-                {/* ===== FOOTER ===== */}
-                <div className="border-t p-3 shrink-0 sticky bottom-0 bg-white">
-                    <SidebarItem icon={<LogOut size={16} />} label="Delete Account" />
-                </div>
-
             </aside>
 
-            {/*  RIGHT CONTENT  */}
-            <main
-                className={`
-          flex-1 w-full transition-all duration-300
-          lg:ml-[260px]
-          ${sidebarOpen ? "ml-[260px]" : "ml-0"}
-        `}
-            >
-                {/* ===== TOP BAR ===== */}
-                <div className="flex items-center justify-between p-4 bg-white border-b sticky top-0 z-30">
+            {/* Main Layout Area */}
+            <div className="flex-1 flex flex-col min-h-screen lg:ml-[260px]">
+
+                <div className="flex items-center justify-between p-4 lg:p-7.5 bg-gray-200 sticky top-0 z-30">
                     <button onClick={() => setSidebarOpen(true)} className="lg:hidden">
                         <Menu size={22} />
                     </button>
-                    <span className="font-semibold">G-Kitchen Coster</span>
+
                     <div className="w-[22px]" />
                 </div>
 
-                {/* ===== BANNER ===== */}
-                <div className="w-full h-[260px] bg-gray-300">
-                    <img
-                        src="https://images.unsplash.com/featured/?kitchen"
-                        alt="banner"
-                        className="w-full h-full object-cover"
-                    />
-                </div>
 
-                {/* ===== TABS ===== */}
-                <div className="bg-white px-6">
-                    <div className="flex gap-8 border-b overflow-x-auto">
-                        {["Service", "About", "Portfolio", "Gallery", "Reviews"].map((tab) => (
-                            <button
-                                key={tab}
-                                className={`py-3 text-sm font-medium whitespace-nowrap ${tab === "Service"
-                                        ? "border-b-2 border-blue-500 text-blue-600"
-                                        : "text-gray-500"
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                <main className="flex-1">
+                    <HomePageContent />
+                </main>
 
-                {/* ===== CONTENT ===== */}
-                <div className="p-6 bg-gray-100 min-h-screen">
-                    {/* Provider Info */}
-                    <div className="bg-white rounded-lg p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div className="flex gap-3 items-center">
-                            <img
-                                src="https://images.unsplash.com/featured/?chef"
-                                className="w-12 h-12 rounded-full object-cover"
-                            />
-                            <div>
-                                <h2 className="font-semibold">G-Kitchen Costar</h2>
-                                <p className="text-sm text-gray-500">
-                                    we provide the best kitchen service in the kitchen sector
-                                </p>
-                            </div>
-                        </div>
-                        <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full">
-                            Available
-                        </span>
-                    </div>
 
-                    {/* Category */}
-                    <div className="mt-4 bg-white rounded-lg p-4">
-                        <h3 className="font-medium mb-2">Category</h3>
-                        <div className="flex gap-3 flex-wrap">
-                            <Tag active label="All" />
-                            <Tag label="Cooking" />
-                            <Tag label="Kitchen Cleaning" />
-                            <Tag label="Food Delivery" />
-                        </div>
-                    </div>
-
-                    {/* Cards */}
-                    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                        {[1, 2, 3].map((i) => (
-                            <div
-                                key={i}
-                                className="h-[220px] bg-white rounded-lg flex items-center justify-center text-gray-400"
-                            >
-                                Service Card Placeholder
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* ===== PAGE FOOTER ===== */}
-                    <div className="mt-10 text-center text-sm text-gray-400">
-                        © 2026 G-Kitchen Coster. All rights reserved.
-                    </div>
-                </div>
-            </main>
+                <footer className="bg-white border-t">
+                    <Footer />
+                </footer>
+            </div>
         </div>
     );
 }
 
-/* ================= REUSABLE COMPONENTS ================= */
+/*  HOME PAGE CONTENT  */
+function HomePageContent() {
+    const params = useParams();
+    const searchParams = useSearchParams();
+    const { subscribeCategoryservices, fetchSubscribedCategoryServices } = useSubscribedCategoryServices()
 
+
+    const providerId = params.providerId as string;
+    const { subscribedServices, fetchSubscribedServices } = useSubscribedServices();
+    const [matchedProvider, setMatchedProvider] = useState<Provider | null>(null);
+    const [activeCategory, setActiveCategory] = useState<string>("all");
+    const [activeTab, setActiveTab] = useState("Service");
+    const [filteredServices, setFilteredServices] = useState<SubscribedService[]>([]);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    const providerName = searchParams.get("providerName")
+    useEffect(() => {
+        if (providerId)
+            fetchSubscribedServices(providerId);
+        fetchSubscribedCategoryServices(providerId)
+    }, [providerId]);
+
+    useEffect(() => {
+        if (subscribedServices && subscribedServices.length > 0) {
+            if (activeCategory === "all") {
+                setFilteredServices(subscribedServices);
+            } else {
+                const filtered = subscribedServices.filter(
+                    (service) => service.category?._id === activeCategory
+                );
+                setFilteredServices(filtered);
+            }
+        }
+    }, [activeCategory, subscribedServices]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(
+                    "https://api.fetchtrue.com/api/provider/recommended?${moduleId}&lat=20.175618471885596&lng=72.73285952405311"
+                );
+                const providersData = response.data;
+                console.log("providers data:", providersData)
+                setData(providersData);
+
+                const provider = providersData.find(
+                    (p: Provider) => p._id === providerId
+                );
+                setMatchedProvider(provider);
+
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Something went wrong");
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const matchedata = matchedProvider?.storeInfo;
+
+    const allCategories = [
+        { _id: "all", name: "All" },
+        ...(subscribeCategoryservices || [])
+    ];
+
+    if (error) return <p>{error}</p>
+
+    // Render content based on active tab
+    const renderTabContent = () => {
+        switch (activeTab) {
+            case "Service":
+                return (
+                    <div className="space-y-6">
+                        {/* Category Filter */}
+                        <div className="rounded-lg p-4">
+                            <h3 className="font-medium mb-2">Category</h3>
+                            <div className="flex gap-3 flex-wrap">
+                                {allCategories.map((category) => (
+                                    <button
+                                        key={category._id}
+                                        onClick={() => setActiveCategory(category._id)}
+                                        className={`px-3 py-1 text-xs rounded-full border cursor-pointer transition-colors ${activeCategory === category._id
+                                                ? "bg-blue-500 text-white border-blue-500"
+                                                : "bg-gray-100 text-gray-600 border-gray-200 hover:bg-gray-200"
+                                            }`}
+                                    >
+                                        {category.name}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Service Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                            <ServiceCard
+                                providerId={providerId}
+                                services={filteredServices}
+                                earnUpto="Earn Upto 6%"
+                            />
+                        </div>
+
+                        {/* Show message if no services in selected category */}
+                        {filteredServices.length === 0 && activeCategory !== "all" && (
+                            <div className="text-center py-8 text-gray-500">
+                                No services available in this category
+                            </div>
+                        )}
+                    </div>
+                );
+
+            case "About":
+            return <AboutSection providerId={providerId} />;
+
+            case "Gallery":
+            return <GallerySection providerId={providerId} />;
+
+            case "Reviews":
+            return <ReviewSection providerId={providerId} />;
+
+            default:
+                return null;
+        }
+    };
+
+    return (
+        <div className="bg-white min-h-screen">
+            {/* Banner */}
+            <div className="w-full md:h-[150px] lg:h-[290px] bg-gray-300 overflow-hidden">
+                <img
+                    src={subscribedServices?.[0]?.bannerImages?.[0] || "/default-banner.jpg"}
+                    alt="banner"
+                    className="w-full h-full object-fit"
+                />
+            </div>
+
+            {/* Tabs */}
+
+
+            {/* <div className="bg-white shadow-sm w-full">
+                <div className="flex overflow-x-auto scrollbar-hide">
+                    {["Service", "About", "Portfolio", "Gallery", "Reviews"].map((tab) => (
+                        <button
+                            key={tab}
+                            className={`
+                    flex-1 md:flex-none
+                    px-2 sm:px-3 md:px-5 lg:px-6 
+                    py-3 lg:ml-30 md:ml-10 ml-2
+                   text-[12px] lg:text-[20px] sm:text-sm md:text-base
+                    font-medium 
+                    whitespace-nowrap
+                    transition-all
+                    ${tab === "Service"
+                                    ? "border-b-2 border-blue-500 text-blue-600"
+                                    : "text-gray-500 hover:text-gray-700 border-b-2 border-transparent"
+                                }
+                `}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>
+            </div> */}
+
+             <div className="bg-white shadow-sm w-full sticky top-0 z-20">
+                <div className="flex overflow-x-auto scrollbar-hide">
+                    {["Service", "About", "Gallery", "Reviews"].map((tab) => (
+                        <button
+                            key={tab}
+                            onClick={() => setActiveTab(tab)}
+                            className={`
+                                flex-1 md:flex-none
+                                px-2 sm:px-3 md:px-5 lg:px-6 
+                                py-3 lg:ml-30 md:ml-10 ml-2
+                                text-[12px] lg:text-[20px] sm:text-sm md:text-base
+                                font-medium cursor-pointer
+                                whitespace-nowrap
+                                transition-all
+                                ${activeTab === tab
+                                    ? "border-b-2 border-blue-500 text-blue-600"
+                                    : "text-gray-500 hover:text-gray-700 border-b-2 border-transparent"
+                                }
+                            `}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-6">
+                {/* Provider Info */}
+                <div className="p-4 flex justify-between items-center">
+                    <div className="flex gap-3 items-center">
+                        <img
+                            src={matchedata?.logo}
+                            className="w-12 h-12 rounded-full object-cover"
+                            alt="Provider"
+                        />
+                        <div>
+                            <h2 className="font-semibold">{providerName}</h2>
+                            <p className="text-sm text-gray-500">Best kitchen services provider</p>
+                        </div>
+                    </div>
+                    <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+                        Available
+                    </span>
+                </div>
+
+
+                {renderTabContent()}
+
+                {/* <div className="rounded-lg p-4">
+                    <h3 className="font-medium mb-2">Category</h3>
+                    <div className="flex gap-3 flex-wrap">
+                        {allCategories.map((category) => (
+                            <button
+                                key={category._id}
+                                onClick={() => setActiveCategory(category._id)}
+                                className={`px-3 py-1 text-xs rounded-full border cursor-pointer transition-colors ${activeCategory === category._id
+                                    ? "bg-blue-500 text-white border-blue-500"
+                                    : "bg-gray-100 text-gray-600 border-gray-200 hover:bg-gray-200"
+                                    }`}
+                            >
+                                {category.name}
+                            </button>
+                        ))}
+                    </div>
+                </div> */}
+
+                {/* Cards */}
+                {/* <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <ServiceCard
+                        providerId={providerId}
+                        services={filteredServices}
+                    />
+                </div> */}
+            </div>
+        </div>
+    );
+}
+
+/*  REUSABLE  */
 function SidebarItem({ icon, label, active = false }: SidebarItemProps) {
     return (
         <div
             className={`flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition ${active
-                    ? "bg-blue-50 text-blue-600 font-medium"
-                    : "text-gray-600 hover:bg-gray-100"
+                ? "bg-blue-50 text-blue-600 font-medium"
+                : "text-gray-600 hover:bg-gray-100"
                 }`}
         >
             {icon}
             <span>{label}</span>
         </div>
-    );
-}
-
-function Tag({ label, active = false }: TagProps) {
-    return (
-        <span
-            className={`px-3 py-1 text-xs rounded-full border cursor-pointer transition ${active
-                    ? "bg-blue-500 text-white border-blue-500"
-                    : "bg-gray-100 text-gray-600 border-gray-200 hover:bg-gray-200"
-                }`}
-        >
-            {label}
-        </span>
     );
 }

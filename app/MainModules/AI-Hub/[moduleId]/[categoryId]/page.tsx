@@ -1,12 +1,7 @@
 'use client';
 
-// import Recommended from '@/src/components/AIHubSubCategories/RecommendedService';
 import { useState, useEffect } from "react";
 import Link from 'next/link';
-// import TopTrending from '@/src/components/AIHubSubCategories/TopTrending';
-// import FreeTrialAvailable from '@/src/components/AIHubSubCategories/FreeTrialAvailable';
-// import CategorySection from '@/src/components/AIHubSubCategories/CategorySection';
-// import CostSavingAI from '@/src/components/AIHubSubCategories/CostSavingAI';
 import { ChevronLeft, SearchCheckIcon } from 'lucide-react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useSubCategory } from '@/src/context/SubCategoriesContext';
