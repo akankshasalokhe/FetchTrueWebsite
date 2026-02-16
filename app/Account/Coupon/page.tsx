@@ -69,7 +69,7 @@
 
 "use client";
 
-import { useCoupons } from "@/src/context/CouponsContext";
+import { useCoupons } from "@/src/context/CoupanContext";
 import { Tag } from "lucide-react";
 
 export default function CouponsPage() {

@@ -45,6 +45,7 @@ import { SubscribedCategoryServicesProvider } from "@/src/context/OnDemandSubscr
 import { usePathname } from "next/navigation";
 import { PayoutProvider } from "@/src/context/PayoutContext";
 import { ServiceCustomerProvider } from "@/src/context/ServiceCustomerContext";
+import { AllCouponProvider } from "@/src/context/CoupanContext";
 
 // export const metadata = {
 //   title: "Fetch True",
@@ -67,7 +68,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <LeadsProvider>
                 <PayoutProvider>
                   <ServiceCustomerProvider>
+                    <AllCouponProvider>
             <FavouriteProvider>
+
           <ResetPassProvider>
             <FiveXProvider>
         <ModuleProvider>
@@ -153,6 +156,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </FiveXProvider>
         </ResetPassProvider>
         </FavouriteProvider>
+        </AllCouponProvider>
         </ServiceCustomerProvider>
         </PayoutProvider>
         </LeadsProvider>
