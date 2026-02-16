@@ -44,6 +44,7 @@ import { SubscribedServicesProvider } from "@/src/context/OnDemandSubscriberCont
 import { SubscribedCategoryServicesProvider } from "@/src/context/OnDemandSubscriberCategoryContext"
 import { usePathname } from "next/navigation";
 import { PayoutProvider } from "@/src/context/PayoutContext";
+import { ServiceCustomerProvider } from "@/src/context/ServiceCustomerContext";
 
 // export const metadata = {
 //   title: "Fetch True",
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <WalletProvider>
               <LeadsProvider>
                 <PayoutProvider>
+                  <ServiceCustomerProvider>
             <FavouriteProvider>
           <ResetPassProvider>
             <FiveXProvider>
@@ -151,6 +153,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </FiveXProvider>
         </ResetPassProvider>
         </FavouriteProvider>
+        </ServiceCustomerProvider>
         </PayoutProvider>
         </LeadsProvider>
         </WalletProvider>

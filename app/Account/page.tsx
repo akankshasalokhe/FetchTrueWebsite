@@ -76,6 +76,7 @@ import AddCustomerForm from "./customer/add/page";
 import FiveXReturnPage from "./5xReturn/page";
 import DeleteAccountSection from "./delete/page";
 import EarningsPage from "./wallet/page";
+import CouponsPage from "./Coupon/page";
 
 export default function MyAccountPage() {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -100,6 +101,8 @@ export default function MyAccountPage() {
         );
       case "5X Guarantee":
         return <FiveXReturnPage />;  
+      case "Coupon":
+        return <CouponsPage />;  
 
       case "Delete Account":
         return <DeleteAccountSection />

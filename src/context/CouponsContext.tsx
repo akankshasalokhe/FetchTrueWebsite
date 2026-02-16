@@ -1,91 +1,87 @@
 "use client";
 
-import {
-    createContext,
-    useContext,
-    useState,
-    ReactNode,
-} from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import axios from "axios";
 
-/* ---------- TYPES ---------- */
+/* ================= TYPES ================= */
 
-
-export interface CouponsService {
-    _id: string,
+export type Coupon = {
+  _id: string;
+  couponType: string;
   couponCode: string;
+  discountType: string;
   discountTitle: string;
-}
-
-
-/* ---------- CONTEXT TYPE ---------- */
-
-interface CouponsContextType {
-    services: CouponsService[] | [];
-    loading: boolean;
-    error: string | null;
-    fetchCoupons: () => Promise<void>;
-}
-
-/* ---------- CONTEXT ---------- */
-
-const CouponsContext = createContext<CouponsContextType | undefined>(
-    undefined
-);
-
-/* ---------- HOOK ---------- */
-
-export const useCoupons = () => {
-    const context = useContext(CouponsContext);
-    if (!context) {
-        throw new Error(
-            "useCoupons must be used within CouponProvider"
-        );
-    }
-    return context;
+  category?: { _id: string; name: string };
+  service?: { _id: string; serviceName: string };
+  zone?: { _id: string; name: string } | null;
+  discountAmountType: string;
+  amount: number;
+  maxDiscount?: number;
+  minPurchase: number;
+  startDate: string;
+  endDate: string;
+  limitPerUser: number;
+  discountCostBearer: string;
+  couponAppliesTo: string;
+  isApprove: boolean;
+  isDeleted: boolean;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
-/* ---------- PROVIDER ---------- */
+type CouponContextType = {
+  coupons: Coupon[];
+  loading: boolean;
+  error: string | null;
+  fetchCoupons: () => void;
+};
 
-interface Props {
-    children: ReactNode;
-}
+/* ================= CONTEXT ================= */
 
-export const CouponProvider = ({ children }: Props) => {
-    const [services, setServices] = useState<CouponsService[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+const CouponContext = createContext<CouponContextType | undefined>(undefined);
 
-    const fetchCoupons = async () => {
-        try {
-            setLoading(true);
-            setError(null);
+/* ================= PROVIDER ================= */
 
-            const res = await axios.get(
-                `https://api.fetchtrue.com/api/coupon`
-            );
+export const CouponProvider = ({ children }: { children: ReactNode }) => {
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-            if (res.data?.success) {
-                setServices(res.data.data);
-            } else {
-                setError("Failed to fetch Coupons");
-            }
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError("Something went wrong");
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchCoupons = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get("http://api.fetchtrue.com/api/coupon");
+      if (response.data.success) {
+        setCoupons(response.data.data);
+      } else {
+        setError("Failed to fetch coupons");
+      }
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <CouponsContext.Provider
-            value={{ services, loading, error, fetchCoupons }}
-        >
-            {children}
-        </CouponsContext.Provider>
-    );
+  useEffect(() => {
+    fetchCoupons();
+  }, []);
+
+  return (
+    <CouponContext.Provider value={{ coupons, loading, error, fetchCoupons }}>
+      {children}
+    </CouponContext.Provider>
+  );
+};
+
+/* ================= CUSTOM HOOK ================= */
+
+export const useCoupons = () => {
+  const context = useContext(CouponContext);
+  if (!context) {
+    throw new Error("useCoupons must be used within a CouponProvider");
+  }
+  return context;
 };
