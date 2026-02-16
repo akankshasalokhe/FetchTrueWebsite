@@ -344,7 +344,7 @@ export default function CustomerList({ onAdd }: Props) {
               <div className="flex">
                 <div>
                   <img
-                  src={customer || "/image/profile1.jpg"} className="w-10 h-10 rounded-full object-cover" 
+                  src="/image/profile1.jpg" className="w-10 h-10 rounded-full object-cover" 
                      alt="customer profile"/>
                 </div>
                 <div>
