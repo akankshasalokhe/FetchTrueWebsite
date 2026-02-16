@@ -43,6 +43,7 @@ import { FiveXProvider } from "@/src/context/FiveXContext";
 import { SubscribedServicesProvider } from "@/src/context/OnDemandSubscriberContext"
 import { SubscribedCategoryServicesProvider } from "@/src/context/OnDemandSubscriberCategoryContext"
 import { usePathname } from "next/navigation";
+import { PayoutProvider } from "@/src/context/PayoutContext";
 
 // export const metadata = {
 //   title: "Fetch True",
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <UserProvider>
             <WalletProvider>
               <LeadsProvider>
+                <PayoutProvider>
             <FavouriteProvider>
           <ResetPassProvider>
             <FiveXProvider>
@@ -149,6 +151,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </FiveXProvider>
         </ResetPassProvider>
         </FavouriteProvider>
+        </PayoutProvider>
         </LeadsProvider>
         </WalletProvider>
         </UserProvider>
