@@ -56,8 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
 
-  const isDashboardPage = pathname?.includes('/On-Demand/') &&
-    pathname?.includes('/providers/');
+   const isDashboardPage = pathname?.includes('/providers/');
 
   return (
     <html lang="en">

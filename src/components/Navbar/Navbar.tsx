@@ -142,7 +142,7 @@ export default function Navbar() {
     { label: "Offers", href: "/Offers", icon: Tag },
     { label: "Academy", href: "/Academy", icon: GraduationCap },
     { label: "Account", href: "/Account", icon: User },
-    { label: "Packages", href: "/packages", icon: Package },
+    { label: "Packages", href: "/Packages/", icon: Package },
   ];
 
   return (

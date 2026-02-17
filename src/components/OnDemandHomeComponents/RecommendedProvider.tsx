@@ -127,7 +127,8 @@ export default function RecommendedProvider({ moduleId }: SectionProps) {
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
                             onClick={() => {
-                            router.push(`/MainModules/On-Demand/${moduleId}/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
+                            // router.push(`/MainModules/On-Demand/${moduleId}/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
+                              router.push(`/MainModules/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
                             }}
                         >
                             {/* HEADER */}

@@ -13,38 +13,7 @@ import { useParams } from 'next/navigation';
 import { useModule } from '@/src/context/CategoriesContext';
 
 export default function OnDemandModulePage() {
-    // const categories = [
-    //     { label: "Lifestyle", path: "/image/Lifestyle.png" },
-    //     { label: "Personal Development", path: "/image/personaldevelopment.png" },
-    //     { label: "Development", path: "/image/Development.png" },
-    //     { label: "IT & Software", path: "/image/it.png" },
-    //     { label: "Finance Development", path: "/image/Finance.png" },
-    //     { label: "Teaching & Software", path: "/image/Teaching&Software.png" },
-    //     { label: "Music", path: "/image/Music.png" },
-    //     { label: "Design", path: "/image/Design.png" },
-    //     { label: "Health & Fitness", path: "/image/Health.png" },
-    //     { label: "Photography & Video", path: "/image/Photography.png" },
-    //     { label: "Lifestyle", path: "/image/Lifestyle.png" },
-    //     { label: "Personal Development", path: "/image/personaldevelopment.png" },
-    //     { label: "Development", path: "/image/Development.png" },
-    //     { label: "Development", path: "/image/Development.png" },
-    //     { label: "IT & Software", path: "/image/it.png" },
-    //     { label: "Finance Development", path: "/image/Finance.png" },
-    //     { label: "Teaching & Software", path: "/image/Teaching&Software.png" },
-    //     { label: "Music", path: "/image/Music.png" },
-    //     { label: "Design", path: "/image/Design.png" },
-    //     { label: "Health & Fitness", path: "/image/Health.png" },
-    //     { label: "Photography & Video", path: "/image/Photography.png" },
-    //     { label: "Lifestyle", path: "/image/Lifestyle.png" },
-    //      { label: "IT & Software", path: "/image/it.png" },
-    //     { label: "Finance Development", path: "/image/Finance.png" },
-    //     { label: "Teaching & Software", path: "/image/Teaching&Software.png" },
-    //     { label: "Music", path: "/image/Music.png" },
-    //     { label: "Design", path: "/image/Design.png" },
-    //     { label: "Health & Fitness", path: "/image/Health.png" },
-
-    // ];
-
+ 
     const sliderRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
@@ -71,12 +40,7 @@ export default function OnDemandModulePage() {
         return chunks;
     };
 
-    // const baseSlides = chunkArray(categories, 9);
-    // const slides = [
-    //     baseSlides[baseSlides.length - 1],
-    //     ...baseSlides,
-    //     baseSlides[0],
-    // ];
+    
 
     const slides = chunkArray(categories, 9);
 
