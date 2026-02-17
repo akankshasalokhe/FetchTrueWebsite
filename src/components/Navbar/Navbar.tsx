@@ -123,10 +123,11 @@ import {
 import { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { useUser } from "@/src/context/UserContext";
+import { useAuth } from "@/src/context/AuthContext";
 
 export default function Navbar() {
   const { userId } = useParams<{ userId: string }>();
-  const { user, fetchUser, logout } = useUser();
+const { user, logout,fetchUser } = useAuth();
 
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
