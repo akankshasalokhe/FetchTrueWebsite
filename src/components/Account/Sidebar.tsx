@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   FiArrowLeft,
   FiUser,
@@ -53,10 +54,10 @@ export default function AccountSidebar({
         w-[280px] px-5 py-6 transition-transform duration-300
         ${showSidebar ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
-        <div className="flex items-center gap-2 mb-8">
+        <Link href="/" className="flex items-center gap-2 mb-8">
           <FiArrowLeft />
           <h1 className="font-semibold text-lg">My Account</h1>
-        </div>
+        </Link>
 
         <nav className="space-y-8 text-sm">
           {/* Account Hub */}
