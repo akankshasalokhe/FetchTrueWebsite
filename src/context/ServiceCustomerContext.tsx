@@ -13,7 +13,7 @@ export type ServiceCustomer = {
   fullName: string;
   phone: string;
   email: string;
-  description: string;
+  description?: string;
   address: string;
   city: string;
   state: string;
