@@ -123,19 +123,20 @@ import {
 import { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { useUser } from "@/src/context/UserContext";
+import { useAuth } from "@/src/context/AuthContext";
 
 export default function Navbar() {
-  const { userId } = useParams<{ userId: string }>();
-  const { user, fetchUser, logout } = useUser();
+  // const { userId } = useParams<{ userId: string }>();
+const { user, logout} = useAuth();
 
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (userId && user?.userId !== userId) {
-      fetchUser(userId);
-    }
-  }, [userId, user, fetchUser]);
+  // useEffect(() => {
+  //   if (userId && user?.userId !== userId) {
+  //     fetchUser(userId);
+  //   }
+  // }, [userId, user, fetchUser]);
 
   const navItems = [
     { label: "Home", href: "/", icon: Home },

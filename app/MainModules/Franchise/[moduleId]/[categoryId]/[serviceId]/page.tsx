@@ -1373,8 +1373,6 @@ const { service, loading, error, fetchServiceDetails } = useServiceDetails();
   const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
   const { reviewServices, fetchReviews } = useReview();
 
-
-
     useEffect(() => {
   if (!serviceId) return;
 
@@ -1595,10 +1593,20 @@ if (!service) {
                      Franchise Commission
                    </p>
                    <p className="text-[24px] lg:text-[32px] text-[#2CB140]">
-                     Earn Up to {service?.franchiseDetails?.commission || "N/A"}%
+                     Earn Up to {service?.franchiseDetails?.commission || "N/A"}
                    </p>
                  </div>
-                 <span className="cursor-pointer">T&C &gt;</span>
+            
+  <span
+  className="cursor-pointer text-blue-600"
+
+>
+  T&C &gt;
+</span>
+
+
+
+           
                </div>
              </div>
            </section>
