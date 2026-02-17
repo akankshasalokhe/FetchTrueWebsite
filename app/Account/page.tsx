@@ -77,6 +77,7 @@ import FiveXReturnPage from "./5xReturn/page";
 import DeleteAccountSection from "./delete/page";
 import EarningsPage from "./wallet/page";
 import CouponsPage from "./Coupon/page";
+import HelpCenter from "./helpCenter/page";
 
 export default function MyAccountPage() {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -103,7 +104,8 @@ export default function MyAccountPage() {
         return <FiveXReturnPage />;  
       case "Coupon":
         return <CouponsPage />;  
-
+      case "Help & Support":
+        return <HelpCenter />;
       case "Delete Account":
         return <DeleteAccountSection />
       case "Wallet":
