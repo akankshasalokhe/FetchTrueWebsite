@@ -212,11 +212,11 @@ function PartnerReviewCard({ data }: { data: PartnerReview }) {
                     className="w-full h-[180px] object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                         // Fallback if image fails to load
-                        (e.target as HTMLImageElement).src = "/image/placeholder.jpg";
+                        (e.target as HTMLImageElement).src = "";
                     }}
                 />
                 
-                {/* Play button overlay - only show if videoUrl exists */}
+              
                 {data.videoUrl && (
                     <a
                         href={data.videoUrl}

@@ -83,7 +83,7 @@ export default function TopRatedProvider() {
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px] bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                             onClick={() => {
-                                router.push(`/provider/${item.id}`)
+                                router.push(`/MainModules/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
                             }}
                         >
                             {/* HEADER */}
