@@ -36,7 +36,6 @@ export default function AllServices({ moduleId }: Props) {
     <section className="w-full mt-8 lg:mt-14">
       {/* HEADER */}
       <div className="max-w-[1440px] mx-auto px-4 mb-6 flex justify-between">
-        <h2 className="text-[22px] font-semibold">All Services</h2>
         
         
   {viewAll ? (

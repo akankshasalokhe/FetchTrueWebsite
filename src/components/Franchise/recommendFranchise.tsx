@@ -6,15 +6,19 @@ import { useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import { useParams } from "next/navigation";
 import HorizontalScroll from "../ui/HorizontalScroll";
+import { useFavourites } from "@/src/context/FavouriteContext";
 
 
 
 interface Props {
   moduleId: string;
+  subCategoryId?:string | null
 }
 
-export default function RecommendedSection({moduleId}:Props) {
+export default function RecommendedSection({moduleId,subCategoryId}:Props) {
   const { services, loading, error, fetchRecommendedServices } = useRecommendedServices();
+    // const { toggleFavourite, isFavourite } = useFavourites();
+
 
   const { categoryId } = useParams<{
   moduleId: string;
@@ -24,13 +28,41 @@ export default function RecommendedSection({moduleId}:Props) {
 
   useEffect(()=>{
     if(moduleId){
-      fetchRecommendedServices(moduleId)
+      fetchRecommendedServices(moduleId,subCategoryId)
     }
-  },[moduleId])
+  },[moduleId,subCategoryId])
 
-    if (loading) return <p className="text-center py-10">Loading recommended services...</p>;
-  if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
-  if (services.length === 0) return <p className="text-center py-10">No recommended services found.</p>;
+    
+
+  const filteredServices = subCategoryId
+    ? services.filter(
+        (service) => service.subCategory?._id === subCategoryId
+      )
+    : services;
+
+ 
+
+
+  if (loading)
+    return (
+      <p className="text-center py-10">
+        Loading recommended services...
+      </p>
+    );
+
+  if (error)
+    return (
+      <p className="text-center py-10 text-red-500">
+        {error}
+      </p>
+    );
+
+  if (filteredServices.length === 0)
+    return (
+      <p className="text-center py-10">
+        No recommended services found.
+      </p>
+    );
 
   return (
     <section className="w-full mt-8 lg:mt-18">
@@ -46,11 +78,13 @@ export default function RecommendedSection({moduleId}:Props) {
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4 pb-4">
           <HorizontalScroll>
-          {services.map((service) => (
-            <Link key={service._id}   href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
+          {filteredServices.map((service) => {
+            // const fav = isFavourite(service._id);
+           return(
+            <Link 
+            key={service._id}   href={`/MainModules/Franchise/${moduleId}/${categoryId}/${service._id}`}
 >
               <FranchiseCard 
-                            key={service._id}
           image={service.thumbnailImage || "/default-service.png"}
           title={service.serviceName}
           category={service.category?.name || "Unknown"}
@@ -78,9 +112,12 @@ export default function RecommendedSection({moduleId}:Props) {
                     (kv) => kv.key === "Area"
                   )?.value || "N/A"
                 }
+                // isFavourite={fav}
+                //     onToggleFavourite={() => toggleFavourite(service._id)}
               />
             </Link>
-          ))}
+          )
+})}
           </HorizontalScroll>
         </div>
       </div>

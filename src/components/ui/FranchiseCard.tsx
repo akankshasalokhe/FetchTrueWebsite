@@ -17,6 +17,9 @@ interface RecommendedCardProps {
   investment: string;
   area: string;
   bgImage?: string; 
+
+  isFavourite: boolean;
+  onToggleFavourite: () => void;
 }
 
 export default function RecommendedCard({
@@ -30,7 +33,10 @@ export default function RecommendedCard({
   parameter,
   investment,
   area,
-  bgImage = "/image/recommendedrealestate.png", // default bg
+  bgImage = "/image/recommendedrealestate.png",
+
+  isFavourite,
+  onToggleFavourite,
 }: RecommendedCardProps) {
   return (
     <div
@@ -60,10 +66,20 @@ export default function RecommendedCard({
             <VscWorkspaceTrusted size={10.48} color="#2164F4" />
           </div>
 
-          {/* BOOKMARK */}
-          <div className="absolute top-2 right-2 w-[24px] h-[24px] bg-black rounded-full flex items-center justify-center">
+          {/* BOOKMARK/Favourite */}
+          {/* <div className="absolute top-2 right-2 w-[24px] h-[24px] bg-black rounded-full flex items-center justify-center">
             <CiBookmark size={14} color="#fff" />
-          </div>
+          </div> */}
+          <button
+            onClick={(e) => {
+              e.preventDefault(); // prevent Link navigation
+              onToggleFavourite();
+            }}
+            className={`absolute top-2 right-2 w-[24px] h-[24px] rounded-full flex items-center justify-center transition
+              ${isFavourite ? "bg-red-500" : "bg-black"}`}
+          >
+            <CiBookmark size={14} color="#fff" />
+          </button>
 
           {/* RATING */}
           <div className="absolute bottom-0 right-0 flex items-center gap-1 bg-white px-2 py-[2px] rounded-md">
@@ -87,9 +103,9 @@ export default function RecommendedCard({
               <span className="text-white bg-[#548AFE] rounded-[4px] w-[75px] h-[19px] text-center py-0.5">
                 Earn Upto {earning}
               </span>
-              <span className="bg-[#76FF8B] text-[#232323] px-2 py-[2px] rounded">
+              {/* <span className="bg-[#76FF8B] text-[#232323] px-2 py-[2px] rounded">
                 Discount {discount}
-              </span>
+              </span> */}
             </div>
           </div>
 

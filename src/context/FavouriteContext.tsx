@@ -90,6 +90,9 @@ interface FavouriteContextType {
   error: string | null;
   fetchFavourites: (userId: string) => Promise<void>;
   clearFavourites: () => void;
+
+  toggleFavourite: (serviceId: string, userId: string) => Promise<void>;
+  isFavourite: (serviceId: string) => boolean;
 }
 
 /* ================= CONTEXT ================= */
@@ -139,15 +142,37 @@ export const FavouriteProvider = ({
     setError(null);
   };
 
+  const toggleFavourite = async (serviceId: string, userId: string) => {
+  try {
+    await axios.post(
+      "https://api.fetchtrue.com/api/users/toggle-favourite",
+      { serviceId, userId }
+    );
+
+    // Refresh favourites after toggle
+    fetchFavourites(userId);
+  } catch (err) {
+    console.error("Toggle favourite failed", err);
+  }
+};
+
+const isFavourite = (serviceId: string) => {
+  return favourites.some((fav) => fav._id === serviceId);
+};
+
+
   return (
     <FavouriteContext.Provider
       value={{
-        favourites,
-        loading,
-        error,
-        fetchFavourites,
-        clearFavourites,
-      }}
+  favourites,
+  loading,
+  error,
+  fetchFavourites,
+  clearFavourites,
+  toggleFavourite,
+  isFavourite,
+}}
+
     >
       {children}
     </FavouriteContext.Provider>

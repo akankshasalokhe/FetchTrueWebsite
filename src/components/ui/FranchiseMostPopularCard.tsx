@@ -70,9 +70,9 @@ export default function FranchiseMostPopularCard({
             <span className="bg-[#6FA8FF] text-[11px] px-2 py-[2px] rounded">
               Earn Upto {earning}
             </span>
-            <span className="bg-[#7CFF9B] text-[11px] text-green-900 px-2 py-[2px] rounded">
+            {/* <span className="bg-[#7CFF9B] text-[11px] text-green-900 px-2 py-[2px] rounded">
               Discount {discount}
-            </span>
+            </span> */}
           </div>
         </div>
 

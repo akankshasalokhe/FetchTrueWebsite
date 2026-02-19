@@ -12,9 +12,11 @@ import HorizontalScroll from "../ui/HorizontalScroll";
 interface Props {
   categoryId: string;
   moduleId: string;
+    selectedSubCategory?: string | null; 
+
 }
 
-export default function AllServices({ categoryId, moduleId }: Props) {
+export default function AllServices({ categoryId, moduleId,selectedSubCategory }: Props) {
   const { services, fetchServicesByCategory, loading, error } =
     useCategorywiseServices();
 
@@ -56,6 +58,12 @@ export default function AllServices({ categoryId, moduleId }: Props) {
     }
   }, [services]);
 
+    const filteredServices = services.filter((service) => {
+  if (!selectedSubCategory) return true;
+
+  return service.subcategory?._id === selectedSubCategory;
+});
+
   const createSlug = (text: string) =>
     text?.toLowerCase().replace(/\s+/g, "-");
 
@@ -67,8 +75,12 @@ export default function AllServices({ categoryId, moduleId }: Props) {
   if (error)
     return <p className="text-center py-10 text-red-500">{error}</p>;
 
-  if (!services.length)
-    return <p className="text-center py-10">No services found.</p>;
+  if (filteredServices.length === 0)
+  return (
+    <p className="text-center py-10">
+      No services found
+    </p>
+  );
 
   return (
     <section className="w-full mt-8 lg:mt-14">
@@ -102,7 +114,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
     }
   >
     {viewAll ? (
-      services.map((service) => {
+      filteredServices.map((service) => {
         const investment =
           service.franchiseDetails?.investmentRange?.[0]?.range || "—";
         const earnings =
@@ -138,7 +150,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
       })
     ) : (
       <HorizontalScroll>
-        {services.map((service) => {
+        {filteredServices.map((service) => {
           const investment =
             service.franchiseDetails?.investmentRange?.[0]?.range || "—";
           const earnings =

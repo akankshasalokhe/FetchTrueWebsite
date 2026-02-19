@@ -63,9 +63,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSubCategory } from "@/src/context/SubCategoriesContext";
 
-export default function SubCategoryStrip() {
+export default function SubCategoryStrip({
+  selectedSubCategory,
+  onSelect,
+}: {
+  selectedSubCategory: string | null;
+  onSelect: (id: string) => void;
+}) {
+
   const { subCategories, loading } = useSubCategory();
-  const [active, setActive] = useState<string | null>(null);
 
   if (loading) return null;
 
@@ -76,16 +82,18 @@ export default function SubCategoryStrip() {
           {subCategories.map((item, index) => (
             <div key={item._id} className="flex items-center gap-[24px]">
               <button
-                onClick={() => setActive(item._id)}
+                onClick={() => onSelect(item._id)}
+
                 className={`
                   flex flex-col items-center justify-center
                   min-w-[140px] h-[120px] ml-5
                   rounded-[8px] transition
                   ${
-                    active === item._id
-                      ? "bg-[#EDEEEF]"
-                      : "bg-transparent hover:bg-[#EAEBED]"
-                  }
+  selectedSubCategory === item._id
+    ? "bg-[#EDEEEF]"
+    : "bg-transparent hover:bg-[#EAEBED]"
+}
+
                 `}
               >
                 <Image

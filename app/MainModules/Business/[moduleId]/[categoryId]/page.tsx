@@ -32,6 +32,8 @@ const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
 
     const { fetchServiceDetails,service } = useServiceDetails();
     const [currentCategory, setCurrentCategory] = useState<any>(null);
+    const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+
 
     const {
       subCategories,
@@ -93,6 +95,12 @@ const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
   }
 }, [moduleId]);
 
+useEffect(() => {
+  if (subCategories?.length && !selectedSubCategory) {
+    setSelectedSubCategory(subCategories[0]._id);
+  }
+}, [subCategories]);
+
   useEffect(() => {
   if (categories?.length && categoryId) {
     const cat = categories.find(
@@ -101,6 +109,8 @@ const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
     setCurrentCategory(cat);
   }
 }, [categories, categoryId]);
+
+
 
 
 const mappedServices = useMemo(() => {
@@ -126,27 +136,6 @@ const mappedServices = useMemo(() => {
     
   }));
 }, [services, roiMap]);
-
-
-  /* ================= FILTER LOGIC (UNCHANGED) ================= */
-  const filteredData = (() => {
-    switch (active) {
-      case "Low to High":
-        return [...mappedServices].sort((a, b) => a.rating - b.rating);
-
-      case "High to Low":
-        return [...mappedServices].sort((a, b) => b.rating - a.rating);
-
-      case "Top Rated":
-        return mappedServices.filter((item) => item.rating >= 4.5);
-
-      case "All":
-      default:
-        return mappedServices;
-    }
-  })();
-
-
 
 
     return (
@@ -186,81 +175,13 @@ const mappedServices = useMemo(() => {
 
 
 <SubCategoryProvider initialCategoryId={categoryId}>
-  <SubCategoryStrip />
+  <SubCategoryStrip  selectedSubCategory={selectedSubCategory}
+  onSelect={setSelectedSubCategory}/>
 </SubCategoryProvider>
 
 
-{/* <section className="w-full bg-white py-8 lg:py-12">
-  <div className="w-full">
-      <div className="max-w-[1440px] mx-auto px-4 mb-6 lg:mb-12">
-        <div className="flex gap-3">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActive(tab)}
-              className={`
-                px-6
-                py-2.5
-                rounded-[10px]
-                text-[14px]
-                font-medium
-                transition
-                ${
-                  active === tab
-                    ? "bg-[#1D4699] text-white shadow"
-                    : "bg-[#ECEDEF] text-[#232323] hover:bg-[#E0E3E9]"
-                }
-              `}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  <div className="max-w-[1440px] mx-auto bg-[#F7F7F7] rounded-[24px] p-6 lg:p-12">
+<AllServices moduleId={moduleId} categoryId={categoryId} selectedSubCategory={selectedSubCategory} />
 
-    <div
-      className="
-        grid
-        grid-rows-3
-        grid-flow-col-dense
-        gap-3
-
-        overflow-x-auto
-        overflow-y-hidden
-
-        lg:grid-rows-none
-        lg:grid-cols-3
-        lg:grid-flow-row
-        lg:gap-12
-
-        lg:overflow-x-hidden
-        lg:overflow-y-auto
-
-        max-h-none
-        lg:max-h-[1256px]
-
-        scrollbar-hide
-      "
-    >
-    
-      
-
-      {!loading && filteredData.length === 0 && (
-              <p className="text-center text-gray-500 col-span-full">
-                No services found
-              </p>
-            )}
-    </div>
-
-  </div>
-</section> */}
-
-{/* <AllServices moduleId={moduleId} categoryId={categoryId} /> */}
-<Recommended moduleId={moduleId} categoryId={categoryId} />
-<MostPopular moduleId={moduleId} categoryId={categoryId} />
-<TopTrending moduleId={moduleId} categoryId={categoryId} />
 
 
         </>
