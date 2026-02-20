@@ -94,7 +94,6 @@ interface Category{
 
 interface ServiceDetails {
   benefits: string[];
-    category:Category[];
 
   aboutUs: string[];
   termsAndConditions: string[];
@@ -210,6 +209,7 @@ interface ServiceDetails {
 export interface ServiceData {
   _id: string;
   serviceName: string;
+  category:Category;
   price: number;
   discount: number;
   gst: number;

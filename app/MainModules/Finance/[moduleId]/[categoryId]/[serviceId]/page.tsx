@@ -827,7 +827,7 @@ const images = service.bannerImages;
               {serviceName}
             </h2>
             <p className="text-[16px] sm:text-[16px] lg:text-[24px] text-[#7A7A7A]">
-              Finance service
+              {service.category?.name}
             </p>
           </div>
 

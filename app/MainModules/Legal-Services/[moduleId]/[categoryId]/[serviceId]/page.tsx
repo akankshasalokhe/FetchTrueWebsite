@@ -1103,8 +1103,9 @@ const images = service.bannerImages;
             {serviceName}
           </h1>
 
-          <p className="text-[20px] sm:text-[24px] lg:text-[32px] text-[#868686] mb-3">
-            Legal Service
+          <p className="text-[20px] sm:text-[24px] lg:text-[26px] text-[#868686] mb-3">
+                                {service.category?.name}
+
           </p>
 
           {/* Rating */}

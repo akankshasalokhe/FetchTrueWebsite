@@ -1096,7 +1096,7 @@ const images = service.bannerImages;
       </h1>
 
       <p className="text-[#868686] text-[16px] sm:text-[18px] lg:text-[26px] mb-2">
-        AI Service
+        {service.category?.name}
       </p>
 
       {/* Rating */}

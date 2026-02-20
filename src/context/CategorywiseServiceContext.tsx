@@ -19,6 +19,11 @@ export interface Category {
   sortOrder: number;
 }
 
+export interface SubCategory{
+  _id:string;
+  name:string;
+}
+
 export interface KeyValue {
   key: string;
   value: string;
@@ -151,7 +156,7 @@ export interface Service {
   _id: string;
   serviceName: string;
   category: Category;
-  subcategory: [];
+  subcategory: SubCategory;
   price: number;
   discount: number;
   gst: number;
