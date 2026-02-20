@@ -28,17 +28,17 @@ export default function RecommendedSection({moduleId,subCategoryId}:Props) {
 
   useEffect(()=>{
     if(moduleId){
-      fetchRecommendedServices(moduleId,subCategoryId)
+      fetchRecommendedServices(moduleId)
     }
-  },[moduleId,subCategoryId])
+  },[moduleId])
 
     
 
-  const filteredServices = subCategoryId
-    ? services.filter(
-        (service) => service.subCategory?._id === subCategoryId
-      )
-    : services;
+  // const filteredServices = subCategoryId
+  //   ? services.filter(
+  //       (service) => service.subcategory?._id === subCategoryId
+  //     )
+  //   : services;
 
  
 
@@ -57,12 +57,12 @@ export default function RecommendedSection({moduleId,subCategoryId}:Props) {
       </p>
     );
 
-  if (filteredServices.length === 0)
-    return (
-      <p className="text-center py-10">
-        No recommended services found.
-      </p>
-    );
+  // if (filteredServices.length === 0)
+  //   return (
+  //     <p className="text-center py-10">
+  //       No recommended services found.
+  //     </p>
+  //   );
 
   return (
     <section className="w-full mt-8 lg:mt-18">
@@ -78,7 +78,7 @@ export default function RecommendedSection({moduleId,subCategoryId}:Props) {
       <div className="max-w-[1440px] mx-auto px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4 pb-4">
           <HorizontalScroll>
-          {filteredServices.map((service) => {
+          {services.map((service) => {
             // const fav = isFavourite(service._id);
            return(
             <Link 
