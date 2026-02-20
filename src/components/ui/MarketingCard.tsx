@@ -127,7 +127,7 @@ export default function MarketingCard({
               Starting from
             </span>
             <span className="text-[18px] sm:text-[20px] font-medium text-[#232323]">
-              ₹ {price}
+              {price}
             </span>
           </div>
         </div>

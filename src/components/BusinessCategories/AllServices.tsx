@@ -86,7 +86,7 @@ export default function AllServices({ categoryId, moduleId,selectedSubCategory }
     <section className="w-full mt-8 lg:mt-14">
       {/* HEADER */}
       <div className="lg:ms-10 mx-auto px-4 mb-6 flex justify-between items-center">
-  <h2 className="text-[22px] font-semibold">All Services</h2>
+  {/* <h2 className="text-[22px] font-semibold">All Services</h2> */}
 
   {viewAll ? (
     <button

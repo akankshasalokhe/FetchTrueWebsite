@@ -101,8 +101,10 @@ export default function MarketingHero() {
                            text-sm w-full"
               />
             </div>
-
+            
+            <Link href="../../Account/favorite">
             <Bookmark className="w-8 h-8" />
+            </Link>
           </div>
         </div>
 

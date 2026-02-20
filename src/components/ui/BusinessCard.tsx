@@ -75,7 +75,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({
             --EARN UP TO--
             <br />
             <span className="text-[#2CB140] text-[14px] font-extrabold">
-              ₹ {earnpercent} 
+               {earnpercent} 
             </span>
           </p>
         </div>

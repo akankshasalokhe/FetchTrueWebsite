@@ -339,12 +339,12 @@ export default function FavouriteCard({
             <div className="flex gap-1 justify-end items-center">
               {displayOldPrice && (
                 <span className="line-through text-gray-400 text-[11px]">
-                  ₹{displayOldPrice}
+                  {displayOldPrice}
                 </span>
               )}
 
               <span className="font-semibold text-[14px]">
-                ₹{displayPrice}
+                {displayPrice}
               </span>
             </div>
           </div>

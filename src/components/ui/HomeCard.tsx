@@ -407,7 +407,7 @@ export default function HomeCard({
                                             Investment Range
                                         </span>
                                         <span className="text-[10px] lg:text-[12px] text-gray-500">
-                                            ₹{investmentRange.range} {investmentRange.parameters}
+                                            {investmentRange.range} {investmentRange.parameters}
                                         </span>
                                     </div>
                                 )}
@@ -419,7 +419,7 @@ export default function HomeCard({
                                             Profit Range
                                         </span>
                                         <span className="text-[12px] lg:text-[12px] text-gray-500">
-                                            ₹ {profitMargin.title}
+                                            {profitMargin.title}
                                         </span>
                                     </div>
                                 )}
@@ -484,7 +484,7 @@ export default function HomeCard({
                                             Investment Range
                                         </span>
                                         <span className="text-[12px] lg:text-[12px] text-gray-500">
-                                            ₹{investmentRange.range} {investmentRange.parameters}
+                                            {investmentRange.range} {investmentRange.parameters}
                                         </span>
                                     </div>
                                 )}
@@ -496,7 +496,7 @@ export default function HomeCard({
                                             Monthly Earnings
                                         </span>
                                         <span className="text-[12px] lg:text-[12px] text-gray-500">
-                                            ₹{monthlyEarnPotential.range} {monthlyEarnPotential.parameters}
+                                            {monthlyEarnPotential.range} {monthlyEarnPotential.parameters}
                                         </span>
                                     </div>
                                 )}
@@ -557,11 +557,11 @@ export default function HomeCard({
                                                 <div className="flex gap-1 justify-end items-center">
                                                     {oldPrice && (
                                                         <span className="line-through text-gray-400 text-[10px] lg:text-[12px]">
-                                                            ₹{oldPrice}
+                                                            {oldPrice}
                                                         </span>
                                                     )}
                                                     <span className="font-semibold text-[12px] lg:text-[16px]">
-                                                        ₹{price}
+                                                        {price}
                                                     </span>
                                                 </div>
                                             </>

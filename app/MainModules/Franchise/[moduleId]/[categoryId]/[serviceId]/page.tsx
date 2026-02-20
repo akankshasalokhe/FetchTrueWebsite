@@ -1521,6 +1521,8 @@ if (!service) {
                    <h1 className="text-[20px] lg:text-[32px] sm:text-[40px] font-semibold">
                      {serviceName}
                    </h1>
+                    <p className="text-[12px] text-gray-400">{service.serviceDetails.category.name}</p>
+
                    </div>
 
                  <div className="flex items-center gap-2">

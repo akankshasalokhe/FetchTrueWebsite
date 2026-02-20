@@ -1035,8 +1035,10 @@ import HighDemand from "@/src/components/Business/HighDemand";
 import Recommended from "@/src/components/Business/Recommended";
 import TopRated from "@/src/components/Business/TopRated";
 import BusinessCard from "@/src/components/ui/BusinessCard";
+import { useWhyChooseService } from "@/src/context/WhyJustOurServiceContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 // const categories = [
 //   { title: "Industrial Business", slug: "industrial-business", image: "/image/Busi1.png" },
@@ -1139,9 +1141,24 @@ import { useParams } from "next/navigation";
 export default function BusinessPageClient() {
 
     const { moduleId,categoryId } = useParams<{ categoryId:string ,moduleId: string }>();
+        const { services, loading, fetchWhyServices } = useWhyChooseService();
     
+     useEffect(()=>{
+          if(moduleId){
+            fetchWhyServices(moduleId as string)
+          }
+        },[moduleId]);
+
+              if (loading) return null;
+
     
       console.log("MODULE ID IN CLIENT:", moduleId);
+         const moduleServices = services.filter(
+      (service) => service.module._id === moduleId
+    );
+  
+    // Flatten all items from this module
+    const items = moduleServices.flatMap((service) => service.items);
   
   return (
 
@@ -1210,11 +1227,13 @@ export default function BusinessPageClient() {
 
 
           {/* Bookmark Icon */}
+          <Link href="../../Account/favorite">
           <img
             src="/image/Vector (2).png"
             alt="Bookmark"
             className="w-[18.6px] h-[27.2px]"
           />
+          </Link>
         </div>
 
       </div>
@@ -1296,8 +1315,7 @@ export default function BusinessPageClient() {
     {/* CARDS GRID */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       
-      {/* CARD 1 */}
-      <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
+      {/* <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
             ✓
@@ -1314,7 +1332,6 @@ export default function BusinessPageClient() {
         </div>
       </div>
 
-      {/* CARD 2 */}
       <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
@@ -1332,7 +1349,6 @@ export default function BusinessPageClient() {
         </div>
       </div>
 
-      {/* CARD 3 */}
       <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
@@ -1350,7 +1366,6 @@ export default function BusinessPageClient() {
         </div>
       </div>
 
-      {/* CARD 4 */}
       <div className="bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 flex items-center justify-center border border-white rounded-full">
@@ -1366,7 +1381,25 @@ export default function BusinessPageClient() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+      {items.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-start gap-4 bg-[#8FA9DD] rounded-[10px] p-6 text-white shadow-md"
+            >
+              {item.icon && (
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-whitew-12 h-12"
+                />
+              )}
+              <div>
+              <h3 className="text-[18px] font-semibold mb-2">{item.title}</h3>
+              <p className="text-[14px] leading-relaxed opacity-90">{item.description}</p>
+              </div>
+        </div>
+          ))}
 
     </div>
   </div>

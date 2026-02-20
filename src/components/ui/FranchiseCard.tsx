@@ -112,12 +112,12 @@ export default function RecommendedCard({
           {/* STATS */}
           <div className="grid grid-cols-3 text-center mt-2">
             <div>
-              <p className="text-[14px] font-semibold">₹ {monthly} {parameter}</p>
+              <p className="text-[14px] font-semibold">{monthly} {parameter}</p>
               <p className="text-[12px] text-gray-400">Monthly Earning</p>
             </div>
 
             <div className="border-x border-[#BBBBBB]">
-              <p className="text-[14px] font-semibold">₹ {investment} {parameter}</p>
+              <p className="text-[14px] font-semibold">{investment} {parameter}</p>
               <p className="text-[12px] text-gray-400">Investment Range</p>
             </div>
 

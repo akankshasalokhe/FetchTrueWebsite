@@ -11,37 +11,47 @@ import ServiceCard from "../ui/ServiceCard";
 interface Props {
   categoryId: string;
     moduleId: string;
-
+  selectedSubCategory?: string | null;
 }
 
-export default function AllServices({ categoryId, moduleId }: Props) {
+export default function AllServices({ categoryId, moduleId, selectedSubCategory, }: Props) {
   const { services, fetchServicesByCategory, loading, error } = useCategorywiseServices();
 
   const [viewAll, setViewAll] = useState(false);
 
-
-
-
-  useEffect(() => {
+ useEffect(() => {
     if (categoryId) {
       fetchServicesByCategory(categoryId);
     }
-  }, [categoryId]);
+  }, [categoryId, fetchServicesByCategory]);
 
-    console.log("Top Legal API categoryId:", categoryId);
+  console.log("moduleId in legal category :",moduleId,categoryId)
+
+ 
+   const filteredServices = services.filter((service) => {
+  if (!selectedSubCategory) return true;
+
+  return service.subcategory?._id === selectedSubCategory
+
+});
+
 
 
   if (loading)
     return <p className="text-center py-10">Loading All Legal services...</p>;
   if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
-  if (services.length === 0)
-    return <p className="text-center py-10">No  All Legal services found.</p>;
+ if (filteredServices.length === 0)
+  return (
+    <p className="text-center py-10">
+      No services found
+    </p>
+  );
 
   return (
     <section className="w-full mt-8 lg:mt-14">
       {/* HEADER */}
       <div className="max-w-[1440px] mx-auto px-4 pb-8 py-8 flex justify-between">
-        <h2 className="text-[22px] font-semibold">All Services</h2>
+        {/* <h2 className="text-[22px] font-semibold">All Services</h2> */}
 
   {viewAll ? (
           <button
@@ -70,7 +80,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
           }
         >
           {viewAll ? (
-            services.map((service) => (
+            filteredServices.map((service) => (
               <Link
                 key={service._id}
                 href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
@@ -101,7 +111,7 @@ export default function AllServices({ categoryId, moduleId }: Props) {
             ))
           ) : (
             <HorizontalScroll>
-              {services.map((service) => (
+              {filteredServices.map((service) => (
                 <Link
                   key={service._id}
                   href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}

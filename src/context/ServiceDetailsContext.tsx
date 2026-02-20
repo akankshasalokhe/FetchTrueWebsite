@@ -85,11 +85,17 @@ interface BusinessFundamental {
   description: string;
   points: BusinessFundamentalPoint[];
 }
+interface Category{
+  _id:string;
+  name:string;
+}
 
 
 
 interface ServiceDetails {
   benefits: string[];
+    category:Category[];
+
   aboutUs: string[];
   termsAndConditions: string[];
   whatYouWillLearn: string[];
