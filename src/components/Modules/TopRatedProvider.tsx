@@ -55,7 +55,7 @@ export default function TopRatedProvider() {
 
     return (
         <div className="relative w-full p-4 lg:p-14">
-            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-12">Top Rated Providers</h1>
+            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-6">Top Rated Providers</h1>
 
             {/* SCROLL CONTAINER */}
             <div
@@ -77,7 +77,7 @@ export default function TopRatedProvider() {
                 }}
             >
                 {/* CARD WRAPPER */}
-                <div className="flex gap-6 min-w-max p-2 lg:p-12">
+                <div className="flex gap-6 min-w-max p-2 lg:p-4">
                     {mappedServices.map((item) => (
                         <div
                             key={item.id}
