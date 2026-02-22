@@ -12,12 +12,14 @@ import { useModule } from "@/src/context/CategoriesContext";
 import MostlyPopularService from "@/src/components/LegalCategories/MostPopular";
 import TopTrending from "@/src/components/LegalCategories/TopTrending";
 import AllServices from "@/src/components/LegalCategories/AllServices";
+import {  useSubCategory } from "@/src/context/SubCategoriesContext";
 
 
 export default function LegalSubCategoryServiceDetailPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 const { categories,fetchCategoriesByModule } = useModule();
 const [currentCategory, setCurrentCategory] = useState<any>(null);
+const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
 
  
 
@@ -26,11 +28,18 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
     categoryId:string;
   }>();
 
+   const {
+        subCategories,
+        error,
+        fetchSubCategories,
+      } = useSubCategory();
+
   
   console.log("Category ID IN CLIENT subcategoryPage:", categoryId);
 
     // const { moduleId} = useParams();
       console.log(moduleId, categoryId);
+
 
     useEffect(() => {
     const slider = scrollRef.current;
@@ -48,13 +57,6 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
   }, []);
 
   useEffect(() => {
-  if (moduleId) {
-    fetchCategoriesByModule(moduleId);
-  }
-}, [moduleId]);
-
-
-useEffect(() => {
   if (categories?.length && categoryId) {
     const cat = categories.find(
       (c: any) => c._id === categoryId
@@ -62,6 +64,23 @@ useEffect(() => {
     setCurrentCategory(cat);
   }
 }, [categories, categoryId]);
+
+  useEffect(() => {
+  if (categoryId) {
+    fetchSubCategories(categoryId);
+  }
+}, [categoryId]);
+
+
+useEffect(() => {
+  if (subCategories?.length && !selectedSubCategory) {
+    setSelectedSubCategory(subCategories[0]._id);
+  }
+}, [subCategories]);
+
+
+
+
  
 
 
@@ -128,14 +147,59 @@ useEffect(() => {
             <Bookmark  className="w-8 h-8" color="#A3623A"/>
           </div>
       </div>
-      </section>
 
       
+      </section>
+      
+      <div className="">
+                      {error && <p className="ml-6 text-red-500">{error}</p>}
+                      <div
+                         
+                          className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
+                      >
+                         {subCategories.map((item, index) => (
+                                     <div key={item._id} className="flex items-center gap-[24px]">
+                                       <button
+                                         onClick={() => setSelectedSubCategory(item._id)}
+                         
+                                         className={`
+                                           flex flex-col items-center justify-center
+                                           min-w-[140px] h-[120px] ml-5
+                                           rounded-[8px] transition
+                                           ${
+                           selectedSubCategory === item._id
+                             ? "bg-[#EDEEEF]"
+                             : "bg-transparent hover:bg-[#EAEBED]"
+                         }
+                         
+                                         `}
+                                       >
+                                         <Image
+                                           src={item.image}
+                                           alt={item.name}
+                                           width={81}
+                                           height={60}
+                                           className="object-contain ml-14"
+                                         />
+                         
+                                         <p className="mt-2 mr-10 text-[16px] font-medium text-[#232323] leading-tight text-left whitespace-pre-line">
+                                           {item.name}
+                                         </p>
+                                       </button>
+                         
+                                       {index !== subCategories.length - 1 && (
+                                         <div className="h-[60px] w-[1px] bg-[#D9D9D9]" />
+                                       )}
+                                     </div>
+                                   ))}
+                      </div>
+                  </div>
+  
 
-      {/* <AllServices categoryId={categoryId} moduleId={moduleId}/> */}
-      <RecommendedForYou categoryId={categoryId} moduleId={moduleId}/>
+      <AllServices categoryId={categoryId} moduleId={moduleId} selectedSubCategory={selectedSubCategory}/>
+      {/* <RecommendedForYou categoryId={categoryId} moduleId={moduleId}/>
       <MostlyPopularService categoryId={categoryId} moduleId={moduleId}/>
-      <TopTrending categoryId={categoryId} moduleId={moduleId}/>
+      <TopTrending categoryId={categoryId} moduleId={moduleId}/> */}
     </>
   );
 };

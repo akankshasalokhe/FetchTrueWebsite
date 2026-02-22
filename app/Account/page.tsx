@@ -78,10 +78,13 @@ import DeleteAccountSection from "./delete/page";
 import EarningsPage from "./wallet/page";
 import CouponsPage from "./Coupon/page";
 import HelpCenter from "./helpCenter/page";
+import { useAuth } from "@/src/context/AuthContext";
 
 export default function MyAccountPage() {
   const [selectedSection, setSelectedSection] = useState("Profile");
   const [showSidebar, setShowSidebar] = useState(false);
+  const { user } = useAuth();
+
 
   // ✅ Nested state for customer module
   const [customerView, setCustomerView] = useState<"list" | "add">("list");
@@ -89,7 +92,7 @@ export default function MyAccountPage() {
   const renderContent = () => {
     switch (selectedSection) {
       case "Favorite":
-        return <FavouritePage />;
+        return <FavouritePage userId={user?._id}/>;
 
       case "Notification":
         return <NotificationSettings />;

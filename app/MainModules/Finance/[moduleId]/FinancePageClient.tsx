@@ -76,13 +76,13 @@ export default function FinancePageClient() {
       </div>
 
       {/* Bookmark Icon */}
-      <button className="flex items-center justify-center bg-white rounded-full p-2 w-[36px] h-[36px]">
+      <Link href="../../Account/favorite" className="flex items-center justify-center bg-white rounded-full p-2 w-[36px] h-[36px]">
         <img
           src="/image/Vector (2).png"
           alt="Bookmark"
           className="w-[18.6px] h-[27.2px]"
         />
-      </button>
+      </Link>
 
     </div>
 

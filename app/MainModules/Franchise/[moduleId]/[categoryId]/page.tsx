@@ -1903,6 +1903,8 @@ export default function FranchiseSubCategoryServicePage() {
 
     const { categories,fetchCategoriesByModule } = useModule();
 const [currentCategory, setCurrentCategory] = useState<any>(null);
+const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+
    const { moduleId, categoryId } = useParams<{
   moduleId: string;
   categoryId: string;
@@ -1914,9 +1916,6 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
 
     // const { moduleId} = useParams();
       console.log(moduleId, categoryId);
-
-
-
 
 const {
   subCategories,
@@ -1953,6 +1952,12 @@ useEffect(() => {
     fetchSubCategories(categoryId);
   }
 }, [categoryId]);
+
+useEffect(() => {
+  if (subCategories?.length && !selectedSubCategory) {
+    setSelectedSubCategory(subCategories[0]._id);
+  }
+}, [subCategories]);
 
 
 
@@ -2167,6 +2172,9 @@ useEffect(() => {
                     </div>
                 </div>
             </div>
+
+
+
             {/* ================= DESKTOP CATEGORY ================= */}
             <div className="hidden lg:block">
                 <p className="text-[24px] font-semibold ml-6">SubCategory</p>
@@ -2178,7 +2186,11 @@ useEffect(() => {
                     className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
                 >
                     {subCategories.map((item) => (
-                        <div key={item._id} className="relative shrink-0 w-[189px] h-[226px]">
+                        <div key={item._id} 
+                        onClick={() => setSelectedSubCategory(item._id)}
+    className={`relative shrink-0 w-[189px] h-[226px] cursor-pointer
+      ${selectedSubCategory === item._id ? "ring-2 ring-purple-500" : ""}
+    `}>
                             <Image src="/image/rectangularcategory.png" alt="" fill />
                             <Image
                                 src={item.image}
@@ -2202,7 +2214,11 @@ useEffect(() => {
                     className="flex gap-6 px-6 py-6 overflow-x-auto no-scrollbar cursor-grab"
                 >
                     {subCategories.map((item) => (
-                        <div key={item._id} className="relative w-[103px] h-[123px] shrink-0">
+                        <div key={item._id}
+                         onClick={() => setSelectedSubCategory(item._id)}
+    className={`relative w-[103px] h-[123px] shrink-0 cursor-pointer
+      ${selectedSubCategory === item._id ? "ring-2 ring-purple-500" : ""}
+    `}>
                             <Image src="/image/rectangularcategory.png" alt="" fill />
                             <Image
                                 src={item.image}
@@ -2222,12 +2238,12 @@ useEffect(() => {
             {/* ================= REST SECTIONS (UNCHANGED) ================= */}
             <div className="bg-white rounded-xl">
               
-                {/* <AllServices categoryId={categoryId} moduleId={moduleId}/>  */}
-                <SearchBudget categoryId={categoryId} moduleId={moduleId}/>
+                <AllServices categoryId={categoryId} moduleId={moduleId}
+  selectedSubCategory={selectedSubCategory}/> 
+                {/* <SearchBudget categoryId={categoryId} moduleId={moduleId}/>
                 <Recommended categoryId={categoryId} moduleId={moduleId} />
 
-                <MostPopular categoryId={categoryId} />
-                {/* <WhyChooseUs /> */}
+                <MostPopular categoryId={categoryId} /> */}
             </div>
         </section>
     );

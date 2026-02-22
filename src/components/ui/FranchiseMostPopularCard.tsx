@@ -70,21 +70,21 @@ export default function FranchiseMostPopularCard({
             <span className="bg-[#6FA8FF] text-[11px] px-2 py-[2px] rounded">
               Earn Upto {earning}
             </span>
-            <span className="bg-[#7CFF9B] text-[11px] text-green-900 px-2 py-[2px] rounded">
+            {/* <span className="bg-[#7CFF9B] text-[11px] text-green-900 px-2 py-[2px] rounded">
               Discount {discount}
-            </span>
+            </span> */}
           </div>
         </div>
 
         {/* STATS */}
         <div className="grid grid-cols-3 gap-2 text-center text-[11px] mt-4 p-3 bg-[#FFFFFF30] border border-white/30 rounded-[15px]">
           <div>
-            <p className="font-semibold">₹ {monthly}</p>
+            <p className="font-semibold">{monthly}</p>
             <p className="opacity-80">Monthly Earning</p>
           </div>
 
           <div className="border-x border-white/30">
-            <p className="font-semibold">₹ {investment}</p>
+            <p className="font-semibold">{investment}</p>
             <p className="opacity-80">Investment</p>
           </div>
 

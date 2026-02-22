@@ -85,11 +85,16 @@ interface BusinessFundamental {
   description: string;
   points: BusinessFundamentalPoint[];
 }
+interface Category{
+  _id:string;
+  name:string;
+}
 
 
 
 interface ServiceDetails {
   benefits: string[];
+
   aboutUs: string[];
   termsAndConditions: string[];
   whatYouWillLearn: string[];
@@ -204,6 +209,7 @@ interface ServiceDetails {
 export interface ServiceData {
   _id: string;
   serviceName: string;
+  category:Category;
   price: number;
   discount: number;
   gst: number;

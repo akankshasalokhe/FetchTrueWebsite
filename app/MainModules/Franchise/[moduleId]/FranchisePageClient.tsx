@@ -12,9 +12,6 @@ import { useParams } from "next/navigation";
 import AllServices from "@/src/components/Franchise/AllServices";
 
 
-
-
-
 export default function FranchisePageClient()  {
 
   const { moduleId } = useParams<{ moduleId: string }>();
@@ -82,11 +79,13 @@ export default function FranchisePageClient()  {
               />
             </div>
 
+            <Link href="../../Account/favorite">
             <img
               src="/image/Vector (2).png"
               className="w-[18px] h-[22px]"
               alt="Bookmark"
             />
+            </Link>
           </div>
         </div>
 
@@ -200,7 +199,7 @@ export default function FranchisePageClient()  {
 
 <Categories/>
 {/* <AllServices moduleId={moduleId}/> */}
-<Recommended  moduleId={moduleId}/>
+<Recommended  moduleId={moduleId} />
 <HighDemands moduleId={moduleId}/>
 {/* <TopGrowingFranchises /> */}
 {/* <BenefitsSection /> */}
@@ -215,3 +214,5 @@ export default function FranchisePageClient()  {
     </>
   );
 }
+
+

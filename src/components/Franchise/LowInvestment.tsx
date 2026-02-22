@@ -121,13 +121,13 @@ export default function LowInvestmentFranchises({moduleId}:{moduleId:string}) {
 
               {/* BADGES */}
               <div className="absolute bottom-4 left-4 flex gap-2 flex-wrap">
-                <span className="bg-green-100 text-green-700 text-[11px] px-3 py-1 rounded-full">
+                {/* <span className="bg-green-100 text-green-700 text-[11px] px-3 py-1 rounded-full">
                   Discount {
                   service.franchiseDetails?.franchiseModel?.[0]?.discount
                     ? `${service.franchiseDetails.franchiseModel[0].discount}%`
                     : "0%"
                 }
-                </span>
+                </span> */}
                 <span className="bg-blue-100 text-blue-700 text-[11px] px-3 py-1 rounded-full">
                   Earn Up to {service.franchiseDetails.commission || "N/A"}
                 </span>
@@ -141,27 +141,17 @@ export default function LowInvestmentFranchises({moduleId}:{moduleId:string}) {
               </p> */}
 
               {/* LOCATION + REVENUE */}
-              <div className="items-end gap-4 mb-5">
-                {/* <div>
-                  <p className="text-[#746969] text-[11px]">
-                    Available Location
-                  </p>
-                  <p className="font-medium flex items-center gap-1 text-[13px] md:text-[14px]">
-                    <FaLocationDot className="text-[#EF1D1D]" size={14} />
-                    Pune, Maharashtra
-                  </p>
-                </div> */}
+              
 
-                <div className="text-right">
-                  <p className="text-[#746969] text-[11px]">
-                    Monthly Earning
+                <div className="items-center justify-end flex">
+                  <p className="text-[#746969] text-[12px]">
+                    Monthly Earning :-
                   </p>
                   <p className="font-semibold text-[13px] md:text-[14px]">
                      {monthlyEarning
         ? `${monthlyEarning.range} ${monthlyEarning.parameters}`
         : "--"}
                   </p>
-                </div>
               </div>
 
               {/* BOTTOM STATS */}
@@ -189,7 +179,7 @@ export default function LowInvestmentFranchises({moduleId}:{moduleId:string}) {
                   </p>
                 </div>
               </div> */}
-              <div className="grid grid-cols-3 text-center gap-3">
+              <div className="grid grid-cols-3 text-center gap-3 mt-5">
 
   {/* PROFIT MARGIN – keyValues */}
   <div>

@@ -1250,6 +1250,9 @@ export default function DetailsAllPage() {
                   <h1 className="text-[28px] lg:text-[36px] font-semibold">
                     {serviceName}
                   </h1>
+                  <p className="text-[#868686] text-[16px] sm:text-[18px] lg:text-[26px] mb-2">
+        {service.category?.name}
+      </p>
                   
                 </div>
 

@@ -137,8 +137,9 @@ const { moduleId } = useParams<{ moduleId: string }>();
                            text-sm w-full"
               />
             </div>
-
+            <Link href="../../Account/favorite">
             <Bookmark  className="w-8 h-8" color="#A3623A"/>
+            </Link>
           </div>
       </div>
       </section>

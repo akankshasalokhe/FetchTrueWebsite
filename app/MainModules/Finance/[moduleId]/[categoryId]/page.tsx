@@ -13,6 +13,7 @@ import MostPopular from "@/src/components/FinanceCategories/MostPopular";
 import TopTrending from "@/src/components/FinanceCategories/TopTrending";
 import AllServices from "@/src/components/FinanceCategories/AllServices";
 import Link from "next/link";
+import { useModule } from "@/src/context/CategoriesContext";
 
 // const tabs = [
 //   { id: "saving", label: "Saving", icon: "💰" },
@@ -23,6 +24,9 @@ import Link from "next/link";
 
 export default function FinanceCategoryDetailPage() {
   const [active, setActive] = useState<string>("");
+const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+const [currentCategory, setCurrentCategory] = useState<any>(null);
+    const { categories,fetchCategoriesByModule } = useModule();
 
   
    
@@ -45,20 +49,15 @@ export default function FinanceCategoryDetailPage() {
         fetchSubCategories,
       } = useSubCategory();
       
-      const [currentCategory, setCurrentCategory] = useState<any>(null);
 
-      useEffect(() => {
-  if (subCategories.length) {
-    setActive(subCategories[0]._id);
-
-    const subCat = subCategories.find(sc => sc._id === categoryId);
-    if (subCat) {
-      setCurrentCategory(subCat.category);
-    } else {
-      setCurrentCategory(subCategories[0].category);
-    }
+    useEffect(() => {
+  if (categories?.length && categoryId) {
+    const cat = categories.find(
+      (c: any) => c._id === categoryId
+    );
+    setCurrentCategory(cat);
   }
-}, [subCategories]);
+}, [categories, categoryId]);
 
       
       
@@ -66,7 +65,13 @@ export default function FinanceCategoryDetailPage() {
         if (categoryId) {
           fetchSubCategories(categoryId);
         }
-      }, []);
+      }, [categoryId]);
+
+      useEffect(() => {
+  if (subCategories?.length && !selectedSubCategory) {
+    setSelectedSubCategory(subCategories[0]._id);
+  }
+}, [subCategories]);
 
       
 
@@ -99,7 +104,7 @@ export default function FinanceCategoryDetailPage() {
               return (
                 <button
                   key={tab._id}
-                  onClick={() => setActive(tab._id)}
+                  onClick={() => setSelectedSubCategory(tab._id)}
                   className={`
                     flex items-center gap-4 px-5 py-3 rounded-[10px] w-[223px] h-[72px]
                     border text-[14px] font-medium transition-all flex-shrink-0
@@ -119,14 +124,12 @@ export default function FinanceCategoryDetailPage() {
         </div>
       </section>
 
-     {active && (
-  <>
-    {/* <AllServices moduleId={moduleId} categoryId={categoryId} /> */}
-    <Recommended moduleId={moduleId} categoryId={categoryId} />
+
+    <AllServices moduleId={moduleId} categoryId={categoryId} selectedSubCategory={selectedSubCategory}/>
+    {/* <Recommended moduleId={moduleId} categoryId={categoryId} />
     <MostPopular moduleId={moduleId} categoryId={categoryId} />
-    <TopTrending moduleId={moduleId} categoryId={categoryId} />
-  </>
-)}
+    <TopTrending moduleId={moduleId} categoryId={categoryId} /> */}
+  
 
     </>
   );
