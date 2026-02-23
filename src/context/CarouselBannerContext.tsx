@@ -53,7 +53,7 @@ export function BannerProvider({ children }: { children: React.ReactNode }) {
   const fetchSliderBanners = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://api.fetchtrue.com/api/banner");
+      const res = await fetch("https://api.fetchtrue.com/api/banner");
       const data = await res.json();
 
       if (!res.ok) throw new Error("Failed to fetch banners");
