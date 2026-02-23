@@ -46,6 +46,8 @@ import { usePathname } from "next/navigation";
 import { PayoutProvider } from "@/src/context/PayoutContext";
 import { ServiceCustomerProvider } from "@/src/context/ServiceCustomerContext";
 import { AllCouponProvider } from "@/src/context/CoupanContext";
+import { CategoryBannerProvider } from "@/src/context/CategoryBannerContext";
+import { BannerProvider } from "@/src/context/CarouselBannerContext";
 
 // export const metadata = {
 //   title: "Fetch True",
@@ -68,6 +70,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <PayoutProvider>
                   <ServiceCustomerProvider>
                     <AllCouponProvider>
+                      <CategoryBannerProvider>
+                        <BannerProvider>
             <FavouriteProvider>
 
           <ResetPassProvider>
@@ -155,6 +159,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </FiveXProvider>
         </ResetPassProvider>
         </FavouriteProvider>
+        </BannerProvider>
+        </CategoryBannerProvider>
         </AllCouponProvider>
         </ServiceCustomerProvider>
         </PayoutProvider>

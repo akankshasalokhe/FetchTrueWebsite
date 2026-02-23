@@ -11,73 +11,68 @@ import { Search,Bookmark } from "lucide-react";
 import MostlyUsedService from "@/src/components/Legal/MostlyUsedService";
 import TopTrending from "@/src/components/Legal/TopTrending";
 import RecommendedForYou from "@/src/components/Legal/RecommendForYou";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import AllServices from "@/src/components/Legal/AllServices";
-
-// const services = [
-//   {
-//     title: "LLP Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//     slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "LLP Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "LLP Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-//   {
-//     title: "LLP Registration",
-//     category: "Legal Service",
-//     price: 4550,
-//     rating: 4,
-//     image: "/image/legalCard.jpg",
-//      slug:"business-registration",
-//     detailslug:"llp"
-//   },
-// ];
-
+import { useCategoryBanner } from "@/src/context/CategoryBannerContext";
+import { Banner, useBanner } from "@/src/context/CarouselBannerContext";
 
 export default function LegalPageClient() {
-
-
+const { banners, loading, error, fetchBanners } = useCategoryBanner();
+const { getBannersByPage} = useBanner();
+const router = useRouter();
 const { moduleId } = useParams<{ moduleId: string }>();
+
+const heroBanners = getBannersByPage("category").filter(
+  (banner) =>
+    banner.module &&
+    banner.module._id === moduleId &&
+    !banner.isDeleted
+);
 
 
   console.log("MODULE ID IN CLIENT:", moduleId);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-    const slider = scrollRef.current;
-    if (!slider) return;
+useEffect(() => {
+  const slider = scrollRef.current;
+  if (!slider || !heroBanners.length) return;
 
-    const interval = setInterval(() => {
-      slider.scrollLeft += 1;
+  const interval = setInterval(() => {
+    slider.scrollLeft += 1;
 
-      if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
-        slider.scrollLeft = 0;
-      }
-    }, 20);
+    if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
+      slider.scrollLeft = 0;
+    }
+  }, 20);
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+}, [heroBanners.length]);
+
+  useEffect(() => {
+  if (moduleId) {
+    fetchBanners(moduleId);
+  }
+}, [moduleId]);
+
+const handleBannerClick = (banner:Banner) => {
+  
+
+  if (banner.selectionType === "subcategory" && banner.subcategory?._id) {
+    router.push(`/MainModules/Legal-Services/${moduleId}/${banner.subcategory?._id}`);
+    return;
+  }
+};
+
+if (loading) return null;
+
+if (!heroBanners.length) {
+  return (
+    <div className="text-center py-10 text-gray-500">
+      No banners available
+    </div>
+  );
+}
   
   return (
     <div className="">
@@ -170,42 +165,42 @@ const { moduleId } = useParams<{ moduleId: string }>();
       {/* BACK IMAGE */}
       <div className="absolute left-1/2 -translate-x-1/2 top-5 w-[226px] h-[140px] z-0">
         <Image
-          src="/image/backImage.jpg"
-          alt="Back"
+          src={banners[0]?.image}
+          alt="back"
           fill
           className="object-cover rounded-[18px]"
         />
       </div>
 
       {/* LEFT IMAGE */}
-      <div className="absolute left-11 bottom-6 w-[100px] h-[160px] z-10">
+      {/* <div className="absolute left-11 bottom-6 w-[100px] h-[160px] z-10">
         <Image
           src="/image/leftImage.jpg"
           alt="Left"
           fill
           className="object-cover rounded-[20px]"
         />
-      </div>
+      </div> */}
 
       {/* RIGHT IMAGE */}
-      <div className="absolute right-11 bottom-6 w-[100px] h-[160px] z-10">
+      {/* <div className="absolute right-11 bottom-6 w-[100px] h-[160px] z-10">
         <Image
           src="/image/rightimage.jpg"
           alt="Right"
           fill
           className="object-cover rounded-[20px]"
         />
-      </div>
+      </div> */}
 
       {/* CENTER IMAGE */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-1 w-[450px] h-[340px] z-20">
+      {/* <div className="absolute left-1/2 -translate-x-1/2 top-1 w-[450px] h-[340px] z-20">
         <Image
           src="/image/centerImage.png"
           alt="Center"
           fill
           className="object-cover rounded-[28px]"
         />
-      </div>
+      </div> */}
 
     </div>
   </div>
@@ -229,9 +224,10 @@ const { moduleId } = useParams<{ moduleId: string }>();
               overflow-hidden
             "
           >
-            {["/image/legalbanner.jpg","/image/legalbanner.jpg","/image/legalbanner.jpg"].map((img, index) => (
+            {heroBanners.map((banner) => (
               <div
-                key={index}
+                key={banner._id}
+                onClick={()=>handleBannerClick(banner)}
                 className="
                   relative
                   snap-start
@@ -243,8 +239,8 @@ const { moduleId } = useParams<{ moduleId: string }>();
                 "
               >
                 <Image
-                  src={img}
-                  alt="Legal Service"
+                  src={banner.file}
+                  alt={banner.page}
                   fill
                   className="object-cover"
                   priority
@@ -268,3 +264,6 @@ const { moduleId } = useParams<{ moduleId: string }>();
     </div>
   );
 }
+
+
+

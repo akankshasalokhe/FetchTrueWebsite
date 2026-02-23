@@ -316,11 +316,14 @@
 
 "use client";
 
+import { useBanner } from "@/src/context/CarouselBannerContext";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 export default function AppHero() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { getBannersByPage, loading } = useBanner();
+const heroBanners = getBannersByPage("home");
 
     useEffect(() => {
     const slider = scrollRef.current;
@@ -335,7 +338,11 @@ export default function AppHero() {
     }, 20);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [heroBanners.length]);
+
+  if (loading) return null;
+  if (!heroBanners.length) return null;
+
   return (
     <>
     
@@ -351,14 +358,9 @@ export default function AppHero() {
             overflow-hidden
           "
         >
-          {[
-            "/image/homeBanner.jpg",
-            "/image/homeBanner.jpg",
-            "/image/homeBanner.jpg",
-            "/image/homeBanner.jpg", 
-          ].map((img, index) => (
+          {heroBanners.map((banner) => (
             <div
-              key={index}
+              key={banner._id}
               className="
                 snap-start
                 shrink-0
@@ -374,10 +376,10 @@ export default function AppHero() {
               "
             >
               <Image
-                src={img}
-                alt="Marketing Banner"
+                src={banner.file}
+                alt={banner.page}
                 fill
-                className="object-cover"
+                className="object-fill"
                 priority
               />
             </div>
