@@ -98,6 +98,7 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
         );
     };
 
+    const FIXED_ICONS = ['⚡', '🧠', '🛠 '];
 
     const mappedServices = services.map((service) => {
         const packages = service.serviceDetails?.packages || [];
@@ -146,8 +147,8 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
                         key={p.id}
                         className="
                             snap-center
-                            w-[270px] md:w-[308px] lg:w-[408px] lg:h-[373.99px]
-                            bg-[#F4F4F4] mx-auto
+                            w-[290px] md:w-[308px] lg:w-[408px] lg:h-[373.99px]
+                            bg-[#F4F4F4] 
                             rounded-2xl
                             p-4
                             flex-shrink-0
@@ -233,12 +234,15 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
                                 <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
                                     Setup & Time
                                 </p>
-                                {p.keyValues.map((kv) => (
+                                {p.keyValues.map((kv,index) => (
                                     <div
                                         key={kv.id}
                                         className="flex flex-col text-[10px] lg:text-[14px] text-gray-700 leading-snug"
                                     >
                                         <div className="flex flex-row space-x-1">
+                                             <span className="text-base w-5 text-center -mt-1">
+                                                {FIXED_ICONS[index] || '•'}  
+                                            </span>
                                             <span className="font-medium">{kv.key}:</span>
                                             <span className="text-gray-500">{kv.label}</span>
                                         </div>

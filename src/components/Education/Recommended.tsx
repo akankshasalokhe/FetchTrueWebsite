@@ -98,7 +98,9 @@ export default function Recommendation({ moduleId }: SectionProps) {
                 className="flex gap-4 md:gap-6 overflow-x-auto  snap-x snap-mandatory no-scrollbar"
             >
                 {mappedServices.length > 0 ? (
+                    
                     mappedServices.map((item) => (
+                        <>
                         <div
                             key={item.id}
                             onClick={() =>
@@ -288,7 +290,13 @@ export default function Recommendation({ moduleId }: SectionProps) {
                                 </div>
                             </div>
                         </div>
-                    ))
+
+                         {/* SPACER AT THE END - outside the cards */}
+                    <div className="flex-shrink-0 w-2 md:w-2" aria-hidden="true" />
+                          </>
+                    )
+                )
+                    
                 ) : (
                     <div className="w-full bg-gray-500 flex items-center justify-center">
                         <div className="bg-white rounded-2xl p-6 text-center w-full">
