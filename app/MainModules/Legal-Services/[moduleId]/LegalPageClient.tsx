@@ -66,13 +66,13 @@ const handleBannerClick = (banner:Banner) => {
 
 if (loading) return null;
 
-if (!heroBanners.length) {
-  return (
-    <div className="text-center py-10 text-gray-500">
-      No banners available
-    </div>
-  );
-}
+// if (!heroBanners.length) {
+//   return (
+//     <div className="text-center py-10 text-gray-500">
+//       No banners available
+//     </div>
+//   );
+// }
   
   return (
     <div className="">
