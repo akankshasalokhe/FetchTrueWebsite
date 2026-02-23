@@ -1207,7 +1207,7 @@ export default function AIHubModulesPage() {
                             <img
                                 src={item.image}
                                 alt={item.name}
-                                className="w-[133px] h-[143px] border border-[#A7DFFF] bg-white/50 rounded-2xl object-contain"
+                                className="w-[133px] h-[143px] border border-[#A7DFFF] bg-white/50 rounded-2xl object-cover"
                             />
 
                             <span className="mt-2 md:text-[18px] lg:text-[24px] font-medium text-center leading-tight break-words line-clamp-3 max-w-[250px]">

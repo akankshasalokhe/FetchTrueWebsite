@@ -10,18 +10,19 @@ import Link from "next/link";
 export default function PackagesMain() {
     const [activeTab, setActiveTab] = useState("GP");
 
-    const renderComponent = () => {
-        switch (activeTab) {
-            case "GP":
-                return <GPComponent />;
-            case "SGP":
-                return <SGPComponent />;
-            case "PGP":
-                return <PGPComponent />;
-            default:
-                return <GPComponent />;
-        }
-    };
+   const renderComponent = () => {
+    switch (activeTab) {
+        case "GP":
+            return <GPComponent setActiveTab={setActiveTab} />;
+        case "SGP":
+            return <SGPComponent  />;
+        case "PGP":
+            return <PGPComponent />;
+        default:
+            return <GPComponent setActiveTab={setActiveTab} />;
+    }
+};
+
 
     return (
         <>

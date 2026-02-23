@@ -182,7 +182,7 @@ export default function ServiceCard({
                             </div>
 
                             {/* Price Button */}
-                            <Link href={`/MainModules/On-Demand/ServiceDetails/${item._id}?service=${encodeURIComponent(item.serviceName)}`}>
+                            <Link href={`/MainModules/On-Demand/servicedetails/${item._id}?service=${encodeURIComponent(item.serviceName)}`}>
                             <button className="mt-3 w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold transition">
                                 Starting From ₹{item.serviceDetails?.packages?.[0]?.discountedPrice || 'N/A'}
                             </button>

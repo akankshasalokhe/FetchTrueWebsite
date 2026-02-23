@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { Bookmark } from "lucide-react";
+import { Bookmark, Brain, Settings, Zap } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useRecommendedServices } from "@/src/context/RecommendedContext";
 import { useParams, useRouter } from "next/navigation";
@@ -22,88 +22,7 @@ interface Package {
 
 
 export default function Recommended({ moduleId }: RecommendedProps) {
-    // const properties = [
-    //     {
-    //         id: 1,
-    //         bgColor: "linear-gradient(135deg, #e8a58a, #d47c6e)",
-    //         image: "/image/AIHubcardbg.png",
-    //         title: "AI Automation Residential Property",
-    //         type: "AI Service",
-    //         rating: 4,
-    //         location: "Near Andheri West, Mumbai",
-    //         earning: "5%",
-    //         discount: "30%",
-    //         monthlyEarning: "1-3 days",
-    //         outlets: "Included",
-    //         maintenance: "Auto managed",
-    //         area: "1500 Sq - 1000 Sq",
-    //         price: "45L",
-    //     },
-    //     {
-    //         id: 2,
-    //         bgColor: "linear-gradient(135deg, #b084f8, #9b63f4)",
-    //         image: "/image/AIHubcardbg.png",
-    //         title: "Luxury Apartment",
-    //         type: "AI Service",
-    //         rating: 5,
-    //         location: "Banjara Hills, Hyderabad",
-    //         earning: "7%",
-    //         discount: "25%",
-    //         monthlyEarning: "1-3 days",
-    //         outlets: "Included",
-    //         maintenance: "Auto managed",
-    //         area: "1800 Sq - 1200 Sq",
-    //         price: "72L",
-    //     },
-    //     {
-    //         id: 3,
-    //         bgColor: "linear-gradient(135deg, #4ccbb8, #2ea89c)",
-    //         image: "/image/AIHubcardbg.png",
-    //         title: "Commercial Space",
-    //         type: "AI Service",
-    //         rating: 4,
-    //         location: "Koramangala, Bangalore",
-    //         earning: "6%",
-    //         discount: "20%",
-    //         monthlyEarning: "1-3 days",
-    //         outlets: "Included",
-    //         maintenance: "Auto managed",
-    //         area: "1300 Sq - 900 Sq",
-    //         price: "89L",
-    //     },
-    //     {
-    //         id: 4,
-    //         bgColor: "linear-gradient(135deg, #ff9da7, #ff6b81)",
-    //         image: "/image/AIHubcardbg.png",
-    //         title: "Studio Apartment",
-    //         type: "AI Service",
-    //         rating: 3,
-    //         location: "Powai, Mumbai",
-    //         earning: "4%",
-    //         discount: "15%",
-    //         monthlyEarning: "1-3 days",
-    //         outlets: "Included",
-    //         maintenance: "Auto managed",
-    //         area: "900 Sq - 700 Sq",
-    //         price: "38L",
-    //     },
-    //     {
-    //         id: 5,
-    //         bgColor: "linear-gradient(135deg, #9df0ff, #59d9f3)",
-    //         image: "/image/AIHubcardbg.png",
-    //         title: "Retail Shop",
-    //         type: "AI Service",
-    //         rating: 4,
-    //         location: "Gachibowli, Hyderabad",
-    //         earning: "6%",
-    //         discount: "20%",
-    //         monthlyEarning: "1-3 days",
-    //         outlets: "Included",
-    //         maintenance: "Auto managed",
-    //         area: "1100 Sq - 850 Sq",
-    //         price: "55L",
-    //     },
-    // ];
+
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -123,10 +42,10 @@ export default function Recommended({ moduleId }: RecommendedProps) {
         fetchRecommendedServices(moduleId);
     }, [moduleId]);
 
-     const { categoryId } = useParams<{
-                moduleId: string;
-                categoryId: string;
-              }>();
+    const { categoryId } = useParams<{
+        moduleId: string;
+        categoryId: string;
+    }>();
 
     const getMaxScroll = () => {
         const container = containerRef.current;
@@ -187,7 +106,8 @@ export default function Recommended({ moduleId }: RecommendedProps) {
         );
     };
 
-
+    const FIXED_ICONS = ['⚡', '🧠', '🛠 '];
+  
     const mappedServices = services.map((service) => {
         const packages = service.serviceDetails?.packages || [];
         const startingPackage = getStartingPackage(packages);
@@ -211,6 +131,8 @@ export default function Recommended({ moduleId }: RecommendedProps) {
                     key: item.key,
                     label: item.value,
                 })) || [],
+
+            commission: service.franchiseDetails.commission
         };
     });
 
@@ -235,15 +157,15 @@ export default function Recommended({ moduleId }: RecommendedProps) {
                         key={p.id}
                         className="
                             snap-center
-                            w-[270px] md:w-[308px] lg:w-[408px] lg:h-[373.99px]
-                            bg-[#F4F4F4] mx-auto
+                            w-[290px] md:w-[308px] lg:w-[408px] lg:h-[373.99px]
+                            bg-[#F4F4F4] 
                             rounded-2xl
                             p-4
                             flex-shrink-0
                             overflow-hidden
                             relative"
                         onClick={() => {
-                              router.push(`/MainModules/AI-Hub/${moduleId}/${categoryId}/${p.id}`);
+                            router.push(`/MainModules/AI-Hub/${moduleId}/${categoryId}/${p.id}`);
                         }}
                     >
                         {/* IMAGE */}
@@ -300,7 +222,7 @@ export default function Recommended({ moduleId }: RecommendedProps) {
                                     Discount {p.discount} %
                                 </span> */}
                                 <span className="bg-green-600 text-white  text-[8px] lg:text-[10px] px-1 py-1 rounded-lg font-semibold">
-                                    Earn Up to {p.discount} %
+                                    Earn Up to {p.commission}
                                 </span>
                             </div>
 
@@ -320,15 +242,18 @@ export default function Recommended({ moduleId }: RecommendedProps) {
                                     <Settings size={14} />
                                     Maintenance: {p.maintenance}
                                 </p> */}
-                                  <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
-                                                Setup & Time
-                                            </p>
-                                {p.keyValues.map((kv) => (
+                                <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
+                                    Setup & Time
+                                </p>
+                                {p.keyValues.map((kv,index) => (
                                     <div
                                         key={kv.id}
                                         className="flex flex-col text-[10px] lg:text-[14px] text-gray-700 leading-snug"
                                     >
                                         <div className="flex flex-row space-x-1">
+                                            <span className="text-base w-5 text-center -mt-1">
+                                                {FIXED_ICONS[index] || '•'}  
+                                            </span>
                                             <span className="font-medium">{kv.key}:</span>
                                             <span className="text-gray-500">{kv.label}</span>
                                         </div>
