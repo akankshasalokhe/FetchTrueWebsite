@@ -2154,6 +2154,42 @@ if (!service) {
   </div>
 </section>
 
+{/* Good Things Here */}
+ <section className="w-full py-10">
+      <div className="max-w-[1400px] mx-auto px-4">
+        
+        {/* Title */}
+        <h2 className="text-[24px] md:text-[28px] font-semibold text-[#5B2D8B] mb-6">
+          Good Things Here
+        </h2>
+
+        {/* Container */}
+        <div className="bg-white border border-[#F1F1F1] rounded-xl shadow-sm px-5 py-6">
+          
+          {/* Pills */}
+          <div className="flex flex-wrap gap-3">
+            {service?.serviceDetails?.goodThings.map((item) => (
+              <div
+                key={item}
+                className="
+                  px-4 py-2
+                  text-[13px] md:text-[14px]
+                  text-gray-600
+                  bg-[#FAFAFA]
+                  border border-[#E5E5E5]
+                  rounded-md
+                  whitespace-nowrap
+                "
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
 {/* We Required */}
  <section className="w-full py-6 sm:py-8">
    <div className="max-w-[1400px] mx-auto px-4">

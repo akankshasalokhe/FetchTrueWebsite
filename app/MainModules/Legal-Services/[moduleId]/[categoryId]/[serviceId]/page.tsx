@@ -1117,6 +1117,19 @@ const images = service.bannerImages;
             </span>
           </div>
 
+          {/* Key Values */}
+          <div className="grid grid-cols-3 gap-4 mb-6">
+        {service?.keyValues.map((item) => (
+          <div key={item._id} className="flex items-center gap-3">
+            <img src={item.icon} className="w-4 h-4" />
+            <div>
+              <p className="text-[13px] text-[#8B8B8B]">{item.key}</p>
+              <p className="text-[14px] font-medium">{item.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
           {/* Cost + Time */}
           <div className="flex  sm:flex-row gap-4 lg:gap-6 mb-6">
             
