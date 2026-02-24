@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useTopTrending } from "@/src/context/TopTrendingContext";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type TopTrendingProps = {
     moduleId: string;
@@ -20,7 +22,7 @@ interface Package {
 
 
 export default function TopTrending({ moduleId }: TopTrendingProps) {
-   
+    const router = useRouter();
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -38,6 +40,10 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
         fetchTopTrending(moduleId);
     }, [moduleId]);
 
+ const { categoryId } = useParams<{
+            moduleId: string;
+            categoryId: string;
+        }>();
 
     const getMaxScroll = () => {
         const container = containerRef.current;
@@ -155,6 +161,9 @@ export default function TopTrending({ moduleId }: TopTrendingProps) {
                             overflow-hidden
                             relative
                         "
+                         onClick={() => {
+                            router.push(`/MainModules/AI-Hub/${moduleId}/${categoryId}/${p.id}`);
+                        }}
                     >
                         {/* IMAGE */}
                         <div className="relative w-full h-40 rounded-xl overflow-hidden">

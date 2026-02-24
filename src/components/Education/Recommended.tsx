@@ -74,6 +74,7 @@ export default function Recommendation({ moduleId }: SectionProps) {
                 id: item._id,
                 label: item.value,
             })) || [],
+            commission: service.franchiseDetails.commission
 
         })});
 
@@ -160,7 +161,7 @@ export default function Recommendation({ moduleId }: SectionProps) {
 
                                         <span className="text-[8px] text-white md:text-[10px] lg:mr-2 mr-2 px-1 py-1 bg-[#548AFE] rounded-lg whitespace-nowrap shrink-0">
                                             {/* {item?.earn} */}
-                                            Earn upto 5 %
+                                            Earn upto {item.commission} 
                                         </span>
                                     </div>
 

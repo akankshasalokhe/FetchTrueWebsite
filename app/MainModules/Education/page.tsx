@@ -51,9 +51,9 @@ export default function EducationModulePage() {
     const baseSlides = chunkArray(categories, 6);
 
     const slides = [
-        baseSlides[baseSlides.length - 1], // clone last
+        baseSlides[baseSlides.length - 1],
         ...baseSlides,
-        baseSlides[0], // clone first
+        baseSlides[0], 
     ];
 
 
@@ -80,7 +80,7 @@ export default function EducationModulePage() {
                     left: el.scrollLeft + slideWidth,
                     behavior: "smooth",
                 });
-            }, 2500); // pause duration between swipes
+            }, 2500); 
         };
 
         startAutoSwipe();

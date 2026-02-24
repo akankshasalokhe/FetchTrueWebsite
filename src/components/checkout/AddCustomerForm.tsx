@@ -20,7 +20,7 @@
 
 //   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
-   
+
 //     // Add your save logic here
 //   };
 
@@ -175,14 +175,19 @@
 
 import { useState } from 'react';
 import { User, Phone, Mail, MapPin, X } from 'lucide-react';
+import { useAuth } from '@/src/context/AuthContext';
+import axios from 'axios';
 
 type Props = {
   onClose: () => void;
 };
 
 export default function AddCustomerDialog({ onClose }: Props) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('')
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     phone: '',
     email: '',
     description: '',
@@ -198,18 +203,56 @@ export default function AddCustomerDialog({ onClose }: Props) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
 
-    console.log('Customer Data:', formData);
+    try {
+        // Create FormData object
+        const formDataObj = new FormData();
+        formDataObj.append('fullName', formData.fullName);
+        formDataObj.append('phone', formData.phone);
+        formDataObj.append('email', formData.email);
+        formDataObj.append('description', formData.description);
+        formDataObj.append('address', formData.address);
+        formDataObj.append('city', formData.city);
+        formDataObj.append('state', formData.state);
+        formDataObj.append('country', formData.country);
+        formDataObj.append('user', user._id)
 
-    // later: save to backend / context
-    onClose();
-  };
+        console.log('Sending customer data as FormData');
+
+        // Make API call with multipart/form-data content type
+        const response = await axios.post(
+            'https://api.fetchtrue.com/api/service-customer',
+            formDataObj,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+
+        console.log('API Response:', response.data);
+
+        if (response.status === 200 || response.status === 201) {
+           
+            alert('Customer added successfully!');
+            onClose();
+        }
+
+    } catch (error: any) {
+        console.error('Error adding customer:', error);
+        setError(error.response?.data?.message || 'Error sending data. Please try again.');
+    } finally {
+        setLoading(false);
+    }
+};
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      
+
       {/* OVERLAY */}
       <div
         className="absolute inset-0 bg-black/40"
@@ -217,7 +260,7 @@ export default function AddCustomerDialog({ onClose }: Props) {
       />
 
       {/* MODAL */}
-      <div className="relative bg-white w-full max-w-2xl mx-auto rounded-xl shadow-lg max-h-[90vh] overflow-y-auto p-6 z-10 scrollbar-hide">
+      <div className="relative bg-white w-[90%] max-w-2xl mx-auto rounded-xl shadow-lg max-h-[90vh] overflow-y-auto p-6 z-10 scrollbar-hide">
 
         {/* HEADER */}
         <div className="flex items-center justify-between mb-6">
@@ -232,11 +275,11 @@ export default function AddCustomerDialog({ onClose }: Props) {
 
           <div>
             <label className="block text-sm font-medium mb-2">
-              <User className="inline mr-1" /> Name *
+              <User className="inline mr-1" /> Full Name *
             </label>
             <input
-              name="name"
-              value={formData.name}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
               className="w-full border rounded-md px-3 py-2"
               required
