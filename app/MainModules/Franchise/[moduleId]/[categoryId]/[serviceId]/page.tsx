@@ -1443,7 +1443,7 @@ if (!service) {
       
     >
       {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#5B3527] font-medium text-[18px] hover:underline ">Service Details</span>
+      <span className="flex items-center gap-2 text-[#1a0b05] font-medium text-[18px] hover:underline ">Service Details</span>
     </Link>
     </div>
   <div className="w-full fixed flex justify-end gap-4 mx-auto px-12 mb-5 ">
@@ -2159,7 +2159,7 @@ if (!service) {
       <div className="max-w-[1400px] mx-auto px-4">
         
         {/* Title */}
-        <h2 className="text-[24px] md:text-[28px] font-semibold text-[#5B2D8B] mb-6">
+        <h2 className="text-[24px] md:text-[28px] font-semibold text-[#6E26CB] mb-6">
           Good Things Here
         </h2>
 
