@@ -10,12 +10,21 @@ import WhyOurFranchise from "@/src/components/Franchise/WhyourFranchise";
 import Categories from "@/src/components/Franchise/Categories";
 import { useParams } from "next/navigation";
 import AllServices from "@/src/components/Franchise/AllServices";
+import { useCategoryBanner } from "@/src/context/CategoryBannerContext";
+import { useEffect } from "react";
 
 
 export default function FranchisePageClient()  {
 
   const { moduleId } = useParams<{ moduleId: string }>();
+  const { banners, loading, error, fetchBanners } = useCategoryBanner();
 
+
+  useEffect(() => {
+  if (moduleId) {
+    fetchBanners(moduleId);
+  }
+}, [moduleId]);
 
   console.log("MODULE ID IN CLIENT:", moduleId);
 
@@ -24,7 +33,9 @@ export default function FranchisePageClient()  {
       {/* MAIN WRAPPER */}
       <section
         style={{
-          backgroundImage: "url('/image/Background design.png')",
+          backgroundImage: banners?.[0]?.image
+        ? `url(${banners[0].image})`
+        : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

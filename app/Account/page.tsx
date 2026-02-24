@@ -79,6 +79,7 @@ import EarningsPage from "./wallet/page";
 import CouponsPage from "./Coupon/page";
 import HelpCenter from "./helpCenter/page";
 import { useAuth } from "@/src/context/AuthContext";
+import AboutUsPage from "./aboutus/page";
 
 export default function MyAccountPage() {
   const [selectedSection, setSelectedSection] = useState("Profile");
@@ -107,6 +108,8 @@ export default function MyAccountPage() {
         return <FiveXReturnPage />;  
       case "Coupon":
         return <CouponsPage />;  
+      case "About Us":
+        return <AboutUsPage />;  
       case "Help & Support":
         return <HelpCenter />;
       case "Delete Account":

@@ -1016,7 +1016,7 @@ const images = service.bannerImages;
       
     >
       {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#5B3527] font-medium text-[18px] hover:underline ">Service Details</span>
+      <span className="flex items-center gap-2 text-[#050a12] font-medium text-[18px] hover:underline "><span className="text-[18px]">›</span>Service Details</span>
     </Link>
     </div>
   <div className="w-full fixed flex justify-end gap-4 mx-auto px-12 mb-5 ">
@@ -1109,11 +1109,11 @@ const images = service.bannerImages;
 
       {/* Price */}
       <div className="flex flex-wrap items-center gap-3 sm:gap-6 border border-[#BEBEBE] rounded-lg px-4 py-3 mb-5">
-        <img src="/image/rupee.png" className="w-5 h-5" />
+        <img src="/image/Vector (34).png" className="w-5 h-5" />
         <p className="text-[16px] sm:text-[18px] text-[#868686]">
           Starting{" "} 
           <span className="font-medium text-[20px] sm:text-[22px] text-[#232323]">
-             ₹{service?.serviceDetails?.packages?.[0]?.price}/
+             {service?.serviceDetails?.packages?.[0]?.discountedPrice}/
           </span>
           <span className="text-[16px]"> Per Month</span>
         </p>

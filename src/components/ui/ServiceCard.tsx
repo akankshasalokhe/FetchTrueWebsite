@@ -65,7 +65,9 @@ export default function ServiceCard({
             {keyvalues && keyvalues.length > 0 && (
   <ul className="flex flex-wrap gap-2 text-[12px] ">
     {keyvalues.slice(0, 3).map((item: any, index: number) => (
-      <li key={index} className=" px-2 py-1 rounded">
+      <li key={index} className=" px-2 py-1 rounded flex items-center gap-1">
+        <img src={item.icon} className="w-3 h-3" />
+
         {item.value}
       </li>
     ))}

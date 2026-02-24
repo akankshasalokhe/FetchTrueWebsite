@@ -1035,6 +1035,7 @@ import HighDemand from "@/src/components/Business/HighDemand";
 import Recommended from "@/src/components/Business/Recommended";
 import TopRated from "@/src/components/Business/TopRated";
 import BusinessCard from "@/src/components/ui/BusinessCard";
+import { useCategoryBanner } from "@/src/context/CategoryBannerContext";
 import { useWhyChooseService } from "@/src/context/WhyJustOurServiceContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -1142,10 +1143,13 @@ export default function BusinessPageClient() {
 
     const { moduleId,categoryId } = useParams<{ categoryId:string ,moduleId: string }>();
         const { services, loading, fetchWhyServices } = useWhyChooseService();
+        const { banners, fetchBanners } = useCategoryBanner();
     
      useEffect(()=>{
           if(moduleId){
             fetchWhyServices(moduleId as string)
+                fetchBanners(moduleId as string);
+
           }
         },[moduleId]);
 
@@ -1246,7 +1250,9 @@ export default function BusinessPageClient() {
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat mt-30 lg:mt-30"
         style={{
-          backgroundImage: "url('/image/business-hero.png')",
+          backgroundImage: banners?.[0]?.image
+        ? `url(${banners[0].image})`
+        : "none",
         }}
       />
 

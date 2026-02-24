@@ -10,46 +10,69 @@ import MostlyUsed from "@/src/components/Marketing/MostlyUsed";
 import TopTrending from "@/src/components/Marketing/TopTrending";
 import WhyJustOurServices from "@/src/components/Marketing/WhyOurServices";
 import SuggestedProviders from "@/src/components/Marketing/Providers";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useCategoryBanner } from "@/src/context/CategoryBannerContext";
+import { Banner, useBanner } from "@/src/context/CarouselBannerContext";
 
 export default function MarketingHero() {
-  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { banners, loading, error, fetchBanners } = useCategoryBanner();
+  const { getBannersByPage} = useBanner();
+  const router = useRouter();
+  
+     const { moduleId } = useParams<{ moduleId: string }>();
 
-   const { moduleId } = useParams<{ moduleId: string }>();
+  const heroBanners = getBannersByPage("category").filter(
+  (banner) =>
+    banner.module &&
+    banner.module._id === moduleId &&
+    !banner.isDeleted
+);
+
    
    
      console.log("MODULE ID IN CLIENT:", moduleId);
 
   useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
+  const slider = scrollRef.current;
+  if (!slider || !heroBanners.length) return;
 
-    let scrollAmount = 0;
-    const speed = 0.5; // smooth speed
+  const interval = setInterval(() => {
+    slider.scrollLeft += 1;
 
-    const scroll = () => {
-      scrollAmount += speed;
-      slider.scrollLeft = scrollAmount;
+    if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
+      slider.scrollLeft = 0;
+    }
+  }, 20);
 
-      // reset when half content is scrolled
-      if (scrollAmount >= slider.scrollWidth / 2) {
-        scrollAmount = 0;
-        slider.scrollLeft = 0;
-      }
-    };
+  return () => clearInterval(interval);
+}, [heroBanners.length]);
 
-    const interval = setInterval(scroll, 16);
-    return () => clearInterval(interval);
-  }, []);
+  useEffect(() => {
+  if (moduleId) {
+    fetchBanners(moduleId);
+  }
+}, [moduleId]);
 
-  const images = [
-    "/image/bannerMarketing.jpg",
-    "/image/bannerMarketing.jpg",
-    "/image/bannerMarketing.jpg",
-    "/image/bannerMarketing.jpg",
-    "/image/bannerMarketing.jpg",
-    "/image/bannerMarketing.jpg",
-  ];
+
+const handleBannerClick = (banner:Banner) => {
+  
+
+  if (banner.selectionType === "subcategory" && banner.subcategory?._id) {
+    router.push(`/MainModules/Marketing/${moduleId}/${banner.subcategory?._id}`);
+    return;
+  }
+};
+
+if (loading) return null;
+
+// if (!heroBanners.length) {
+//   return (
+//     <div className="text-center py-10 text-gray-500">
+//       No banners available
+//     </div>
+//   );
+// }
 
   return (
     <div className="">
@@ -59,7 +82,7 @@ export default function MarketingHero() {
         {/* ---------- BACKGROUND IMAGE ---------- */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/image/marketingbgdesign.png"
+            src={banners[0]?.image}
             alt="Marketing Hero"
             fill
             className="object-cover"
@@ -123,19 +146,20 @@ export default function MarketingHero() {
         <section className="relative z-50 w-full -mt-[140px] pb-30">
           <div className="overflow-hidden">
             <div
-              ref={sliderRef}
+              ref={scrollRef}
               className="flex gap-10 w-max px-10"
             >
-              {[...images, ...images].map((img, index) => (
-                <div key={index}>
+              {heroBanners.map((banner) => (
+                <div key={banner._id}
+                onClick={()=>handleBannerClick(banner)}>
                   <div className="
                     w-[300px] sm:w-[360px] lg:w-[480px]
                     h-[200px] sm:h-[240px] lg:h-[270px]
                     bg-black rounded-md overflow-hidden
                   ">
                     <img
-                      src={img}
-                      alt="Marketing Banner"
+                      src={banner.file}
+                      alt={banner.page}
                       className="w-full h-full object-cover"
                     />
                   </div>

@@ -52,7 +52,7 @@ export const AllCouponProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://api.fetchtrue.com/api/coupon");
+      const response = await axios.get("https://api.fetchtrue.com/api/coupon");
       if (response.data.success) {
         setCoupons(response.data.data);
       } else {
