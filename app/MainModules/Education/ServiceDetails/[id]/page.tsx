@@ -79,10 +79,10 @@ export default function ServiceDetails() {
     return (
         <>
             <section className="w-full bg-white">
-                {/* ================= DESKTOP ================= */}
+                {/*  DESKTOP  */}
                 <div className="hidden lg:block w-full bg-white pt-8">
 
-                    {/* ===== HEADER BAR ===== */}
+                    {/*  HEADER BAR  */}
                     <div className="w-screen fixed top-0 z-50 bg-white mx-auto flex items-center justify-between px-8 py-4">
                         {/* LEFT */}
                         <div className="flex items-center gap-3 ml-20">
@@ -108,10 +108,10 @@ export default function ServiceDetails() {
                         </div>
                     </div>
 
-                    {/* ===== CONTENT BELOW HEADER ===== */}
+                    {/*  CONTENT BELOW HEADER  */}
                     <div className="flex gap-8 p-8 max-w-[1400px] mx-auto mt-4">
 
-                        {/* ===== LEFT IMAGE ===== */}
+                        {/*  LEFT IMAGE  */}
                         <div className="flex flex-col gap-3">
                             <div className="relative w-[652px] h-[503px] rounded-lg overflow-hidden">
                                 <img
@@ -145,24 +145,37 @@ export default function ServiceDetails() {
                             {/* RATING */}
                             <div className="flex items-center gap-2 text-[20px]">
                                 <span className="text-yellow-500">★</span>
-                                <span className="font-semibold">{DATA.rating}</span>
-                                <span className="text-gray-500">({DATA.reviews})</span>
+                                <span className="font-medium text-black">{reviewServices?.averageRating}</span>
+                                <span> ({reviewServices?.totalReviews ?? 0} {reviewServices?.totalReviews === 1 ? 'review' : 'reviews'})</span>
                             </div>
 
                             {/* PRICE */}
-                            <div className="border rounded-xl gap-4 p-3 inline-flex items-center">
-                                <p className="text-[24px]">Price</p>
+                            {/* <div className="border rounded-xl gap-4 p-3 inline-flex items-center">
+                                <div className="text-[24px]">Starting price</div>
 
                                 <span className="text-[36px] font-semibold">
-                                    ₹{DATA.price}
+                                    ₹{service?.serviceDetails.packages[0]?.discountedPrice}
                                 </span>
 
                                 <div>
                                     <span className="line-through text-[20px] text-gray-400">
-                                        ₹{DATA.originalPrice}
+                                        ₹{service?.serviceDetails.packages[0]?.price}
                                     </span>
                                     <span className="bg-[#281A83] text-white text-sm px-2 py-1 rounded ml-2">
-                                        {DATA.discount}
+                                      {service?.serviceDetails.packages[0]?.discount}% OFF
+                                    </span>
+                                </div>
+                            </div> */}
+
+                            <div className="border rounded-lg p-2 mt-4 w-[50%]">
+                                <div className="lg:text-[20px]">Starting price from</div>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-[36px] font-semibold"> ₹{service?.serviceDetails.packages[0]?.discountedPrice}</span>
+                                    <span className="line-through text-[20px] text-gray-400">
+                                        ₹{service?.serviceDetails.packages[0]?.price}
+                                    </span>
+                                    <span className="bg-black text-white text-[16px] px-3 py-1 rounded">
+                                        {service?.serviceDetails.packages[0]?.discount}% OFF
                                     </span>
                                 </div>
                             </div>
@@ -272,10 +285,10 @@ export default function ServiceDetails() {
                             <div className="flex flex-col items-center gap-1 text-sm">
                                 <div>
                                     <span className="text-yellow-500">★</span>
-                                    <span>{DATA.rating}</span>
+                                    <span className="font-medium">{reviewServices?.averageRating}</span>
                                 </div>
                                 <p className="text-xs text-gray-400 whitespace-nowrap">
-                                    ({DATA.reviews})
+                                    <p className="text-xs text-gray-500">({reviewServices?.totalReviews ?? 0} {reviewServices?.totalReviews === 1 ? 'review' : 'reviews'})</p>
                                 </p>
                             </div>
                         </div>
@@ -283,12 +296,17 @@ export default function ServiceDetails() {
                         <p className="text-sm text-gray-500">{DATA.subtitle}</p>
 
                         {/* PRICE */}
-                        <div className="flex items-center gap-2 text-sm mt-2">
-                            <span className="font-semibold">₹{DATA.price}</span>
-                            <span className="line-through text-gray-400">
-                                ₹{DATA.originalPrice}
-                            </span>
-                            <span className="text-[#281A83]">{DATA.discount}</span>
+                        <div className="border rounded-lg inline-block p-1">
+                            <div className="flex flex-row">
+                                Starting price from
+                            </div>
+                            <div className="flex items-center gap-2 text-sm mt-2">
+                                <span className="font-semibold">₹{service?.serviceDetails?.packages[0]?.discountedPrice}</span>
+                                <span className="line-through text-gray-400">
+                                    ₹{service?.serviceDetails?.packages[0]?.price}
+                                </span>
+                                <span className="bg-black text-white text-[10px] px-3 py-1 rounded">{service?.serviceDetails?.packages[0]?.discount}%OFF</span>
+                            </div>
                         </div>
 
                         <p className="text-[12px]">EMI Option available</p>
@@ -321,7 +339,7 @@ export default function ServiceDetails() {
                         </div>
 
                         {/* COMMISSION */}
-                        <div className="mt-4 bg-white rounded-xl p-4 shadow flex justify-between items-center">
+                        <div className="mt-4 bg-white rounded-xl p-4 mb-2 border shadow flex justify-between items-center">
                             <div>
                                 <p className="text-sm font-medium">Franchise Commission</p>
                                 <p className="text-green-600 font-semibold">

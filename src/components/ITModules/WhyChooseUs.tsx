@@ -94,13 +94,16 @@ export default function WhyChooseUs({ moduleId }: props) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
   
-    const mappedServices = services.map((service) => ({
-      id: service._id,
-      icon: service.items?.[0]?.icon,
-      title: service.items?.[0]?.title,
-      description: service.items?.[0]?.description,
-    }));
-
+    const mappedServices = services.flatMap((service) =>
+    service.items.map((item) => ({
+      id: `${service._id}-${item.title}`,
+      icon: item.icon,
+      title: item.title,
+      description: item.description,
+      module: service.module,
+    }))
+  );
+  
   return (
     /*  SECTION CENTERED */
     <section className="w-full max-w-[1218px] mx-auto px-4 md:px-8 py-10">

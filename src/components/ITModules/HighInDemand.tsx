@@ -360,10 +360,17 @@ type SectionProps = {
     selectedRange?: string;
     selectedCategory?: string;
     searchQuery?: string;
-    contextTitle?: string; 
+    contextTitle?: string;
 };
 
-
+interface Package {
+    _id: string;
+    name: string;
+    price: number;
+    discount: number;
+    discountedPrice: number;
+    whatYouGet: string[];
+}
 
 export default function HighInDemand({ moduleId }: SectionProps) {
 
@@ -420,22 +427,36 @@ export default function HighInDemand({ moduleId }: SectionProps) {
         </svg>
     );
 
-   
+    const getStartingPackage = (packages: Package[] = []) => {
+        if (!packages.length) return null;
 
-    const mappedServices = services.map((service) => ({
+        return packages.reduce((min, pkg) =>
+            pkg.discountedPrice < min.discountedPrice ? pkg : min
+        );
+    };
+
+
+    const mappedServices = services.map((service) => {
+         const packages = service.serviceDetails?.packages || [];
+        const startingPackage = getStartingPackage(packages);
+        return ({
         id: service._id,
         title: service.serviceName,
         category: service.category?.name || "Unknown",
         image: service.thumbnailImage || "/image/placeholder.png",
         rating: service.averageRating ?? 0,
         reviews: service.totalReviews,
-        // price: service.price || 0,
+        price: startingPackage?.discountedPrice ?? 0,
+        originalPrice: startingPackage?.price ?? 0,
+        discount: startingPackage?.discount ?? 0,
         keyValues: service.keyValues?.map((item) => ({
             id: item._id,
             label: item.value,
         })) || [],
+        commission: service.franchiseDetails.commission
+    })
 
-    }));
+    });
 
 
     if (loading) return <p>Loading...</p>;
@@ -447,7 +468,7 @@ export default function HighInDemand({ moduleId }: SectionProps) {
         <div className="w-full p-4 md:ml-6 md:p-6">
             {/* TITLE */}
             <h2 className="text-xl md:text-3xl font-semibold mb-4">
-            Top Trending
+                Top Trending
             </h2>
 
             {/* SWIPEABLE CARDS */}
@@ -460,7 +481,7 @@ export default function HighInDemand({ moduleId }: SectionProps) {
                         <div
                             key={item.id}
                             onClick={() =>
-                                 router.push(`/MainModules/It-Services/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
+                                router.push(`/MainModules/It-Services/ServiceDetails/${item.id}?service=${encodeURIComponent(item.title)}`)
                             }
                             className="
                                 relative snap-center flex-shrink-0
@@ -487,10 +508,9 @@ export default function HighInDemand({ moduleId }: SectionProps) {
                                     rounded-bl-none"
                                     />
 
-                                    {/* Discount */}
-                                    <span className="absolute top-6 right-18 bg-green-400 text-black text-xs font-semibold px-2 py-1 rounded-lg">
-                                        Discount 25%
-                                        {/* {item.discount} */}
+                                    <span className="absolute top-6 left-8 bg-white text-blue-600 text-xs font-semibold px-3 py-1 rounded-lg flex items-center gap-1">
+                                        <img src="/image/security.png" width={14} height={14} />
+                                        Trusted
                                     </span>
 
                                     {/* Bookmark */}
@@ -510,7 +530,7 @@ export default function HighInDemand({ moduleId }: SectionProps) {
                                         </span>
 
                                         <span className="text-[8px] md:text-[10px] text-white px-1 py-1 bg-green-400 rounded-lg whitespace-nowrap shrink-0">
-                                            Earn Up to 5%
+                                            Earn Up to {item.commission}
                                             {/* {item.earn} */}
                                         </span>
                                     </div>
@@ -578,7 +598,7 @@ export default function HighInDemand({ moduleId }: SectionProps) {
                                                 })()}
                                             </div>
                                             <div className="lg:text-[10px] md:text-[10px] text-[9px] text-gray-700 md:ml-2 ml-2 lg:ml-2">
-                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> {item.reviews} Reviews
+                                                <User className="inline-block w-[12px] h-[12px] flex-shrink-0" /> {item.reviews} {item.reviews <= 1 ? 'Review' : 'Reviews'}
                                             </div>
                                         </div>
                                     </div>
@@ -596,11 +616,11 @@ export default function HighInDemand({ moduleId }: SectionProps) {
                                             truncate 
                                             whitespace-nowrap"
                                     >
-                                        <div className="text-[10px] md:text-[12px] lg:text-[12px] text-white bg-black rounded-md px-1 py-1 mb-2">12% OFF</div>
+                                        <div className="text-[10px] md:text-[12px] lg:text-[12px] text-white bg-black rounded-md px-1 py-1 mb-2">{item.discount}% OFF</div>
                                         <span className="lg:text-[10px] md:text-[10px] lg:text-[12px] text-gray-500 ">Starting from</span>
                                         {/* ₹ {item.price} */}
                                         <div className="flex flex-row items-center gap-2">
-                                            <span className="text-gray-400 line-through">₹ 5,999</span>₹ 3,999
+                                            <span className="text-gray-400 line-through">₹ {item.originalPrice}</span>₹ {item.price}
                                         </div>
                                     </div>
                                 </div>

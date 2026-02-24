@@ -437,12 +437,10 @@ const ServiceDetails = () => {
 
     const displayPackage = selectedPackage ?? basicPackage;
 
-    // ✅ CLEAR PACKAGE IMMEDIATELY WHEN SERVICE ID CHANGES
+    
     useEffect(() => {
         // If service ID changed (and it's not the first load)
         if (prevServiceIdRef.current && prevServiceIdRef.current !== serviceId) {
-            console.log("Service changed from", prevServiceIdRef.current, "to", serviceId);
-            console.log("Clearing selected package");
             setSelectedPackage(null);
         }
         
@@ -505,7 +503,7 @@ const ServiceDetails = () => {
             <section className="relative w-full lg:p-8 p-0">
                 <div className="flex flex-col lg:flex-row gap-6 lg:p-4 w-full">
 
-                    {/* ================= DESKTOP VERSION ================= */}
+                    {/*  DESKTOP VERSION  */}
                     <div className="hidden lg:block w-full bg-white">
                         <div className="flex items-center justify-between w-screen  px-8 pt-6 fixed top-0 z-50 bg-white -ml-14">
 
@@ -566,7 +564,7 @@ const ServiceDetails = () => {
                                 </div>
                             </div>
 
-                            {/* ===== RIGHT: DETAILS ===== */}
+                            {/*  RIGHT: DETAILS  */}
                             <div className="flex flex-col flex-1">
 
                                 {/* TITLE */}
@@ -580,20 +578,20 @@ const ServiceDetails = () => {
                                     <div className="flex items-center gap-2 text-[32px] text-gray-600">
                                         <span className="text-yellow-500">★</span>
                                         <span className="font-medium text-black">{reviewServices?.averageRating}</span>
-                                        <span>({reviewServices?.totalReviews} reviews)</span>
+                                        <span> ({reviewServices?.totalReviews ?? 0} {reviewServices?.totalReviews === 1 ? 'review' : 'reviews'})</span>
                                     </div>
                                 </div>
 
                                 {/* PRICE BOX */}
                                 <div className="border rounded-lg p-4 mt-10 w-full">
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-gray-500 text-[24px]">Price</span>
-                                        <span className="text-[36px] font-semibold">{service?.price}</span>
+                                    <div className="lg:text-[20px]">Starting Form</div>
+                                    <div className="flex items-center gap-4">                                       
+                                        <span className="text-[36px] font-semibold"> ₹{service?.serviceDetails.packages[0]?.discountedPrice}</span>
                                         <span className="line-through text-[20px] text-gray-400">
-                                            {service?.discountedPrice}
+                                             ₹{service?.serviceDetails.packages[0]?.price}
                                         </span>
                                         <span className="bg-black text-white text-[16px] px-3 py-1 rounded">
-                                            {service?.discount} OFF
+                                            {service?.serviceDetails.packages[0]?.discount}% OFF
                                         </span>
                                     </div>
                                 </div>
@@ -605,7 +603,7 @@ const ServiceDetails = () => {
                                             Franchise Commission
                                         </p>
                                         <p className="text-green-600 text-[36px] font-semibold">
-                                            Earn Up to 7%
+                                            Earn Up to {service?.franchiseDetails.commission}
                                         </p>
                                     </div>
 
@@ -619,7 +617,7 @@ const ServiceDetails = () => {
                     </div>
 
 
-                    {/* ================= MOBILE VERSION ================= */}
+                    {/*  MOBILE VERSION  */}
                     <div className="block lg:hidden w-full mb-6">
 
                         {/* ===== IMAGE + HEADER ===== */}
@@ -692,29 +690,30 @@ const ServiceDetails = () => {
                             <div className="flex justify-between items-start">
 
                                 <div>
-                                    <p className="line-through text-gray-400 text-sm">₹14,000</p>
+                                    <div className="text-[12px] md:text-[15px]">Starting from</div>
+                                    <p className="line-through text-gray-400 text-sm">₹{service?.serviceDetails?.packages[0]?.price}</p>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-2xl font-bold">₹10,000</span>
+                                        <span className="text-2xl font-bold">₹{service?.serviceDetails?.packages[0]?.discountedPrice}</span>
                                         <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
-                                            25% OFF
+                                            {service?.serviceDetails?.packages[0]?.discount}% OFF
                                         </span>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center gap-1 text-sm">
                                     <span className="text-yellow-500">★</span>
-                                    <span className="font-medium">4.8</span>
+                                    <span className="font-medium">{reviewServices?.averageRating}</span>
                                 </div>
                             </div>
 
-                            <p className="text-xs text-gray-500">(2,400+ reviews)</p>
+                            <p className="text-xs text-gray-500">({reviewServices?.totalReviews ?? 0} {reviewServices?.totalReviews === 1 ? 'review' : 'reviews'})</p>
 
                             {/* COMMISSION BOX */}
                             <div className="bg-[#E9EFF6] rounded-xl p-4 flex justify-between items-center">
                                 <div>
                                     <p className="text-sm font-medium">Franchise Commission</p>
                                     <p className="text-green-600 text-lg font-semibold">
-                                        Earn Up to 7%
+                                        Earn Up to {service?.franchiseDetails.commission}
                                     </p>
                                 </div>
 

@@ -154,7 +154,7 @@ export default function EducationModulePage() {
                             <Link href="/">
                                 <img src="/image/ITServiceSubCategorieshome.png" className="w-[30px] cursor-pointer" />
                             </Link>
-                            <h1 className="text-lg md:text-2xl font-semibold">Education Service</h1>
+                            <h1 className="text-lg md:text-2xl font-semibold">Education Servicennn</h1>
                         </div>
 
                         {/* SEARCH */}
@@ -200,7 +200,7 @@ export default function EducationModulePage() {
                 </div>
             </section>
 
-            {/* ================= NAVBAR MOBILE ================= */}
+            {/*  NAVBAR MOBILE  */}
             <section>
                 <div
                     className="
@@ -261,7 +261,7 @@ export default function EducationModulePage() {
 
 
 
-                {/* ================= DESKTOP LAYOUT ================= */}
+                {/*  DESKTOP LAYOUT  */}
                 <div className="hidden md:flex w-full justify-center mb-10">
                     <div className="w-full max-w-6xl text-center">
                         <p className="font-semibold text-[32px] text-[#1C3D85] leading-tight">
@@ -313,7 +313,7 @@ export default function EducationModulePage() {
             <section className="relative w-full mt-2 p-22 bg-[#F8F9FA]">
                 <h1 className="text-[16px] font-semibold md:text-[24px] mb-5">Category</h1>
 
-                {/* ================= DESKTOP (UNCHANGED) ================= */}
+                {/*  DESKTOP */}
 
                 <div className="hidden md:flex flex-wrap gap-10 rounded-lg">
                     {categories.map((item, index) => (
