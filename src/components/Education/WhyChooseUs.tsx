@@ -50,10 +50,10 @@ export default function WhyChooseUs({ moduleId }: props) {
 
       {/* CARDS */}
       <div className="space-y-6">
-        {mappedServices.map((item) => (
+        {mappedServices.map((item,index) => (
           /*  CARD CENTERED */
           <div
-            key={item.id}
+            key={index}
             className="
               flex items-center
               mx-auto

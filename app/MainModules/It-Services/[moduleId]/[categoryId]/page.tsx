@@ -350,7 +350,7 @@ export default function SubCategoryPage() {
               {/* CONTENT SECTIONS */}
             
                       
-                        <section className="px-6 mt-10">
+                        {/* <section className="px-6 mt-10">
                             <div
                                 className="
                   grid
@@ -369,7 +369,51 @@ export default function SubCategoryPage() {
             
                                 ))}
                             </div>
-                        </section>
+                        </section> */}
+
+                        {/* CONTENT SECTIONS */}
+          <section className="px-6 mt-10">
+              {filteredAndSorted.length === 0 ? (
+                  /* ── Empty State ── */
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {/* Show 4 empty placeholder cards */}
+                      {[...Array(1)].map((_, i) => (
+                          <div
+                              key={i}
+                              className="
+                                  w-full h-[355px] rounded-xl
+                                  bg-gray-100 border border-dashed border-gray-300
+                                  flex flex-col items-center justify-center gap-3
+                                  text-gray-400 ml-15 mb-4
+                              "
+                          >
+                              {/* Empty illustration */}
+                              <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="w-12 h-12 text-gray-300"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={1.2}
+                              >
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h18M3 12h18M3 17h18" />
+                              </svg>
+                              <p className="text-sm font-medium text-gray-400">No Service Available</p>
+                          </div>
+                      ))}
+                  </div>
+              ) : (
+                  /* ── Service Cards Grid ── */
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
+                      {filteredAndSorted.map(service => (
+                          <ServiceCard
+                              key={`${service.source}-${service.id}`}
+                              service={service}
+                          />
+                      ))}
+                  </div>
+              )}
+          </section>
         </>
     );
 }

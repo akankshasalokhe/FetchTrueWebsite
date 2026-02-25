@@ -103,7 +103,7 @@ export default function WhyChooseUs({ moduleId }: props) {
       module: service.module,
     }))
   );
-  
+
   return (
     /*  SECTION CENTERED */
     <section className="w-full max-w-[1218px] mx-auto px-4 md:px-8 py-10">
@@ -119,10 +119,10 @@ export default function WhyChooseUs({ moduleId }: props) {
 
       {/* CARDS */}
       <div className="space-y-6">
-        {mappedServices.map((item) => (
+        {mappedServices.map((item,index) => (
           /*  CARD CENTERED */
           <div
-            key={item.id}
+            key={index}
             className="
               flex items-center
               mx-auto

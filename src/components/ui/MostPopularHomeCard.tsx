@@ -341,7 +341,7 @@ export default function MostPopularHomeCard({
                                     </div>
                                 )}
 
-                                {franchiseDetails?.commission && (
+                                {/* {franchiseDetails?.commission && (
                                     <div className="relative px-2 flex flex-col gap-1 text-center justify-center">
                                         <span className="absolute left-0 top-1/2 -translate-y-1/2 h-10 w-[1px] bg-gray-300" />
                                         <span className="font-semibold text-[12px] lg:text-[12px] text-gray-900">
@@ -351,7 +351,7 @@ export default function MostPopularHomeCard({
                                             {displayCommission}
                                         </span>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         )}
 
@@ -430,9 +430,9 @@ export default function MostPopularHomeCard({
                                             }}
                                         />
                                     )}
-                                    <span className="min-w-0 break-words whitespace-normal font-medium">
+                                    {/* <span className="min-w-0 break-words whitespace-normal font-medium">
                                         {getDisplayKey(f.key, f.title)}:
-                                    </span>
+                                    </span> */}
                                     <span className="min-w-0 break-words leading-[1.0] whitespace-normal text-gray-600">
                                         {f.title}
                                     </span>
