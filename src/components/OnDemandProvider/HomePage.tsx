@@ -546,7 +546,7 @@ function RightContent({ activeSection }: { activeSection: SidebarSection }) {
         case "Wallet":             return <EarningsPage />;
         case "5X Guarantee":       return <FiveXReturnPage />;
         case "Coupon":             return <CouponsPage />;
-        case "Customer":           return <CustomerList onAdd={leela}/>;
+        // case "Customer":           return <CustomerList onAdd={leela}/>;
         case "About Us":           return <AboutUsPage />;
         case "Notification":       return <NotificationSettings />;
         case "Help & Support":     return <HelpCenter />;
