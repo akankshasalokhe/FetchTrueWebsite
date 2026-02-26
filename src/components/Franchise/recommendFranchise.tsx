@@ -125,10 +125,10 @@ const filteredServices =
                       service.keyValues?.find((kv) => kv.key === "Area")
                         ?.value || "N/A"
                     }
-                    isFavourite={fav}
-                    onToggleFavourite={() =>
-                      handleToggleFavourite(service._id)
-                    }
+                    // isFavourite={fav}
+                    // onToggleFavourite={() =>
+                    //   handleToggleFavourite(service._id)
+                    // }
                   />
                 </Link>
               );
