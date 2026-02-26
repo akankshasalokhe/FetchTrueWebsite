@@ -93,7 +93,7 @@ const filteredServices =
         <div className="flex gap-4 pb-4">
           <HorizontalScroll>
             {filteredServices.map((service) => {
-              const fav = isFavourite(service._id);
+              // const fav = isFavourite(service._id);
 
               return (
                 <Link
