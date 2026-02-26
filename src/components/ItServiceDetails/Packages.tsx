@@ -99,12 +99,14 @@ function PackageCard({ pkg }: { pkg: PackageItem }) {
 
       {/* PRICE BOX */}
       <div className="border border-orange-300 rounded-lg py-3 px-4 w-fit mx-auto text-center mb-6">
-        <p className="text-gray-400 line-through text-sm">
-          ₹{pkg.price.toLocaleString()}
-          <span className="text-blue-500 ml-2">
-            {pkg.discount}% Off
+        <div className="flex flex-row items-center">
+          <p className="text-gray-400 line-through text-sm">
+            ₹{pkg.price.toLocaleString()}
+          </p>
+          <span className="text-blue-500 text-[12px] lg:text-[15px] ml-2 lg:ml-2">
+            {pkg.discount}%OFF
           </span>
-        </p>
+        </div>
         <p className="text-2xl font-bold">
           ₹{pkg.discountedPrice.toLocaleString()}
         </p>

@@ -173,7 +173,7 @@ export default function EducationModulePage() {
                     <div className="bg-[#E2E9F1] flex items-center justify-between p-6 rounded-xl">
                         <div className="flex items-center gap-4 ml-10">
                             <Link href="/">
-                                <img src="/image/ITServiceSubCategorieshome.png" className="w-[30px] cursor-pointer" />
+                                <img src="/image/it-service-subcategories-home.png" className="w-[30px] cursor-pointer" />
                             </Link>
                             <h1 className="text-lg md:text-2xl font-semibold">Education Service</h1>
                         </div>

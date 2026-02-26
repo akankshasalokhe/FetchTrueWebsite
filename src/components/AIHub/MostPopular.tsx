@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Bookmark } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useMostPopular } from "@/src/context/MostPopularContext";
+import { useParams, useRouter } from "next/navigation";
 
 type PopularProps = {
     moduleId: string;
@@ -20,7 +21,7 @@ interface Package {
 
 
 export default function MostPopular({ moduleId }: PopularProps) {
- 
+    const router = useRouter();
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -38,6 +39,10 @@ export default function MostPopular({ moduleId }: PopularProps) {
         fetchMostPopular(moduleId);
     }, [moduleId]);
 
+    const { categoryId } = useParams<{
+            moduleId: string;
+            categoryId: string;
+        }>();
 
     const getMaxScroll = () => {
         const container = containerRef.current;
@@ -99,7 +104,7 @@ export default function MostPopular({ moduleId }: PopularProps) {
     };
 
     const FIXED_ICONS = ['⚡', '🧠', '🛠 '];
-    
+
     const mappedServices = services.map((service) => {
         const packages = service.packages || [];
         const startingPackage = getStartingPackage(packages);
@@ -113,9 +118,10 @@ export default function MostPopular({ moduleId }: PopularProps) {
             rating: service.averageRating ?? 0,
             reviews: service.totalReviews ?? 0,
 
-            price: startingPackage?.discountedPrice ?? 0,
-            originalPrice: startingPackage?.price ?? 0,
-            discount: startingPackage?.discount ?? 0,
+
+            price: service.serviceDetails.packages[0]?.discountedPrice ?? 0,
+            originalPrice: service.serviceDetails.packages[0]?.price ?? 0,
+            discount: service.serviceDetails.packages[0]?.discount ?? 0,
 
             keyValues:
                 service.keyValues?.map((item) => ({
@@ -123,6 +129,7 @@ export default function MostPopular({ moduleId }: PopularProps) {
                     key: item.key,
                     label: item.value,
                 })) || [],
+            commission: service.franchiseDetails.commission
         };
     });
 
@@ -155,6 +162,9 @@ export default function MostPopular({ moduleId }: PopularProps) {
                             overflow-hidden
                             relative
                         "
+                         onClick={() => {
+                            router.push(`/MainModules/AI-Hub/${moduleId}/${categoryId}/${p.id}`);
+                        }}
                     >
                         {/* IMAGE */}
                         <div className="relative w-full h-40 rounded-xl overflow-hidden">
@@ -200,7 +210,7 @@ export default function MostPopular({ moduleId }: PopularProps) {
 
                             <div className="flex -mt-12 md:-mt-18">
                                 <div className=" items-end ml-auto gap-1 text-yellow-400 text-[22px] mb-4">
-                                   
+
                                     {"★".repeat(p.rating)}
                                 </div>
                             </div>
@@ -211,7 +221,7 @@ export default function MostPopular({ moduleId }: PopularProps) {
                                     Discount {p.discount} %
                                 </span> */}
                                 <span className="bg-green-600 text-white  text-[8px] lg:text-[10px] px-1 py-1 rounded-lg font-semibold">
-                                    Earn Up to {p.discount} %
+                                    Earn Up to {p.commission}
                                 </span>
                             </div>
 
@@ -234,14 +244,14 @@ export default function MostPopular({ moduleId }: PopularProps) {
                                 <p className="font-semibold text-[10px] lg:text-[14px] lg:-mt-5">
                                     Setup & Time
                                 </p>
-                                {p.keyValues.map((kv,index) => (
+                                {p.keyValues.map((kv, index) => (
                                     <div
                                         key={kv.id}
                                         className="flex flex-col text-[10px] lg:text-[14px] text-gray-700 leading-snug"
                                     >
                                         <div className="flex flex-row space-x-1">
-                                             <span className="text-base w-5 text-center -mt-1">
-                                                {FIXED_ICONS[index] || '•'}  
+                                            <span className="text-base w-5 text-center -mt-1">
+                                                {FIXED_ICONS[index] || '•'}
                                             </span>
                                             <span className="font-medium">{kv.key}:</span>
                                             <span className="text-gray-500">{kv.label}</span>

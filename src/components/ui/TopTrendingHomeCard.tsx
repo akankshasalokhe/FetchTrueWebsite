@@ -141,7 +141,6 @@ export default function TopTrendingHomeCard({
                     alt={title}
                     className="w-full h-[152px] lg:h-[170px] object-fit rounded-lg"
                     onError={(e) => {
-                        // Fallback image if the main image fails to load
                         e.currentTarget.src = "https://via.placeholder.com/424x170/2164F4/FFFFFF?text=Service+Image";
                     }}
                 />
@@ -340,7 +339,7 @@ export default function TopTrendingHomeCard({
                                     </div>
                                 )}
 
-                                {franchiseDetails?.commission && (
+                                {/* {franchiseDetails?.commission && (
                                     <div className="relative px-2 flex flex-col gap-1 text-center justify-center">
                                         <span className="absolute left-0 top-1/2 -translate-y-1/2 h-10 w-[1px] bg-gray-300" />
                                         <span className="font-semibold text-[12px] lg:text-[12px] text-gray-900">
@@ -350,7 +349,7 @@ export default function TopTrendingHomeCard({
                                             {displayCommission}
                                         </span>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         )}
 
@@ -396,11 +395,11 @@ export default function TopTrendingHomeCard({
                                                 <div className="flex gap-1 justify-end items-center">
                                                     {oldPrice && (
                                                         <span className="line-through text-gray-400 text-[10px] lg:text-[12px]">
-                                                            {oldPrice}
+                                                             ₹{oldPrice}
                                                         </span>
                                                     )}
                                                     <span className="font-semibold text-[12px] lg:text-[16px]">
-                                                        {price}
+                                                         ₹{price}
                                                     </span>
                                                 </div>
                                             </>
@@ -429,9 +428,9 @@ export default function TopTrendingHomeCard({
                                             }}
                                         />
                                     )}
-                                    <span className="min-w-0 break-words whitespace-normal font-medium">
+                                    {/* <span className="min-w-0 break-words whitespace-normal font-medium">
                                         {getDisplayKey(f.key, f.title)}:
-                                    </span>
+                                    </span> */}
                                     <span className="min-w-0 break-words leading-[1.0] whitespace-normal text-gray-600">
                                         {f.title}
                                     </span>
@@ -451,11 +450,11 @@ export default function TopTrendingHomeCard({
                                     <div className="flex gap-1 justify-end items-center">
                                         {oldPrice && (
                                             <span className="line-through text-gray-400 text-[10px] lg:text-[12px]">
-                                                {oldPrice}
+                                                 ₹{oldPrice}
                                             </span>
                                         )}
                                         <span className="font-semibold text-[12px] lg:text-[16px]">
-                                            {price}
+                                             ₹{price}
                                         </span>
                                     </div>
                                 </>

@@ -104,7 +104,7 @@ export default function MostPopularProvider({ moduleId }: SectionProps) {
 
     return (
         <div className="relative w-full mt-6 lg:mt-2">
-            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-12">MostPopular Provider</h1>
+            <h1 className="text-[16px] font-semibold md:text-[20px] lg:text-[24px] ml-4 lg:ml-12">Most Popular Provider</h1>
             {/* SCROLL CONTAINER */}
             <div
                 ref={scrollRef}

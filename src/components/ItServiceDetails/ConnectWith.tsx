@@ -85,7 +85,7 @@ export default function ConnectWith({ connectWith }: ConnectWithProps) {
             <p className="text-teal-600 text-[10px] md:text-[18px] lg:text-[24px] mb-1 whitespace-nowrap">
               Connect With
             </p>
-            <h2 className="text-[14px] md:text-[28px] lg:text-[36px] font-semibold text-[#5A3A2E] whitespace-nowrap">
+            <h2 className="text-[14px] md:text-[18px] lg:text-[18px] font-semibold text-[#5A3A2E] whitespace-nowrap">
               {manager.name}
             </h2>
           </div>

@@ -94,12 +94,15 @@ export default function WhyChooseUs({ moduleId }: props) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
   
-    const mappedServices = services.map((service) => ({
-      id: service._id,
-      icon: service.items?.[0]?.icon,
-      title: service.items?.[0]?.title,
-      description: service.items?.[0]?.description,
-    }));
+    const mappedServices = services.flatMap((service) =>
+    service.items.map((item) => ({
+      id: `${service._id}-${item.title}`,
+      icon: item.icon,
+      title: item.title,
+      description: item.description,
+      module: service.module,
+    }))
+  );
 
   return (
     /*  SECTION CENTERED */
@@ -116,10 +119,10 @@ export default function WhyChooseUs({ moduleId }: props) {
 
       {/* CARDS */}
       <div className="space-y-6">
-        {mappedServices.map((item) => (
+        {mappedServices.map((item,index) => (
           /*  CARD CENTERED */
           <div
-            key={item.id}
+            key={index}
             className="
               flex items-center
               mx-auto

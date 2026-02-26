@@ -7,37 +7,40 @@ type props = {
   moduleId: string;
 }
 export default function WhyChooseUs({ moduleId }: props) {
- 
+
   const {
-      services,
-      loading,
-      error,
-      fetchWhyServices,
-      clearServices,
-    } = useWhyChooseService();
-  
-    useEffect(() => {
-      if (!moduleId) return;
-      clearServices();
-      fetchWhyServices(moduleId);
-    }, [moduleId]);
-  
-   
-  
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
-  
-    const mappedServices = services.map((service) => ({
-      id: service._id,
-      icon: service.items?.[0]?.icon,
-      title: service.items?.[0]?.title,
-      description: service.items?.[0]?.description,
-    }));
+    services,
+    loading,
+    error,
+    fetchWhyServices,
+    clearServices,
+  } = useWhyChooseService();
+
+  useEffect(() => {
+    if (!moduleId) return;
+    clearServices();
+    fetchWhyServices(moduleId);
+  }, [moduleId]);
+
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  const mappedServices = services.flatMap((service) =>
+    service.items.map((item) => ({
+      id: `${service._id}-${item.title}`,
+      icon: item.icon,
+      title: item.title,
+      description: item.description,
+      module: service.module,
+    }))
+  );
 
   return (
     /*  SECTION CENTERED */
     <section className="w-full max-w-[1218px] mx-auto px-4 md:px-8 py-10">
-      
+
       {/* HEADER */}
       <div className="mb-8 text-center">
         <h2 className="text-[16px] md:text-[24px] font-semibold text-black">
@@ -47,10 +50,10 @@ export default function WhyChooseUs({ moduleId }: props) {
 
       {/* CARDS */}
       <div className="space-y-6">
-        {mappedServices.map((item) => (
+        {mappedServices.map((item,index) => (
           /*  CARD CENTERED */
           <div
-            key={item.id}
+            key={index}
             className="
               flex items-center
               mx-auto

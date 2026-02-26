@@ -1,30 +1,6 @@
 "use client";
 
-import React from "react";
 
-// type Item = {
-//     title: string;
-//     description: string;
-// };
-
-// const ITEMS: Item[] = [
-//     {
-//         title: "Expert Lawyers",
-//         description: "Qualified legal professionals with 10+ years experience",
-//     },
-//     {
-//         title: "Affordable Fees",
-//         description: "Transparent pricing with no hidden charges",
-//     },
-//     {
-//         title: "Quick Turnaround",
-//         description: "Fast processing with 7-day company registration",
-//     },
-//     {
-//         title: "PAN-India Services",
-//         description: "Legal services available across all Indian states",
-//     },
-// ];
 
 type WhyChooseUsProps = {
     whyChooseUs?: {
@@ -41,7 +17,7 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
             {/* HEADING */}
              <div className="flex items-start ml-2 md:ml-6 lg:ml-32 mb-8">
                 <h2 className="more-info-title">
-                    WhyChooseUs
+                    Why Choose Us
                 </h2>
             </div>
 

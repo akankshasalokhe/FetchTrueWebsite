@@ -366,17 +366,43 @@ import { useEffect, useState } from 'react';
 import { useModule } from '@/src/context/CategoriesContext';
 import { useBannerCategorySelection } from "@/src/context/BannerContext"
 
+
+type BannerCategorySelection = {
+  _id: string;
+  file: string;
+  page: string;
+  selectionType: string;
+  screenCategory: string;
+  module: {
+    _id: string;
+    name: string;
+  };
+  subcategory?: {
+    _id: string;
+    name: string;
+  };
+};
+
+
 export default function ITModulesPage() {
     const router = useRouter();
     const { categories, loading, error, fetchCategoriesByModule } = useModule();
     const { data, fetchBannerCategorySelections } = useBannerCategorySelection();
 
-    const BannerData = [
-        { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
-        { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
-        { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
-        { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
-    ];
+     const BannerData =
+        data?.map((item: BannerCategorySelection, index: number) => ({
+            label: `Image ${index + 1}`,
+            bgpath: item.file, 
+            // path: '/image/ITModulebg.png'
+        })) || [];
+
+
+    // const BannerData = [
+    //     { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
+    //     { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
+    //     { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
+    //     { title: 'Smart IT Services', subTitle: 'From daily tech support to advanced digital transformation', bgpath: '/image/ITModulebg.png', path: '/image/decode.png' },
+    // ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
@@ -430,12 +456,12 @@ export default function ITModulesPage() {
     return (
         <>
             <section className="relative w-full">
-                {/* ===== NAVBAR ===== */}
+                {/*  NAVBAR  */}
                 <div className="hidden md:hidden lg:block w-full px-4 md:px-8 mt-4 md:mt-10">
                     <div className="bg-[#E2E9F1] flex items-center justify-between p-4 rounded-xl">
                         <div className="flex items-center gap-4">
                             <Link href="/">
-                                <img src="/image/ITServiceSubCategorieshome.png" className="w-[30px] cursor-pointer" />
+                                <img src="/image/it-service-subcategories-home.png" className="w-[30px] cursor-pointer" />
                             </Link>
                             <h1 className="text-lg md:text-2xl font-semibold">IT Services</h1>
                         </div>
@@ -472,7 +498,7 @@ export default function ITModulesPage() {
 
                             {/* BOOKMARK / LOCATION ICON */}
                             <img
-                                src="/image/ITServiceSubcategoriesbookmark.png"
+                                src="/image/it-service-bookmark.png"
                                 className="w-[20px] cursor-pointer"
                             />
                         </div>
@@ -482,7 +508,7 @@ export default function ITModulesPage() {
 
                 </div>
 
-                {/* ================= NAVBAR MOBILE ================= */}
+                {/*  NAVBAR MOBILE  */}
                 <section>
                     <div
                         className="
@@ -511,7 +537,7 @@ export default function ITModulesPage() {
                             {/* RIGHT */}
                             <div className="flex items-center justify-center bg-white w-8 h-8 rounded-full shrink-0">
                                 <img
-                                    src="/image/ITServiceSubcategoriesbookmark.png"
+                                    src="/image/it-service-bookmark.png"
                                     className="w-[14px] h-[14px]"
                                     alt="Bookmark"
                                 />
@@ -558,14 +584,14 @@ export default function ITModulesPage() {
                                     />
 
                                     <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                                        <div>
+                                        {/* <div>
                                             <h2 className="text-lg md:text-3xl font-semibold text-[#42566D]">
                                                 {item.title}
                                             </h2>
                                             <p className="mt-2 text-sm md:text-xl text-[#5A5A5A] max-w-md">
                                                 {item.subTitle}
                                             </p>
-                                        </div>
+                                        </div> */}
 
                                         {/* <h1 className="text-4xl md:text-6xl mx-auto md:-mt-24 font-bold text-white opacity-80 whitespace-nowrap">
                                             IT SERVICES
@@ -587,10 +613,10 @@ export default function ITModulesPage() {
                                         </h1>
 
 
-                                        <img
+                                        {/* <img
                                             src={item.path}
                                             className="absolute bottom-22 right-20 md:bottom-5 lg:-bottom-4 lg:right-70 w-[120px] md:w-[180px] lg:w-[220px]"
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             </div>
