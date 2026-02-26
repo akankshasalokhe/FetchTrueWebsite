@@ -34,7 +34,7 @@ export default function Home() {
       <ReferandEarn />
       <MostlyUsed searchQuery={searchQuery}/>
       <TeamBuild />
-      <TopRatedProvider searchQuery={searchQuery}/>
+      <TopRatedProvider />
       <LuckyDraw />
       <PartnersReview />
    
