@@ -458,7 +458,7 @@ interface Package {
 
 
 
-export default function MostPopular({ moduleId }: SectionProps) {
+export default function MostPopular({ moduleId, searchQuery }: SectionProps) {
 
 
 
@@ -489,8 +489,19 @@ export default function MostPopular({ moduleId }: SectionProps) {
         );
     };
 
+     const filteredServices =
+  services?.filter((service) => {
+    if (!searchQuery?.trim()) return true;
+
+    const q = searchQuery.toLowerCase();
+
+    return (
+      service.serviceName?.toLowerCase().includes(q) ||
+      service.category?.name?.toLowerCase().includes(q)
+    );
+  }) || [];  
    
-    const mappedServices = services.map((service) => {
+    const mappedServices = filteredServices.map((service) => {
         const packages = service.serviceDetails?.packages || [];
         const startingPackage = getStartingPackage(packages);
         return ({
@@ -517,12 +528,6 @@ export default function MostPopular({ moduleId }: SectionProps) {
     if (error) return <p>{error}</p>;
 
 
-    const CARD_CLASSES = `
-    snap-center flex-shrink-0
-    w-[88vw] sm:w-[70vw] md:w-[390px] md:h-[362.04px]
-    rounded-3xl p-3
-    shadow-lg
-    `;
 
 
 
