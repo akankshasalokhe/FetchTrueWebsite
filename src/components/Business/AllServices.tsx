@@ -130,6 +130,8 @@ import Link from "next/link";
 import BusinessCard from "../ui/BusinessCard";
 import { useModulewiseServices } from "@/src/context/ModulewiseServiceContext";
 import HorizontalScroll from "../ui/HorizontalScroll";
+import { useFavourites } from "@/src/context/FavouriteContext";
+import { useAuth } from "@/src/context/AuthContext";
 
 interface Props {
   categoryId: string;
@@ -182,6 +184,30 @@ export default function AllServices({ categoryId, moduleId }: Props) {
   const createSlug = (text: string) =>
     text?.toLowerCase().replace(/\s+/g, "-");
 
+  
+    const { addFavourite, removeFavourite, isFavourite, fetchFavourites } =
+    useFavourites();
+  
+    const { user } = useAuth();
+  
+    const userId = user?._id;
+  
+    useEffect(() => {
+    if (userId) {
+      fetchFavourites(userId);
+    }
+  }, [userId]);
+  
+  const handleToggleFavourite = async (serviceId: string) => {
+    if (!userId) return;
+  
+    if (isFavourite(serviceId)) {
+      await removeFavourite(userId, serviceId);
+    } else {
+      await addFavourite(userId, serviceId);
+    }
+  };
+
   /* ================= STATES ================= */
 
   if (loading)
@@ -226,6 +252,8 @@ export default function AllServices({ categoryId, moduleId }: Props) {
   >
     {viewAll ? (
       services.map((service) => {
+                          const fav = isFavourite(service._id);
+
         const investment =
           service.franchiseDetails?.investmentRange?.[0]?.range || "—";
         const earnings =
@@ -255,6 +283,11 @@ export default function AllServices({ categoryId, moduleId }: Props) {
               trusted
               slug={createSlug(service.category?.name)}
               detailslug={createSlug(service.serviceName)}
+              isFavourite={isFavourite(service._id)}
+
+                   onToggleFavourite={() =>
+                   handleToggleFavourite(service._id)
+                   }
             />
           </Link>
         );
