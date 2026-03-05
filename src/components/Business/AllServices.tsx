@@ -295,6 +295,8 @@ export default function AllServices({ categoryId, moduleId }: Props) {
     ) : (
       <HorizontalScroll>
         {services.map((service) => {
+                                    const fav = isFavourite(service._id);
+
           const investment =
             service.franchiseDetails?.investmentRange?.[0]?.range || "—";
           const earnings =
@@ -324,6 +326,11 @@ export default function AllServices({ categoryId, moduleId }: Props) {
                 trusted
                 slug={createSlug(service.category?.name)}
                 detailslug={createSlug(service.serviceName)}
+                isFavourite={isFavourite(service._id)}
+
+                   onToggleFavourite={() =>
+                   handleToggleFavourite(service._id)
+                   }
               />
             </Link>
           );
