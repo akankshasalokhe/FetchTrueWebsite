@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import FranchiseMostPopularCard from "@/src/components/ui/FranchiseMostPopularCard";
 import { useModulewiseServices } from "@/src/context/ModulewiseServiceContext";
+import { useAuth } from "@/src/context/AuthContext";
+import { useFavourites } from "@/src/context/FavouriteContext";
 
 const bgColors = ["bg-[#E9B3A1]", "bg-[#B78CFF]", "bg-[#8EBEFF]"];
 
@@ -20,6 +22,29 @@ export default function ViewAllPAge() {
       fetchServicesByModule(moduleId);
     }
   }, [moduleId]);
+
+   const { addFavourite, removeFavourite, isFavourite, fetchFavourites } =
+  useFavourites();
+
+  const { user } = useAuth();
+
+  const userId = user?._id;
+
+  useEffect(() => {
+  if (userId) {
+    fetchFavourites(userId);
+  }
+}, [userId]);
+
+const handleToggleFavourite = async (serviceId: string) => {
+  if (!userId) return;
+
+  if (isFavourite(serviceId)) {
+    await removeFavourite(userId, serviceId);
+  } else {
+    await addFavourite(userId, serviceId);
+  }
+};
 
   if (loading) return <p className="text-center py-10">Loading services...</p>;
   if (error)
@@ -44,6 +69,8 @@ export default function ViewAllPAge() {
         {/* GRID */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {services.map((service, index) => {
+                              const fav = isFavourite(service._id);
+
             const investment =
               service.franchiseDetails.investmentRange?.[0];
             const monthly =
@@ -67,6 +94,11 @@ export default function ViewAllPAge() {
                   investment={`${investment?.range} ${investment?.parameters}`}
                   area="500–1000 Sq"
                   bg={bgColors[index % bgColors.length]}
+                  isFavourite={isFavourite(service._id)}
+
+                   onToggleFavourite={() =>
+                   handleToggleFavourite(service._id)
+                   }
                 />
               </Link>
             );
