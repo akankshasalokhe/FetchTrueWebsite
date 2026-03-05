@@ -584,10 +584,10 @@ export default function SignUpPage() {
     if (!form.password)
       newErrors.password = "Password is required";
     else if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$/.test(form.password)
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(form.password)
     )
       newErrors.password =
-        "Password must be 4+ chars, include uppercase, lowercase & number";
+        "Password must be 4+ chars, include uppercase, lowercase,special character & number";
 
     if (form.password !== form.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match";
