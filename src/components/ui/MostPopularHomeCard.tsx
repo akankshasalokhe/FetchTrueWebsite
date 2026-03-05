@@ -155,7 +155,7 @@ const handleClick = () => {
        
         
         if (moduleId ) {
-            router.push(`/MainModules/${folderName}/${moduleId}/[categoryId]/${id}?service=${encodeURIComponent(title)}`);
+            router.push(`/MainModules/${folderName}/${moduleId}/[categoryId]/${id}`);
         } else {
             router.push(`/MainModules/${folderName}/ServiceDetails/${id}?service=${encodeURIComponent(title)}`);
         }
