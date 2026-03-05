@@ -1,6 +1,7 @@
 "use client";
 
 import { useCheckout } from "@/src/context/CheckoutContext";
+import { useParams } from "next/navigation";
 
 type PackageItem = {
   _id: string;
@@ -51,41 +52,65 @@ type CardProps = {
   pkg: PackageItem;
 };
 
-function PackageCard({ pkg }: CardProps) {
+// function PackageCard({ pkg }: CardProps) {
 
-//  const { selectedPackage, setSelectedPackage } = useCheckout();
 
+// const params = useParams();
+//   const serviceId = params.id as string;
+
+//   const { selectedPackage, setSelectedPackage } = useCheckout();
 //   const isSelected = selectedPackage?._id === pkg._id;
 
-
-
 //   const handleSelect = () => {
-//     setSelectedPackage({
-//       _id: pkg._id,
-//       name: pkg.name,
-//       price: pkg.price,
-//       discount: pkg.discount,
-//       discountedPrice: pkg.discountedPrice,
-//     });
+//     if (isSelected) {
+//       setSelectedPackage(null);
+//     } else {
+//       // Select this package
+//       setSelectedPackage({
+//         _id: pkg._id,
+//         name: pkg.name,
+//         price: pkg.price,
+//         discount: pkg.discount,
+//         discountedPrice: pkg.discountedPrice,
+//       },
+//     serviceId
+//   );
+//     }
 //   };
 
-  const { selectedPackage, setSelectedPackage } = useCheckout();
-  const isSelected = selectedPackage?._id === pkg._id;
-
-  const handleSelect = () => {
-    if (isSelected) {
-      setSelectedPackage(null);
-    } else {
-      // Select this package
-      setSelectedPackage({
-        _id: pkg._id,
-        name: pkg.name,
-        price: pkg.price,
-        discount: pkg.discount,
-        discountedPrice: pkg.discountedPrice,
-      });
-    }
-  };
+  function PackageCard({ pkg }: { pkg: PackageItem }) {
+  const params = useParams();
+    const serviceId = params.id as string;
+  
+  
+    const { selectedPackage, setSelectedPackage } = useCheckout();
+  
+    const isSelected = selectedPackage?._id === pkg._id;
+  
+  
+  
+    // const handleSelect = () => {
+    //   setSelectedPackage({
+    //     _id: pkg._id,
+    //     name: pkg.name,
+    //     price: pkg.price,
+    //     discount: pkg.discount,
+    //     discountedPrice: pkg.discountedPrice,
+    //   });
+    // };
+  
+     const handleSelect = () => {
+      setSelectedPackage(
+        {
+          _id: pkg._id,
+          name: pkg.name,
+          price: pkg.price,
+          discount: pkg.discount,
+          discountedPrice: pkg.discountedPrice,
+        },
+        serviceId   // ← required by new context signature
+      );
+    };
 
   return (
     <div className="bg-white border border-lb-xl border-gray-200 rounded-xl overflow-hidden flex flex-col h-full">
