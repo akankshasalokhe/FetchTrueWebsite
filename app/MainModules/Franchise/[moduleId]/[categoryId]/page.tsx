@@ -2186,13 +2186,13 @@ useEffect(() => {
                         <div key={item._id} 
                         onClick={() => setSelectedSubCategory(item._id)}
     className={`relative shrink-0 w-[189px] h-[226px] cursor-pointer
-      ${selectedSubCategory === item._id ? "ring-2 ring-purple-500" : ""}
+      ${selectedSubCategory === item._id ? "bg-gray-100 " : ""}
     `}>
-                            <Image src="/image/rectangularcategory.png" alt="" fill />
+                            {/* <Image src="/image/rectangularcategory.png" alt="" fill /> */}
                             <Image
                                 src={item.image}
                                 alt={item.name}
-                                width={120}
+                                width={155}
                                 height={120}
                                 className="absolute left-1/2 bottom-5 -translate-x-1/2"
                             />
