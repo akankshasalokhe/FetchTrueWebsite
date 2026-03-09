@@ -103,7 +103,7 @@ export default function WhyOurFranchise() {
                 <img
                   src={item.icon}
                   alt={item.title}
-                  className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-whitew-12 h-12"
+                  className="w-[48px] h-[48px] bg-[#8B5CF6] rounded-full flex items-center justify-center text-white w-12 h-12"
                 />
               )}
               <div>

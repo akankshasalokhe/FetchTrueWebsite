@@ -134,7 +134,7 @@ if (loading) return null;
                                 placeholder="Search" 
                               />
             </div>
-            <Link href="../../Account/favorite">
+            <Link href="/Account?section=Favorite">
             <Bookmark  className="w-8 h-8" color="#A3623A"/>
             </Link>
           </div>

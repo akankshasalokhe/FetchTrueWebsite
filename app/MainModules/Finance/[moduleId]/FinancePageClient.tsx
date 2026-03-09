@@ -107,7 +107,7 @@ export default function FinancePageClient({ searchQuery,setSearchQuery }:any) {
 
               {/* Bookmark */}
               <Link
-                href="../../Account/favorite"
+                href="/Account?section=Favorite"
                 className="flex items-center justify-center bg-white rounded-full p-2 w-[36px] h-[36px]"
               >
                 <img
