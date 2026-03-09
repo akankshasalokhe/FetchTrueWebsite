@@ -102,7 +102,7 @@ export default function FiveXReturnPage() {
   const totalLeads = leads.length;
   const totalLeadTarget = config.leadcount;
 
-  const totalEarnings = wallet?.selfEarnings || 0;
+  const totalEarnings = wallet?.totalCredits || 0;
   const earningTarget = config.fixearning;
 
   const leadPercentage =
