@@ -97,7 +97,7 @@ export default function CategorySection() {
       </section>
 
       {/* LEGAL EXPERTS */}
-      <LegalExpertsSection />
+      {/* <LegalExpertsSection /> */}
     </div>
   );
 }
