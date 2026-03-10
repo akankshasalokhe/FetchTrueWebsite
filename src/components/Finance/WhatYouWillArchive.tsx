@@ -130,11 +130,11 @@ const WhatYouWillAchieve = ({ moduleId }: Props) => {
         <div className="bg-white rounded-[16px] border border-[#BEBEBE] shadow-[0px_4px_6px_rgba(0,0,0,0.1)] p-6 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 lg:ml-10">
             {achievements.map((item, index) => (
-              <div key={index} className="flex gap-4 items-start">
+              <div key={index} className="flex gap-4 items-center">
                 <img
                   src={item.icon}
                   alt={item.title}
-                  className="w-[27px] h-[23px] mt-1"
+                  className="w-[60px] h-[60px] mt-1"
                 />
 
                 <div>

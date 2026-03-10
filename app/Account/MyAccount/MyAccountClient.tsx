@@ -66,25 +66,36 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FavouritePage from "@/app/Account/favorite/page";
 import AccountSidebar from "@/src/components/Account/Sidebar";
-import ProfilePage from "./profile/page";
-import NotificationSettings from "./notification/page";
-import CustomerList from "./customer/page";
-import AddCustomerForm from "./customer/add/page";
-import FiveXReturnPage from "./5xReturn/page";
-import DeleteAccountSection from "./delete/page";
-import EarningsPage from "./wallet/page";
-import CouponsPage from "./Coupon/page";
-import HelpCenter from "./helpCenter/page";
+import ProfilePage from "../profile/page";
+// import NotificationSettings from "./notification/page";
+import CustomerList from "../customer/page";
+import AddCustomerForm from "../customer/add/page";
+import FiveXReturnPage from "../5xReturn/page";
+import DeleteAccountSection from "../delete/page";
+import EarningsPage from "../wallet/page";
+import CouponsPage from "../Coupon/page";
+import HelpCenter from "../helpCenter/page";
 import { useAuth } from "@/src/context/AuthContext";
-import AboutUsPage from "./aboutus/page";
+import AboutUsPage from "../aboutus/page";
+  import { useSearchParams } from "next/navigation";
+import NotificationSettings from "../notification/page";
+
 
 export default function MyAccountPage() {
   const [selectedSection, setSelectedSection] = useState("Profile");
   const [showSidebar, setShowSidebar] = useState(false);
   const { user } = useAuth();
+
+
+const searchParams = useSearchParams();
+const section = searchParams.get("section");
+
+useEffect(() => {
+  if (section) setSelectedSection(section);
+}, [section]);
 
 
   // ✅ Nested state for customer module
