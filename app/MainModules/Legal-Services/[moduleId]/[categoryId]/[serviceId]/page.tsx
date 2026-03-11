@@ -906,7 +906,7 @@ import {
   FiSmartphone,
   FiLayers,
 } from "react-icons/fi";
-import { Scale, Timer, Wallet, MapPin, Share2 } from "lucide-react";
+import { Scale, Timer, Wallet, MapPin, Share2, ChevronLeft } from "lucide-react";
 import FAQs from "@/src/components/Section/FAQ";
 import TermsConditions from "@/src/components/Section/TermsandCondition";
 import MoreInformation from "@/src/components/Section/MoreInformationSection";
@@ -1073,7 +1073,7 @@ const images = service.bannerImages;
       
     >
       {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#5B3527] font-medium text-[18px] hover:underline ">Service Details</span>
+      <span className="flex items-center gap-2 text-[#1b110d] font-medium text-[18px] hover:underline "><ChevronLeft size={20} className="cursor-pointer" />Service Details</span>
     </Link>
 
      {/* RIGHT : Actions */}

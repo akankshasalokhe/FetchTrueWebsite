@@ -1307,7 +1307,7 @@ import { useParams } from "next/navigation";
 import { useFranchiseModel } from "@/src/context/FranchiseContext";
 import { RatingDistribution, useReview } from "@/src/context/ReviewContext";
 import Link from "next/link";
-import { Share2 } from "lucide-react";
+import { ChevronLeft, Share2 } from "lucide-react";
 import { useCheckout } from "@/src/context/CheckoutContext";
 
 const extractBenefits = (benefits: string[]): string[] => {
@@ -1470,7 +1470,7 @@ if (!service) {
       
     >
       {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#1a0b05] font-medium text-[18px] hover:underline ">Service Details</span>
+      <span className="flex items-center gap-2 text-[#1a0b05] font-medium text-[18px] hover:underline "><ChevronLeft size={20} className="cursor-pointer" />Service Details</span>
     </Link>
 
      {/* RIGHT : Actions */}

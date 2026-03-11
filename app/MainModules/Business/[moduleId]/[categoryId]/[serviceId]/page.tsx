@@ -1058,6 +1058,7 @@ import {
   Monitor,
   Headphones,
   Share2,
+  ChevronLeft,
 
 } from "lucide-react";
 
@@ -1201,7 +1202,7 @@ const selectedPackageData = franchiseCards.find(
       
     >
       {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#1a0b05] font-medium text-[18px] hover:underline ">Service Details</span>
+      <span className="flex items-center gap-2 text-[#1a0b05] font-medium text-[18px] hover:underline "><ChevronLeft size={20} className="cursor-pointer" />Service Details</span>
     </Link>
 
      {/* RIGHT : Actions */}

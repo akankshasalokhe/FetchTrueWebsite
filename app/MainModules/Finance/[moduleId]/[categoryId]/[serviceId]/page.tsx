@@ -688,7 +688,7 @@ import { useCheckout } from "@/src/context/CheckoutContext";
 import { useFranchiseModel } from "@/src/context/FranchiseContext";
 import { useReview } from "@/src/context/ReviewContext";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
-import { Share2 } from "lucide-react";
+import { ChevronLeft, Share2 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useRef } from "react";
@@ -833,8 +833,8 @@ const images = service.bannerImages;
       href={`/MainModules/Finance/${moduleId}`}
       
     >
-      {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#5B3527] font-medium text-[18px] hover:underline ">Service Details</span>
+      <span className="flex items-center gap-2 text-[#1e1714] font-medium text-[18px] hover:underline "> <ChevronLeft size={20} className="cursor-pointer" />
+Service Details</span>
     </Link>
 
      {/* RIGHT : Actions */}
