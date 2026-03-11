@@ -459,7 +459,7 @@ const ServiceDetails = () => {
 
         fetchServiceDetails(serviceId);
         fetchReviews(serviceId)
-    }, [serviceId, fetchServiceDetails, fetchReviews]);
+    }, [serviceId]);
 
     const itServicesModule = modules?.find(
         (module: Module) => module.name === "It Services"

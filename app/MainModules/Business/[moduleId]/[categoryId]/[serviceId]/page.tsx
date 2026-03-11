@@ -1207,7 +1207,7 @@ const selectedPackageData = franchiseCards.find(
      {/* RIGHT : Actions */}
     <div className="flex items-center gap-3 mb-5 ">
 
-      <p>
+      <p className="bg-gray-300 p-2 rounded">Selected Package :-
  ₹{selectedPackageData?.price?.toLocaleString() || 0}
 </p>
 

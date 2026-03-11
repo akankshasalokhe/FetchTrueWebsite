@@ -314,57 +314,136 @@
 // }
 
 
+// "use client";
+
+// import { useBanner } from "@/src/context/CarouselBannerContext";
+// import Image from "next/image";
+// import { useEffect, useRef } from "react";
+
+// export default function AppHero() {
+//   const scrollRef = useRef<HTMLDivElement>(null);
+//   const { getBannersByPage, loading } = useBanner();
+// const heroBanners = getBannersByPage("home");
+
+//     useEffect(() => {
+//     const slider = scrollRef.current;
+//     if (!slider) return;
+
+//     const interval = setInterval(() => {
+//       slider.scrollLeft += 2;
+
+//       if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
+//         slider.scrollLeft = 0;
+//       }
+//     }, 4000);
+
+//     return () => clearInterval(interval);
+//   }, [heroBanners.length]);
+
+//   if (loading) return null;
+//   if (!heroBanners.length) return null;
+
+//   return (
+//     <>
+    
+
+//  <section className="w-full py-8">
+//       <div className=" mx-auto ">
+
+//         {/* ---------- AUTO SCROLL CAROUSEL ---------- */}
+//         <div
+//           ref={scrollRef}
+//           className="
+//             flex gap-6
+//             overflow-hidden
+//           "
+//         >
+//           {heroBanners.map((banner) => (
+//             <div
+//               key={banner._id}
+//               className="
+//                 snap-start
+//                 shrink-0
+//                 w-[90%]
+//                 h-[200px]
+//                 sm:h-[260px]
+//                 lg:h-[450px]
+//                 rounded-[16px]
+//                 overflow-hidden
+//                 relative
+//               "
+//             >
+//               <Image
+//                 src={banner.file}
+//                 alt={banner.page}
+//                 fill
+//                 className="object-fill"
+//                 priority
+//               />
+//             </div>
+//           ))}
+//         </div>
+
+//       </div>
+//     </section>
+//     </>
+//   );
+// }
+
 "use client";
 
 import { useBanner } from "@/src/context/CarouselBannerContext";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function AppHero() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { getBannersByPage, loading } = useBanner();
-const heroBanners = getBannersByPage("home");
+  const heroBanners = getBannersByPage("home");
 
-    useEffect(() => {
-    const slider = scrollRef.current;
-    if (!slider) return;
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!heroBanners.length) return;
 
     const interval = setInterval(() => {
-      slider.scrollLeft += 1;
-
-      if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
-        slider.scrollLeft = 0;
-      }
-    }, 20);
+      setIndex((prev) =>
+        prev === heroBanners.length - 1 ? 0 : prev + 1
+      );
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [heroBanners.length]);
+
+  useEffect(() => {
+    const slider = scrollRef.current;
+    if (!slider) return;
+
+    const slideWidth = slider.clientWidth;
+
+    slider.scrollTo({
+      left: index * slideWidth,
+      behavior: "smooth",
+    });
+  }, [index]);
 
   if (loading) return null;
   if (!heroBanners.length) return null;
 
   return (
-    <>
-    
+    <section className="w-full py-8">
+      <div className="mx-auto overflow-hidden">
 
- <section className="w-full py-8">
-      <div className=" mx-auto ">
-
-        {/* ---------- AUTO SCROLL CAROUSEL ---------- */}
         <div
           ref={scrollRef}
-          className="
-            flex gap-6
-            overflow-hidden
-          "
+          className="flex overflow-hidden"
         >
           {heroBanners.map((banner) => (
             <div
               key={banner._id}
               className="
-                snap-start
                 shrink-0
-                w-[90%]
+                w-full
                 h-[200px]
                 sm:h-[260px]
                 lg:h-[450px]
@@ -386,11 +465,8 @@ const heroBanners = getBannersByPage("home");
 
       </div>
     </section>
-    </>
   );
 }
-
-
 
 
 

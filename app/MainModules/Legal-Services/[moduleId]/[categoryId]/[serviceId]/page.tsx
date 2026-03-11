@@ -1067,7 +1067,7 @@ const images = service.bannerImages;
   return (
     <div className="bg-[#F4F4F4] w-full ">
      <section className="">
-       <div className="w-full flex fixed justify-between px-12 pt-5 bg-white/10">
+       <div className="w-full flex fixed justify-between px-12 pt-5 z-20 bg-white/10">
     <Link
       href={`/MainModules/Legal-Services/${moduleId}`}
       
@@ -1078,7 +1078,7 @@ const images = service.bannerImages;
 
      {/* RIGHT : Actions */}
     <div className="flex items-center gap-3 mb-5 ">
-<p>
+<p className="bg-gray-300 p-2 rounded">Selected Package :-
   ₹{selectedPackageData
     ? Math.floor(Number(selectedPackageData.discountedPrice)).toLocaleString("en-IN")
     : 0}
