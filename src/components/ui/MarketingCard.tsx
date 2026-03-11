@@ -63,9 +63,9 @@ export default function MarketingCard({
         </div>
 
         {/* DISCOUNT */}
-        <span className="absolute top-3 right-10 bg-[#89FF9B] text-[10px] sm:text-[11px] px-2 py-[2px] rounded">
+        {/* <span className="absolute top-3 right-10 bg-[#89FF9B] text-[10px] sm:text-[11px] px-2 py-[2px] rounded">
           {discount}
-        </span>
+        </span> */}
 
         {/* BOOKMARK */}
         <div className="absolute top-3 right-3 bg-black/60 p-1 rounded-full">

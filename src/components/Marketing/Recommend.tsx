@@ -134,28 +134,28 @@ export default function RecommendedForYou({ moduleId,searchQuery }: Props) {
 
           return (
             <MarketingCard
-              key={service._id}
-              image={service.thumbnailImage || "/image/marketingbanner.jpg"}
-              title={service.serviceName}
-              category={service.category?.name}
-              mode={service.franchiseDetails?.commission}
-              price={
-                firstPackage?.discountedPrice ??
-                firstPackage?.price ??
-                "N/A"
-              }
-              rating={Math.round(service.averageRating || 4)}
-              reviews={`${service.totalReviews || 0}+ Reviews`}
-              discount={
-                firstPackage?.discount
-                  ? `Discount ${firstPackage.discount}%`
-                  : undefined
-              }
-              earnLabel={
-                service.keyValues?.find(k => k.key === "earn")?.value ||
-                "Earn Up to 5%"
-              }
-            />
+                          key={service._id}
+                          image={service.thumbnailImage || "/image/marketingbanner.jpg"}
+                          title={service.serviceName}
+                          category={service.category?.name}
+                          mode={service.franchiseDetails?.commission}
+                          price={
+                            firstPackage?.discountedPrice ??
+                            firstPackage?.price ??
+                            "N/A"
+                          }
+                          rating={Math.round(service.averageRating || 4)}
+                          reviews={`${service.totalReviews || 0}+ Reviews`}
+                          discount={
+                            firstPackage?.discount
+                              ? `Discount ${firstPackage.discount}%`
+                              : undefined
+                          }
+                          earnLabel={
+                            service.keyValues?.find(k => k.key === "earn")?.value ||
+                            "Earn Up to 5%"
+                          }
+                        />
           );
         })}
       </div>

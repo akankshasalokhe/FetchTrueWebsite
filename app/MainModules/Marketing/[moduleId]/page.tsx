@@ -84,12 +84,11 @@ if (loading) return null;
 
         {/* ---------- BACKGROUND IMAGE ---------- */}
         <div className="absolute inset-0 z-0">
-          <Image
+          <img
             src={banners[0]?.image}
             alt="Marketing Hero"
-            fill
+            
             className="object-cover"
-            priority
           />
           <div className="absolute inset-0 bg-[#2A67F4]/20" />
         </div>
