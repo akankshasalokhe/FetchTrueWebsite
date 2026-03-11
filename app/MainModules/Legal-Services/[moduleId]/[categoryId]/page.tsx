@@ -13,9 +13,12 @@ import MostlyPopularService from "@/src/components/LegalCategories/MostPopular";
 import TopTrending from "@/src/components/LegalCategories/TopTrending";
 import AllServices from "@/src/components/LegalCategories/AllServices";
 import {  useSubCategory } from "@/src/context/SubCategoriesContext";
+import SearchBar from "@/src/components/SearchBar/Search";
 
 
 export default function LegalSubCategoryServiceDetailPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const scrollRef = useRef<HTMLDivElement>(null);
 const { categories,fetchCategoriesByModule } = useModule();
 const [currentCategory, setCurrentCategory] = useState<any>(null);
@@ -105,8 +108,7 @@ useEffect(() => {
         
 
           {/* Back Icon */}
-          <Link href={`
-            `}>
+          <Link href={`/MainModules/Legal-Services/${moduleId}`}>
           <img
             src="/image/Vector (1).png"
             alt="Back Icon"
@@ -130,22 +132,15 @@ useEffect(() => {
         {/* RIGHT SIDE */}
       <div className="flex items-center gap-8">
             {/* SEARCH */}
-            <div className="flex items-center gap-2
-                            bg-white backdrop-blur-md
-                            px-4 py-2 rounded-full
-                            border border-[#E1E1E1]
-                            w-full max-w-[320px]">
-              <Search className="w-4 h-4 opacity-80" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="bg-transparent outline-none
-                           placeholder:text-[#00000078]
-                           text-sm w-full"
-              />
-            </div>
+            <SearchBar
+                            value={searchQuery}
+                            onChange={setSearchQuery}
+                            placeholder="Search" 
+                          />
 
+            <Link href="/Account/MyAccount?section=Favorite">
             <Bookmark  className="w-8 h-8" color="#A3623A"/>
+            </Link>
           </div>
       </div>
 
@@ -197,7 +192,7 @@ useEffect(() => {
                   </div>
   
 
-      <AllServices categoryId={categoryId} moduleId={moduleId} selectedSubCategory={selectedSubCategory}/>
+      <AllServices categoryId={categoryId} moduleId={moduleId} selectedSubCategory={selectedSubCategory} searchQuery={searchQuery}/>
       {/* <RecommendedForYou categoryId={categoryId} moduleId={moduleId}/>
       <MostlyPopularService categoryId={categoryId} moduleId={moduleId}/>
       <TopTrending categoryId={categoryId} moduleId={moduleId}/> */}

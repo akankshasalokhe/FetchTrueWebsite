@@ -77,13 +77,13 @@ const filteredServices =
       </p>
     );
 
-    if (!filteredServices.length) {
-  return (
-    <p className="text-center py-10 text-gray-500">
-      No matching recommended services
-    </p>
-  );
-}
+//     if (!filteredServices.length) {
+//   return (
+//     <p className="text-center py-10 text-gray-500">
+//       No matching recommended services
+//     </p>
+//   );
+// }
 
   return (
     <section className="w-full mt-8 lg:mt-18">

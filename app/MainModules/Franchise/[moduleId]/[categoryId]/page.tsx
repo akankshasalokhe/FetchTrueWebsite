@@ -1830,11 +1830,12 @@ import SearchBudget from "@/src/components/FranchiseCategories/SearchBudget";
 import WhyChooseUs from "@/src/components/FranchiseCategories/WhyChooseUs";
 import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { Bookmark, ChevronLeft } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useSubCategory } from "@/src/context/SubCategoriesContext";
 import { useModule } from "@/src/context/CategoriesContext";
 import AllServices from "@/src/components/FranchiseCategories/AllServices";
+import SearchBar from "@/src/components/SearchBar/Search";
 
 /* ======================= DRAG HOOK (FIXED) ======================= */
 const useHorizontalDrag = <T extends HTMLElement>() => {
@@ -1897,6 +1898,7 @@ const useHorizontalDrag = <T extends HTMLElement>() => {
 /* =============================================================== */
 
 export default function FranchiseSubCategoryServicePage() {
+  const [searchQuery, setSearchQuery] = useState("");
 
     const { categories,fetchCategoriesByModule } = useModule();
 const [currentCategory, setCurrentCategory] = useState<any>(null);
@@ -1922,7 +1924,7 @@ const {
 } = useSubCategory();
 
 
-    const [searchQuery, setSearchQuery] = useState("");
+    // const [searchQuery, setSearchQuery] = useState("");
 
 
 
@@ -1988,37 +1990,17 @@ useEffect(() => {
                         <div className="flex items-center gap-4 mr-10">
                             {/* SEARCH */}
                             <div className="hidden md:block relative w-[260px] lg:w-[280px]">
-                                <input
-                                    type="text"
-                                    placeholder="Search"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="
-                                                      w-full
-                                                      rounded-lg bg-white
-                                                      border border-gray-300
-                                                      px-10 py-4
-                                                      text-sm
-                                                      outline-none
-                                                      focus:border-blue-500
-                                                  "
-                                />
-
-                                {/* search icon */}
-                                <span className="absolute left-3 top-1/2 -translate-y-1/2">
-                                    <img
-                                        src="/image/itsearch.png"
-                                        alt="searchicon"
-                                        className="w-[18px] h-[18px]"
-                                    />
-                                </span>
+                                 <SearchBar
+                                                            value={searchQuery}
+                                                            onChange={setSearchQuery}
+                                                            placeholder="Search" 
+                                                          />
                             </div>
 
                             {/* BOOKMARK / LOCATION ICON */}
-                            <img
-                                src="/image/EducationServicebookmark.png"
-                                className="w-[20px] cursor-pointer"
-                            />
+                            <Link href="/Account/MyAccount?section=Favorite">
+            <Bookmark  className="w-8 h-8" color="#000"/>
+            </Link>
                         </div>
 
 
@@ -2054,30 +2036,19 @@ useEffect(() => {
 
                         {/* RIGHT */}
                         <div className="flex items-center justify-center bg-white w-8 h-8 rounded-full shrink-0">
-                            <img
-                                src="/image/EducationServicebookmark.png"
-                                className="w-[14px] h-[14px]"
-                                alt="Bookmark"
-                            />
+                            <Link href="/Account/MyAccount?section=Favorite">
+            <Bookmark  className="w-8 h-8" color="#000"/>
+            </Link>
                         </div>
                     </div>
 
                     {/* ===== ROW 2: SEARCH ===== */}
                     <div className="relative w-[90%] md:w-[95%] mx-auto ml-6">
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full rounded-full bg-white border border-gray-300 px-10 py-2 text-sm outline-none"
-                        />
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2">
-                            <img
-                                src="/image/itsearch.png"
-                                className="w-[18px] h-[16px]"
-                                alt="Search"
-                            />
-                        </span>
+                        <SearchBar
+                                                    value={searchQuery}
+                                                    onChange={setSearchQuery}
+                                                    placeholder="Search" 
+                                                  />
                     </div>
                 </div>
             </section>
@@ -2236,7 +2207,7 @@ useEffect(() => {
             <div className="bg-white rounded-xl">
               
                 <AllServices categoryId={categoryId} moduleId={moduleId}
-  selectedSubCategory={selectedSubCategory}/> 
+  selectedSubCategory={selectedSubCategory} searchQuery={searchQuery}/> 
           
             </div>
         </section>

@@ -17,10 +17,12 @@ const bgColors = [
 interface Props {
   categoryId: string;
     moduleId: string;
-  selectedSubCategory?: string | null; 
+  selectedSubCategory?: string | null;
+      searchQuery: string;
+ 
 }
 
-export default function AllServices({ categoryId, moduleId,selectedSubCategory }: Props) {
+export default function AllServices({ categoryId, moduleId,selectedSubCategory,searchQuery }: Props) {
   const { services, fetchServicesByCategory, loading, error } = useCategorywiseServices();
 
   const [viewAll, setViewAll] = useState(false);
@@ -64,11 +66,20 @@ const handleToggleFavourite = async (serviceId: string) => {
 
     console.log("Top Trending API categoryId:", categoryId);
 
-  const filteredServices = services.filter((service) => {
-  if (!selectedSubCategory) return true;
+const filteredServices =
+  services?.filter((service) => {
 
-  return service.subcategory?._id === selectedSubCategory;
-});
+    const matchSub =
+      !selectedSubCategory || service.subcategory?._id === selectedSubCategory;
+
+    const matchSearch =
+      !searchQuery?.trim() ||
+      service.serviceName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.category?.name?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchSub && matchSearch;
+
+  }) || []; 
 
 
   if (loading)
