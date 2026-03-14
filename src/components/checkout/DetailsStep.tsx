@@ -799,6 +799,7 @@ import AddCustomerDialog from "./AddCustomerForm";
 import { useCommission } from "@/src/context/PlatformFeeContext";
 import { useReview } from "@/src/context/ReviewContext";
 import { useAuth } from "@/src/context/AuthContext";
+import { useServiceProviders } from "@/src/context/ServicewiseProviderContext";
 
 /* ================= MOCK DATA ================= */
 
@@ -828,6 +829,7 @@ type PaymentData = {
 
 type CheckoutData = {
     selectedUser: string;
+    serviceCustomer: string | null;
     paymentData: PaymentData;
 };
 
@@ -946,12 +948,17 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
 
     const { service, loading, error, fetchServiceDetails } = useServiceDetails();
     const { reviewServices, fetchReviews } = useReview();
+    const { providers, fetchProvidersByService } = useServiceProviders();
+    const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
+    const [customerNote, setCustomerNote] = useState("");
 
     const [selectedCoupon, setSelectedCoupon] = useState<any>(null);
     const [couponDiscount, setCouponDiscount] = useState(0);
 
     const searchParams = useSearchParams();
     const serviceId = searchParams.get("id") ?? "";
+    const providerId = searchParams.get("providerId");
+
 
     const [selected, setSelected] = useState<"me" | "customer">("me");
     const [openSidebar, setOpenSidebar] = useState(false);
@@ -963,18 +970,25 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
     const { selectedPackage, loadPackage, hydrated } = useCheckout();
     const { services, fetchCommission } = useCommission();
     const { user } = useAuth();
-    console.log("User in DetailsStep:", user);
+
+
+    const imageUrl = service?.thumbnailImage;
 
     useEffect(() => {
         if (!serviceId) return;
         loadPackage(serviceId);         // rehydrate from sessionStorage after refresh
         fetchServiceDetails(serviceId);
+        fetchProvidersByService(serviceId);
         fetchReviews(serviceId);
     }, [serviceId]);
 
     useEffect(() => {
         fetchCommission();
     }, []);
+
+
+    const selectedProvider = providers.find((p) => p._id === providerId) ?? null;
+    console.log("Selected Provider:", selectedProvider);
 
     const commission = services?.[0];
     const basicPackage = service?.serviceDetails?.packages?.[0];
@@ -1023,6 +1037,7 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
         if (!packageToUse || !computedPayment) return;
         onNext({
             selectedUser: selected,
+            serviceCustomer: selected === "customer" ? selectedCustomer?._id  : user?._id, 
             paymentData: {
                 listingPrice: packageToUse.price,
                 serviceDiscount: computedPayment.serviceDiscountAmount,
@@ -1085,15 +1100,15 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                 DESKTOP VIEW (lg+)
              */}
             <section className="max-w-[1400px] hidden lg:block mx-auto">
-                <div className="grid grid-cols-12 gap-12 mb-15">
+                <div className="grid grid-cols-12 gap-12 mb-10">
 
                     {/* LEFT CARD */}
                     <div className="col-span-4">
                         <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm lg:w-[479px] lg:h-[456px] p-2">
                             <div className="relative">
-                                <img src={serviceCardData.image} alt="Service" className="lg:w-[455px] lg:h-[295px] object-cover" />
+                                <img src={imageUrl} alt="Service" className="lg:w-[455px] lg:h-[295px] object-cover" />
                                 {serviceCardData.trusted && (
-                                    <span className="absolute top-0 left-0 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-md">✔ Trusted</span>
+                                    <span className="absolute top-2 left-2 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-md">✔ Trusted</span>
                                 )}
                                 <div className="absolute bottom-1 right-2 flex items-center justify-center bg-blue-600 lg:w-[67px] lg:h-[43px] text-white lg:text-[14px] px-2 py-1 rounded-md">
                                     ⭐ {service?.averageRating ?? "—"}
@@ -1150,10 +1165,10 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                                 <div className="pl-6 lg:text-[16px] space-y-2">
                                     <div className="flex items-center gap-2">
                                         <p><strong>Name:</strong> {user?.fullName}</p>
-                                        <div className="lg:ml-22 flex flex-row gap-2">
+                                        {/* <div className="lg:ml-22 flex flex-row gap-2">
                                             <Phone size={14} />
                                             <FaWhatsapp className="text-green-500" />
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <p><strong>Phone:</strong> {user?.mobileNumber}</p>
                                     {/* <p className="flex items-center gap-1">
@@ -1165,7 +1180,7 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                         </div>
 
                         {/* FOR CUSTOMER */}
-                        <div className="border border-gray-300 rounded-xl p-4 space-y-4">
+                        {/* <div className="border border-gray-300 rounded-xl p-4 space-y-4">
                             <label className="flex items-center gap-2 lg:text-[16px] font-medium cursor-pointer">
                                 <input type="radio" name="serviceFor" checked={selected === "customer"} onChange={() => setSelected("customer")} />
                                 This Service is for my Customer
@@ -1178,7 +1193,71 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                                     <PlusCircle className="w-4 h-4 shrink-0" /> Add New Customer
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
+                        {/* FOR CUSTOMER */}
+<div className="border border-gray-300 rounded-xl p-4 space-y-4">
+    <label className="flex items-center gap-2 lg:text-[16px] font-medium cursor-pointer">
+        <input
+            type="radio"
+            name="serviceFor"
+            checked={selected === "customer"}
+            onChange={() => setSelected("customer")}
+        />
+        This Service is for my Customer
+    </label>
+
+    <div className="flex gap-4 lg:pl-6">
+        <button
+            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg lg:text-[14px] whitespace-nowrap hover:bg-blue-50 transition-colors"
+            onClick={() => setOpenSidebar(true)}
+        >
+            My Customer
+        </button>
+        <button
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer lg:text-[14px] flex flex-row items-center gap-2 hover:bg-blue-700 transition-colors"
+            onClick={() => setOpenAddCustomers(true)}
+        >
+            <PlusCircle className="w-4 h-4 shrink-0" /> Add New Customer
+        </button>
+    </div>
+
+   
+    {selected === "customer" && selectedCustomer && (
+        <div className="lg:pl-6 mt-2">
+            <div className="border border-gray-200 inline-flex rounded-xl p-4 bg-gray-50 space-y-2 text-sm relative">
+                {/* Remove button */}
+                <button
+                    onClick={() => { setSelectedCustomer(null); setCustomerNote(""); }}
+                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-xs"
+                >
+                    ✕
+                </button>
+
+                <div className="flex items-center gap-3 w-fit">
+                    <img
+                        src="/image/reviewcontact.jpg"
+                        alt={selectedCustomer.fullName}
+                        className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <div>
+                        <p className="font-semibold">{selectedCustomer.fullName}</p>
+                         <p><span className="font-medium">Phone:</span> {selectedCustomer.phone}</p>
+                    </div>
+                </div>
+
+               
+                {/* <p><span className="font-medium">Email:</span> {selectedCustomer.email}</p>
+                <p><span className="font-medium">Address:</span> {selectedCustomer.address}</p> */}
+
+                {customerNote && (
+                    <p className="text-gray-500 italic">
+                        <span className="font-medium not-italic text-gray-700">Note:</span> {customerNote}
+                    </p>
+                )}
+            </div>
+        </div>
+    )}
+</div>
 
                         {/* COUPON */}
                         {/* <div className="w-full max-w-[520px] bg-white rounded-xl border border-gray-200 p-4 space-y-4">
@@ -1237,6 +1316,55 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                         </div>
                     </div>
                 </div>
+
+                {/* Service Provider */}
+                <h2 className="text-[20px] font-semibold">Service Provider</h2>
+                <div className="border rounded-xl p-4 space-y-3 inline-flex mb-10">
+
+
+                    {selectedProvider ? (
+                        <div className="flex items-start gap-3">
+                            {/* Logo */}
+                            <div className="flex-shrink-0">
+                                <img
+                                    src={selectedProvider?.storeInfo?.logo || "/image/default-provider.png"}
+                                    alt={selectedProvider?.storeInfo?.storeName || "Provider"}
+                                    className="w-15 h-15 rounded-full object-cover border border-gray-200"
+                                    onError={(e) => {
+                                        e.currentTarget.src = "/image/default-provider.png";
+                                    }}
+                                />
+                            </div>
+
+                            {/* Provider Details */}
+                            <div className="flex-1 space-y-1">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-lg font-medium text-gray-600">Name:</span>
+                                    <p className="text-lg font-semibold text-gray-800">
+                                        {selectedProvider?.storeInfo?.storeName || selectedProvider?.fullName || "N/A"}
+                                    </p>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <span className="text-lg font-medium text-gray-600">ID:</span>
+                                    <p className="text-lg text-gray-700">{selectedProvider?.providerId || "N/A"}</p>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <span className="text-lg font-medium text-gray-600">Phone:</span>
+                                    <p className="text-lg text-gray-700">{selectedProvider?.phoneNo || selectedProvider?.storeInfo?.storePhone || "N/A"}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col ml-10 mr-4 mt-2">
+                                <Phone size={24} />
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="text-lg text-gray-500 italic">No provider selected</p>
+                    )}
+                </div>
+
             </section>
 
             {/* Desktop payment summary */}
@@ -1251,11 +1379,11 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                     {/* SERVICE CARD - tablet */}
                     <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm w-[300px] mx-auto p-2">
                         <div className="relative">
-                            <img src={serviceCardData.image} alt="Service" className="w-[300px] h-[200px] object-cover" />
+                            <img src={imageUrl} alt="Service" className="w-[300px] h-[200px] object-cover" />
                             {serviceCardData.trusted && (
                                 <span className="absolute top-2 left-2  bg-green-100 text-green-700 text-xs px-2 py-1 rounded-md">✔ Trusted</span>
                             )}
-                            <div className="absolute bottom-0 -right-0 whitespace-nowrap flex items-center justify-center bg-blue-600 w-[35px] h-[31px] text-white text-[10px] px-1 py-1 rounded-md">
+                            <div className="absolute bottom-2 right-2 whitespace-nowrap flex items-center justify-center bg-blue-600 w-[35px] h-[31px] text-white text-[10px] px-2 py-1 rounded-md">
                                 ⭐ {service?.averageRating ?? "—"}
                             </div>
                         </div>
@@ -1345,11 +1473,11 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
 
                 {/* SERVICE CARD - mobile */}
                 <div className="border rounded-xl p-3 shadow-sm relative">
-                    <img src={serviceCardData.image} className="w-full h-[200px] object-contain" alt="Service" />
+                    <img src={imageUrl} className="w-full h-[200px] object-fit" alt="Service" />
                     {serviceCardData.trusted && (
-                        <span className="absolute top-6 left-3 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-md">✔ Trusted</span>
+                        <span className="absolute top-4 left-4 bg-green-100 text-green-700 text-xs px-2 py-1 rounded-md">✔ Trusted</span>
                     )}
-                    <div className="absolute top-43 right-3 flex items-center justify-center whitespace-nowrap bg-blue-600 w-[38px] h-[25px] text-white text-[10px] px-1 py-1 rounded-md">
+                    <div className="absolute top-45 right-5 flex items-center justify-center whitespace-nowrap bg-blue-600 w-[38px] h-[25px] text-white text-[10px] px-1 py-1 rounded-md">
                         ⭐ {service?.averageRating ?? "—"}
                     </div>
                     <div className="mt-3 flex justify-between">
@@ -1486,7 +1614,15 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
             {openSidebar && <div onClick={() => setOpenSidebar(false)} className="fixed inset-0 bg-black/40 z-40" />}
 
             <div className={`fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 transform transition-transform duration-300 ease-in-out ${openSidebar ? "translate-x-0" : "translate-x-full"}`}>
-                <CustomerList onClose={() => setOpenSidebar(false)} />
+                {/* <CustomerList onClose={() => setOpenSidebar(false)} /> */}
+                <CustomerList
+                    onClose={() => setOpenSidebar(false)}
+                    onSelect={(customer, note) => {
+                        setSelectedCustomer(customer);
+                        setCustomerNote(note);
+                        setOpenSidebar(false);
+                    }}
+                />
             </div>
         </>
     );

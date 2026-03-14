@@ -592,6 +592,7 @@ function ServiceSection() {
     const { providers } = useTopRatedProviders();
 
     const cover = providers.find(provider => provider._id === providerId)?.storeInfo.cover || "placeholder-image-url";
+    const logo = providers.find(provider => provider._id === providerId)?.storeInfo.logo || "placeholder-logo-url";
 
     const filteredServices = activeCategory === "all"
         ? subscribedServices
@@ -680,7 +681,7 @@ function ServiceSection() {
             <div className="px-6 pt-5 flex justify-between items-center">
                 <div className="flex gap-3 items-center">
                     <img
-                        src={matchedProvider?.storeInfo?.logo || "/default-avatar.jpg"}
+                        src={logo}
                         className="w-12 h-12 rounded-full object-cover"
                         alt="Provider"
                     />

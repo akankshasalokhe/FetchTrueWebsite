@@ -30,6 +30,10 @@ const nextConfig = {
         source: '/api/provider/:path*',
         destination: 'https://api.fetchtrue.com/api/provider/:path*',
       },
+       {
+        source: '/api/packages',
+        destination: 'https://api.fetchtrue.com/api/packages',
+      },
     ];
   },
 };

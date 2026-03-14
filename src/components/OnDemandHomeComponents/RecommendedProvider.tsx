@@ -6,8 +6,6 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRecommendedProviders } from "@/src/context/RecommendedProviderContext"
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/src/context/AuthContext";
-import { CiBookmark } from "react-icons/ci";
-import { useProviderFavourites } from "@/src/context/ProviderFavouriteContext";
 
 
 type SectionProps = {
@@ -28,17 +26,13 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const router = useRouter();
-    const { addFavourite, removeFavourite, isFavourite, fetchFavourites } = useProviderFavourites();
+   
 
     const { user } = useAuth();
 
     const userId = user?._id;
 
-    useEffect(() => {
-        if (userId) {
-            fetchFavourites(userId);
-        }
-    }, [userId]);
+   
 
     const {
         providers,
@@ -56,14 +50,7 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
     }, [moduleId]);
 
 
-    const handleToggleFavourite = async (providerId: string) => {
-        if (!userId) return;
-        if (isFavourite(providerId)) {
-            await removeFavourite(userId, providerId);
-        } else {
-            await addFavourite(userId, providerId);
-        }
-    };
+   
 
     const filteredServices =
         providers?.filter((service) => {
@@ -194,18 +181,8 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
                                                 </span>
                                             </div>
                                         </div>
-                                        {/* <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" /> */}
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                handleToggleFavourite(item.id);
-                                            }}
-                                            className={`absolute top-2 right-2 w-[24px] h-[24px] rounded-full flex items-center justify-center
-      ${isFavourite(item.id) ? "bg-red-500" : "bg-black"}`}
-                                        >
-                                            <CiBookmark size={14} color="#fff" />
-                                        </button>
+                                        <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
+                                       
                                     </div>
                                 </div>
 

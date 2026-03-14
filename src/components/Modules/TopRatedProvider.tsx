@@ -392,9 +392,9 @@ export default function TopRatedProvider() {
                             {/* Content - Add padding-right to prevent overlap with bookmark */}
                             <div className="flex items-start gap-3 pr-10">
                                 <img
-                                    src={item.image}
+                                    src={item.storeInfo.logo}
                                     alt={item.name}
-                                    className="w-[55px] h-[55px] lg:w-[96px] lg:h-[96px] rounded-full object-cover flex-shrink-0"
+                                    className="w-[55px] h-[55px] lg:w-[96px] lg:h-[96px] rounded-full object-fit flex-shrink-0"
                                     onError={(e) => {
                                         e.currentTarget.src = "/image/placeholder.png";
                                     }}

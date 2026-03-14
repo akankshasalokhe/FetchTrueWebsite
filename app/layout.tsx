@@ -48,7 +48,7 @@ import { ServiceCustomerProvider } from "@/src/context/ServiceCustomerContext";
 import { AllCouponProvider } from "@/src/context/CoupanContext";
 import { CategoryBannerProvider } from "@/src/context/CategoryBannerContext";
 import { BannerProvider } from "@/src/context/CarouselBannerContext";
-import { ProviderFavouriteProvider } from "@/src/context/ProviderFavouriteContext";
+import { PackageProvider } from "@/src/context/PackageContext";
 
 // export const metadata = {
 //   title: "Fetch True",
@@ -110,12 +110,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                                                                           <ServicewiseProviderProvider>
                                                                                             <SubscribedServicesProvider>
                                                                                               <SubscribedCategoryServicesProvider>
-                                                                                                <ProviderFavouriteProvider>
+                                                                                                <PackageProvider>
 
 
+    
                                                                                                   <main>{children}</main>
+                                                                                                </PackageProvider>
 
-                                                                                                </ProviderFavouriteProvider>
+
 
                                                                                               </SubscribedCategoryServicesProvider>
 
