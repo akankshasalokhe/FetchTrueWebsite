@@ -413,11 +413,14 @@ import WhyChooseUs from "@/src/components/ItServiceDetails/WhyChooseUs";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, Eye, Share2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
 import { useReview } from "@/src/context/ReviewContext";
 import { useCheckout } from "@/src/context/CheckoutContext";
 import { useModule } from "@/src/context/ModuleContext";
+import { useServiceProviders } from "@/src/context/ServicewiseProviderContext";
+import { Provider } from "@/src/context/ServicewiseProviderContext";
+
 
 interface Module {
     _id: string;
@@ -435,6 +438,10 @@ const ServiceDetails = () => {
     const serviceId = params.id as string;
 
     const { selectedPackage, setSelectedPackage } = useCheckout();
+     const { providers,fetchProvidersByService } = useServiceProviders();
+      const [selectedProvider, setSelectedProvider] = useState<any>(null);
+      console.log("Selected Provider in ServiceDetails:", selectedProvider);
+
 
     // Track previous service ID
     const prevServiceIdRef = useRef<string | null>(null);
@@ -442,6 +449,17 @@ const ServiceDetails = () => {
     const basicPackage = service?.serviceDetails?.packages?.[0];
 
     const displayPackage = selectedPackage ?? basicPackage;
+
+    const mappedProviders = providers.map((p) => ({
+        _id: p._id,
+        providerId: p.providerId,
+        logo: p.storeInfo?.logo || "/image/default-provider.png",
+        name: p.storeInfo?.storeName || p.fullName,
+        rating: p.averageRating || 0,
+        reviews: p.totalReviews || 0,
+        promoted: Boolean(p.isPromoted),
+        available: p.isStoreOpen,
+    }));
 
 
     useEffect(() => {
@@ -459,6 +477,7 @@ const ServiceDetails = () => {
 
         fetchServiceDetails(serviceId);
         fetchReviews(serviceId)
+        fetchProvidersByService(serviceId);
     }, [serviceId]);
 
     const itServicesModule = modules?.find(
@@ -541,7 +560,8 @@ const ServiceDetails = () => {
                                 </div>
 
 
-                                <Link href={`/MainModules/Checkout?id=${serviceId}`}>
+                                {/* <Link href={`/MainModules/Checkout?id=${serviceId}`}> */}
+                                <Link href={`/MainModules/Checkout?id=${serviceId}&providerId=${selectedProvider?._id}`}>
                                     <button className="flex items-center gap-2 bg-green-500 cursor-pointer hover:bg-green-600 text-white px-4 py-2 rounded-md lg:text-[20px] font-medium">
                                         <ShoppingCart className="w-[29px] h-[29px]" />
                                         Check out
@@ -815,7 +835,7 @@ const ServiceDetails = () => {
                 <Packages packages={service?.serviceDetails?.packages || []} />
                 <Documents weRequired={service?.serviceDetails?.weRequired || []} weDeliver={service?.serviceDetails?.weDeliver || []} />
                 <MoreInformation moreInfo={service?.serviceDetails?.moreInfo || []} />
-                <ChooseProvider />
+                <ChooseProvider  providers={mappedProviders}  onSelect={(provider: any) => setSelectedProvider(provider)}/>
                 <TermsAndConditions termsAndConditions={service?.serviceDetails?.termsAndConditions || []} />
                 <FAQs faq={service?.serviceDetails?.faq || []} />
                 <RatingsReviews reviews={reviewServices} />

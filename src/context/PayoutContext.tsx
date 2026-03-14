@@ -100,8 +100,14 @@ export const PayoutProvider = ({ children }: { children: ReactNode }) => {
         setCurrentPage(res.data.currentPage);
         setTotalPages(res.data.totalPages);
       }
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to fetch payouts");
+    } catch (err: unknown) {
+      if(err instanceof Error) {
+        setError(err.message);
+      } else if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || "Failed to fetch payouts");
+      } else {
+        setError("An unknown error occurred");
+      } 
     } finally {
       setLoading(false);
     }

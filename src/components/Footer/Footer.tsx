@@ -61,39 +61,39 @@
 //           </p>
 //         </div>
 
-        // <div className="flex gap-4">
+// <div className="flex gap-4">
 
-        //   {/* Google Play */}
-        //   <motion.a
-        //     href="https://play.google.com/store/apps/details?id=com.fetch.true"
-        //     target="_blank"
-        //     rel="noopener noreferrer"
-        //     className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
-        //     whileHover={{ scale: 1.05, y: -2 }}
-        //     whileTap={{ scale: 0.95 }}
-        //   >
-        //     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-        //       <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-        //     </svg>
-        //     Google Play
-        //   </motion.a>
+//   {/* Google Play */}
+//   <motion.a
+//     href="https://play.google.com/store/apps/details?id=com.fetch.true"
+//     target="_blank"
+//     rel="noopener noreferrer"
+//     className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
+//     whileHover={{ scale: 1.05, y: -2 }}
+//     whileTap={{ scale: 0.95 }}
+//   >
+//     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+//       <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+//     </svg>
+//     Google Play
+//   </motion.a>
 
-        //   {/* Apple Store */}
-        //   <motion.a
-        //     href="https://apps.apple.com/in/app/fetch-true/id1669248432"
-        //     target="_blank"
-        //     rel="noopener noreferrer"
-        //     className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
-        //     whileHover={{ scale: 1.05, y: -2 }}
-        //     whileTap={{ scale: 0.95 }}
-        //   >
-        //     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        //       <path d="M16.365 1.43c0 1.14-.418 2.088-1.254 2.842-.837.754-1.754 1.19-2.75 1.304-.028-.125-.042-.272-.042-.44 0-1.094.394-2.02 1.18-2.78.787-.76 1.71-1.15 2.766-1.15.032 0 .064.004.1.01v.214zM20.745 17.71c-.3.695-.66 1.332-1.085 1.91-.56.77-1.015 1.305-1.36 1.605-.54.495-1.12.75-1.75.764-.445.015-.983-.127-1.62-.426-.637-.3-1.223-.448-1.75-.448-.556 0-1.158.148-1.807.448-.65.3-1.178.45-1.585.45-.61-.027-1.2-.298-1.77-.81-.38-.334-.86-.895-1.445-1.685-.62-.843-1.127-1.82-1.52-2.93-.424-1.2-.635-2.36-.635-3.48 0-1.286.278-2.395.835-3.33.436-.75 1.02-1.34 1.75-1.77.73-.43 1.523-.653 2.38-.67.467-.013 1.08.15 1.84.49.758.337 1.245.506 1.46.506.162 0 .71-.205 1.64-.615.88-.38 1.62-.54 2.22-.48 1.64.133 2.878.78 3.71 1.94-1.47.9-2.208 2.152-2.21 3.75.002 1.25.465 2.29 1.39 3.12.412.39.87.69 1.37.9-.11.32-.245.65-.405.99z" />
-        //     </svg>
-        //     Apple Store
-        //   </motion.a>
+//   {/* Apple Store */}
+//   <motion.a
+//     href="https://apps.apple.com/in/app/fetch-true/id1669248432"
+//     target="_blank"
+//     rel="noopener noreferrer"
+//     className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
+//     whileHover={{ scale: 1.05, y: -2 }}
+//     whileTap={{ scale: 0.95 }}
+//   >
+//     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+//       <path d="M16.365 1.43c0 1.14-.418 2.088-1.254 2.842-.837.754-1.754 1.19-2.75 1.304-.028-.125-.042-.272-.042-.44 0-1.094.394-2.02 1.18-2.78.787-.76 1.71-1.15 2.766-1.15.032 0 .064.004.1.01v.214zM20.745 17.71c-.3.695-.66 1.332-1.085 1.91-.56.77-1.015 1.305-1.36 1.605-.54.495-1.12.75-1.75.764-.445.015-.983-.127-1.62-.426-.637-.3-1.223-.448-1.75-.448-.556 0-1.158.148-1.807.448-.65.3-1.178.45-1.585.45-.61-.027-1.2-.298-1.77-.81-.38-.334-.86-.895-1.445-1.685-.62-.843-1.127-1.82-1.52-2.93-.424-1.2-.635-2.36-.635-3.48 0-1.286.278-2.395.835-3.33.436-.75 1.02-1.34 1.75-1.77.73-.43 1.523-.653 2.38-.67.467-.013 1.08.15 1.84.49.758.337 1.245.506 1.46.506.162 0 .71-.205 1.64-.615.88-.38 1.62-.54 2.22-.48 1.64.133 2.878.78 3.71 1.94-1.47.9-2.208 2.152-2.21 3.75.002 1.25.465 2.29 1.39 3.12.412.39.87.69 1.37.9-.11.32-.245.65-.405.99z" />
+//     </svg>
+//     Apple Store
+//   </motion.a>
 
-        // </div>
+// </div>
 
 //       </div>
 
@@ -303,10 +303,10 @@ export default function Footer() {
     <footer className="w-full bg-white border-t border-gray-200 text-gray-700">
 
       {/* TOP GRID */}
-      <div className="max-w-[1440px] mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-7 gap-10">
+      <div className="max-w-[1440px] mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-7 gap-6 md:gap-10">
 
-        {/* COMPANY INFO */}
-        <div className="md:col-span-2 text-sm space-y-3">
+       
+        <div className="col-span-2 md:col-span-2 text-sm space-y-3">
           <h2 className="text-[24px] lg:text-[32px] font-semibold text-black">
             {COMPANY_INFO.name}
           </h2>
@@ -321,22 +321,18 @@ export default function Footer() {
           <p>✉️ {COMPANY_INFO.email}</p>
         </div>
 
-        {/* LINK COLUMNS */}
+        {/* LINK COLUMNS — each takes 1 col on mobile (2 per row), 1 col on md+ */}
         {FOOTER_LINK_SECTIONS.map((section, idx) => (
-          <div key={idx}>
+          <div key={idx} className="col-span-1">
             {section.title && (
               <h3 className="font-semibold text-sm mb-4 text-black">
                 {section.title}
               </h3>
             )}
-
             <ul className="space-y-2 text-sm">
               {section.links.map((link, i) => (
                 <li key={i}>
-                  <Link
-                    href={link.path}
-                    className="hover:text-black transition"
-                  >
+                  <Link href={link.path} className="hover:text-black transition">
                     {link.label}
                   </Link>
                 </li>
@@ -361,27 +357,13 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* STORE BUTTONS */}
-        {/* <div className="flex gap-4">
-          {STORE_BUTTONS.map((btn, i) => (
-            <Link key={i} href={btn.path}>
-              <img
-                src={btn.src}
-                alt={btn.alt}
-                className="h-10 object-contain"
-              />
-            </Link>
-          ))}
-        </div> */}
-        
         <div className="flex gap-4">
-
-          {/* Google Play */}
+          
           <motion.a
             href="https://play.google.com/store/apps/details?id=com.fetch.true"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
+            className="inline-flex items-center justify-center whitespace-nowrap gap-3 px-2 py-3 md:px-5 md:py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -391,30 +373,26 @@ export default function Footer() {
             Google Play
           </motion.a>
 
-          {/* Apple Store */}
+         
           <motion.a
             href="https://apps.apple.com/in/app/fetch-true/id1669248432"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
+            className="inline-flex items-center justify-center gap-3 whitespace-nowrap px-2 py-3 md:px-5 md:py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 font-medium text-sm"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M16.365 1.43c0 1.14-.418 2.088-1.254 2.842-.837.754-1.754 1.19-2.75 1.304-.028-.125-.042-.272-.042-.44 0-1.094.394-2.02 1.18-2.78.787-.76 1.71-1.15 2.766-1.15.032 0 .064.004.1.01v.214zM20.745 17.71c-.3.695-.66 1.332-1.085 1.91-.56.77-1.015 1.305-1.36 1.605-.54.495-1.12.75-1.75.764-.445.015-.983-.127-1.62-.426-.637-.3-1.223-.448-1.75-.448-.556 0-1.158.148-1.807.448-.65.3-1.178.45-1.585.45-.61-.027-1.2-.298-1.77-.81-.38-.334-.86-.895-1.445-1.685-.62-.843-1.127-1.82-1.52-2.93-.424-1.2-.635-2.36-.635-3.48 0-1.286.278-2.395.835-3.33.436-.75 1.02-1.34 1.75-1.77.73-.43 1.523-.653 2.38-.67.467-.013 1.08.15 1.84.49.758.337 1.245.506 1.46.506.162 0 .71-.205 1.64-.615.88-.38 1.62-.54 2.22-.48 1.64.133 2.878.78 3.71 1.94-1.47.9-2.208 2.152-2.21 3.75.002 1.25.465 2.29 1.39 3.12.412.39.87.69 1.37.9-.11.32-.245.65-.405.99z" />
             </svg>
             Apple Store
           </motion.a>
-
         </div>
-
-
-
       </div>
 
       {/* COPYRIGHT */}
       <div className="border-t border-gray-200 py-4 text-center text-xs text-gray-500">
-        ©25 © All rights Reserved | FTFL Technology Pvt.Ltd
+        ©{new Date().getFullYear()} © All rights Reserved | FTFL Technology Pvt.Ltd
       </div>
     </footer>
   );

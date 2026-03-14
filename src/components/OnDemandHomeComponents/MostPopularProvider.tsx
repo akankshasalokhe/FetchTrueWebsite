@@ -5,6 +5,9 @@ import { Bookmark, Clock, Phone, MailIcon } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { usePopularProviders } from "@/src/context/PopularProviderContext";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/src/context/AuthContext";
+import { useFavouriteProviders } from "@/src/context/FavouriteProviderContext";
+import { FaBookmark } from "react-icons/fa6";
 
 type SectionProps = {
     moduleId: string,
@@ -35,12 +38,38 @@ export default function MostPopularProvider({ moduleId, searchQuery }: SectionPr
 
 
 
+    const { getFavouriteProviders, addFavouriteProviders, removeFavouriteProviders, isFavourite } =
+        useFavouriteProviders();
+
+    const { user } = useAuth();
+
+    const userId = user?._id;
+
+    useEffect(() => {
+        if (userId) {
+            getFavouriteProviders(userId);
+        }
+    }, [userId]);
+
+
+
+    const handleToggleFavourite = async (serviceId: string) => {
+        if (!userId) return;
+
+        console.log("Toggle Favourite Called for Service ID:", serviceId);
+        if (isFavourite(serviceId)) {
+            await removeFavouriteProviders(userId, serviceId);
+        } else {
+            await addFavouriteProviders(userId, serviceId);
+        }
+    };
+
     useEffect(() => {
         if (moduleId) {
-            fetchPopularProviders(moduleId,20.175618471885596,72.73285952405311);
+            fetchPopularProviders(moduleId, 20.175618471885596, 72.73285952405311);
         }
     }, [moduleId]);
-   
+
 
 
     const filteredServices =
@@ -68,7 +97,7 @@ export default function MostPopularProvider({ moduleId, searchQuery }: SectionPr
         providerName: service.fullName,
         storeName: service.storeInfo?.storeName || "Unknown Store",
 
-        
+
         image:
             service.storeInfo?.logo ||
             service.storeInfo?.cover ||
@@ -137,126 +166,137 @@ export default function MostPopularProvider({ moduleId, searchQuery }: SectionPr
 
                     {mappedServices.length > 0 ? (
                         mappedServices.map((item) => (
-                        <div
-                            key={item.id}
-                            className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
-                              onClick={() => {
-                                router.push(`/MainModules/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
-                            }}
-                        >
-                            {/* HEADER */}
-                            <div className="-mx-4 -mt-4 lg:-mt-4 p-4 max-h-[150px] bg-[#F7FAFE] rounded-t-xl">
-                                <div className="flex items-start gap-3">
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className="w-[55px] h-[55px] lg:w-[96px] lg:h-[96px] rounded-full object-cover"
-                                    />
-                                    <div className="flex-1">
-                                        <h2 className="font-semibold text-[14px] lg:text-[20px]">{item.name}</h2>
-                                        <p className="lg:text-[16px] text-[12px] text-gray-500 leading-snug line-clamp-2 max-h-[80%]">{item.description}</p>
-                                        <div className="flex flex-row gap-1 lg:gap-4 mt-2 text-[10px] lg:text-[14px] text-gray-600 whitespace-nowrap">
-                                            <p className="flex items-center gap-1">
-                                                <Phone className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500" /> <span>{item.phone}</span>
-                                            </p>
-                                            <p className="flex items-center gap-1">
-                                                <MailIcon className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500" /> <span>{item.email}</span>
-                                            </p>
+                            <div
+                                key={item.id}
+                                className="shrink-0 w-[300px] lg:w-[479px]  bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm"
+                                onClick={() => {
+                                    router.push(`/MainModules/providers/${item.id}?providerName=${encodeURIComponent(item.name)}`)
+                                }}
+                            >
+                                {/* HEADER */}
+                                <div className="-mx-4 -mt-4 lg:-mt-4 p-4 max-h-[150px] bg-[#F7FAFE] rounded-t-xl">
+                                    <div className="flex items-start gap-3">
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="w-[55px] h-[55px] lg:w-[96px] lg:h-[96px] rounded-full object-cover"
+                                        />
+                                        <div className="flex-1">
+                                            <h2 className="font-semibold text-[14px] lg:text-[20px]">{item.name}</h2>
+                                            <p className="lg:text-[16px] text-[12px] text-gray-500 leading-snug line-clamp-2 max-h-[80%]">{item.description}</p>
+                                            <div className="flex flex-row gap-1 lg:gap-4 mt-2 text-[10px] lg:text-[14px] text-gray-600 whitespace-nowrap">
+                                                <p className="flex items-center gap-1">
+                                                    <Phone className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500" /> <span>{item.phone}</span>
+                                                </p>
+                                                <p className="flex items-center gap-1">
+                                                    <MailIcon className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500" /> <span>{item.email}</span>
+                                                </p>
+                                            </div>
+
+                                            <div className="mt-1 flex gap-1 text-[10px] lg:text-[14px] text-gray-600">
+                                                <FaMapMarkerAlt
+                                                    className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 shrink-0 mt-[2px]"
+                                                />
+
+                                                <span className="line-clamp-2 break-words">
+                                                    {item.address}
+                                                </span>
+                                            </div>
                                         </div>
-
-                                        <div className="mt-1 flex gap-1 text-[10px] lg:text-[14px] text-gray-600">
-                                            <FaMapMarkerAlt
-                                                className="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 shrink-0 mt-[2px]"
-                                            />
-
-                                            <span className="
-                                                    break-words
-                                                    md:whitespace-normal
-                                                    lg:whitespace-nowrap
-                                                    lg:truncate
-                                                ">
-                                                {item.address}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
-                                </div>
-                            </div>
-
-                            {/* STATUS */}
-                            <div className="flex mb-1 mt-2 lg:mt-6">
-                                <span className="ml-auto bg-green-500 text-white text-[10px] lg:text-[12px] px-3 py-1 rounded-full">
-                                    {item.status}
-                                </span>
-                            </div>
-
-                            {/* CATEGORIES */}
-                            <div className="h-[95px] overflow-y-auto">
-                                <h4 className="text-[10px] lg:text-[16px] font-medium mb-2">
-                                    Services Category -
-                                </h4>
-                                <div className="flex flex-wrap gap-2">
-                                    {item.categories.map((cat, i) => (
-                                        <span
-                                            key={i}
-                                            className="bg-gray-100 font-semibold text-[10px] lg:text-[14px] px-3 py-1 rounded-full"
+                                        {/* <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" /> */}
+                                        <button
+                                            className=" p-2  hover:shadow-lg transition-shadow"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleToggleFavourite(item.id);
+                                            }}
                                         >
-                                            {cat}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* ABOUT DESKTOP VERSION */}
-                            <div className="hidden md:block mt-4">
-                                <h4 className="text-[10px] lg:text-[16px] font-medium mb-3">
-                                    About Service
-                                </h4>
-                                <div className="flex gap-2">
-                                    <div className="flex gap-2">
-                                        <Clock className="w-4 h-4 text-blue-500 mt-1" />
-                                        <div>
-                                            <p className="text-[10px] lg:text-[13px] font-medium">{item.experience}</p>
-                                            <p className="text-[10px] lg:text-[13px] text-gray-500">Working Experience</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <span className="text-orange-500">⭐</span>
-                                        <div>
-                                            <p className="text-[10px] lg:text-[13px] font-medium">{item.rating} Rating</p>
-                                            <p className="text-[10px] lg:text-[12px] text-gray-500">{item.reviews} Reviews</p>
-                                        </div>
+                                            {/* <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" /> */}
+                                            <FaBookmark
+                                                size={16}
+                                                className={`transition ${isFavourite(item.id)
+                                                    ? "w-4 h-4 lg:w-5 lg:h-5 shrink-0  -ml-6 text-red-500 fill-red-500"
+                                                    : "w-4 h-4 lg:w-5 lg:h-5 text-gray-400 -ml-6 shrink-0"
+                                                    }`}
+                                            />
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
 
+                                {/* STATUS */}
+                                <div className="flex mb-1 mt-2 lg:mt-6">
+                                    <span className="ml-auto bg-green-500 text-white text-[10px] lg:text-[12px] px-3 py-1 rounded-full">
+                                        {item.status}
+                                    </span>
+                                </div>
 
-                            {/* ABOUT MOBILE VERSION */}
-                            <div className="block md:hidden mt-4">
-                                <h4 className="text-[10px]  font-medium mb-3">
-                                    About Service
-                                </h4>
-                                <div className="flex gap-2">
-                                    <div className="flex gap-2">
-                                        <Clock className="w-4 h-4 text-blue-500 mt-1" />
-                                        <div>
-                                            <p className="text-[10px]  font-medium">{item.experience}</p>
-                                            <p className="text-[10px] text-gray-500">Working Experience</p>
-                                        </div>
+                                {/* CATEGORIES */}
+                                <div className="h-[95px] overflow-y-auto">
+                                    <h4 className="text-[10px] lg:text-[16px] font-medium mb-2">
+                                        Services Category -
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {item.categories.map((cat, i) => (
+                                            <span
+                                                key={i}
+                                                className="bg-gray-100 font-semibold text-[10px] lg:text-[14px] px-3 py-1 rounded-full"
+                                            >
+                                                {cat}
+                                            </span>
+                                        ))}
                                     </div>
+                                </div>
+
+                                {/* ABOUT DESKTOP VERSION */}
+                                <div className="hidden md:block mt-4">
+                                    <h4 className="text-[10px] lg:text-[16px] font-medium mb-3">
+                                        About Service
+                                    </h4>
                                     <div className="flex gap-2">
-                                        <span className="text-orange-500">⭐</span>
-                                        <div>
-                                            <p className="text-[10px]  font-medium">{item.rating} Rating</p>
-                                            <p className="text-[10px]  text-gray-500">{item.reviews} Reviews</p>
+                                        <div className="flex gap-2">
+                                            <Clock className="w-4 h-4 text-blue-500 mt-1" />
+                                            <div>
+                                                <p className="text-[10px] lg:text-[13px] font-medium">{item.experience}</p>
+                                                <p className="text-[10px] lg:text-[13px] text-gray-500">Working Experience</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <span className="text-orange-500">⭐</span>
+                                            <div>
+                                                <p className="text-[10px] lg:text-[13px] font-medium">{item.rating} Rating</p>
+                                                <p className="text-[10px] lg:text-[12px] text-gray-500">{item.reviews} Reviews</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
-                            {/* SERVICE DETAILS */}
-                            {/* <div className="mt-4 grid grid-cols-2 gap-2  text-[10px] lg:text-[16px]">
+                                {/* ABOUT MOBILE VERSION */}
+                                <div className="block md:hidden mt-4">
+                                    <h4 className="text-[10px]  font-medium mb-3">
+                                        About Service
+                                    </h4>
+                                    <div className="flex gap-2">
+                                        <div className="flex gap-2">
+                                            <Clock className="w-4 h-4 text-blue-500 mt-1" />
+                                            <div>
+                                                <p className="text-[10px]  font-medium">{item.experience}</p>
+                                                <p className="text-[10px] text-gray-500">Working Experience</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <span className="text-orange-500">⭐</span>
+                                            <div>
+                                                <p className="text-[10px]  font-medium">{item.rating} Rating</p>
+                                                <p className="text-[10px]  text-gray-500">{item.reviews} Reviews</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {/* SERVICE DETAILS */}
+                                {/* <div className="mt-4 grid grid-cols-2 gap-2  text-[10px] lg:text-[16px]">
                                 <div className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg">
                                     <Clock className="w-4 h-4 text-blue-500" /> {item.time}
                                 </div>
@@ -273,23 +313,23 @@ export default function MostPopularProvider({ moduleId, searchQuery }: SectionPr
                                      {item.day} 
                                 </div>
                             </div> */}
-                            <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] lg:text-[16px]">
-                                {item.tags.slice(0, 4).map((tag: string, index: number) => (
-                                    <div
-                                        key={index}
-                                        className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg"
-                                    >
-                                        {/* {getTagIcon(index)} */}
-                                        <span>{tag}</span>
-                                    </div>
-                                ))}
+                                <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] lg:text-[16px]">
+                                    {item.tags.slice(0, 4).map((tag: string, index: number) => (
+                                        <div
+                                            key={index}
+                                            className="bg-blue-50 h-[40px] flex items-center justify-center gap-2 px-3 py-2 rounded-lg"
+                                        >
+                                            {/* {getTagIcon(index)} */}
+                                            <span>{tag}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+
                             </div>
-
-
-                        </div>
-                    ))
+                        ))
                     ) : (
-                       <div className="w-[250px] md:w-[300px] lg:w-full flex justify-start py-2">
+                        <div className="w-[250px] md:w-[300px] lg:w-full flex justify-start py-2">
                             <div className="bg-white border border-gray-200 rounded-xl p-4 lg:p-8 text-center max-w-md shadow-sm">
                                 <div className="flex justify-center mb-4">
                                     <svg className="w-10 h-10 lg:w-20 lg:h-20 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

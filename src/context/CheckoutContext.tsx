@@ -194,11 +194,6 @@ const CheckoutContext = createContext<CheckoutContextType | null>(null);
 
 export function CheckoutProvider({ children }: { children: ReactNode }) {
   const [selectedPackage, setSelectedPackageState] = useState<SelectedPackage | null>(null);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
 
   // Save package + serviceId together under one key
   const setSelectedPackage = (pkg: SelectedPackage | null, serviceId: string) => {
@@ -240,7 +235,7 @@ const loadPackage = (serviceId: string) => {
   };
 
   return (
-    <CheckoutContext.Provider value={{ selectedPackage, hydrated, setSelectedPackage, clearPackage, loadPackage }}>
+    <CheckoutContext.Provider value={{ selectedPackage, hydrated: true, setSelectedPackage, clearPackage, loadPackage }}>
       {children}
     </CheckoutContext.Provider>
   );
