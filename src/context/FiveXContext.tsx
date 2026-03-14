@@ -36,6 +36,8 @@ export const FiveXProvider = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  
+
   const fetchConfig = async () => {
     try {
       setLoading(true);

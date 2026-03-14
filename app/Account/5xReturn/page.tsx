@@ -85,6 +85,8 @@ export default function FiveXReturnPage() {
   const { leads, loading: leadsLoading } = useLeads();
   const { wallet, loading: walletLoading } = useWallet();
 
+  
+
   const isPackageActive = wallet?.userId?.packageActive ?? false;
 
 
@@ -96,6 +98,32 @@ export default function FiveXReturnPage() {
   if (!config) {
     return <div className="p-6 text-red-500">FiveX config not found</div>;
   }
+
+
+const startDate = wallet?.userId?.packageActivateDate
+  ? new Date(wallet.userId.packageActivateDate)
+  : null;
+
+
+let remainingMonths = config.months;
+
+if (startDate) {
+  const currentDate = new Date();
+
+  const passedMonths =
+    (currentDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (currentDate.getMonth() - startDate.getMonth());
+
+  remainingMonths = Math.max(config.months - passedMonths, 0);
+}
+
+const activateDate = startDate
+  ? startDate.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+  : null;
 
   /* ================= CALCULATIONS ================= */
 
@@ -126,7 +154,7 @@ export default function FiveXReturnPage() {
   return (
     <div className="p-6 bg-white min-h-screen">
       <h1 className="text-lg font-semibold text-gray-800 mb-6">
-        5x Return
+        5x Guarantee
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -134,15 +162,22 @@ export default function FiveXReturnPage() {
         <div className="space-y-4">
           {/* Package Banner */}
           {isPackageActive ? (
+            
   <div className="bg-gradient-to-r from-[#2E3ECD] to-[#4D9EFE] text-white rounded-[8px] p-4 flex items-center gap-3 shadow-sm">
     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
       📦
     </div>
+    
     <div>
       <p className="font-medium">Package</p>
       <p className="text-sm">
-        Active for {config.months} months
+        Active for {remainingMonths} months
       </p>
+      {activateDate && (
+  <p className="text-xs opacity-80">
+    Package Activated : {activateDate}
+  </p>
+)}
     </div>
   </div>
 ) : (

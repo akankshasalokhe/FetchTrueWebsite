@@ -33,6 +33,7 @@ const { services,loading,fetchServicesByCategory } = useCategorywiseServices();
     const { fetchServiceDetails,service } = useServiceDetails();
     const [currentCategory, setCurrentCategory] = useState<any>(null);
     const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
 
     const {
@@ -180,7 +181,7 @@ const mappedServices = useMemo(() => {
 </SubCategoryProvider>
 
 
-<AllServices moduleId={moduleId} categoryId={categoryId} selectedSubCategory={selectedSubCategory} />
+<AllServices moduleId={moduleId} categoryId={categoryId} selectedSubCategory={selectedSubCategory} searchQuery={searchQuery} />
 
 
 
