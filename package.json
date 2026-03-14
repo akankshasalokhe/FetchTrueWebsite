@@ -13,7 +13,7 @@
     "@tailwindcss/postcss": "^4.1.17",
     "axios": "^1.13.2",
     "country-state-city": "^3.2.1",
-    "firebase": "^12.9.0",
+    "firebase": "^12.10.0",
     "framer-motion": "^12.24.11",
     "lucide-react": "^0.555.0",
     "next": "^16.0.7",
@@ -26,6 +26,7 @@
     "recharts": "^3.5.1",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^4.1.17",
+    "twilio": "^5.13.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

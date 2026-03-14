@@ -15,10 +15,11 @@ interface Props {
   categoryId: string;
   moduleId: string;
     selectedSubCategory?: string | null; 
+      searchQuery: string;
 
 }
 
-export default function AllServices({ categoryId, moduleId,selectedSubCategory }: Props) {
+export default function AllServices({ categoryId, moduleId,selectedSubCategory,searchQuery }: Props) {
   const { services, fetchServicesByCategory, loading, error } =
     useCategorywiseServices();
 
@@ -60,11 +61,7 @@ export default function AllServices({ categoryId, moduleId,selectedSubCategory }
     }
   }, [services]);
 
-    const filteredServices = services.filter((service) => {
-  if (!selectedSubCategory) return true;
 
-  return service.subcategory?._id === selectedSubCategory;
-});
 
     const { addFavourite, removeFavourite, isFavourite, fetchFavourites } =
     useFavourites();
@@ -88,6 +85,22 @@ export default function AllServices({ categoryId, moduleId,selectedSubCategory }
       await addFavourite(userId, serviceId);
     }
   };
+
+
+  const filteredServices =
+  services?.filter((service) => {
+
+    const matchSub =
+      !selectedSubCategory || service.subcategory?._id === selectedSubCategory;
+
+    const matchSearch =
+      !searchQuery?.trim() ||
+      service.serviceName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.category?.name?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchSub && matchSearch;
+
+  }) || [];   
 
   const createSlug = (text: string) =>
     text?.toLowerCase().replace(/\s+/g, "-");
@@ -140,7 +153,7 @@ export default function AllServices({ categoryId, moduleId,selectedSubCategory }
   >
     {viewAll ? (
       filteredServices.map((service) => {
-                                            const fav = isFavourite(service._id);
+        const fav = isFavourite(service._id);
 
         const investment =
           service.franchiseDetails?.investmentRange?.[0]?.range || "—";

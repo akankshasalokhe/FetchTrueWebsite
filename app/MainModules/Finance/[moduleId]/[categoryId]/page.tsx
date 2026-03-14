@@ -27,6 +27,8 @@ export default function FinanceCategoryDetailPage() {
 const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
 const [currentCategory, setCurrentCategory] = useState<any>(null);
     const { categories,fetchCategoriesByModule } = useModule();
+      const [searchQuery, setSearchQuery] = useState("");
+
 
   
    
@@ -125,7 +127,7 @@ const [currentCategory, setCurrentCategory] = useState<any>(null);
       </section>
 
 
-    <AllServices moduleId={moduleId} categoryId={categoryId} selectedSubCategory={selectedSubCategory}/>
+    <AllServices moduleId={moduleId} categoryId={categoryId} selectedSubCategory={selectedSubCategory} searchQuery={searchQuery}/>
     {/* <Recommended moduleId={moduleId} categoryId={categoryId} />
     <MostPopular moduleId={moduleId} categoryId={categoryId} />
     <TopTrending moduleId={moduleId} categoryId={categoryId} /> */}

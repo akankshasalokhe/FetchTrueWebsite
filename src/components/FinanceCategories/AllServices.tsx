@@ -5,17 +5,19 @@ import Link from "next/link";
 import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
 import HorizontalScroll from "../ui/HorizontalScroll";
 import FinanceCard from "../ui/FinanceCard";
-
+import { useFavourites } from "@/src/context/FavouriteContext";
+import { useAuth } from "@/src/context/AuthContext";
 
 
 interface Props {
   categoryId: string;
     moduleId: string;
   selectedSubCategory?: string | null; 
+      searchQuery: string;
 
 }
 
-export default function AllServices({ categoryId, moduleId,selectedSubCategory }: Props) {
+export default function AllServices({ categoryId, moduleId,selectedSubCategory,searchQuery }: Props) {
   const { services, fetchServicesByCategory, loading, error } = useCategorywiseServices();
 
   const [viewAll, setViewAll] = useState(false);
@@ -31,11 +33,44 @@ export default function AllServices({ categoryId, moduleId,selectedSubCategory }
 
     console.log("Top Legal API categoryId:", categoryId);
 
-      const filteredServices = services.filter((service) => {
-  if (!selectedSubCategory) return true;
+          const { addFavourite, removeFavourite, isFavourite, fetchFavourites } =
+              useFavourites();
+            
+              const { user } = useAuth();
+            
+              const userId = user?._id;
+            
+              useEffect(() => {
+              if (userId) {
+                fetchFavourites(userId);
+              }
+            }, [userId]);
+            
+            const handleToggleFavourite = async (serviceId: string) => {
+              if (!userId) return;
+            
+              if (isFavourite(serviceId)) {
+                await removeFavourite(userId, serviceId);
+              } else {
+                await addFavourite(userId, serviceId);
+              }
+            };
 
-  return service.subcategory?._id === selectedSubCategory;
-});
+ 
+const filteredServices =
+  services?.filter((service) => {
+
+    const matchSub =
+      !selectedSubCategory || service.subcategory?._id === selectedSubCategory;
+
+    const matchSearch =
+      !searchQuery?.trim() ||
+      service.serviceName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.category?.name?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchSub && matchSearch;
+
+  }) || []; 
 
 
   if (loading)
@@ -81,7 +116,8 @@ if (filteredServices.length === 0)
           }
         >
           {viewAll ? (
-            filteredServices.map((service) => (
+            filteredServices.map((service) => {
+              return(
               <Link
                 key={service._id}
                 href={`/MainModules/Finance/${moduleId}/${categoryId}/${service._id}`}
@@ -108,10 +144,11 @@ if (filteredServices.length === 0)
                            
                                            />
               </Link>
-            ))
+            )})
           ) : (
             <HorizontalScroll>
-              {filteredServices.map((service) => (
+              {filteredServices.map((service) => {
+                return(
                 <Link
                   key={service._id}
                   href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
@@ -138,7 +175,7 @@ if (filteredServices.length === 0)
                                             
                                                             />
                 </Link>
-              ))}
+              )})}
             </HorizontalScroll>
           )}
         </div>
