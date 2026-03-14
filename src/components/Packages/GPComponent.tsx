@@ -511,7 +511,7 @@ export default function GPComponent({ setActiveTab }: GPComponentProps) {
                     </div>
                 </div>
 
-                <Link href="/Packages/Benefits">
+                <Link href="/Packages/Benefits?tab=GP">
                     <button className="mt-5 bg-blue-600 text-white w-full py-3 rounded-xl font-semibold cursor-pointer">
                         Explore Benefits
                     </button>
@@ -579,7 +579,7 @@ export default function GPComponent({ setActiveTab }: GPComponentProps) {
                         {/* Right Image */}
                         <div className="flex-shrink-0">
                             <img
-                                src="/image/packageGP.png"
+                                src="/image/packagegp.png"
                                 alt="GP Package"
                                 className="w-full max-w-[250px] -mt-20 md:max-w-[350px] h-auto rounded-lg"
                             />

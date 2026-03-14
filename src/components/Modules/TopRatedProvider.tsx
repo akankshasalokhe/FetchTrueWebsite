@@ -259,6 +259,7 @@ export default function TopRatedProvider() {
     const { user } = useAuth();
 
     const userId = user?._id;
+    
 
     useEffect(() => {
         if (userId) {
@@ -307,6 +308,16 @@ export default function TopRatedProvider() {
     }));
 
 
+    const BADGE_COLORS = [
+    "#E07A45", // orange
+    "#4A90D9", // blue
+    "#2CB140", // green
+    "#9B59B6", // purple
+    "#E74C3C", // red
+    "#F39C12", // yellow
+    "#1ABC9C", // teal
+    "#E91E8C", // pink
+];
 
     if (loading) return <p className="p-18 text-center">Loading...</p>;
     if (error) return <p className="p-18 text-center text-red-500">{error}</p>;
@@ -337,7 +348,7 @@ export default function TopRatedProvider() {
             >
                 {/* CARD WRAPPER */}
                 <div className="flex gap-6 min-w-max p-2 lg:p-4">
-                    {mappedServices.map((item) => (
+                    {mappedServices.map((item, index) => (
                         <div
                             key={item.id}
                             className="shrink-0 w-[300px] lg:w-[479px] bg-white border border-gray-300 rounded-xl p-4 lg:-ml-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
@@ -360,6 +371,33 @@ export default function TopRatedProvider() {
                                             }`}
                                     />
                                 </button> */}
+                                {/* <div className="flex justify-center">
+                                    <div
+                                        className="bg-[#E07A45] text-white text-sm font-semibold px-10 py-2"
+                                        style={{
+                                            clipPath: "polygon(0 0, 100% 0, 90% 100%, 20% 100%)"
+                                        }}
+                                    >
+                                        On Demand
+                                    </div>
+                                </div> */}
+                                <div className="flex justify-center lg:-mt-5">
+                                    <div className="relative inline-flex items-center justify-center">
+                                        <svg
+                                            viewBox="0 0 200 40"
+                                            className="w-[160px] h-[40px] lg:w-[200px] lg:h-[44px]"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M0,0 H200 Q200,0 200,0 C180,0 170,40 150,40 H50 C30,40 20,0 0,0 Z"
+                                                fill={BADGE_COLORS[index % BADGE_COLORS.length]}
+                                            />
+                                        </svg>
+                                        <span className="absolute text-white text-[11px] lg:text-[13px] font-semibold">
+                                            {item.storeInfo.module.name}
+                                        </span>
+                                    </div>
+                                </div>
                                 <button
                                     className="ml-55 md:ml-60 lg:ml-100 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow shrink-0"
                                     onClick={(e) => {
@@ -370,8 +408,8 @@ export default function TopRatedProvider() {
                                     <FaBookmark
                                         size={16}
                                         className={`transition ${isFavourite(item.id)
-                                                ? "text-red-500 fill-red-500"
-                                                : "text-gray-400"
+                                            ? "text-red-500 fill-red-500"
+                                            : "text-gray-400"
                                             }`}
                                     />
                                 </button>

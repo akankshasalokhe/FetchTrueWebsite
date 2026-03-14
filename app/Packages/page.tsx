@@ -7,8 +7,10 @@ import SGPComponent from "@/src/components/Packages/SGPComponent";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
+
 export default function PackagesMain() {
     const [activeTab, setActiveTab] = useState("GP");
+
 
    const renderComponent = () => {
     switch (activeTab) {
@@ -27,7 +29,7 @@ export default function PackagesMain() {
     return (
         <>
             <div className="bg-gray-50">
-                <div className="min-h-screen p-4 lg:w-[1400px] mx-auto">
+                <div className="min-h-screen p-4 max-w-[1400px] mx-auto">
                     {/* Header */}
                     <div className="flex items-center gap-2 mb-4 text-gray-700 font-medium">
                         <Link href="/" className="flex items-center gap-2">
@@ -55,6 +57,13 @@ export default function PackagesMain() {
 
                     {/* Dynamic Component Render */}
                     <div>{renderComponent()}</div>
+
+                     {/* {packageData?.description && (
+                    <Benefits
+                        activeTab={activeTab}
+                        description={packageData.description}
+                    />
+                )} */}
                 </div>
             </div>
         </>

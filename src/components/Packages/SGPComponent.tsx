@@ -93,7 +93,7 @@ export default function SGPComponent() {
           </div>
         </div>
 
-        <Link href="/Packages/Benefits">
+        <Link href="/Packages/Benefits?tab=SGP">
           <button className="mt-5 bg-blue-600 text-white w-full py-3 rounded-xl font-semibold cursor-pointer">
             Explore Benefits
           </button>
