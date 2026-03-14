@@ -49,6 +49,7 @@ import { AllCouponProvider } from "@/src/context/CoupanContext";
 import { CategoryBannerProvider } from "@/src/context/CategoryBannerContext";
 import { BannerProvider } from "@/src/context/CarouselBannerContext";
 import { PackageProvider } from "@/src/context/PackageContext";
+import { FavouriteProvidersProvider } from "@/src/context/FavouriteProviderContext";
 
 // export const metadata = {
 //   title: "Fetch True",
@@ -74,7 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                       <CategoryBannerProvider>
                         <BannerProvider>
                           <FavouriteProvider>
-
+                           <FavouriteProvidersProvider>
                             <ResetPassProvider>
                               <FiveXProvider>
                                 <ModuleProvider>
@@ -164,6 +165,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                                 </ModuleProvider>
                               </FiveXProvider>
                             </ResetPassProvider>
+                            </FavouriteProvidersProvider>
                           </FavouriteProvider>
                         </BannerProvider>
                       </CategoryBannerProvider>

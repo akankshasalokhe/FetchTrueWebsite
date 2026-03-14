@@ -834,6 +834,8 @@ type CheckoutData = {
 };
 
 type DetailsStepProps = {
+    serviceId: string;
+    packageId: string;
     data: CheckoutData | null;
     onNext: (data: CheckoutData) => void;
 };
@@ -944,7 +946,7 @@ function PaymentSummary({
 
 /* ================= MAIN COMPONENT ================= */
 
-export default function DetailsStep({ onNext }: DetailsStepProps) {
+export default function DetailsStep({ onNext, packageId  }: DetailsStepProps) {
 
     const { service, loading, error, fetchServiceDetails } = useServiceDetails();
     const { reviewServices, fetchReviews } = useReview();
@@ -976,7 +978,7 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
 
     useEffect(() => {
         if (!serviceId) return;
-        loadPackage(serviceId);         // rehydrate from sessionStorage after refresh
+        loadPackage(serviceId);
         fetchServiceDetails(serviceId);
         fetchProvidersByService(serviceId);
         fetchReviews(serviceId);
@@ -991,8 +993,16 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
     console.log("Selected Provider:", selectedProvider);
 
     const commission = services?.[0];
-    const basicPackage = service?.serviceDetails?.packages?.[0];
-    const packageToUse = selectedPackage ?? basicPackage;
+    const packages = service?.serviceDetails?.packages || [];
+
+    const packageToUse =
+        selectedPackage ??
+        packages.find((pkg: any) => String(pkg._id) === String(packageId)) ??
+        packages[0] ??
+        null;
+
+    console.log("selectedPackage:", selectedPackage);
+    console.log("packageToUse:", packageToUse);
 
 
     const calculateCouponDiscount = (coupon: any, priceAfterServiceDiscount: number) => {
@@ -1037,7 +1047,7 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
         if (!packageToUse || !computedPayment) return;
         onNext({
             selectedUser: selected,
-            serviceCustomer: selected === "customer" ? selectedCustomer?._id  : user?._id, 
+            serviceCustomer: selected === "customer" ? selectedCustomer?._id : user?._id,
             paymentData: {
                 listingPrice: packageToUse.price,
                 serviceDiscount: computedPayment.serviceDiscountAmount,
@@ -1051,14 +1061,14 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
     };
 
     // ── GUARD 1: wait for hydration + API fetch
-    if (!hydrated || loading) {
-        return (
-            <div className="flex flex-col items-center justify-center mt-20 gap-3">
-                <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                <p className="text-gray-500 text-sm">Loading...</p>
-            </div>
-        );
-    }
+    // if (!hydrated || loading) {
+    //     return (
+    //         <div className="flex flex-col items-center justify-center mt-20 gap-3">
+    //             <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    //             <p className="text-gray-500 text-sm">Loading...</p>
+    //         </div>
+    //     );
+    // }
 
     // ── GUARD 2: API error
     if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
@@ -1138,13 +1148,13 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                                 </div> */}
                                 <div className="flex items-center gap-2">
                                     <span className="font-semibold text-[25px]">
-                                        ₹{service?.serviceDetails.packages[0]?.discountedPrice}
+                                        ₹{packageToUse?.discountedPrice ?? "—"}
                                     </span>
                                     <span className="line-through text-gray-400 text-[18px]">
-                                        ₹ {service?.serviceDetails.packages[0]?.price}
+                                        ₹ {packageToUse?.price ?? "—"}
                                     </span>
                                     <span className="text-[#D56839] text-[18px] font-medium">
-                                        {service?.serviceDetails.packages[0]?.discount}% OFF
+                                        {packageToUse?.discount ?? 0}% OFF
                                     </span>
                                 </div>
                             </div>
@@ -1195,69 +1205,69 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                             </div>
                         </div> */}
                         {/* FOR CUSTOMER */}
-<div className="border border-gray-300 rounded-xl p-4 space-y-4">
-    <label className="flex items-center gap-2 lg:text-[16px] font-medium cursor-pointer">
-        <input
-            type="radio"
-            name="serviceFor"
-            checked={selected === "customer"}
-            onChange={() => setSelected("customer")}
-        />
-        This Service is for my Customer
-    </label>
+                        <div className="border border-gray-300 rounded-xl p-4 space-y-4">
+                            <label className="flex items-center gap-2 lg:text-[16px] font-medium cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="serviceFor"
+                                    checked={selected === "customer"}
+                                    onChange={() => setSelected("customer")}
+                                />
+                                This Service is for my Customer
+                            </label>
 
-    <div className="flex gap-4 lg:pl-6">
-        <button
-            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg lg:text-[14px] whitespace-nowrap hover:bg-blue-50 transition-colors"
-            onClick={() => setOpenSidebar(true)}
-        >
-            My Customer
-        </button>
-        <button
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer lg:text-[14px] flex flex-row items-center gap-2 hover:bg-blue-700 transition-colors"
-            onClick={() => setOpenAddCustomers(true)}
-        >
-            <PlusCircle className="w-4 h-4 shrink-0" /> Add New Customer
-        </button>
-    </div>
+                            <div className="flex gap-4 lg:pl-6">
+                                <button
+                                    className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg lg:text-[14px] whitespace-nowrap hover:bg-blue-50 transition-colors"
+                                    onClick={() => setOpenSidebar(true)}
+                                >
+                                    My Customer
+                                </button>
+                                <button
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer lg:text-[14px] flex flex-row items-center gap-2 hover:bg-blue-700 transition-colors"
+                                    onClick={() => setOpenAddCustomers(true)}
+                                >
+                                    <PlusCircle className="w-4 h-4 shrink-0" /> Add New Customer
+                                </button>
+                            </div>
 
-   
-    {selected === "customer" && selectedCustomer && (
-        <div className="lg:pl-6 mt-2">
-            <div className="border border-gray-200 inline-flex rounded-xl p-4 bg-gray-50 space-y-2 text-sm relative">
-                {/* Remove button */}
-                <button
-                    onClick={() => { setSelectedCustomer(null); setCustomerNote(""); }}
-                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-xs"
-                >
-                    ✕
-                </button>
 
-                <div className="flex items-center gap-3 w-fit">
-                    <img
-                        src="/image/reviewcontact.jpg"
-                        alt={selectedCustomer.fullName}
-                        className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <div>
-                        <p className="font-semibold">{selectedCustomer.fullName}</p>
-                         <p><span className="font-medium">Phone:</span> {selectedCustomer.phone}</p>
-                    </div>
-                </div>
+                            {selected === "customer" && selectedCustomer && (
+                                <div className="lg:pl-6 mt-2">
+                                    <div className="border border-gray-200 inline-flex rounded-xl p-4 bg-gray-50 space-y-2 text-sm relative">
+                                        {/* Remove button */}
+                                        <button
+                                            onClick={() => { setSelectedCustomer(null); setCustomerNote(""); }}
+                                            className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-xs"
+                                        >
+                                            ✕
+                                        </button>
 
-               
-                {/* <p><span className="font-medium">Email:</span> {selectedCustomer.email}</p>
+                                        <div className="flex items-center gap-3 w-fit">
+                                            <img
+                                                src="/image/reviewcontact.jpg"
+                                                alt={selectedCustomer.fullName}
+                                                className="w-10 h-10 rounded-full object-cover"
+                                            />
+                                            <div>
+                                                <p className="font-semibold">{selectedCustomer.fullName}</p>
+                                                <p><span className="font-medium">Phone:</span> {selectedCustomer.phone}</p>
+                                            </div>
+                                        </div>
+
+
+                                        {/* <p><span className="font-medium">Email:</span> {selectedCustomer.email}</p>
                 <p><span className="font-medium">Address:</span> {selectedCustomer.address}</p> */}
 
-                {customerNote && (
-                    <p className="text-gray-500 italic">
-                        <span className="font-medium not-italic text-gray-700">Note:</span> {customerNote}
-                    </p>
-                )}
-            </div>
-        </div>
-    )}
-</div>
+                                        {customerNote && (
+                                            <p className="text-gray-500 italic">
+                                                <span className="font-medium not-italic text-gray-700">Note:</span> {customerNote}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
 
                         {/* COUPON */}
                         {/* <div className="w-full max-w-[520px] bg-white rounded-xl border border-gray-200 p-4 space-y-4">
@@ -1399,14 +1409,14 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="font-semibold text-[20px]">
-                                    ₹{service?.serviceDetails.packages[0]?.discountedPrice}
+                                <span className="font-semibold text-[25px]">
+                                    ₹{packageToUse?.discountedPrice ?? "—"}
                                 </span>
-                                <span className="line-through text-gray-400 text-[15px]">
-                                    ₹ {service?.serviceDetails.packages[0]?.price}
+                                <span className="line-through text-gray-400 text-[18px]">
+                                    ₹ {packageToUse?.price ?? "—"}
                                 </span>
-                                <span className="text-[#D56839] text-[15px] font-medium">
-                                    {service?.serviceDetails.packages[0]?.discount}% OFF
+                                <span className="text-[#D56839] text-[18px] font-medium">
+                                    {packageToUse?.discount ?? 0}% OFF
                                 </span>
                             </div>
                         </div>
@@ -1491,14 +1501,14 @@ export default function DetailsStep({ onNext }: DetailsStepProps) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="font-semibold text-[20px]">
-                            ₹{service?.serviceDetails.packages[0]?.discountedPrice}
+                        <span className="font-semibold text-[25px]">
+                            ₹{packageToUse?.discountedPrice ?? "—"}
                         </span>
-                        <span className="line-through text-gray-400 text-[15px]">
-                            ₹ {service?.serviceDetails.packages[0]?.price}
+                        <span className="line-through text-gray-400 text-[18px]">
+                            ₹ {packageToUse?.price ?? "—"}
                         </span>
-                        <span className="text-[#D56839] text-[15px] font-medium">
-                            {service?.serviceDetails.packages[0]?.discount}% OFF
+                        <span className="text-[#D56839] text-[18px] font-medium">
+                            {packageToUse?.discount ?? 0}% OFF
                         </span>
                     </div>
                 </div>

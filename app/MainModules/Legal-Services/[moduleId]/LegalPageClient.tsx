@@ -119,20 +119,13 @@ if (loading) return null;
          
         <div className="flex items-center gap-8">
             {/* SEARCH */}
-            <div className="">
-              {/* <Search className="w-4 h-4 opacity-80" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="bg-transparent outline-none
-                           placeholder:text-[#00000078]
-                           text-sm w-full"
-              /> */}
+            <div className="hidden lg:block">
+             
               <SearchBar
-                                value={searchQuery}
-                                onChange={setSearchQuery}
-                                placeholder="Search" 
-                              />
+                value={searchQuery}
+                onChange={setSearchQuery}
+                placeholder="Search" 
+              />
             </div>
             <Link href="/Account/MyAccount?section=Favorite">
             <Bookmark  className="w-8 h-8" color="#A3623A"/>
@@ -141,73 +134,52 @@ if (loading) return null;
       </div>
       </section>
 
-      {/* Hero Section */}
-   <section className="relative max-w-[1440px] mx-auto px-4 py-12 overflow-hidden">
+  {/* Hero Section */}
+<section className="relative max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12 overflow-hidden">
 
   {/* BACKGROUND CARD */}
-  <div className="relative w-full h-[260px] lg:h-[280px] rounded-[40px] bg-gradient-to-b from-[#FFFFFF] to-[#F9F5EE]" />
+  <div className="relative w-full rounded-[30px] md:rounded-[40px] bg-gradient-to-b from-[#FFFFFF] to-[#F9F5EE] py-10 md:py-0">
 
-  {/* CONTENT WRAPPER */}
-  <div className="absolute inset-0 flex items-center justify-between px-12">
+    {/* CONTENT */}
+    <div className="flex flex-col md:flex-row items-center justify-between gap-8 px-6 md:px-12">
 
-    {/* LEFT TEXT */}
-    <div className="max-w-[520px] -mt-15">
-      <h1 className="text-[32px] font-semibold text-[#524225] mb-3">
-        Legal Service
-      </h1>
-      <p className="text-[18px] text-[#414141] leading-relaxed">
-        Get instant access to verified lawyers, legal advisors, and
-        documentation experts—all in one place.
-      </p>
-    </div>
+      {/* LEFT TEXT */}
+      <div className="max-w-[520px] text-center md:text-left">
+        <h1 className="text-[24px] sm:text-[28px] md:text-[32px] font-semibold text-[#524225] mb-3">
+          Legal Service
+        </h1>
 
-    {/* RIGHT IMAGE STACK */}
-    <div className="relative w-[520px] h-[260px]">
+        <p className="text-[14px] sm:text-[16px] md:text-[18px] text-[#414141] leading-relaxed">
+          Get instant access to verified lawyers, legal advisors, and
+          documentation experts—all in one place.
+        </p>
+      </div>
 
-      {/* BACK IMAGE */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-5 w-[226px] h-[140px] z-0">
+      {/* RIGHT IMAGE */}
+      <div className="relative w-full max-w-[320px] sm:max-w-[420px] md:max-w-[520px] h-[180px] sm:h-[220px] md:h-[260px]">
+
         <Image
           src={banners[0]?.image}
-          alt="back"
+          alt="banner"
           fill
           className="object-cover rounded-[18px]"
         />
+
       </div>
-
-      {/* LEFT IMAGE */}
-      {/* <div className="absolute left-11 bottom-6 w-[100px] h-[160px] z-10">
-        <Image
-          src="/image/leftImage.jpg"
-          alt="Left"
-          fill
-          className="object-cover rounded-[20px]"
-        />
-      </div> */}
-
-      {/* RIGHT IMAGE */}
-      {/* <div className="absolute right-11 bottom-6 w-[100px] h-[160px] z-10">
-        <Image
-          src="/image/rightimage.jpg"
-          alt="Right"
-          fill
-          className="object-cover rounded-[20px]"
-        />
-      </div> */}
-
-      {/* CENTER IMAGE */}
-      {/* <div className="absolute left-1/2 -translate-x-1/2 top-1 w-[450px] h-[340px] z-20">
-        <Image
-          src="/image/centerImage.png"
-          alt="Center"
-          fill
-          className="object-cover rounded-[28px]"
-        />
-      </div> */}
 
     </div>
   </div>
 </section>
 
+{/* SEARCH */}
+            <div className="lg:hidden w-full ms-5">
+             
+              <SearchBar
+                                value={searchQuery}
+                                onChange={setSearchQuery}
+                                placeholder="Search" 
+                              />
+            </div>
 
 
  <section className="relative z-10 w-full flex justify-center my-20 lg:my-10 px-4">

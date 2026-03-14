@@ -99,6 +99,7 @@ import DetailsStep from "@/src/components/checkout/DetailsStep";
 import PaymentStep from "@/src/components/checkout/PaymentStep";
 import Stepper from "@/src/components/checkout/Stepper";
 import { ChevronLeft } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export type PaymentData = {
@@ -126,7 +127,11 @@ export type BookingData = {
 export default function DetailsPageContent() {
     const [step, setStep] = useState(1);
     const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
-    const [bookingData, setBookingData] = useState<BookingData | null>(null); // ← add this
+    const [bookingData, setBookingData] = useState<BookingData | null>(null); 
+     const searchParams = useSearchParams();
+    const serviceId = searchParams.get("id") ?? "";
+    const packageId = searchParams.get("packageId") ?? "";
+
 
     return (
         <>
@@ -165,6 +170,8 @@ export default function DetailsPageContent() {
 
             {step === 1 && (
                 <DetailsStep
+                 serviceId={serviceId}   
+                    packageId={packageId}
                     data={checkoutData}
                     onNext={(data: CheckoutData) => {
                         setCheckoutData(data);

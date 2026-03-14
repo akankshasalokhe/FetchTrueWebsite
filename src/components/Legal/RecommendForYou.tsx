@@ -97,7 +97,7 @@ export default function RecommendedForYou({ moduleId,searchQuery }:{ moduleId:st
           >
             <HorizontalScroll>
             {filteredServices.map((service) => {
-                                const fav = isFavourite(service._id);
+              const fav = isFavourite(service._id);
 
               return(
 

@@ -898,10 +898,11 @@ import { useParams } from "next/navigation";
 import { useReview } from "@/src/context/ReviewContext";
 import { useFranchiseModel } from "@/src/context/FranchiseContext";
 import { useServiceDetails } from "@/src/context/ServiceDetailsContext";
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useServiceProviders } from "@/src/context/ServicewiseProviderContext";
 import { Share2 } from "lucide-react";
 import Link from "next/link";
+import { useCheckout } from "@/src/context/CheckoutContext";
 
  const extractBenefits = (benefits: string[]): string[] => {
    if (!benefits?.length) return [];
@@ -974,7 +975,9 @@ export default function AIHubServiceDetailPage() {
 
       const { service, loading, error, fetchServiceDetails } = useServiceDetails();
         const { models, fetchFranchiseModels, franchiseloading } = useFranchiseModel();
-        const { reviewServices, fetchReviews } = useReview();  
+        const { reviewServices, fetchReviews } = useReview();
+        const initialized = useRef(false);
+        const { selectedPackage, setSelectedPackage } = useCheckout();  
         
         
                    useEffect(() => {
@@ -985,6 +988,37 @@ export default function AIHubServiceDetailPage() {
                   fetchReviews(serviceId);
                   fetchProvidersByService(serviceId);
                 }, [serviceId]);
+
+                const franchiseCards = useMemo(() => {
+                  return (
+                    service?.serviceDetails?.packages?.map((pkg) => ({
+                      serviceModel: pkg,
+                    })) || []
+                  );
+                }, [service]);
+                
+                useEffect(() => {
+                  if (!initialized.current && franchiseCards.length > 0) {
+                    const firstPackage = franchiseCards[0].serviceModel;
+                
+                    setSelectedPackage(
+                      {
+                        _id: firstPackage._id,
+                        name: firstPackage.name,
+                        price: firstPackage.price,
+                        discount: firstPackage.discount,
+                        discountedPrice: firstPackage.discountedPrice,
+                      },
+                      serviceId
+                    );
+                
+                    initialized.current = true;
+                  }
+                }, [franchiseCards, serviceId]);
+                
+                const selectedPackageData = franchiseCards.find(
+                  (item) => item.serviceModel._id === selectedPackage?._id
+                )?.serviceModel;
 
                 console.log("Service Details:", serviceId)
 
@@ -1009,23 +1043,27 @@ const images = service.bannerImages;
   return (
      <section className="relative min-h-screen w-full overflow-hidden bg-[#D0E0E7DB] backdrop-blur-sm">
       
-      <section className="">
-       <div className="ms-12 pt-5">
+<section className="fixed z-30">
+       <div className="w-full flex fixed justify-between px-12 pt-5 bg-white/10 z-20">
     <Link
       href={`/MainModules/AI-Hub/${moduleId}`}
       
     >
       {/* <FiLayers size={20} /> */}
-      <span className="flex items-center gap-2 text-[#050a12] font-medium text-[18px] hover:underline "><span className="text-[18px]">›</span>Service Details</span>
+      <span className="flex items-center gap-2 text-[#5B3527] font-medium text-[18px] hover:underline ">Service Details</span>
     </Link>
-    </div>
-  <div className="w-full fixed flex justify-end gap-4 mx-auto px-12 mb-5 ">
-    
 
-    {/* RIGHT : Actions */}
+     {/* RIGHT : Actions */}
     <div className="flex items-center gap-3 mb-5 ">
+<p>
+  ₹{selectedPackageData
+    ? Math.floor(Number(selectedPackageData.discountedPrice)).toLocaleString("en-IN")
+    : 0}
+</p>
       <Link
-        href={`/MainModules/Checkout`}>
+        href={selectedPackage?._id
+    ? `/MainModules/Checkout?serviceId=${serviceId}&packageId=${selectedPackage._id}`
+    : "#"}>
        <button className="bg-green-500 hover:bg-green-600 text-white
                    px-4 sm:px-5 py-2 rounded
                    flex items-center gap-2 text-[14px]"
@@ -1042,8 +1080,9 @@ const images = service.bannerImages;
         Share
       </button>
     </div>
+    
+    </div>
 
-  </div>
 </section>
 
       {/* FULL PAGE BACKGROUND */}
@@ -1113,7 +1152,9 @@ const images = service.bannerImages;
         <p className="text-[16px] sm:text-[18px] text-[#868686]">
           Starting{" "} 
           <span className="font-medium text-[20px] sm:text-[22px] text-[#232323]">
-             {service?.serviceDetails?.packages?.[0]?.discountedPrice}/
+             ₹{selectedPackage
+  ? Math.floor(Number(selectedPackage.discountedPrice)).toLocaleString("en-IN")
+  : 0}/
           </span>
           <span className="text-[16px]"> Per Month</span>
         </p>
@@ -1296,10 +1337,27 @@ const images = service.bannerImages;
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
 
         {/* CARD */}
-        {service?.serviceDetails?.packages.map((pkg, index) => (
+        {service?.serviceDetails?.packages.map((pkg, index) => {
+                  const isSelected = selectedPackage?._id === pkg._id;
+                  return(
+
           <div
             key={index}
-            className="bg-white/70 rounded-xl p-6 sm:p-7 shadow-sm flex flex-col"
+            onClick={() =>
+          setSelectedPackage(
+            {
+              _id: pkg._id,
+              name: pkg.name,
+              price: pkg.price,
+              discount: pkg.discount,
+              discountedPrice: pkg.discountedPrice,
+            },
+            serviceId
+          )
+        }
+        className={`cursor-pointer bg-white rounded-[12px] shadow-md p-6 sm:p-8 flex flex-col justify-between border-2 ${
+          isSelected ? "border-[#58a6bc]" : "border-transparent"
+        }`}
           >
             {/* Title */}
             <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#2F2F2F] mb-3">
@@ -1343,7 +1401,8 @@ const images = service.bannerImages;
               </button>
             </div>
           </div>
-        ))}
+                  )
+        })}
 
       </div>
     </div>

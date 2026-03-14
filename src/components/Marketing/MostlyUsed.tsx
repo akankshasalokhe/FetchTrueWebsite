@@ -65,6 +65,9 @@
 import { useEffect } from "react";
 import MarketingCard from "../ui/MarketingCard";
 import { useMostPopular } from "@/src/context/MostPopularContext";
+import { useFavourites } from "@/src/context/FavouriteContext";
+import { useAuth } from "@/src/context/AuthContext";
+import HorizontalScroll from "../ui/HorizontalScroll";
 
 interface Props {
   moduleId: string;
@@ -85,6 +88,29 @@ export default function MostlyUsed({ moduleId,searchQuery }: Props) {
       fetchMostPopular(moduleId);
     }
   }, [moduleId]);
+
+     const { addFavourite, removeFavourite, isFavourite, fetchFavourites } =
+              useFavourites();
+            
+              const { user } = useAuth();
+            
+              const userId = user?._id;
+            
+              useEffect(() => {
+              if (userId) {
+                fetchFavourites(userId);
+              }
+            }, [userId]);
+            
+            const handleToggleFavourite = async (serviceId: string) => {
+              if (!userId) return;
+            
+              if (isFavourite(serviceId)) {
+                await removeFavourite(userId, serviceId);
+              } else {
+                await addFavourite(userId, serviceId);
+              }
+            };
 
   const filteredServices =
   services?.filter((service) => {
@@ -127,38 +153,43 @@ export default function MostlyUsed({ moduleId,searchQuery }: Props) {
       </div>
 
       <div className="flex gap-4 overflow-x-auto scrollbar-hide">
-        {filteredServices.map((service) => {
-          const firstPackage =
-            service.serviceDetails?.packages?.[0] ||
-            service.packages?.[0];
-
-          return (
-            <MarketingCard
-              key={service.serviceId}
-              image={service.thumbnailImage || "/image/marketingbanner.jpg"}
-              title={service.serviceName}
-              category={service.category?.name}
-              mode={service.franchiseDetails?.commission}
-              price={
-                firstPackage?.discountedPrice ??
-                firstPackage?.price ??
-                service.price ??
-                "N/A"
-              }
-              rating={Math.round(service.averageRating || 4)}
-              reviews={`${service.totalReviews || 0}+ Reviews`}
-              discount={
-                firstPackage?.discount
-                  ? `Discount ${firstPackage.discount}%`
-                  : undefined
-              }
-              earnLabel={
-                service.keyValues?.find(k => k.key === "earn")?.value ||
-                "Earn Up to 5%"
-              }
-            />
-          );
-        })}
+        <HorizontalScroll>
+          {filteredServices.map((service) => {
+                  const firstPackage = service.serviceDetails?.packages?.[0];
+                      const fav = isFavourite(service.serviceId);
+        
+        
+                  return (
+                    <MarketingCard
+                        key={service.serviceId}
+                      title={service.serviceName}
+                      category={service.category?.name}
+                      keyvalues={service.keyValues}
+                      commission={service.franchiseDetails?.commission}
+                      price={Math.round(service.serviceDetails?.packages?.[0]?.price || 0)}
+                      discountedprice={Math.round(service.serviceDetails?.packages?.[0]?.discountedPrice || 0)}
+                      discount={Math.round(service.serviceDetails?.packages?.[0]?.discount || 0)}
+                      rating={Math.round(service.averageRating || 0)}
+                      totalreviews={service.totalReviews}
+                      image={
+                        service.thumbnailImage ||
+                        
+                        "/image/defaultService.jpg"
+                      }
+                      slug={service.category?.name
+                        ?.toLowerCase()
+                        .replace(/\s+/g, "-")}
+                      detailslug={service.serviceId}
+        
+                      isFavourite={isFavourite(service.serviceId)}
+        
+                           onToggleFavourite={() =>
+                           handleToggleFavourite(service.serviceId)
+                           }
+                                />
+                  );
+                })}
+                </HorizontalScroll>
       </div>
     </section>
   );

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useCategorywiseServices } from "@/src/context/CategorywiseServiceContext";
 import HorizontalScroll from "../ui/HorizontalScroll";
 import ServiceCard from "../ui/ServiceCard";
+import { useFavourites } from "@/src/context/FavouriteContext";
+import { useAuth } from "@/src/context/AuthContext";
 
 
 
@@ -12,9 +14,11 @@ interface Props {
   categoryId: string;
     moduleId: string;
   selectedSubCategory?: string | null;
+    searchQuery: string;
+
 }
 
-export default function AllServices({ categoryId, moduleId, selectedSubCategory, }: Props) {
+export default function AllServices({ categoryId, moduleId, selectedSubCategory,searchQuery }: Props) {
   const { services, fetchServicesByCategory, loading, error } = useCategorywiseServices();
 
   const [viewAll, setViewAll] = useState(false);
@@ -27,15 +31,44 @@ export default function AllServices({ categoryId, moduleId, selectedSubCategory,
 
   console.log("moduleId in legal category :",moduleId,categoryId)
 
+             const { addFavourite, removeFavourite, isFavourite, fetchFavourites } =
+              useFavourites();
+            
+              const { user } = useAuth();
+            
+              const userId = user?._id;
+            
+              useEffect(() => {
+              if (userId) {
+                fetchFavourites(userId);
+              }
+            }, [userId]);
+            
+            const handleToggleFavourite = async (serviceId: string) => {
+              if (!userId) return;
+            
+              if (isFavourite(serviceId)) {
+                await removeFavourite(userId, serviceId);
+              } else {
+                await addFavourite(userId, serviceId);
+              }
+            };
+
  
-   const filteredServices = services.filter((service) => {
-  if (!selectedSubCategory) return true;
+const filteredServices =
+  services?.filter((service) => {
 
-  return service.subcategory?._id === selectedSubCategory
+    const matchSub =
+      !selectedSubCategory || service.subcategory?._id === selectedSubCategory;
 
-});
+    const matchSearch =
+      !searchQuery?.trim() ||
+      service.serviceName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.category?.name?.toLowerCase().includes(searchQuery.toLowerCase());
 
+    return matchSub && matchSearch;
 
+  }) || [];   
 
   if (loading)
     return <p className="text-center py-10">Loading All Legal services...</p>;
@@ -80,7 +113,9 @@ export default function AllServices({ categoryId, moduleId, selectedSubCategory,
           }
         >
           {viewAll ? (
-            filteredServices.map((service) => (
+            filteredServices.map((service) => {
+              
+              return(
               <Link
                 key={service._id}
                 href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
@@ -105,18 +140,25 @@ export default function AllServices({ categoryId, moduleId, selectedSubCategory,
                                   ?.toLowerCase()
                                   .replace(/\s+/g, "-")}
                                 detailslug={service._id}
+                                 isFavourite={isFavourite(service._id)}
+
+                   onToggleFavourite={() =>
+                   handleToggleFavourite(service._id)
+                   }
                   
                                   />
               </Link>
-            ))
+            )})
           ) : (
             <HorizontalScroll>
-              {filteredServices.map((service) => (
-                <Link
-                  key={service._id}
-                  href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
-                >
-                  <ServiceCard  
+              {filteredServices.map((service) => {
+              const fav = isFavourite(service._id);
+              return(
+              <Link
+                key={service._id}
+                href={`/MainModules/Legal-Services/${moduleId}/${categoryId}/${service._id}`}
+              >
+                <ServiceCard  
                                     key={service._id}
                                 title={service.serviceName}
                                 category={service.category?.name}
@@ -136,10 +178,15 @@ export default function AllServices({ categoryId, moduleId, selectedSubCategory,
                                   ?.toLowerCase()
                                   .replace(/\s+/g, "-")}
                                 detailslug={service._id}
+                                 isFavourite={isFavourite(service._id)}
+
+                   onToggleFavourite={() =>
+                   handleToggleFavourite(service._id)
+                   }
                   
                                   />
-                </Link>
-              ))}
+              </Link>
+            )})}
             </HorizontalScroll>
           )}
         </div>
