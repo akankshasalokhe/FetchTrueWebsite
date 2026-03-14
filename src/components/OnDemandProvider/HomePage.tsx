@@ -469,8 +469,9 @@ export default function ProviderDashboardLayout() {
             )}
 
             {/* ── Sidebar — never unmounts ── */}
-            <aside
-                className={`
+            {false &&
+                <aside
+                    className={`
                     fixed top-0 left-0 z-50
                     h-screen w-[260px] bg-white shadow-md
                     transition-transform duration-300
@@ -478,8 +479,8 @@ export default function ProviderDashboardLayout() {
                     lg:translate-x-0
                     flex flex-col
                 `}
-            >
-                {/* <div className="p-4 font-semibold text-lg bg-gray-200 flex items-center justify-between shrink-0">
+                >
+                    {/* <div className="p-4 font-semibold text-lg bg-gray-200 flex items-center justify-between shrink-0">
                     <button className="cursor-pointer" onClick={() => window.history.back()}><ChevronLeft size={20} /></button>
 
                     <span>{providerName}</span>
@@ -487,54 +488,56 @@ export default function ProviderDashboardLayout() {
                         <X size={20} />
                     </button>
                 </div> */}
-                <div className="p-4 font-semibold text-lg bg-gray-200 flex items-center shrink-0">
-                    <button className="cursor-pointer" onClick={() => window.history.back()}>
-                        <ChevronLeft size={20} />
-                    </button>
+                    <div className="p-4 font-semibold text-lg bg-gray-200 flex items-center hidden shrink-0">
+                        <button className="cursor-pointer" onClick={() => window.history.back()}>
+                            <ChevronLeft size={20} />
+                        </button>
 
-                    <span className="flex-1 text-center">{providerName}</span>
+                        <span className="flex-1 text-center">{providerName}</span>
 
-                    <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
-                        <X size={20} />
-                    </button>
-                </div>
+                        <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
+                            <X size={20} />
+                        </button>
+                    </div>
 
-                <div className="flex-1 overflow-y-auto bg-gray-100">
-                    <nav className="p-3 space-y-1 text-[13px] lg:text-[15px]">
+                    <div className="flex-1 overflow-y-auto bg-gray-100 hidden">
+                        <nav className="p-3 space-y-1 text-[13px] lg:text-[15px]">
 
-                        <div className="pb-1 pt-2 text-xs text-gray-400 uppercase px-2">Account</div>
-                        <SidebarItem icon={<User size={16} />} label="Profile" active={activeSection === "Profile"} onClick={() => handleSelect("Profile")} />
-                        <SidebarItem icon={<Heart size={16} />} label="Favorite" active={activeSection === "Favorite"} onClick={() => handleSelect("Favorite")} />
-                        <SidebarItem icon={<Wallet size={16} />} label="Wallet" active={activeSection === "Wallet"} onClick={() => handleSelect("Wallet")} />
-                        <SidebarItem icon={<ShieldCheck size={16} />} label="5X Guarantee" active={activeSection === "5X Guarantee"} onClick={() => handleSelect("5X Guarantee")} />
-                        <SidebarItem icon={<Ticket size={16} />} label="Coupon" active={activeSection === "Coupon"} onClick={() => handleSelect("Coupon")} />
+                            <div className="pb-1 pt-2 text-xs text-gray-400 uppercase px-2">Account</div>
+                            <SidebarItem icon={<User size={16} />} label="Profile" active={activeSection === "Profile"} onClick={() => handleSelect("Profile")} />
+                            <SidebarItem icon={<Heart size={16} />} label="Favorite" active={activeSection === "Favorite"} onClick={() => handleSelect("Favorite")} />
+                            <SidebarItem icon={<Wallet size={16} />} label="Wallet" active={activeSection === "Wallet"} onClick={() => handleSelect("Wallet")} />
+                            <SidebarItem icon={<ShieldCheck size={16} />} label="5X Guarantee" active={activeSection === "5X Guarantee"} onClick={() => handleSelect("5X Guarantee")} />
+                            <SidebarItem icon={<Ticket size={16} />} label="Coupon" active={activeSection === "Coupon"} onClick={() => handleSelect("Coupon")} />
 
-                        <div className="pb-1 pt-4 text-xs text-gray-400 uppercase px-2">Provider</div>
-                        <SidebarItem icon={<Briefcase size={16} />} label="Service" active={activeSection === "Service"} onClick={() => handleSelect("Service")} />
-                        <SidebarItem icon={<Users size={16} />} label="Customer" active={activeSection === "Customer"} onClick={() => handleSelect("Customer")} />
+                            <div className="pb-1 pt-4 text-xs text-gray-400 uppercase px-2">Provider</div>
+                            <SidebarItem icon={<Briefcase size={16} />} label="Service" active={activeSection === "Service"} onClick={() => handleSelect("Service")} />
+                            <SidebarItem icon={<Users size={16} />} label="Customer" active={activeSection === "Customer"} onClick={() => handleSelect("Customer")} />
 
-                        <div className="pb-1 pt-4 text-xs text-gray-400 uppercase px-2">App Info</div>
-                        <SidebarItem icon={<Info size={16} />} label="About Us" active={activeSection === "About Us"} onClick={() => handleSelect("About Us")} />
-                        <SidebarItem icon={<Bell size={16} />} label="Notification" active={activeSection === "Notification"} onClick={() => handleSelect("Notification")} />
-                        <SidebarItem icon={<HelpCircle size={16} />} label="Help & Support" active={activeSection === "Help & Support"} onClick={() => handleSelect("Help & Support")} />
-                        <SidebarItem icon={<FileText size={16} />} label="Privacy & Policy" active={activeSection === "Privacy & Policy"} onClick={() => handleSelect("Privacy & Policy")} />
-                        <SidebarItem icon={<FileText size={16} />} label="Terms & Conditions" active={activeSection === "Terms & Conditions"} onClick={() => handleSelect("Terms & Conditions")} />
-                        <SidebarItem icon={<FileText size={16} />} label="Refund Policy" active={activeSection === "Refund Policy"} onClick={() => handleSelect("Refund Policy")} />
-                        <SidebarItem icon={<LogOut size={16} />} label="Delete Account" active={activeSection === "Delete Account"} onClick={() => handleSelect("Delete Account")} />
-                    </nav>
-                </div>
-            </aside>
+                            <div className="pb-1 pt-4 text-xs text-gray-400 uppercase px-2">App Info</div>
+                            <SidebarItem icon={<Info size={16} />} label="About Us" active={activeSection === "About Us"} onClick={() => handleSelect("About Us")} />
+                            <SidebarItem icon={<Bell size={16} />} label="Notification" active={activeSection === "Notification"} onClick={() => handleSelect("Notification")} />
+                            <SidebarItem icon={<HelpCircle size={16} />} label="Help & Support" active={activeSection === "Help & Support"} onClick={() => handleSelect("Help & Support")} />
+                            <SidebarItem icon={<FileText size={16} />} label="Privacy & Policy" active={activeSection === "Privacy & Policy"} onClick={() => handleSelect("Privacy & Policy")} />
+                            <SidebarItem icon={<FileText size={16} />} label="Terms & Conditions" active={activeSection === "Terms & Conditions"} onClick={() => handleSelect("Terms & Conditions")} />
+                            <SidebarItem icon={<FileText size={16} />} label="Refund Policy" active={activeSection === "Refund Policy"} onClick={() => handleSelect("Refund Policy")} />
+                            <SidebarItem icon={<LogOut size={16} />} label="Delete Account" active={activeSection === "Delete Account"} onClick={() => handleSelect("Delete Account")} />
+                        </nav>
+                    </div>
+                </aside>
+            }
 
             {/* ── Main area ── */}
-            <div className="flex-1 flex flex-col min-h-screen lg:ml-[260px]">
+            {/* <div className="flex-1 flex flex-col min-h-screen lg:ml-[260px]"> */}
+             <div className="flex-1 flex flex-col min-h-screen">
 
                 {/* Mobile top bar */}
-                <div className="flex items-center gap-3 p-4 bg-gray-200 sticky top-0 z-30 lg:hidden">
+                {/* <div className="flex items-center gap-3 p-4 bg-gray-200 sticky top-0 z-30 lg:hidden">
                     <button onClick={() => setSidebarOpen(true)}>
                         <Menu size={22} />
                     </button>
                     <span className="font-medium text-gray-700 text-sm">{activeSection}</span>
-                </div>
+                </div> */}
 
                 {/* Only this area swaps — sidebar never re-mounts */}
                 <main className="flex-1">
@@ -627,7 +630,7 @@ function ServiceSection() {
         switch (activeTab) {
             case "Service":
                 return (
-                    <div className="space-y-6">
+                    <div className="space-y-6 lg:ml-4">
                         {/* Category filter */}
                         <div className="rounded-lg p-4">
                             <h3 className="font-medium mb-2">Category</h3>
@@ -666,9 +669,20 @@ function ServiceSection() {
 
     return (
         <div className="bg-white min-h-screen">
-            <div className="w-full md:h-3 lg:h-15 bg-gray-200">.</div>
+            <div className="w-full md:h-3 lg:h-15 bg-gray-200">
+                 <div className="p-4 font-semibold text-lg bg-gray-200 lg:ml-6 flex items-center  shrink-0">
+                        <button className="cursor-pointer" onClick={() => window.history.back()}>
+                            <ChevronLeft size={20} />
+                        </button>
+                        <span className="text-center">{providerName}</span>
+
+                        {/* <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
+                            <X size={20} />
+                        </button> */}
+                    </div>
+            </div>
             {/* Banner */}
-            <div className="w-full md:h-[200px] lg:h-[290px] bg-gray-300 overflow-hidden">
+            <div className="lg:w-[1500px] md:w-[750px] w-[300px] ml-2.5 md:ml-2.5 lg:ml-10 mt-4 md:mt-14 lg:mt-6 mx-auto md:h-[200px] rounded-lg lg:h-[350px] bg-gray-300 overflow-hidden">
                 <img
                     // src={subscribedServices?.[0]?.bannerImages?.[0] || "/default-banner.jpg"}
                     src={cover}
@@ -678,7 +692,7 @@ function ServiceSection() {
             </div>
 
             {/* Provider info row */}
-            <div className="px-6 pt-5 flex justify-between items-center">
+            <div className="lg:w-[1500px] mx-auto px-6 pt-5 flex justify-between items-center">
                 <div className="flex gap-3 items-center">
                     <img
                         src={logo}
@@ -694,7 +708,7 @@ function ServiceSection() {
             </div>
 
             {/* Sub-tabs: Service | About | Gallery | Reviews */}
-            <div className="bg-white shadow-sm w-full sticky top-0 z-20 mt-4">
+            <div className="lg:w-[1500px] mx-auto bg-white shadow-sm w-full sticky top-0 z-20 mt-4">
                 <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-100">
                     {(["Service", "About", "Gallery", "Reviews"] as ServiceTab[]).map((tab) => (
                         <button

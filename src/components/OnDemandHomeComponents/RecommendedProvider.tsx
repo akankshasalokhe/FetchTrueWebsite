@@ -6,6 +6,8 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRecommendedProviders } from "@/src/context/RecommendedProviderContext"
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/src/context/AuthContext";
+import { useFavouriteProviders } from "@/src/context/FavouriteProviderContext";
+import { FaBookmark } from "react-icons/fa6";
 
 
 type SectionProps = {
@@ -26,13 +28,6 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const router = useRouter();
-   
-
-    const { user } = useAuth();
-
-    const userId = user?._id;
-
-   
 
     const {
         providers,
@@ -40,6 +35,33 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
         error,
         fetchRecommendedProviders,
     } = useRecommendedProviders();
+
+    
+    const { getFavouriteProviders, addFavouriteProviders, removeFavouriteProviders, isFavourite } =
+        useFavouriteProviders();
+
+    const { user } = useAuth();
+
+    const userId = user?._id;
+
+    useEffect(() => {
+        if (userId) {
+            getFavouriteProviders(userId);
+        }
+    }, [userId]);
+
+
+
+    const handleToggleFavourite = async (serviceId: string) => {
+        if (!userId) return;
+
+        console.log("Toggle Favourite Called for Service ID:", serviceId);
+        if (isFavourite(serviceId)) {
+            await removeFavouriteProviders(userId, serviceId);
+        } else {
+            await addFavouriteProviders(userId, serviceId);
+        }
+    };
 
 
 
@@ -50,7 +72,7 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
     }, [moduleId]);
 
 
-   
+
 
     const filteredServices =
         providers?.filter((service) => {
@@ -181,8 +203,23 @@ export default function RecommendedProvider({ moduleId, searchQuery }: SectionPr
                                                 </span>
                                             </div>
                                         </div>
-                                        <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" />
-                                       
+                                        <button
+                                            className=" p-2 hover:shadow-lg transition-shadow"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleToggleFavourite(item.id);
+                                            }}
+                                        >
+                                            {/* <Bookmark className="w-4 h-4 lg:w-5 lg:h-5 text-gray-400 shrink-0 mt-1 -ml-6" /> */}
+                                            <FaBookmark
+                                                                                    size={16}
+                                                                                    className={`transition ${isFavourite(item.id)
+                                                                                            ? "w-4 h-4 lg:w-5 lg:h-5 shrink-0  -ml-6 text-red-500 fill-red-500"
+                                                                                            : "w-4 h-4 lg:w-5 lg:h-5 text-gray-400 -ml-6 shrink-0"
+                                                                                        }`}
+                                                                                />
+                                        </button>
+
                                     </div>
                                 </div>
 
